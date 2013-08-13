@@ -1,0 +1,278 @@
+<?php
+if ( realpath( __FILE__ ) === realpath( $_SERVER["SCRIPT_FILENAME"] ) )
+	exit ( 'Do not access this file directly.' );
+
+class TWP_Metaboxes {
+
+	protected $_meta_box;
+
+	public function __construct( $meta_box ) {
+
+		$this->_meta_box = $meta_box;
+
+		add_action( 'admin_menu', array( $this, 'add' ) );
+    	add_action( 'save_post', array( $this, 'save' ) );
+
+	}
+
+	function add() {
+        foreach ( $this->_meta_box['pages'] as $page ) {
+            add_meta_box( $this->_meta_box['id'], $this->_meta_box['title'], array( $this, 'show' ), $page, $this->_meta_box['context'], $this->_meta_box['priority'] );
+        }
+	}
+
+	function show() {
+        global $post;
+
+        // Use nonce for verification
+        echo '<input type="hidden" name="twp_meta_box_nonce" id="twp_meta_box_nonce" value="', wp_create_nonce( basename(__FILE__) ), '" />';
+
+        echo '<table class="form-table twp_metabox">';
+
+        foreach ( $this->_meta_box['fields'] as $field ) {
+            // get current post meta data
+            $meta = get_post_meta( $post->ID, $field['id'], true );
+
+            echo '<tr>',
+                    '<th style="width:20%"><label for="', $field['id'], '">', $field['name'], '</label></th>',
+                    '<td>';
+            switch ( $field['type'] ) {
+                case 'text':
+                    echo '<input type="text" name="', $field['id'], '" id="', $field['id'], '" value="', $meta ? $meta : $field['std'], '" size="30" style="width:97%" />',
+                        '<br />', $field['desc'];
+                    break;
+                case 'textarea':
+                    echo '<textarea name="', $field['id'], '" id="', $field['id'], '" cols="60" rows="4" style="width:97%">', $meta ? $meta : $field['std'], '</textarea>',
+                        '<br />', $field['desc'];
+                    break;
+                case 'select':
+                	if ( $field['options'] ) {
+                		echo '<select name="', $field['id'], '" id="', $field['id'], '">';
+	                    foreach ( $field['options'] as $option ) {
+	                        echo '<option', $meta == $option ? ' selected="selected"' : '', '>', $option, '</option>';
+	                    }
+	                    echo '</select>';
+                	} else {
+                		echo __('You have no shows registered yet.', 'theatrewp');
+                	}
+                    break;
+                case 'radio':
+                    foreach ($field['options'] as $option) {
+                        echo '<input type="radio" name="', $field['id'], '" value="', $option['value'], '"', $meta == $option['value'] ? ' checked="checked"' : '', ' />', $option['name'];
+                    }
+                    break;
+                case 'checkbox':
+                    echo '<input type="checkbox" name="', $field['id'], '" id="', $field['id'], '"', $meta ? ' checked="checked"' : '', ' />';
+                    break;
+                case 'multicheckbox':
+                    $n = 0;
+                    foreach( $field['options'] as $option ) {
+                        echo '<input type="checkbox" name="', $field['id'], '[]', '" id="', $field['id'], '"', 'value="', $option['id'], '" ', ( is_array($meta) && in_array( $option['id'], $meta ) ) ? ' checked="checked"' : '', ' /> ', $option['title'], '<br />';
+                        $n++;
+                    }
+                    break;
+                	case 'text_datetime_timestamp':
+						echo '<input class="twp_text_small twp_datepicker" type="text" name="', $field['id'], '[date]" id="', $field['id'], '_date" value="', $meta ? date( 'm\/d\/Y', $meta ) : $field['std'], '" />';
+						echo '<input class="twp_timepicker text_time" type="text" name="', $field['id'], '[time]" id="', $field['id'], '_time" value="', $meta ? date( 'h:i A', $meta ) : $field['std'], '" /><span class="twp_metabox_description" >', $field['desc'], '</span>';
+						break;
+					case 'wysiwyg':
+						wp_editor( $meta ? $meta : $field['std'], $field['id'], isset( $field['options'] ) ? $field['options'] : array() );
+				        echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
+						break;
+            }
+            echo     '<td>',
+                '</tr>';
+        }
+
+        echo '</table>';
+
+        return;
+    }
+
+    function save( $post_id ) {
+        // verify nonce
+        if ( ! isset( $_POST['twp_meta_box_nonce'] ) ) {
+        	return $post_id;
+        }
+
+    	if ( ! wp_verify_nonce( $_POST['twp_meta_box_nonce'], basename( __FILE__ ) ) ) {
+    		return $post_id;
+    	}
+
+        // check autosave
+    	if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) {
+    		return $post_id;
+    	}
+
+        // check permissions
+    	if ( 'page' == $_POST['post_type'] ) {
+    		if ( ! current_user_can( 'edit_page', $post_id ) ) {
+    			return $post_id;
+    		}
+    	} elseif ( ! current_user_can( 'edit_post', $post_id ) ) {
+    		return $post_id;
+    	}
+
+    	foreach ( $this->_meta_box['fields'] as $field ) {
+    		$old = get_post_meta( $post_id, $field['id'], true );
+    		$new = ( isset( $_POST[$field['id']] ) ? $_POST[$field['id']] : false );
+
+    		if ( $field['type'] == 'text_datetime_timestamp' ) {
+    			if ( ! empty( $new['date'] ) ) {
+    				$string = $new['date'] . ' ' . $new['time'];
+					$new = strtotime( $string );
+    			} else {
+    				$new = '';
+    			}
+
+			}
+
+    		if ( $new && $new != $old ) {
+    			update_post_meta( $post_id, $field['id'], $new );
+    		} elseif ( '' == $new && $old ) {
+    			delete_post_meta( $post_id, $field['id'], $old );
+    		}
+    	}
+    }
+
+}
+
+// Need to get spectacles list as options for metabox. A better way?
+$spectacle = new TWP_Spectacle;
+
+$TWP_meta_boxes = array(
+	array(
+		'id'       => 'spectacle-meta-box',
+		'title'    => __('Spectacle Options', 'theatrewp'),
+		'pages'    => array('spectacle'),
+		'context'  => 'normal',
+		'priority' => 'high',
+		'fields'   => array(
+			array(
+				'name' => __('Synopsis', 'theatrewp'),
+				'desc' => __('Short description', 'theatrewp'),
+				'id' => Theatre_WP::$twp_prefix . 'synopsis',
+				'type' => 'textarea',
+				'std' => ''
+				),
+			array(
+				'name' => __('Audience', 'theatrewp'),
+				'desc' => __('Intended Audience', 'theatrewp'),
+				'id' => Theatre_WP::$twp_prefix . 'audience',
+				'type' => 'select',
+				'options' => $spectacle::$audience
+				),
+			array(
+				'name' => __('Credits', 'theatrewp'),
+				'desc' => __('Credits Titles', 'theatrewp'),
+				'id'   => Theatre_WP::$twp_prefix . 'credits',
+				'type' => 'wysiwyg',
+				'std'  => ''
+				),
+			array(
+				'name' => __('Sheet', 'theatrewp'),
+				'desc' => __('Technical Sheet', 'theatrewp'),
+				'id'   => Theatre_WP::$twp_prefix . 'sheet',
+				'type' => 'textarea',
+				'std'  => ''
+				),
+			array(
+				'name' => __('Video', 'theatrewp'),
+				'desc' => __('Video URL. The link to the video in YouTube or Vimeo', 'theatrewp'),
+				'id'   => Theatre_WP::$twp_prefix . 'video',
+				'type' => 'text',
+				'std'  => ''
+				)
+			)
+		),
+	array (
+		'id'       => 'performance-meta-box',
+		'title'    => __('Performance Options', 'theatrewp'),
+		'pages'    => array('performance'),
+		'context'  => 'normal',
+		'priority' => 'high',
+		'fields'   => array(
+			array(
+				'name'    => __('Show', 'theatrewp'),
+				'desc'    => __('Performing Show', 'theatrewp'),
+				'id'      => Theatre_WP::$twp_prefix . 'performance',
+				'type'    => 'select',
+				'options' => $spectacle->get_spectacles_titles()
+				),
+			array(
+				'name' => __('First date', 'theatrewp'),
+				'desc' => __('First performing date. [Date selection / Time]', 'theatrewp'),
+				'id'   => Theatre_WP::$twp_prefix . 'date_first',
+				'type' => 'text_datetime_timestamp',
+				'std'  => ''
+				),
+			array(
+				'name' => __('Last date', 'theatrewp'),
+				'desc' => __('Last performing date. [Date selection / Time]', 'theatrewp'),
+				'id'   => Theatre_WP::$twp_prefix . 'date_last',
+				'type' => 'text_datetime_timestamp',
+				'std'  => ''
+				),
+			array(
+				'name' => __('Event', 'theatrewp'),
+				'desc' => __('Event in which the show is performed (Festival, Arst Program...)', 'theatrewp'),
+				'id'   => Theatre_WP::$twp_prefix . 'event',
+				'type' => 'text',
+				'std'  => ''
+				),
+			array(
+				'name' => __('Stage', 'theatrewp'),
+				'desc' => __('Where is the Show to be played (Theatre)', 'theatrewp'),
+				'id'   => Theatre_WP::$twp_prefix . 'place',
+				'type' => 'text',
+				'std'  => ''
+				),
+			array(
+				'name' => __('Theatre Address', 'theatrewp'),
+				'desc' => '',
+				'id'   => Theatre_WP::$twp_prefix . 'address',
+				'type' => 'text',
+				'std'  => ''
+				),
+			array(
+				'name' => __('Postal Code', 'theatrewp'),
+				'desc' => '',
+				'id'   => Theatre_WP::$twp_prefix . 'postal_code',
+				'type' => 'text',
+				'std'  => ''
+				),
+			array(
+				'name' => __('Town', 'theatrewp'),
+				'desc' => __('Performing in this Town', 'theatrewp'),
+				'id'   => Theatre_WP::$twp_prefix . 'town',
+				'type' => 'text',
+				'std'  => ''
+				),
+			array(
+				'name' => __('Region', 'theatrewp'),
+				'desc' => __('e.g. Province, County...', 'theatrewp'),
+				'id'   => Theatre_WP::$twp_prefix . 'region',
+				'type' => 'text',
+				'std'  => ''
+				),
+			array(
+				'name' => __('Country', 'theatrewp'),
+				'desc' => '',
+				'id'   => Theatre_WP::$twp_prefix . 'country',
+				'type' => 'text',
+				'std'  => ''
+				),
+			array(
+				'name' => __('Display Map', 'theatrewp'),
+				'desc' => __('Check to display map', 'theatrewp'),
+				'id'   => Theatre_WP::$twp_prefix . 'display_map',
+				'type' => 'checkbox',
+				'std'  => ''
+				)
+			)
+)
+);
+
+foreach ( $TWP_meta_boxes as $meta_box ) {
+    $my_box = new TWP_Metaboxes( $meta_box );
+}
