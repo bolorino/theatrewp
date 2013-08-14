@@ -21,7 +21,7 @@
 
 /*
 Plugin Name: TheatreWP
-Plugin URI: http://www.bolorino.net/theatrewp/
+Plugin URI: http://www.bolorino.net/theatre-wp/
 Description: CMS for Theatre and Performing Arts Companies. Managing Shows and Performances made easy.
 Tags: theatre, troupe, actors, shows, performing arts
 Version: 0.2
