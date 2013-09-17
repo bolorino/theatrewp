@@ -12,14 +12,17 @@ get_header(); ?>
 	<div id="primary" class="site-content">
 		<div id="content" role="main">
 			<?php
+			$spectacles_per_page = get_option( 'twp_spectacles_number' );
+
 			$paged = get_query_var('paged') ? intval( get_query_var('paged') ) : 1;
+
 			$args = array(
 				'post_type'      => 'spectacle',
 				'paged'          => $paged,
-				'posts_per_page' => 10
+				'posts_per_page' => $spectacles_per_page
 			    );
 
-			query_posts($args);
+			query_posts( $args );
 			?>
 			<div class="entry-content">
 			<?php
@@ -60,6 +63,10 @@ get_header(); ?>
 				</article> <!-- spectacles -->
 
 			<?php endwhile; ?>
+
+			<div class="nav-previous alignleft"><?php next_posts_link( __( 'More Spectacles', 'theatrewp' ) ); ?></div>
+			<div class="nav-next alignright"><?php previous_posts_link( __( 'Previous Spectacles', 'theatrewp') ); ?></div>
+
 			</div> <!-- entry-content -->
 		</div>
 	</div>

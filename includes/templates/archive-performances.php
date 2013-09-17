@@ -14,15 +14,18 @@ get_header(); ?>
 			<?php
 			// @TODO $topdate to config
 			$topdate = time()-72800;
-			$paged = get_query_var('paged') ? intval( get_query_var('paged') ) : 1;
 
-			$loop = new WP_Query( array(
+			$performances_per_page = get_option( 'twp_performances_number' );
+
+			$paged = get_query_var( 'paged' ) ? get_query_var('paged') : 1;
+
+			$WP_Query = new WP_Query( array(
 				'post_type' => 'performance', 'meta_key' => Theatre_WP::$twp_prefix . 'date_first', 'orderby' => 'meta_value', 'meta_compare' => '>=',
-				'meta_value' => $topdate, 'order' => 'ASC', 'paged' => $paged, 'posts_per_page' => 10
+				'meta_value' => $topdate, 'order' => 'ASC', 'paged' => $paged, 'posts_per_page' => $performances_per_page
 				)
 			);
 
-			if ( ! $loop->have_posts() ) {
+			if ( ! $WP_Query->have_posts() ) {
 				$msg = __('There are no performaces right now', 'theatrewp');
 			}
 			?>
@@ -30,7 +33,7 @@ get_header(); ?>
 			<?php
 			$current_loop_month = false;
 			$current_loop_year = false;
-			while ( $loop->have_posts() ) : $loop->the_post(); ?>
+			while ( $WP_Query->have_posts() ) : $WP_Query->the_post(); ?>
 				<div class="performances" id="performance-<?php the_ID(); ?>">
 					<?php
 					$performance_custom = $theatre_wp->get_performance_custom( get_the_ID() );
@@ -86,8 +89,13 @@ get_header(); ?>
 				</div>
 
 			<?php endwhile; ?>
-			</div> <?php // entry-content ?>
+
 			<?php if ( isset( $msg ) ) { echo $msg; } ?>
+
+			<div class="nav-previous alignleft"><?php next_posts_link( __( 'Upcoming Performances', 'theatrewp' ), $WP_Query->max_num_pages ); ?></div>
+			<div class="nav-next alignright"><?php previous_posts_link( __( 'Previous Performances', 'theatrewp') ); ?></div>
+
+			</div> <?php // entry-content ?>
 		</div>
 	</div>
 

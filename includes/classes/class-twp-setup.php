@@ -14,8 +14,16 @@ if ( realpath(__FILE__) === realpath($_SERVER['SCRIPT_FILENAME']) )
 class TWP_Setup {
 
 	protected static $plugin_dir;
+
+	protected static $default_spectacles_number = 5;
+
+	protected static $default_performances_number = 5;
+
 	protected $performance;
 
+	protected $spectacle;
+
+	public static $default_options = array();
 	/**
 	 * List of available templates
 	 * @var array
@@ -24,16 +32,27 @@ class TWP_Setup {
 		'single-spectacle'    => 'single-spectacle.php',
 		'single-performance'  => 'single-performance.php',
 		'archive-spectacle'   => 'archive-spectacle.php',
-		'archive-performance' => 'archive-performance.php'
+		'archive-performance' => 'archive-performances.php'
 		);
 
-	public function __construct($plugin_dir) {
+	public function __construct( $plugin_dir ) {
 		self::$plugin_dir = $plugin_dir;
+
+		self::$default_options = array(
+			'twp_spectacle_name'      => __( 'Spectacle', 'theatrewp' ),
+			'twp_spectacle_slug'      => sanitize_title_with_dashes( __( 'spectacle', 'theatrewp' ), false, 'save' ),
+			'twp_performance_name'    => __( 'Performance', 'theatrewp' ),
+			'twp_performance_slug'    => sanitize_title_with_dashes( __( 'performance', 'theatrewp' ), false, 'save' ),
+			'twp_spectacles_number'   => self::$default_spectacles_number,
+			'twp_performances_number' => self::$default_performances_number,
+			'twp_clean_on_uninstall'  => false
+		);
 
 		// Actions
 		add_action( 'init', array( $this, 'init' ), 0 );
 
 		$this->performance = new TWP_Performance;
+		$this->spectacle = new TWP_Spectacle;
 	}
 
 	/**
@@ -54,10 +73,21 @@ class TWP_Setup {
 		// Default custom posts templates
 		add_filter( 'single_template', array( $this, 'get_twp_single_template' ) );
 		add_filter( 'archive_template', array( $this, 'get_twp_archive_template' ) );
+		// Enable a different post_per_page param for custom post
+		add_filter( 'option_posts_per_page', array( 'TWP_Setup', 'twp_option_post_per_page' ) );
+
+		// Admin menu
+		if ( is_admin() ) {
+			add_action( 'admin_menu', array( 'TWP_Setup', 'twp_menu' ) );
+			add_action( 'admin_init', array( 'TWP_Setup', 'twp_register_settings' ) );
+			add_filter( 'manage_edit-performance_columns', array( 'TWP_Setup', 'twp_performances_columns' ) );
+			add_action( 'manage_performance_posts_custom_column', array( $this, 'twp_manage_performances_columns' ), 10, 2);
+		}
 
 		// Widgets
-		wp_register_sidebar_widget( 'twp-show-next-performances', __('Spectacle Next Performances'), array( $this, 'widget_show_next_performances' ) );
-		wp_register_sidebar_widget( 'twp-next-performances', __('Global Next Performances'), array( $this, 'widget_next_performances' ) );
+		wp_register_sidebar_widget( 'twp-show-spectacles', __( 'Spectacles' ), array( $this, 'widget_show_spectacles' ) );
+		wp_register_sidebar_widget( 'twp-show-next-performances', __( 'Spectacle Next Performances' ), array( $this, 'widget_show_next_performances' ) );
+		wp_register_sidebar_widget( 'twp-next-performances', __( 'Global Next Performances' ), array( $this, 'widget_next_performances' ) );
 	}
 
 	/**
@@ -68,7 +98,15 @@ class TWP_Setup {
 	 * @param    boolean    $network_wide    True if WPMU superadmin uses "Network Activate" action, false if WPMU is disabled or plugin is activated on an individual blog.
 	 */
 	public static function activate( $network_wide ) {
-		// @TODO: Define activation functionality here
+		self::twp_register_settings();
+
+		// Set default options
+		foreach ( self::$default_options as $key => $value ) {
+			update_option( $key, $value );
+		}
+
+		flush_rewrite_rules();
+
 	}
 
 	/**
@@ -79,7 +117,9 @@ class TWP_Setup {
 	 * @param    boolean    $network_wide    True if WPMU superadmin uses "Network Deactivate" action, false if WPMU is disabled or plugin is deactivated on an individual blog.
 	 */
 	public static function deactivate( $network_wide ) {
-		// @TODO: Define deactivation functionality here
+		self::twp_unregister_settings();
+
+		flush_rewrite_rules();
 	}
 
 	/**
@@ -127,18 +167,19 @@ class TWP_Setup {
 				'name'          => __('Performances', 'theatrewp'),
 				'singular_name' => __('Performance', 'theatrewp'),
 				'add_new'       => __('Add new', 'theatrewp'),
-				'add_new_item'  => __('Add new performance', 'theatrewp'),
-				'edit_item'     => __('Edit performance', 'theatrewp'),
-				'new_item'      => __('New performance', 'theatrewp'),
-				'view'          => __('View performances', 'theatrewp'),
-				'view_item'     => __('View performance', 'theatrewp'),
-				'search_items'  => __('Search performance', 'theatrewp')
+				'add_new_item'  => __('Add new Performance', 'theatrewp'),
+				'edit_item'     => __('Edit Performance', 'theatrewp'),
+				'new_item'      => __('New Performance', 'theatrewp'),
+				'view'          => __('View Performances', 'theatrewp'),
+				'view_item'     => __('View Performance', 'theatrewp'),
+				'search_items'  => __('Search Performance', 'theatrewp')
 				),
 			'singular_label'  => __('Performance', 'theatrewp'),
 			'public'          => true,
-			'has_archive'     => true,
-			'capability_type' => 'post',
+			'has_archive'     => 'performances',
 			'rewrite'         => true,
+			'exclude_from_search' => false,
+			'capability_type' => 'post',
 			'menu_position'   => 6,
 			'supports'        => array( 'title' )
 			);
@@ -168,8 +209,6 @@ class TWP_Setup {
 	 * @return string
 	 */
 	public function get_twp_single_template( $template ) {
-		//$this->_render_ToDebugBar( 'main', 'msg', 'get_twp_template', false, __FILE__, __LINE__ );
-		//$this->_render_ToDebugBar( 'main','pr','template[single-spectacle]', $this->templates['single-spectacle'], __FILE__, __LINE__ );
 
 		if ( 'spectacle' == get_post_type( get_queried_object_id() ) && ! $this->_check_theme_templates(self::$templates['single-spectacle']) ) {
 			$template = plugin_dir_path(__FILE__) . '../templates/single-spectacle.php';
@@ -178,8 +217,6 @@ class TWP_Setup {
 		if ( 'performance' == get_post_type( get_queried_object_id() ) && ! $this->_check_theme_templates(self::$templates['single-performance']) ) {
 			$template = plugin_dir_path(__FILE__) . '../templates/single-performance.php';
 		}
-
-		// $this->_render_ToDebugBar( 'main','pr','template', $template, __FILE__, __LINE__ );
 
 		return $template;
 
@@ -194,7 +231,7 @@ class TWP_Setup {
 	public function get_twp_archive_template( $template ) {
 		// Custom post archive pages
 		if ( is_post_type_archive( 'performance' ) && ! $this->_check_theme_templates(self::$templates['archive-performance']) ) {
-			$template = plugin_dir_path(__FILE__) . '../templates/archive-performance.php';
+			$template = plugin_dir_path(__FILE__) . '../templates/archive-performances.php';
 		}
 
 		if ( is_post_type_archive( 'spectacle' ) && ! $this->_check_theme_templates(self::$templates['archive-spectacle']) ) {
@@ -204,6 +241,12 @@ class TWP_Setup {
 		return $template;
 	}
 
+	/**
+	 * Checks if template files exists
+	 *
+	 * @access private
+	 * @return bool
+	 */
 	private function _check_theme_templates( $template)  {
 		if ( ! locate_template( $template, false ) ) {
 			return false;
@@ -214,6 +257,10 @@ class TWP_Setup {
 
 	/**
 	* Adding scripts and styles
+	*
+	* @access public
+	* @return void
+	*
 	*/
 	public static function twp_scripts( $hook ) {
 		global $wp_version;
@@ -231,14 +278,172 @@ class TWP_Setup {
 
 			wp_register_style( 'twp-styles', TWP_META_BOX_URL . 'style.css', $twp_style_array );
 			wp_enqueue_style( 'twp-styles' );
-
-			// $this->_render_ToDebugBar( 'main','pr','TWP_META_BOX_URL', TWP_META_BOX_URL, __FILE__, __LINE__ );
-
 		}
 
 		return true;
 	}
 
+	/**
+	 * Performances dashboard columns
+	 *
+	 * @access public
+	 * @return array
+	 */
+	public static function twp_performances_columns( $performance_columns ) {
+		$new_columns['cb'] = '<input type="checkbox" />';
+
+		$new_columns['id'] = __( 'ID' );
+		$new_columns['title'] = _x('Performance', 'column name');
+		$new_columns['spectacle'] = __( 'Spectacle' );
+		$new_columns['first_date'] = __( 'First Date' );
+		$new_columns['last_date'] = __( 'Last Date' );
+		$new_columns['event'] = __( 'Event' );
+
+		return $new_columns;
+	}
+
+	/**
+	 * Performances dashboard columns data
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public function twp_manage_performances_columns( $column_name, $ID) {
+		$meta = $this->performance->get_performance_custom( $this->spectacle, $ID );
+
+		switch ( $column_name ) {
+			case 'id':
+				echo $ID;
+				break;
+
+			case 'spectacle':
+				echo $meta['title'];
+				break;
+
+			case 'first_date':
+				echo date( 'd-F-Y', $meta['date_first'] );
+				break;
+
+			case 'last_date':
+				if ( ! empty( $meta['date_last'] ) && $meta['date_last'] != $meta['date_first'] ) {
+					echo date( 'd-F-Y', $meta['date_last'] );
+				}
+				break;
+
+			case 'event':
+				echo $meta['event'];
+				break;
+
+			default:
+				break;
+		}
+
+	}
+
+	/**
+	 * TWP Options menu
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public static function twp_menu() {
+		add_options_page( __('Theatre WP Options', 'theatrewp'), 'Theatre WP', 'manage_options', 'theatre-wp', array( 'TWP_Setup', 'twp_options' ) );
+	}
+
+	/**
+	 * Register Settings
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public static function twp_register_settings() {
+		register_setting( 'twp-main', 'twp_spectacle_name' );
+		register_setting( 'twp-main', 'twp_spectacle_slug' );
+		register_setting( 'twp-main', 'twp_performance_name' );
+		register_setting( 'twp-main', 'twp_performance_slug' );
+		register_setting( 'twp-main', 'twp_spectacles_number', 'intval' );
+		register_setting( 'twp-main', 'twp_performances_number', 'intval' );
+		register_setting( 'twp-main', 'twp_clean_on_uninstall' );
+	}
+
+	/**
+	 * Unregister Settings
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public static function twp_unregister_settings() {
+		unregister_setting( 'twp-main', 'twp_spectacle_name' );
+		unregister_setting( 'twp-main', 'twp_spectacle_slug' );
+		unregister_setting( 'twp-main', 'twp_performance_name' );
+		unregister_setting( 'twp-main', 'twp_performance_slug' );
+		unregister_setting( 'twp-main', 'twp_spectacles_number', 'intval' );
+		unregister_setting( 'twp-main', 'twp_performances_number', 'intval' );
+		unregister_setting( 'twp-main', 'twp_clean_on_uninstall' );
+	}
+
+	/**
+	 * Admin Options
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public static function twp_options() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( __( 'You do not have sufficient permissions to access this page.') );
+		}
+
+		include( plugin_dir_path( __FILE__ ) . '../templates/admin/admin-options.php' );
+	}
+
+	/**
+	 * Filters post per page option for custom posts
+	 *
+	 * @access public
+	 * @return int
+	 */
+	public static function twp_option_post_per_page( $value ) {
+		global $option_posts_per_page;
+
+		if ( is_tax( 'performance' ) ) {
+			return get_option( 'twp_performances_number' );
+		}
+
+		if ( is_tax( 'spectacle' ) ) {
+			return get_option( 'twp_spectacles_number' );
+		}
+
+		return $option_posts_per_page;
+	}
+
+	/**
+	 * Spectacles Widget
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public function widget_show_spectacles( $args ) {
+		if ( ! $spectacles = $this->spectacle->get_spectacles() ) {
+			return false;
+		}
+
+		extract( $args );
+
+		echo $before_widget;
+		echo $before_title . __('Spectacles', 'theatrewp') . $after_title;
+
+		echo $spectacles;
+
+		echo $after_widget;
+
+	}
+
+	/**
+	 * Upcoming Performances Widget
+	 *
+	 * @access public
+	 * @return void
+	 */
 	public function widget_next_performances( $args ) {
 		if ( ! $performances = $this->performance->get_next_performances() ) {
 			return false;
@@ -254,6 +459,12 @@ class TWP_Setup {
 		echo $after_widget;
 	}
 
+	/**
+	 * Current Spectacle Upcoming Performances Widget
+	 *
+	 * @access public
+	 * @return void
+	 */
 	public function widget_show_next_performances( $args ) {
 		global $post;
 		$current_category = get_post_type();
@@ -271,7 +482,7 @@ class TWP_Setup {
 		extract( $args );
 
 		echo $before_widget;
-		echo $before_title . sprintf(__('“%s” Next Performances', 'theatrewp'), $title) . $after_title;
+		echo $before_title . sprintf( __( '“%s” Next Performances', 'theatrewp' ), $title ) . $after_title;
 
 		echo $performances;
 

@@ -79,6 +79,36 @@ class TWP_Spectacle {
 	}
 
 	/**
+	 * Get an HTML list of spectacles.
+	 *
+	 * @access public
+	 * @return array
+	 */
+	public function get_spectacles() {
+		$shows_query = get_posts( 'post_type=spectacle&post_status=publish&orderby=post_date&order=ASC&numberposts=-1' );
+
+		if ( ! $shows_query ) {
+			return false;
+		}
+
+		$output = '<ul class="spectacles">';
+
+		foreach ( $shows_query as $post ) : setup_postdata( $post );
+			$output .= '<li>';
+
+	        $output .= '<strong><a href="' . get_permalink( $post->ID ) . '">';
+	        $output .= get_the_title( $post->ID ) .'</a></strong> <br />';
+
+	        $output .= '</li>';
+
+		endforeach;
+
+	    $output .= '</ul>';
+
+	    return $output;
+	}
+
+	/**
 	 * Get a list of spectacles titles.
 	 *
 	 * @access public
