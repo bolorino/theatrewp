@@ -84,8 +84,14 @@ class TWP_Spectacle {
 	 * @access public
 	 * @return array
 	 */
-	public function get_spectacles() {
-		$shows_query = get_posts( 'post_type=spectacle&post_status=publish&orderby=post_date&order=ASC&numberposts=-1' );
+	public function get_spectacles( $limit ) {
+		$limit = intval( $limit );
+
+		if ( $limit == 0 ) {
+			$limit = -1;
+		}
+
+		$shows_query = get_posts( "post_type=spectacle&post_status=publish&orderby=post_date&order=ASC&numberposts=$limit" );
 
 		if ( ! $shows_query ) {
 			return false;

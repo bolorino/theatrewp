@@ -4,7 +4,7 @@ Theatre WP
 `
 Tags: theatre, troupe, dance, performing arts
 Requires at least: 3.6
-Tested up to: 3.6
+Tested up to: 3.7
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -24,7 +24,7 @@ What does the plugin include?
 * Widget for upcoming Performances in general
 * Translation into English and Spanish
 
-Advantages of the plugin
+Plugin benefits
 ------------------------
 * Adapted to the basic needs of most Theater Companies
 * Organized and well structured information of Shows and Performances to facilitate their management and accessibility
@@ -32,12 +32,12 @@ Advantages of the plugin
 * Customizable
 * Open to improvements and suggestions
 
-For the future
+ToDo
 --------------
+* Auto build of custom post permalinks
 * Plugin setup
 * Management of Press Releases
 * Management of Sponsors per Show
-* Dynamic filters to the upcoming Performances list
 * Translation into other languages
 
 Notes for developers/designers
@@ -46,13 +46,13 @@ There are four templates within the plugin, used if the current theme does not i
 * single-spectacle.php # Single Show page
 * single-performance.php # Single Performance page
 * archive-spectacle.php # List of available Shows
-* archive-performance.php # List of availabel Performances
+* archive-performances.php # List of availabel Performances
 
 To customize these templates, copy the files located in includes/templates within the plugin directory to your theme's directory and modify it to your liking.
 
 Installation
 ------------
-1. Upload `plugin-name.php` to the `/wp-content/plugins/` directory
+1. Upload `theatrewp` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 Frequently Asked Questions
@@ -70,6 +70,10 @@ Screenshots
 
 Changelog
 ---------
+### 0.3
+* Fixed multiple objects instances
+* Basic plugin settings
+
 ### 0.2
 * First Beta version.
 

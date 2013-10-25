@@ -29,7 +29,7 @@ class Theatre_WP {
 	 *
 	 * @var     string
 	 */
-	protected $version = '0.2';
+	protected $version = '0.3';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -53,12 +53,12 @@ class Theatre_WP {
 	/**
  	 * @var TWP_Spectacle
  	 */
-	protected $spectacle;
+	public $spectacle;
 
  	/**
  	 * @var TWP_Performance
  	 */
- 	protected $performance;
+ 	public $performance;
 
  	/**
  	 * @var TWP_Setup
@@ -74,9 +74,10 @@ class Theatre_WP {
  		// Include required files
 		$this->includes();
 
- 		$this->setup = new TWP_Setup(self::$plugin_dir);
- 		$this->spectacle = new TWP_Spectacle;
- 		$this->performance = new TWP_Performance;
+		$this->spectacle = new TWP_Spectacle;
+		$this->performance = new TWP_Performance( $this->spectacle );
+
+ 		$this->setup = new TWP_Setup( self::$plugin_dir, $this->spectacle, $this->performance );
 
  	}
 

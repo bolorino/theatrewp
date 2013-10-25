@@ -3,7 +3,7 @@ Contributors:
 Donate link:
 Tags: theatre, troupe, dance, performing arts
 Requires at least: 3.6
-Tested up to: 3.6
+Tested up to: 3.7
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -23,14 +23,15 @@ If you have a Theatre (Dance, Puppets...) Company and experience managing your o
 * Widget for upcoming Performances in general
 * Translation into English and Spanish
 
-=== Advantages of the plugin ===
+=== Plugin benefits ===
 * Adapted to the basic needs of most Theater Companies
 * Organized and well structured information of Shows and Performances to facilitate their management and accessibility
 * Independent of the theme used in WordPress
 * Customizable
 * Open to improvements and suggestions
 
-=== For the future ===
+=== ToDo ===
+* Auto build of custom post permalinks
 * Plugin setup
 * Management of Press Releases
 * Management of Sponsors per Show
@@ -48,7 +49,7 @@ To customize these templates, copy the files located in includes/templates withi
 
 == Installation ==
 
-1. Upload `plugin-name.php` to the `/wp-content/plugins/` directory
+1. Upload `theatrewp` to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Frequently Asked Questions ==
@@ -65,6 +66,9 @@ Not yet.
 4. Upcoming Performances
 
 == Changelog ==
+= 0.3 =
+* Fixed multiple objects instances
+* Basic plugin settings
 
 = 0.2 =
 * First Beta version.

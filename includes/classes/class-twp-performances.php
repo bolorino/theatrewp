@@ -7,9 +7,8 @@ class TWP_Performance {
 
 	protected $spectacle;
 
-	public function __construct() {
-		$this->spectacle = new TWP_Spectacle;
-
+	public function __construct( $spectacle ) {
+		$this->spectacle = $spectacle;
 	}
 
 	/**
