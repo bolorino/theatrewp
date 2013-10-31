@@ -138,5 +138,9 @@ class Theatre_WP {
 		return $this->performance->get_next_performances();
 	}
 
+	public function display_performance_map( $custom_meta, $width = '', $height = '' ) {
+		return $this->performance->get_event_google_map_embed( $custom_meta, $width, $height );
+	}
+
 }
 

@@ -45,7 +45,7 @@ class TWP_Setup {
 			'twp_performance_slug'    => sanitize_title_with_dashes( __( 'performance', 'theatrewp' ), false, 'save' ),
 			'twp_spectacles_number'   => self::$default_spectacles_number,
 			'twp_performances_number' => self::$default_performances_number,
-			'twp_clean_on_uninstall'  => false
+			'twp_clean_on_uninstall'  => 0
 		);
 
 		$this->spectacle = $spectacle;
@@ -134,9 +134,67 @@ class TWP_Setup {
 	 * @param    boolean    $network_wide    True if WPMU superadmin uses "Network Deactivate" action, false if WPMU is disabled or plugin is deactivated on an individual blog.
 	 */
 	public static function deactivate( $network_wide ) {
+		// Should custom post be removed?
+		if ( get_option( 'twp_clean_on_uninstall' ) == '1' ) {
+			self::_remove_all_data();
+		}
+
 		self::twp_unregister_settings();
 
 		flush_rewrite_rules();
+	}
+
+	/**
+	 * Remove all plugin generated custom posts.
+	 *
+	 * @access private
+	 * @return void
+	 */
+	private static function _remove_all_data() {
+		$twp_spectacle_custom_posts = get_posts( array(
+			'numberposts'	=> -1,
+			'post_type'		=> 'spectacle',
+			'post_status'	=> 'any'
+			)
+		);
+
+		foreach ( $twp_spectacle_custom_posts as $twp_spectacle ) {
+			// Delete post meta
+			delete_post_meta( $twp_spectacle->ID, Theatre_WP::$twp_prefix . 'synopsis' );
+			delete_post_meta( $twp_spectacle->ID, Theatre_WP::$twp_prefix . 'audience' );
+			delete_post_meta( $twp_spectacle->ID, Theatre_WP::$twp_prefix . 'credits' );
+			delete_post_meta( $twp_spectacle->ID, Theatre_WP::$twp_prefix . 'sheet' );
+			delete_post_meta( $twp_spectacle->ID, Theatre_WP::$twp_prefix . 'video' );
+
+			// Delete post
+			wp_delete_post( $twp_spectacle->ID, true );
+		}
+
+		$twp_performance_custom_posts = get_posts( array(
+			'numberposts'	=> -1,
+			'post_type'		=> 'performance',
+			'post_status'	=> 'any'
+			)
+		);
+
+		foreach ( $twp_performance_custom_posts as $twp_performance ) {
+			// Delete post meta
+			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'performance' );
+			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'performance' );
+			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'date_first' );
+			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'date_last' );
+			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'event' );
+			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'place' );
+			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'address' );
+			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'postal_code' );
+			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'town' );
+			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'region' );
+			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'country' );
+			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'display_map' );
+
+			// Delete post
+			wp_delete_post( $twp_performance->ID, true );
+		}
 	}
 
 	/**
@@ -671,7 +729,7 @@ class TWP_Setup {
 		extract( $args );
 
 		echo $before_widget;
-		echo $before_title . sprintf( __( '“%s” Next Performances', 'theatrewp' ), $title ) . $after_title;
+		echo $before_title . sprintf( __( '“%s” Upcoming Performances', 'theatrewp' ), $title ) . $after_title;
 
 		echo $performances;
 

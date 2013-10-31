@@ -3,7 +3,7 @@ Contributors:
 Donate link:
 Tags: theatre, troupe, dance, performing arts
 Requires at least: 3.6
-Tested up to: 3.7
+Tested up to: 3.7.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -69,6 +69,7 @@ Not yet.
 = 0.3 =
 * Fixed multiple objects instances
 * Basic plugin settings
+* Display performance location's map
 
 = 0.2 =
 * First Beta version.

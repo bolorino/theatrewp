@@ -90,7 +90,7 @@ get_header(); ?>
 
 			<?php endwhile; ?>
 
-			<?php if ( isset( $msg ) ) { echo $msg; } ?>
+			<?php if ( isset( $msg ) ) { ?> <h3><?php echo $msg;?></h3> <?php } ?>
 
 			<div class="nav-previous alignleft"><?php next_posts_link( __( 'Upcoming Performances', 'theatrewp' ), $WP_Query->max_num_pages ); ?></div>
 			<div class="nav-next alignright"><?php previous_posts_link( __( 'Previous Performances', 'theatrewp') ); ?></div>

@@ -30,10 +30,13 @@ class TWP_Performance {
 		$performance_custom['performance'] = isset( $custom[Theatre_WP::$twp_prefix . 'performance'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'performance'][0] : false;
 		$performance_custom['event']       = isset( $custom[Theatre_WP::$twp_prefix . 'event'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'event'][0] : false;
 		$performance_custom['place']       = isset( $custom[Theatre_WP::$twp_prefix . 'place'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'place'][0] : false;
+		$performance_custom['address']     = isset( $custom[Theatre_WP::$twp_prefix . 'address'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'address'][0] : false;
 		$performance_custom['town']        = isset( $custom[Theatre_WP::$twp_prefix . 'town'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'town'][0] : false;
 		$performance_custom['country']     = isset( $custom[Theatre_WP::$twp_prefix . 'country'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'country'][0] : false;
 		$performance_custom['date_first']  = isset( $custom[Theatre_WP::$twp_prefix . 'date_first'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'date_first'][0] : false;
 		$performance_custom['date_last']   = isset( $custom[Theatre_WP::$twp_prefix . 'date_last'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'date_last'][0] : false;
+		$performance_custom['display_map'] = isset( $custom[Theatre_WP::$twp_prefix . 'display_map'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'display_map'][0] : false;
+
 
 		$spectacle_name                    = sanitize_title( $performance_custom['performance'] );
 		$spectacle_data                    = $this->spectacle->get_spectacle_data( $spectacle_name );
@@ -187,5 +190,37 @@ class TWP_Performance {
 	    }
 
 	    return $output;
+	}
+
+	/**
+ 	* Returns an embedded google maps for the given event
+  	*
+  	* @param string $ID
+  	* @param int $width
+  	* @param int $height
+  	* @return string - an iframe pulling http://maps.google.com/ for this event
+  	*/
+	function get_event_google_map_embed( $custom_meta, $width ='', $height = '' ) {
+
+		$location_meta_fields = array( 'address', 'town', 'region', 'postal_code', 'country' );
+		$to_url_encode = '';
+
+		foreach ( $custom_meta as $key => $value ) {
+			if ( in_array( $key, $location_meta_fields ) && ! empty( $value ) ) {
+				$to_url_encode .= $value . ' ';
+			}
+		}
+
+		if ( ! $height ) $height = '350';
+		if ( ! $width ) $width = '100%';
+
+		if( $to_url_encode ) $google_address = urlencode( trim( $to_url_encode ) );
+
+		if ( $google_address ) {
+			$google_iframe = '<div id="googlemaps"><iframe width="' . $width . '" height="' . $height . '" src="http://www.google.com/maps?f=q&amp;source=s_q&amp;hl=es&amp;geocode=&amp;q='.$google_address.'?>&amp;output=embed"></iframe></div>';
+			return $google_iframe;
+		}
+
+		return '';
 	}
 }

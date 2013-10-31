@@ -18,8 +18,8 @@ get_header(); ?>
 				$performance_custom = $theatre_wp->get_performance_custom( get_the_ID() );
 
 				if ( $performance_custom['date_first'] ) {
-					$performance_date = strftime("%A %B %d, %Y", $performance_custom['date_first']);
-					$performance_time = strftime('%H:%M', $performance_custom['date_first']);
+					$performance_date = strftime( "%A %B %d, %Y", $performance_custom['date_first'] );
+					$performance_time = strftime( '%H:%M', $performance_custom['date_first'] );
 				}
 				?>
 
@@ -52,6 +52,14 @@ get_header(); ?>
 								<?php echo $performance_custom['event']; ?>
 							</div>
 						<?php } ?>
+
+						<?php if ( $performance_custom['display_map'] ) { ?>
+							<div id="performance-map">
+								<?php $map = $theatre_wp->display_performance_map( $performance_custom );
+								echo $map;
+								?>
+							</div>
+						<?php }	?>
 
 						<?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'twentytwelve' ), 'after' => '</div>' ) ); ?>
 					</div><!-- .entry-content -->
