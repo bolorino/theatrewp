@@ -31,11 +31,9 @@ If you have a Theatre (Dance, Puppets...) Company and experience managing your o
 * Open to improvements and suggestions
 
 === ToDo ===
-* Auto build of custom post permalinks
 * Plugin setup
 * Management of Press Releases
 * Management of Sponsors per Show
-* Dynamic filters to the upcoming Performances list
 * Translation into other languages
 
 === Notes for developers/designers ===
@@ -70,6 +68,7 @@ Not yet.
 * Fixed multiple objects instances
 * Basic plugin settings
 * Display performance location's map
+* Auto build of custom post permalinks
 
 = 0.2 =
 * First Beta version.

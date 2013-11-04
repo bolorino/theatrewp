@@ -34,7 +34,6 @@ Plugin benefits
 
 ToDo
 --------------
-* Auto build of custom post permalinks
 * Plugin setup
 * Management of Press Releases
 * Management of Sponsors per Show
@@ -74,6 +73,7 @@ Changelog
 * Fixed multiple objects instances
 * Basic plugin settings
 * Display performance location's map
+* Auto build of custom post permalinks
 
 ### 0.2
 * First Beta version.

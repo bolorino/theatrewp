@@ -121,9 +121,22 @@ class TWP_Setup {
 			update_option( $key, $value );
 		}
 
+		// Set rewrite rules
 		global $wp_rewrite;
-		$wp_rewrite->flush_rules();
 
+		// Spectacles archive and pagination
+		add_rewrite_rule( 'spectacles' . '$', 'index.php?post_type=spectacle', 'top' );
+		add_rewrite_rule( 'spectacles' . '/page/([0-9])*/?', 'index.php?post_type=spectacle' . '&paged=$matches[1]', 'top' );
+
+		// Performances archive and pagination
+		add_rewrite_rule( 'performances' . '$', 'index.php?post_type=performance', 'top' );
+		add_rewrite_rule( 'performances' . '/page/([0-9])*/?', 'index.php?post_type=performance' . '&paged=$matches[1]', 'top' );
+
+		// Single Spectacle and Performance
+		add_rewrite_rule( '^spectacle/([^/]*)/?', 'index.php?spectacle=$matches[1]', 'top' );
+		add_rewrite_rule( '^performance/([^/]*)/?', 'index.php?performance=$matches[1]', 'top' );
+
+		$wp_rewrite->flush_rules();
 	}
 
 	/**
@@ -180,7 +193,6 @@ class TWP_Setup {
 		foreach ( $twp_performance_custom_posts as $twp_performance ) {
 			// Delete post meta
 			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'performance' );
-			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'performance' );
 			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'date_first' );
 			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'date_last' );
 			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'event' );
@@ -218,10 +230,10 @@ class TWP_Setup {
 				),
 			'singular_label'  => __('Show', 'theatrewp'),
 			'public'          => true,
-			'has_archive'     => true,
+			'has_archive'     => 'spectacles',
+			'rewrite'         => true,
 			'capability_type' => 'post',
 			'show_ui'         => true,
-			'rewrite'         => true,
 			'menu_position'   => 5,
 			'supports'        => array( 'title', 'editor', 'thumbnail' )
 			);
