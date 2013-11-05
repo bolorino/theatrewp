@@ -19,7 +19,7 @@ class TWP_Spectacle {
 	}
 
 	/**
-	 * Get spectacle title and URL
+	 * Get spectacle title and URL from post name
 	 *
 	 * @access public
 	 * @param string $post_name
@@ -45,7 +45,7 @@ class TWP_Spectacle {
 
 		$spectacle_data = array();
 
-		$spectacle_data['title'] = __($spectacle->post_title);
+		$spectacle_data['title'] = __( $spectacle->post_title );
 		$spectacle_data['link'] = home_url('/') . 'spectacle/' . $spectacle->post_name . '/';
 
 		return $spectacle_data;
@@ -70,19 +70,18 @@ class TWP_Spectacle {
 
 		$spectacle_custom['synopsis'] = ( isset($custom[Theatre_WP::$twp_prefix . 'synopsis'][0]) ? $custom[Theatre_WP::$twp_prefix . 'synopsis'][0] : false );
 		$spectacle_custom['audience'] = ( isset($custom[Theatre_WP::$twp_prefix . 'audience'][0]) ? $custom[Theatre_WP::$twp_prefix . 'audience'][0] : false );
-		$spectacle_custom['credits'] = ( isset($custom[Theatre_WP::$twp_prefix . 'credits'][0]) ? $custom[Theatre_WP::$twp_prefix . 'credits'][0] : false );
-		$spectacle_custom['sheet']   = ( isset($custom[Theatre_WP::$twp_prefix . 'sheet'][0]) ? $custom[Theatre_WP::$twp_prefix . 'sheet'][0] : false );
-		$spectacle_custom['video']   = ( isset($custom[Theatre_WP::$twp_prefix . 'video'][0]) ? $custom[Theatre_WP::$twp_prefix . 'video'][0] : false );
+		$spectacle_custom['credits']  = ( isset($custom[Theatre_WP::$twp_prefix . 'credits'][0]) ? $custom[Theatre_WP::$twp_prefix . 'credits'][0] : false );
+		$spectacle_custom['sheet']    = ( isset($custom[Theatre_WP::$twp_prefix . 'sheet'][0]) ? $custom[Theatre_WP::$twp_prefix . 'sheet'][0] : false );
+		$spectacle_custom['video']    = ( isset($custom[Theatre_WP::$twp_prefix . 'video'][0]) ? $custom[Theatre_WP::$twp_prefix . 'video'][0] : false );
 
 		return $spectacle_custom;
-
 	}
 
 	/**
 	 * Get an HTML list of spectacles.
 	 *
 	 * @access public
-	 * @return array
+	 * @return string
 	 */
 	public function get_spectacles( $limit ) {
 		$limit = intval( $limit );
@@ -135,13 +134,13 @@ class TWP_Spectacle {
 	}
 
 	/**
-	 * Get spectacle URL from name.
+	 * Get spectacle URL from post name.
 	 *
 	 * @access public
-	 * @param string $spectacle_title
+	 * @param string $post_name
 	 * @return string
 	 */
-	public function get_spectacle_link( $spectacle_title ) {
+	public function get_spectacle_link( $post_name ) {
 		global $wpdb;
 
 		$spectacle_query = $wpdb->prepare(
@@ -151,7 +150,7 @@ class TWP_Spectacle {
 			AND post_type = 'spectacle'
 			AND post_status = 'publish'
 			LIMIT 1",
-			$spectacle_title
+			$post_name
 		);
 
 		if ( ! $spectacle = $wpdb->get_row( $spectacle_query ) ) {

@@ -66,9 +66,6 @@ class Theatre_WP {
  	protected $setup;
 
  	public function __construct($path) {
-
-		//$this->_render_ToDebugBar('main', 'msg', 'Theatre_WP Constructor', false, __FILE__, __LINE__);
-
 		self::$plugin_dir = $path;
 
  		// Include required files
@@ -78,7 +75,6 @@ class Theatre_WP {
 		$this->performance = new TWP_Performance( $this->spectacle );
 
  		$this->setup = new TWP_Setup( self::$plugin_dir, $this->spectacle, $this->performance );
-
  	}
 
 	/**
@@ -109,18 +105,56 @@ class Theatre_WP {
 
 	/* Spectacle public methods */
 
-	public function list_spectacles() {
+	/**
+	 * Returns an HTML list of available spectacles with links
+	 *
+	 * @access public
+	 * @param int $limit
+	 * @return string
+	 */
+	public function list_spectacles( $limit = 0 ) {
+		return $this->spectacle->get_spectacles( $limit );
+	}
+
+	/**
+	 * Returns an array containig spectacles titles
+	 *
+	 * @access public
+	 * @return array
+	 */
+	public function get_spectacles_titles() {
 		return $this->spectacle->get_spectacles_titles();
 	}
 
+	/**
+	 * Get spectacle custom metadata.
+	 *
+	 * @access public
+	 * @param int $ID
+	 * @return array
+	 */
 	public function get_spectacle_custom( $ID ) {
 		return $this->spectacle->get_spectacle_custom( $ID );
 	}
 
-	public function get_spectacle_data( $post_name ) {
-		return $this->spectacle->get_spectacle_data( $post_name );
+	/**
+	 * Get spectacle title and URL from Spectacle title.
+	 *
+	 * @access public
+	 * @param string $spectacle_title
+	 * @return array
+	 */
+	public function get_spectacle_data( $spectacle_title ) {
+		return $this->spectacle->get_spectacle_data( $spectacle_title );
 	}
 
+	/**
+	 * Get spectacle URL from Spectacle title.
+	 *
+	 * @access public
+	 * @param string $spectacle_title
+	 * @return string
+	 */
 	public function get_spectacle_link( $spectacle_title ) {
 		return $this->spectacle->get_spectacle_link( $spectacle_title );
 	}
