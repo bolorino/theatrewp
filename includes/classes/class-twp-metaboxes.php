@@ -72,7 +72,7 @@ class TWP_Metaboxes {
                     }
                     break;
                 	case 'text_datetime_timestamp':
-						echo '<input class="twp_text_small twp_datepicker" type="text" name="', $field['id'], '[date]" id="', $field['id'], '_date" value="', $meta ? date( 'm\/d\/Y', $meta ) : $field['std'], '" />';
+						echo '<input class="twp_text_small twp_datepicker" type="text" name="', $field['id'], '[date]" id="', $field['id'], '_date" value="', $meta ? __( date( 'm\/d\/Y', $meta ) ) : $field['std'], '" />';
 						echo '<input class="twp_timepicker text_time" type="text" name="', $field['id'], '[time]" id="', $field['id'], '_time" value="', $meta ? date( 'h:i A', $meta ) : $field['std'], '" /><span class="twp_metabox_description" >', $field['desc'], '</span>';
 						break;
 					case 'wysiwyg':

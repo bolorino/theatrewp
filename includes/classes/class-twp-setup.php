@@ -350,8 +350,8 @@ class TWP_Setup {
 	* @return void
 	*
 	*/
-	public static function twp_scripts( $hook ) {
-		global $wp_version;
+	public function twp_scripts( $hook ) {
+		global $wp_version, $wp_locale;
 
 		// only enqueue our scripts/styles on the proper pages
 		if ( 'post.php' == $hook || 'post-new.php' == $hook ) {
@@ -363,6 +363,26 @@ class TWP_Setup {
 			wp_localize_script( 'twp-scripts', 'twp_ajax_data', array( 'ajax_nonce' => wp_create_nonce( 'ajax_nonce' ), 'post_id' => get_the_ID() ) );
 			wp_enqueue_script( 'twp-timepicker' );
 			wp_enqueue_script( 'twp-scripts' );
+
+			// Localize js
+		    $localize_args = array(
+		        'closeText'         => __( 'Done', 'theatrewp' ),
+		        'currentText'       => __( 'Today', 'theatrewp' ),
+		        'monthNames'        => $this->_strip_array_index( $wp_locale->month ),
+		        'monthNamesShort'   => $this->_strip_array_index( $wp_locale->month_abbrev ),
+		        'monthStatus'       => __( 'Show a different month', 'theatrewp' ),
+		        'dayNames'          => $this->_strip_array_index( $wp_locale->weekday ),
+		        'dayNamesShort'     => $this->_strip_array_index( $wp_locale->weekday_abbrev ),
+		        'dayNamesMin'       => $this->_strip_array_index( $wp_locale->weekday_initial ),
+		        // set the date format to match the WP general date settings
+		        'dateFormat'        => $this->_date_format_php_to_js( get_option('date_format') ),
+		        // get the start of week from WP general setting
+		        'firstDay'          => get_option( 'start_of_week' ),
+		        // is Right to left language? default is false
+		        'isRTL'             => ( $wp_locale->text_direction == 'rtl' ? true : false ),
+		    );
+
+			wp_localize_script( 'twp-timepicker', 'objectL10n', $localize_args );
 
 			wp_register_style( 'twp-styles', TWP_META_BOX_URL . 'style.css', $twp_style_array );
 			wp_enqueue_style( 'twp-styles' );
@@ -569,7 +589,15 @@ class TWP_Setup {
 						'desc' => __('First performing date. [Date selection / Time]', 'theatrewp'),
 						'id'   => Theatre_WP::$twp_prefix . 'date_first',
 						'type' => 'text_datetime_timestamp',
-						'std'  => ''
+						'std'  => '',
+						// jQuery date picker options. See here http://jqueryui.com/demos/datepicker
+						'js_options' => array(
+							'appendText'	=> '(yyyy-mm-dd)',
+							'autoSize'		=> true,
+							'buttonText'	=> __('Select Date'),
+							'dateFormat'	=> __('dd-mm-yyyy'),
+							'showButtonPanel' => true
+							)
 						),
 					array(
 						'name' => __('Last date', 'theatrewp'),
@@ -746,5 +774,31 @@ class TWP_Setup {
 		echo $performances;
 
 		echo $after_widget;
+	}
+
+	private function _strip_array_index( $array_to_strip ) {
+		foreach( $array_to_strip as $array_item ) {
+        	$new_array[] =  $array_item;
+	    }
+
+	    return $new_array;
+	}
+
+	private function _date_format_php_to_js ( $date_format ) {
+		switch( $date_format ) {
+	        //Predefined WP date formats
+	        case 'F j, Y':
+	            return( 'MM dd, yy' );
+	            break;
+	        case 'Y/m/d':
+	            return( 'yy/mm/dd' );
+	            break;
+	        case 'm/d/Y':
+	            return( 'mm/dd/yy' );
+	            break;
+	        case 'd/m/Y':
+	            return( 'dd/mm/yy' );
+	            break;
+	     }
 	}
 }

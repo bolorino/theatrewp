@@ -75,6 +75,8 @@ class Theatre_WP {
 		$this->performance = new TWP_Performance( $this->spectacle );
 
  		$this->setup = new TWP_Setup( self::$plugin_dir, $this->spectacle, $this->performance );
+
+ 		if ( is_admin() ) $this->admin_includes();
  	}
 
 	/**
@@ -84,8 +86,6 @@ class Theatre_WP {
 	 * @return void
 	 */
 	private function includes() {
-		if ( is_admin() ) $this->admin_includes();
-
 		include( 'class-twp-setup.php' );
 		include( 'class-twp-spectacles.php' );
 		include( 'class-twp-performances.php' );
@@ -100,7 +100,7 @@ class Theatre_WP {
 	 */
 	private function admin_includes() {
 		// Enqueue admin scripts
-		add_action( 'admin_enqueue_scripts', array( 'TWP_Setup', 'twp_scripts' ), 10 );
+		add_action( 'admin_enqueue_scripts', array( $this->setup, 'twp_scripts' ), 10 );
 	}
 
 	/* Spectacle public methods */
