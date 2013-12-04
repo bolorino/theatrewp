@@ -11,7 +11,7 @@ class TWP_Devel {
          * @param string $line __LINE__ from calling location
          * @return null
          */
-		private function _render_ToDebugBar( $panel, $type, $hdr, $msg, $file=null, $line=null ) {
+		public function _render_ToDebugBar( $panel, $type, $hdr, $msg, $file=null, $line=null ) {
 			if ( ! isset( $GLOBALS['DebugMyPlugin'] ) ) { return; }
 
 			switch ($type) {

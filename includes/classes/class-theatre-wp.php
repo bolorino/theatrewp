@@ -74,9 +74,9 @@ class Theatre_WP {
 		$this->spectacle = new TWP_Spectacle;
 		$this->performance = new TWP_Performance( $this->spectacle );
 
- 		$this->setup = new TWP_Setup( self::$plugin_dir, $this->spectacle, $this->performance );
+		$this->setup = new TWP_Setup( self::$plugin_dir, $this->spectacle, $this->performance );
 
- 		if ( is_admin() ) $this->admin_includes();
+		if ( is_admin() ) $this->admin_includes();
  	}
 
 	/**

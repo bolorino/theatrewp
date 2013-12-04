@@ -332,6 +332,6 @@ div.time-picker li.selected { background: #0063CE; color: #fff; }
 
 /* Spectacle meta box */
 #spectacle-meta-box {
-	background: linear-gradient(to top, #F5E6EA, #FAEBEF) repeat scroll 0 0 #F5E6EA;
+	background: linear-gradient(to top, #BBBBBB, #EEEEEE) repeat scroll 0 0 #EEEEEE;
 }
 
