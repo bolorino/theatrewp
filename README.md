@@ -15,7 +15,8 @@ Description
 -----------
 The plugin "Theatre WP" makes easy the work of developers and designers who use WordPress to create websites for troupes and Performing Arts Companies.
 
-If you have a Theatre (Dance, Puppets...) Company and experience managing your own website with WordPress, you can install and use this plugin yourself.
+Theatre WP is intended for designers and developers using WordPress to setup a performing arts company website.
+This plugin provides productions and performances management.
 
 What does the plugin include?
 -----------------------------
@@ -30,13 +31,13 @@ Plugin benefits
 * Organized and well structured information of Shows and Performances to facilitate their management and accessibility
 * Independent of the theme used in WordPress
 * Customizable
+* Translatable
 * Open to improvements and suggestions
 
 ToDo
 --------------
-* Plugin setup
-* Management of Press Releases
 * Management of Sponsors per Show
+* Management of Press Releases
 * Translation into other languages
 
 Notes for developers/designers
@@ -45,14 +46,13 @@ There are four templates within the plugin, used if the current theme does not i
 * single-spectacle.php # Single Show page
 * single-performance.php # Single Performance page
 * archive-spectacle.php # List of available Shows
-* archive-performances.php # List of availabel Performances
+* archive-performance.php # List of available Performances
 
 To customize these templates, copy the files located in includes/templates within the plugin directory to your theme's directory and modify it to your liking.
 
 Installation
 ------------
-1. Upload `theatrewp` to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
+Use automatic installer
 
 Frequently Asked Questions
 --------------------------

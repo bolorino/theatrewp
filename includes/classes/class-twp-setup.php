@@ -48,7 +48,7 @@ class TWP_Setup {
 		'single-spectacle'    => 'single-spectacle.php',
 		'single-performance'  => 'single-performance.php',
 		'archive-spectacle'   => 'archive-spectacle.php',
-		'archive-performance' => 'archive-performances.php'
+		'archive-performance' => 'archive-performance.php'
 		);
 
 	public function __construct( $plugin_dir, $spectacle, $performance ) {
@@ -258,6 +258,11 @@ class TWP_Setup {
 			// Delete post
 			wp_delete_post( $twp_performance->ID, true );
 		}
+
+		// Delete plugin options
+		foreach ( self::$default_options as $key => $value ) {
+			delete_option( $key );
+		}
 	}
 
 	/**
@@ -343,18 +348,17 @@ class TWP_Setup {
 	/**
 	 * Get the path to the custom posts (spectacle/performance) single templates
 	 *
-	 * @TODO Avoid ../ in path
 	 * @access public
 	 * @return string
 	 */
 	public function get_twp_single_template( $template ) {
 
 		if ( 'spectacle' == get_post_type( get_queried_object_id() ) && ! $this->_check_theme_templates(self::$templates['single-spectacle']) ) {
-			$template = plugin_dir_path(__FILE__) . '../templates/single-spectacle.php';
+			$template = TWP_BASE_PATH . '/includes/templates/single-spectacle.php';
 		}
 
 		if ( 'performance' == get_post_type( get_queried_object_id() ) && ! $this->_check_theme_templates(self::$templates['single-performance']) ) {
-			$template = plugin_dir_path(__FILE__) . '../templates/single-performance.php';
+			$template = TWP_BASE_PATH . '/includes/templates/single-performance.php';
 		}
 
 		return $template;
@@ -370,7 +374,7 @@ class TWP_Setup {
 	public function get_twp_archive_template( $template ) {
 		// Custom post archive pages
 		if ( is_post_type_archive( 'performance' ) && ! $this->_check_theme_templates(self::$templates['archive-performance']) ) {
-			$template = plugin_dir_path(__FILE__) . '../templates/archive-performances.php';
+			$template = plugin_dir_path(__FILE__) . '../templates/archive-performance.php';
 		}
 
 		if ( is_post_type_archive( 'spectacle' ) && ! $this->_check_theme_templates(self::$templates['archive-spectacle']) ) {
@@ -696,7 +700,7 @@ class TWP_Setup {
 						),
 					array(
 						'name' => __('Event', 'theatrewp'),
-						'desc' => __('Event in which the show is performed (Festival, Arst Program...)', 'theatrewp'),
+						'desc' => __('Event in which the show is performed (Festival, Arts Program...)', 'theatrewp'),
 						'id'   => Theatre_WP::$twp_prefix . 'event',
 						'type' => 'text',
 						'std'  => ''

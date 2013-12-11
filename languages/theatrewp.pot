@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TheatreWP\n"
 "POT-Creation-Date: 2013-08-12 23:13+0100\n"
-"PO-Revision-Date: 2013-08-12 23:15+0100\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2013-12-09 15:39+0100\n"
+"Last-Translator: Jose Bolorino <jose.bolorino@gmail.com>\n"
 "Language-Team: \n"
 "Language: English\n"
 "MIME-Version: 1.0\n"
@@ -13,8 +13,8 @@ msgstr ""
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: /opt/lampp/htdocs/theatrewp/wp-content/plugins/"
-"theatrewp\n"
+"X-Poedit-SearchPath-0: /home/bolorino/public_html/theatrewp/wp-content/"
+"plugins/theatrewp\n"
 
 #: /opt/lampp/htdocs/theatrewp/wp-content/plugins/theatrewp/includes/templates/archive-spectacle.php:44
 msgid "Audience:"
@@ -225,7 +225,7 @@ msgid "Last performing date. [Date selection / Time]"
 msgstr ""
 
 #: /opt/lampp/htdocs/theatrewp/wp-content/plugins/theatrewp/includes/classes/class-twp-metaboxes.php:218
-msgid "Event in which the show is performed (Festival, Arst Program...)"
+msgid "Event in which the show is performed (Festival, Arts Program...)"
 msgstr ""
 
 #: /opt/lampp/htdocs/theatrewp/wp-content/plugins/theatrewp/includes/classes/class-twp-metaboxes.php:224

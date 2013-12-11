@@ -43,6 +43,8 @@ define( 'TWP_META_BOX_URL', apply_filters( 'twp_meta_box_url', trailingslashit( 
 
 define( 'TWP_DIR', dirname( plugin_basename( __FILE__ ) ) );
 
+define( 'TWP_BASE_PATH', plugin_dir_path( __FILE__ ) );
+
 require_once( plugin_dir_path( __FILE__ ) . 'includes/classes/class-theatre-wp.php' );
 
 // Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
