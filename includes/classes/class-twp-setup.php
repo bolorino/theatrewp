@@ -40,6 +40,7 @@ class TWP_Setup {
 	public $spectacle;
 
 	public static $default_options = array();
+
 	/**
 	 * List of available templates
 	 * @var array
@@ -50,6 +51,8 @@ class TWP_Setup {
 		'archive-spectacle'   => 'archive-spectacle.php',
 		'archive-performance' => 'archive-performance.php'
 		);
+
+	public static $twp_dateformat;
 
 	public function __construct( $plugin_dir, $spectacle, $performance ) {
 		self::$plugin_dir = $plugin_dir;
@@ -66,7 +69,6 @@ class TWP_Setup {
 		self::$default_performance_name  = ( get_option( 'twp_performance_name' ) ? get_option( 'twp_performance_name' ) : self::$default_performance_name );
 		self::$default_performances_name = ( get_option( 'twp_performances_name' ) ? get_option( 'twp_performances_name' ) : self::$default_performances_name );
 
-
 		self::$default_options = array(
 			'twp_spectacle_name'      => self::$default_spectacle_name,
 			'twp_spectacles_name'     => self::$default_spectacles_name,
@@ -80,6 +82,8 @@ class TWP_Setup {
 			'twp_performances_number' => self::$default_performances_number,
 			'twp_clean_on_uninstall'  => 0
 		);
+
+		self::$twp_dateformat = get_option( 'date_format');
 
 		$this->spectacle = $spectacle;
 		$this->performance = $performance;
@@ -410,14 +414,13 @@ class TWP_Setup {
 
 		// only enqueue our scripts/styles on the proper pages
 		if ( 'post.php' == $hook || 'post-new.php' == $hook ) {
-			$twp_script_array = array( 'jquery-ui-datepicker' );
+			$twp_script_array = array( 'jquery-migrate', 'jquery-ui-datepicker' );
 			$twp_style_array = array( 'thickbox' );
 
-			wp_register_script( 'twp-timepicker', TWP_META_BOX_URL . 'js/jquery.timePicker.min.js' );
-			wp_register_script( 'twp-scripts', TWP_META_BOX_URL . 'js/twp.js', $twp_script_array, '0.9.1' );
+			wp_register_script( 'twp-timepicker', TWP_META_BOX_URL . 'js/jquery.timePicker.min.js', $twp_script_array, '1.10.3' );
+			wp_register_script( 'twp-scripts', TWP_META_BOX_URL . 'js/twp.js', $twp_script_array, '1.10.3', true );
+
 			wp_localize_script( 'twp-scripts', 'twp_ajax_data', array( 'ajax_nonce' => wp_create_nonce( 'ajax_nonce' ), 'post_id' => get_the_ID() ) );
-			wp_enqueue_script( 'twp-timepicker' );
-			wp_enqueue_script( 'twp-scripts' );
 
 			// Localize js
 		    $localize_args = array(
@@ -430,7 +433,7 @@ class TWP_Setup {
 		        'dayNamesShort'     => $this->_strip_array_index( $wp_locale->weekday_abbrev ),
 		        'dayNamesMin'       => $this->_strip_array_index( $wp_locale->weekday_initial ),
 		        // set the date format to match the WP general date settings
-		        'dateFormat'        => $this->_date_format_php_to_js( get_option('date_format') ),
+		        'dateFormat'        => self::date_format_php_to_js( get_option('date_format') ),
 		        // get the start of week from WP general setting
 		        'firstDay'          => get_option( 'start_of_week' ),
 		        // is Right to left language? default is false
@@ -438,6 +441,9 @@ class TWP_Setup {
 		    );
 
 			wp_localize_script( 'twp-timepicker', 'objectL10n', $localize_args );
+
+			wp_enqueue_script( 'twp-timepicker' );
+			wp_enqueue_script( 'twp-scripts' );
 
 			wp_register_style( 'twp-styles', TWP_META_BOX_URL . 'style.css', $twp_style_array );
 			wp_enqueue_style( 'twp-styles' );
@@ -686,8 +692,8 @@ class TWP_Setup {
 						'js_options' => array(
 							'appendText'	=> '(yyyy-mm-dd)',
 							'autoSize'		=> true,
-							'buttonText'	=> __('Select Date'),
-							'dateFormat'	=> __('dd-mm-yyyy'),
+							'buttonText'	=> __( 'Select Date' ),
+							'dateFormat'	=> __( 'dd-mm-yyyy' ),
 							'showButtonPanel' => true
 							)
 						),
@@ -876,12 +882,15 @@ class TWP_Setup {
 	    return $new_array;
 	}
 
-	private function _date_format_php_to_js ( $date_format ) {
+	public static function date_format_php_to_js( $date_format ) {
 		switch( $date_format ) {
 	        //Predefined WP date formats
 	        case 'F j, Y':
-	            return( 'MM dd, yy' );
+	            return( 'mm/dd/yy' );
 	            break;
+	        case 'j F, Y':
+	        	return( 'dd-mm-yy');
+	        	break;
 	        case 'Y/m/d':
 	            return( 'yy/mm/dd' );
 	            break;
@@ -889,8 +898,30 @@ class TWP_Setup {
 	            return( 'mm/dd/yy' );
 	            break;
 	        case 'd/m/Y':
-	            return( 'dd/mm/yy' );
+	            return( 'dd-mm-yy' );
 	            break;
 	     }
 	}
+
+	public static function date_format_php_to_form( $date_format ) {
+		switch( $date_format ) {
+	        //Predefined WP date formats
+	        case 'F j, Y':
+	            return( 'm/d/Y' );
+	            break;
+	        case 'j F, Y':
+	        	return( 'd-m-Y');
+	        	break;
+	        case 'Y/m/d':
+	            return( 'Y/m/d' );
+	            break;
+	        case 'm/d/Y':
+	            return( 'm/d/Y' );
+	            break;
+	        case 'd/m/Y':
+	            return( 'd-m-Y' );
+	            break;
+	     }
+	}
+
 }

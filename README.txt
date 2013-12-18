@@ -3,7 +3,7 @@ Contributors: Jose Bolorino
 Donate link:
 Tags: theatre, troupe, dance, performing arts
 Requires at least: 3.6
-Tested up to: 3.7.1
+Tested up to: 3.8
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -48,6 +48,12 @@ To customize these templates, copy the files located in includes/templates withi
 
 == Upgrade Notice ==
 
+= 0.33 =
+Fixed event's date selection
+
+= 0.32 =
+WordPress 3.8
+
 = 0.3 =
 First public Beta
 
@@ -69,6 +75,9 @@ Not yet.
 4. Upcoming Performances
 
 == Changelog ==
+= 0.32 =
+* WordPress 3.8
+
 = 0.3 =
 * Fixed multiple objects instances
 * Basic plugin settings
