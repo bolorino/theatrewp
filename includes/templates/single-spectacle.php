@@ -45,14 +45,14 @@ get_header(); ?>
 						<?php if ( $spectacle_custom['credits'] ) { ?>
 							<h2><?php echo __('Credits', 'theatrewp'); ?></h2>
 							<div class="credits">
-								<?php echo $spectacle_custom['credits']; ?>
+								<?php echo nl2br( $spectacle_custom['credits'] ); ?>
 							</div>
 						<?php } ?>
 
 						<?php if ( $spectacle_custom['sheet'] ) { ?>
 							<h2><?php echo __('Sheet', 'theatrewp'); ?></h2>
 							<div class="sheet">
-								<?php echo $spectacle_custom['sheet']; ?>
+								<?php echo nl2br( $spectacle_custom['sheet'] ); ?>
 							</div>
 						<?php } ?>
 

@@ -40,8 +40,8 @@ class TWP_Performance {
 
 		$spectacle_name                    = sanitize_title( $performance_custom['performance'] );
 		$spectacle_data                    = $this->spectacle->get_spectacle_data( $spectacle_name );
-		$performance_custom['title']       = $spectacle_data['title'];
-		$performance_custom['link']        = $spectacle_data['link'];
+		$performance_custom['spectacle_title']       = $spectacle_data['title'];
+		$performance_custom['spectacle_url']         = $spectacle_data['link'];
 
 		return $performance_custom;
 	}

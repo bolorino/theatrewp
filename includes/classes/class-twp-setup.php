@@ -486,7 +486,7 @@ class TWP_Setup {
 				break;
 
 			case 'spectacle':
-				echo $meta['title'];
+				echo $meta['spectacle_title'];
 				break;
 
 			case 'first_date':

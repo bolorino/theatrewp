@@ -39,10 +39,10 @@ get_header(); ?>
 							</p>
 						<?php } ?>
 
-						<?php if ( $performance_custom['title'] ) { ?>
+						<?php if ( $performance_custom['spectacle_title'] ) { ?>
 							<h3><?php echo __('Show', 'theatrewp'); ?></h3>
 							<div class="show">
-								<a href="<?php echo $performance_custom['link']; ?>"><?php echo $performance_custom['title']; ?></a>
+								<a href="<?php echo $performance_custom['spectacle_url']; ?>"><?php echo $performance_custom['spectacle_title']; ?></a>
 							</div>
 						<?php } ?>
 

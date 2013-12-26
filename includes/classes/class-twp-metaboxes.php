@@ -129,7 +129,6 @@ class TWP_Metaboxes {
     			} else {
     				$new = '';
     			}
-
 			}
 
     		if ( $new && $new != $old ) {

@@ -39,8 +39,8 @@ get_header(); ?>
 					$performance_custom = $theatre_wp->get_performance_custom( get_the_ID() );
 					$last_month = $current_loop_month;
 					$last_year = $current_loop_year;
-					$current_loop_month = date('F', $performance_custom['date_first']);
-					$current_loop_year = date('Y', $performance_custom['date_first']);
+					$current_loop_month = date( 'F', $performance_custom['date_first'] );
+					$current_loop_year = date( 'Y', $performance_custom['date_first'] );
 
 					if ( ! $last_month OR $last_month != $current_loop_month ) {
 					?>
@@ -59,7 +59,7 @@ get_header(); ?>
 
 					<div class="performance">
 						<?php the_title( '<h2 class="entry-title"><a href="' . get_permalink() . '" title="' . the_title_attribute( 'echo=0' ) . '" rel="bookmark">', '</a></h2>' ); ?>
-						<h4><a href="<?php echo $performance_custom['link']; ?>"><?php echo $performance_custom['title']; ?></a> </h4>
+						<h4><a href="<?php echo $performance_custom['spectacle_url']; ?>"><?php echo $performance_custom['spectacle_title']; ?></a> </h4>
 
 						<?php // Get dates
 						$first_time = strftime('%H:%M', $performance_custom['date_first']);

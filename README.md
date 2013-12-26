@@ -5,7 +5,7 @@ Theatre WP
 Tags: theatre, troupe, dance, performing arts
 Requires at least: 3.6
 Tested up to: 3.8
-Stable tag: trunk
+Stable tag: 0.36
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 `
@@ -69,6 +69,11 @@ Screenshots
 
 Changelog
 ---------
+### 0.36
+* Fixed Credits display
+
+### 0.35
+* Fixed Spectacle Admin UI
 
 ### 0.33
 * Fixed event's date selection
