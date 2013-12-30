@@ -46,7 +46,7 @@ class TWP_Spectacle {
 		$spectacle_data = array();
 
 		$spectacle_data['title'] = __( $spectacle->post_title );
-		$spectacle_data['link'] = home_url('/') . 'spectacle/' . $spectacle->post_name . '/';
+		$spectacle_data['link'] = home_url('/') . get_option( 'twp_spectacle_slug' ) . '/' . $spectacle->post_name . '/';
 
 		return $spectacle_data;
 	}
@@ -157,7 +157,7 @@ class TWP_Spectacle {
 			return false;
 		}
 
-		$link = home_url( '/' ) . 'spectacle/' . $spectacle->post_name . '/';
+		$link = home_url( '/' ) . get_option( 'twp_spectacle_slug' ) . '/' . $spectacle->post_name . '/';
 
 		return $link;
 	}

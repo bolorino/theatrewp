@@ -38,10 +38,10 @@ class TWP_Performance {
 		$performance_custom['display_map'] = isset( $custom[Theatre_WP::$twp_prefix . 'display_map'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'display_map'][0] : false;
 
 
-		$spectacle_name                    = sanitize_title( $performance_custom['performance'] );
-		$spectacle_data                    = $this->spectacle->get_spectacle_data( $spectacle_name );
-		$performance_custom['spectacle_title']       = $spectacle_data['title'];
-		$performance_custom['spectacle_url']         = $spectacle_data['link'];
+		$spectacle_name                        = sanitize_title( $performance_custom['performance'] );
+		$spectacle_data                        = $this->spectacle->get_spectacle_data( $spectacle_name );
+		$performance_custom['spectacle_title'] = $spectacle_data['title'];
+		$performance_custom['spectacle_url']   = $spectacle_data['link'];
 
 		return $performance_custom;
 	}
