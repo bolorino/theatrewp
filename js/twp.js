@@ -22,6 +22,7 @@ jQuery(document).ready(function ($) {
 	/**
 	* Initialize timepicker (this will be moved inline in a future release)
 	*/
+
 	$('.twp_timepicker').each(function () {
 		$('#' + jQuery(this).attr('id')).timePicker({
 			startTime: "08:00",
@@ -42,6 +43,7 @@ jQuery(document).ready(function ($) {
 		    currentText: objectL10n.currentText,
 		    monthNames: objectL10n.monthNames,
 		    monthNamesShort: objectL10n.monthNamesShort,
+		    monthStatus: objectL10n.monthStatus,
 		    dayNames: objectL10n.dayNames,
 		    dayNamesShort: objectL10n.dayNamesShort,
 		    dayNamesMin: objectL10n.dayNamesMin,
@@ -49,8 +51,6 @@ jQuery(document).ready(function ($) {
 		    firstDay: objectL10n.firstDay,
 		    isRTL: objectL10n.isRTL,}
     	);
-	// $('#' + jQuery(this).attr('id')).datepicker({ dateFormat: 'yy-mm-dd' });
-	// For more options see http://jqueryui.com/demos/datepicker/#option-dateFormat
 	});
 	// Wrap date picker in class to narrow the scope of jQuery UI CSS and prevent conflicts
 	$("#ui-datepicker-div").wrap('<div class="twp_element" />');

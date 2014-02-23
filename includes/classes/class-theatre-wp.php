@@ -29,7 +29,7 @@ class Theatre_WP {
 	 *
 	 * @var     string
 	 */
-	protected $version = '0.37';
+	protected $version = '0.39';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -61,6 +61,11 @@ class Theatre_WP {
  	public $performance;
 
  	/**
+ 	 * @var TWP_Sponsor
+ 	 */
+ 	public $sponsor;
+
+ 	/**
  	 * @var TWP_Setup
  	 */
  	protected $setup;
@@ -73,8 +78,9 @@ class Theatre_WP {
 
 		$this->spectacle = new TWP_Spectacle;
 		$this->performance = new TWP_Performance( $this->spectacle );
+		$this->sponsor = new TWP_Sponsor;
 
-		$this->setup = new TWP_Setup( self::$plugin_dir, $this->spectacle, $this->performance );
+		$this->setup = new TWP_Setup( self::$plugin_dir, $this->spectacle, $this->performance, $this->sponsor );
 
 		if ( is_admin() ) $this->admin_includes();
  	}
@@ -89,6 +95,7 @@ class Theatre_WP {
 		include( 'class-twp-setup.php' );
 		include( 'class-twp-spectacles.php' );
 		include( 'class-twp-performances.php' );
+		include( 'class-twp-sponsors.php' );
 		include( 'class-twp-metaboxes.php' );
 	}
 
@@ -174,6 +181,22 @@ class Theatre_WP {
 
 	public function display_performance_map( $custom_meta, $width = '', $height = '' ) {
 		return $this->performance->get_event_google_map_embed( $custom_meta, $width, $height );
+	}
+
+	public function get_month_names( ) {
+		return $this->performance->month_names;
+	}
+
+	public function get_total_performances() {
+		return $this->performance->total_performances;
+	}
+
+	public function get_first_available_year() {
+		return $this->performance->first_available_year;
+	}
+
+	public function get_last_available_year() {
+		return $this->performance->last_available_year;
 	}
 
 }

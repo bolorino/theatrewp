@@ -39,6 +39,8 @@ class TWP_Setup {
 
 	public $spectacle;
 
+	public $sponsor;
+
 	public static $default_options = array();
 
 	/**
@@ -54,7 +56,7 @@ class TWP_Setup {
 
 	public static $twp_dateformat;
 
-	public function __construct( $plugin_dir, $spectacle, $performance ) {
+	public function __construct( $plugin_dir, $spectacle, $performance, $sponsor ) {
 		self::$plugin_dir = $plugin_dir;
 
 		self::$default_spectacle_slug    = ( get_option( 'twp_spectacle_slug' ) ? get_option( 'twp_spectacle_slug' ) : self::$default_spectacle_slug );
@@ -87,6 +89,7 @@ class TWP_Setup {
 
 		$this->spectacle = $spectacle;
 		$this->performance = $performance;
+		$this->sponsor = $sponsor;
 
 		// Actions
 		add_action( 'init', array( $this, 'init' ), 0 );
@@ -105,6 +108,8 @@ class TWP_Setup {
 		// Setup custom posts
 		add_action( 'init', array( $this, 'create_spectacles' ) );
 		add_action( 'init', array( $this, 'create_performances' ) );
+		add_action( 'init', array( $this, 'create_home_video' ) );
+		add_action( 'init', array( $this, 'create_sponsors' ) );
 		add_action( 'init', array( $this, 'twp_metaboxes' ) );
 
 		// Filters
@@ -143,7 +148,10 @@ class TWP_Setup {
 		);
 
 		wp_register_sidebar_widget( 'twp-show-next-performances', __( 'Spectacle Next Performances', 'theatrewp' ), array( $this, 'widget_show_next_performances' ) );
+
 		wp_register_sidebar_widget( 'twp-next-performances', __( 'Global Next Performances', 'theatrewp' ), array( $this, 'widget_next_performances' ) );
+
+		wp_register_sidebar_widget( 'twp-production-sponsors', __( 'Production Sponsors', 'theatrewp' ), array( $this, 'widget_production_sponsors') );
 	}
 
 	/**
@@ -232,6 +240,7 @@ class TWP_Setup {
 			delete_post_meta( $twp_spectacle->ID, Theatre_WP::$twp_prefix . 'audience' );
 			delete_post_meta( $twp_spectacle->ID, Theatre_WP::$twp_prefix . 'credits' );
 			delete_post_meta( $twp_spectacle->ID, Theatre_WP::$twp_prefix . 'sheet' );
+			delete_post_meta( $twp_spectacle->ID, Theatre_WP::$twp_prefix . 'prod-sponsor' );
 			delete_post_meta( $twp_spectacle->ID, Theatre_WP::$twp_prefix . 'video' );
 
 			// Delete post
@@ -262,6 +271,9 @@ class TWP_Setup {
 			// Delete post
 			wp_delete_post( $twp_performance->ID, true );
 		}
+
+		// @TODO
+		// Delete custom posts home_video and sponsor
 
 		// Delete plugin options
 		foreach ( self::$default_options as $key => $value ) {
@@ -333,6 +345,70 @@ class TWP_Setup {
 			);
 
 		register_post_type( 'performance', $performances_args );
+
+		return;
+	}
+
+	/**
+	 * Define Home Video custom post.
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public function create_home_video() {
+		$home_video_args = array(
+			'labels' => array(
+				'name'          => __('Home Video'),
+				'singular_name' => __('Home Video'),
+				'add_new'       => __('Add new', 'theatrewp'),
+				'add_new_item'  => __('Add new Home Video', 'theatrewp'),
+				'edit_item'     => __('Edit Home Video', 'theatrewp'),
+				'new_item'      => __('New Home Video', 'theatrewp'),
+				'view'          => __('View Home Video', 'theatrewp'),
+				'view_item'     => __('View Home Video', 'theatrewp'),
+				'search_items'  => __('Search Home Video', 'theatrewp')
+				),
+			'singular_label'    => __('Home Video', 'theatrewp'),
+			'public'            => true,
+			'show_in_nav_menus' => true,
+			'_builtin'          => false,
+			'menu_position'     => 7,
+			'supports'          => array( 'title' )
+			);
+
+		register_post_type( 'home_video', $home_video_args );
+
+		return;
+	}
+
+	/**
+	 * Define Sponsor custom post.
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public function create_sponsors() {
+		$sponsors_args = array(
+			'labels' => array(
+				'name'          => __('Sponsors'),
+				'singular_name' => __('Sponsor'),
+				'add_new'       => __('Add new', 'theatrewp'),
+				'add_new_item'  => __('Add new Sponsor', 'theatrewp'),
+				'edit_item'     => __('Edit Sponsor', 'theatrewp'),
+				'new_item'      => __('New Sponsor', 'theatrewp'),
+				'view'          => __('View Sponsors', 'theatrewp'),
+				'view_item'     => __('View Sponsor', 'theatrewp'),
+				'search_items'  => __('Search Sponsors', 'theatrewp')
+				),
+			'singular_label'    => __('Sponsor', 'theatrewp'),
+			'public'            => true,
+			'show_in_nav_menus' => true,
+			'_builtin'          => false,
+			'menu_position'     => 8,
+			'supports'          => array( 'title', 'thumbnail' )
+			);
+
+		register_post_type( 'sponsor', $sponsors_args );
 
 		return;
 	}
@@ -447,6 +523,12 @@ class TWP_Setup {
 
 			wp_register_style( 'twp-styles', TWP_META_BOX_URL . 'style.css', $twp_style_array );
 			wp_enqueue_style( 'twp-styles' );
+		}
+
+		// Dashboard custom post icons
+		if ( is_admin() ) {
+			wp_register_style( 'twp-dashboard', TWP_META_BOX_URL . 'dashboard.css', false );
+			wp_enqueue_style( 'twp-dashboard' );
 		}
 
 		return true;
@@ -660,6 +742,13 @@ class TWP_Setup {
 						'std'  => ''
 						),
 					array(
+						'name' => __('Sponsors'),
+						'desc' => __('Sponsors'),
+						'id' => Theatre_WP::$twp_prefix . 'prod-sponsor',
+						'type' => 'multicheckbox',
+						'options' => $this->sponsor->get_sponsors_titles()
+					),
+					array(
 						'name' => __('Video', 'theatrewp'),
 						'desc' => __('Video URL. The link to the video in YouTube or Vimeo', 'theatrewp'),
 						'id'   => Theatre_WP::$twp_prefix . 'video',
@@ -761,7 +850,46 @@ class TWP_Setup {
 						'std'  => ''
 						)
 					)
-		)
+			),
+			array(
+				'id' => 'video-meta-box',
+			    'title' => __('Video code'),
+			    'pages' => array('home_video'),
+			    'context' => 'normal',
+			    'priority' => 'high',
+			    'fields' => array(
+			        array(
+			            'name' => __('Video URL'),
+			            'desc' => __('Video URL. The link to the video in YouTube or Vimeo', 'theatrewp'),
+			            'id' => Theatre_WP::$twp_prefix . 'home_video',
+			            'type' => 'text',
+			            'std' => ''
+			        )
+			    )
+			),
+			array(
+				'id' => 'sponsor-meta-box',
+			    'title' => _('Sponsor'),
+			    'pages' => array('sponsor'),
+			    'context' => 'normal',
+			    'priority' => 'high',
+			    'fields' => array(
+			        array(
+			            'name' => __('Link'),
+			            'desc' => __('Sponsor Link'),
+			            'id' => Theatre_WP::$twp_prefix . 'sponsor-url',
+			            'type' => 'text',
+			            'std' => 'http://'
+			        ),
+			        array(
+			            'name' => __('Weight'),
+			            'desc' => __('A number between 0 and 99 to set the importance. 99 is higher'),
+			            'id'   => Theatre_WP::$twp_prefix . 'sponsor-weight',
+			            'type' => 'text',
+			            'std' => '0'
+			        )
+			    )
+			)
 		);
 
 		foreach ( $TWP_meta_boxes as $meta_box ) {
@@ -870,6 +998,70 @@ class TWP_Setup {
 		echo $before_title . sprintf( __( '“%s” Upcoming Performances', 'theatrewp' ), $title ) . $after_title;
 
 		echo $performances;
+
+		echo $after_widget;
+	}
+
+	/**
+	 * Current Spectacle Sponsors Widget
+	 *
+	 * @access public
+	 * @return void
+	 */
+
+	public function widget_production_sponsors( $args ) {
+		global $post;
+
+		$current_category = get_post_type();
+
+		if ( $current_category != 'spectacle' OR ! is_single() ) {
+			return false;
+		}
+
+		$custom = get_post_custom( $post->ID );
+
+	    if ( ! array_key_exists( Theatre_WP::$twp_prefix . 'prod-sponsor', $custom ) )
+	    {
+	    	echo 'array_key does not exist ' . Theatre_WP::$twp_prefix . 'prod-sponsor';
+	        return false;
+	    }
+
+	    $production_sponsors = unserialize( $custom[Theatre_WP::$twp_prefix . 'prod-sponsor'][0] );
+
+	    $sponsors_list = '<ul id="sponsors-list">';
+
+	    foreach ( $production_sponsors as $production_sponsor ) {
+	    	$production_sponsor_data = get_post( $production_sponsor );
+	    	$production_sponsor_metadata = get_post_custom( $production_sponsor );
+
+	    	$sponsors2sort[] = array(
+	            'sponsor_weight' => $production_sponsor_metadata[Theatre_WP::$twp_prefix . 'sponsor-weight'][0],
+	            'ID'           => $production_sponsor_data->ID,
+	            'sponsor_logo' => get_the_post_thumbnail($production_sponsor_data->ID, 'medium'),
+	            'sponsor_name' => $production_sponsor_data->post_title,
+	            'sponsor_url'  => $production_sponsor_metadata[Theatre_WP::$twp_prefix . 'sponsor-url'][0]
+	        );
+	    }
+
+	    array_multisort( $sponsors2sort, SORT_DESC );
+
+    	foreach ( $sponsors2sort as $sponsor2show ) {
+    		$sponsors_list .= '<li>'
+    		. '<a href="' . $sponsor2show['sponsor_url'] . '">'
+    		. $sponsor2show['sponsor_logo']
+    		. '</a><br>'
+    		. '<small>' . $sponsor2show['sponsor_name'] . '</small>'
+    		. '</li>';
+    	}
+
+    	$sponsors_list .= '</ul>';
+
+	    extract( $args );
+
+		echo $before_widget;
+		echo $before_title . __( 'Sponsors', 'theatrewp' ) . $after_title;
+
+		echo $sponsors_list;
 
 		echo $after_widget;
 	}

@@ -7,8 +7,24 @@ class TWP_Performance {
 
 	protected $spectacle;
 
+	public $month_names;
+
+	public $total_performances;
+
+	public $first_available_year;
+
+	public $last_available_year;
+
 	public function __construct( $spectacle ) {
 		$this->spectacle = $spectacle;
+
+		$this->month_names = $this->_set_month_names();
+
+		$this->total_performances = $this->_set_total_performances();
+
+		$this->first_available_year = $this->_set_first_available_year();
+
+		$this->last_available_year = $this->_set_last_available_year();
 	}
 
 	/**
@@ -149,8 +165,8 @@ class TWP_Performance {
 
 	    $output = '<ul class="next-performances">';
 
-	    foreach ( $next as $post ) : setup_postdata( $post );
-	    	$performance_custom = $this->get_performance_custom( $this->spectacle, $post->ID );
+	    foreach ( $next as $performance ) : setup_postdata( $performance );
+	    	$performance_custom = $this->get_performance_custom( $this->spectacle, $performance->ID );
 
 	        $spectacle_title = sanitize_title( $performance_custom['performance'] );
 	        $spectacle_link = $this->spectacle->get_spectacle_link( $spectacle_title );
@@ -161,7 +177,7 @@ class TWP_Performance {
 	        	$output .= '<li>';
 
 	        	$output .= '<a href="' . get_permalink() . '">';
-	        	$output .= get_the_title( $post->ID ) .'</a> <br />';
+	        	$output .= get_the_title( $performance->ID ) .'</a> <br />';
 
 	        	if ( $performance_custom['event'] ) {
 	        		$output .= $performance_custom['event'] . '<br />';
@@ -222,5 +238,46 @@ class TWP_Performance {
 		}
 
 		return '';
+	}
+
+	private function _set_month_names() {
+		$month_names = array();
+		for ( $n=1; $n <= 12; $n++ ) {
+			$month_names[] = date( 'F', mktime( 0, 0, 0, $n, 1 ) );
+		}
+
+		return $month_names;
+	}
+
+	private function _set_total_performances() {
+		global $wpdb;
+
+		$sql_total_performances = $wpdb->get_row( "SELECT COUNT(ID) AS total FROM $wpdb->posts WHERE post_type = 'performance' AND post_status = 'publish' ");
+
+		return $sql_total_performances->total;
+	}
+
+	private function _set_first_available_year() {
+		global $wpdb;
+
+		$sql_first_available_year = $wpdb->get_row( "SELECT meta_key, meta_value AS date_selection FROM $wpdb->postmeta WHERE meta_key = 'twp_date_first' ORDER BY meta_value ASC LIMIT 1 ");
+
+		if ( ! $sql_first_available_year->date_selection ) {
+			return false;
+		}
+
+		return date( 'Y', $sql_first_available_year->date_selection );
+	}
+
+	private function _set_last_available_year() {
+		global $wpdb;
+
+		$sql_last_available_year = $wpdb->get_row( "SELECT meta_key, meta_value AS date_selection FROM $wpdb->postmeta WHERE meta_key = 'twp_date_first' ORDER BY meta_value DESC LIMIT 1 ");
+
+		if ( ! $sql_last_available_year->date_selection ) {
+			return false;
+		}
+
+		return date( 'Y', $sql_last_available_year->date_selection );
 	}
 }

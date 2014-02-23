@@ -1,10 +1,10 @@
 === Theatre WP ===
-Contributors: Jose Bolorino
+Contributors: bollofino
 Donate link:
 Tags: theatre, troupe, dance, performing arts
 Requires at least: 3.6
-Tested up to: 3.8
-Stable tag: 0.37
+Tested up to: 3.8.1
+Stable tag: 0.39
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,9 +19,10 @@ This plugin provides productions and performances management.
 
 === What does the plugin include? ===
 
-* Custom posts for Shows and Performances
+* Custom posts for Productions and Performances
 * Widget for upcoming Performances of a particular Show
 * Widget for upcoming Performances in general
+* Widget for Production Sponsors
 * Translation into English and Spanish
 
 === Plugin benefits ===
@@ -33,8 +34,8 @@ This plugin provides productions and performances management.
 * Open to improvements and suggestions
 
 === ToDo ===
-* Management of Sponsors per Show
 * Management of Press Releases
+* Filtering performances
 * Translation into other languages
 
 === Notes for developers/designers ===
@@ -47,8 +48,13 @@ There are four templates within the plugin, used if the current theme does not i
 To customize these templates, copy the files located in includes/templates within the plugin directory to your theme's directory and modify it to your liking.
 
 == Upgrade Notice ==
-= 0.37 =
-Fixed custom slug spectacle links
+= 0.39 =
+Fix empty sponsors
+
+= 0.38 =
+* Sponsors management and widget
+* Home video
+* Various bug fixes
 
 == Installation ==
 
@@ -68,6 +74,14 @@ Not yet.
 4. Upcoming Performances
 
 == Changelog ==
+= 0.39 =
+Fix empty sponsors
+
+= 0.38 =
+* Sponsors management and widget
+* Home video
+* Various bug fixes
+
 = 0.37 =
 Fixed custom slug spectacle links
 
