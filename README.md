@@ -1,14 +1,14 @@
 Theatre WP
 ==========
 [Theatre WP website](http://www.bolorino.net/theatre-wp/)
-`
-Tags: theatre, troupe, dance, performing arts
+
+WordPress
 Requires at least: 3.6
-Tested up to: 3.8
-Stable tag: 0.37
+Tested up to: 3.8.1
+Stable tag: 0.39
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-`
+
 Management of spectacles and performances for Theatre and Performing Arts Companies. WordPress Plugin.
 
 Description
@@ -20,9 +20,10 @@ This plugin provides productions and performances management.
 
 What does the plugin include?
 -----------------------------
-* Custom posts for Shows and Performances
+* Custom posts for Shows, Performances and Sponsors
 * Widget for upcoming Performances of a particular Show
 * Widget for upcoming Performances in general
+* Widget for Production Sponsors
 * Translation into English and Spanish
 
 Plugin benefits
@@ -36,7 +37,7 @@ Plugin benefits
 
 ToDo
 --------------
-* Management of Sponsors per Show
+* Filtering performances
 * Management of Press Releases
 * Translation into other languages
 
@@ -69,6 +70,14 @@ Screenshots
 
 Changelog
 ---------
+### 0.39
+Fix empty sponsors
+
+### 0.38
+* Sponsors management and widget
+* Home video
+* Various bug fixes
+
 ### 0.37
 * Fixed custom slug spectacle links
 
@@ -91,5 +100,4 @@ Changelog
 * Auto build of custom post permalinks
 
 ### 0.2
-* First Beta version.
-
+* First Beta version
