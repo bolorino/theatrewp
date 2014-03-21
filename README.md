@@ -3,13 +3,13 @@ Theatre WP
 [Theatre WP website](http://www.bolorino.net/theatre-wp/)
 
 WordPress
-Requires at least: 3.6
+Requires at least: 3.8
 Tested up to: 3.8.1
-Stable tag: 0.39
+Stable tag: 0.40
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Management of spectacles and performances for Theatre and Performing Arts Companies. WordPress Plugin.
+Management of Productions and Performances for Theatre and Performing Arts Companies. WordPress Plugin.
 
 Description
 -----------
@@ -37,17 +37,20 @@ Plugin benefits
 
 ToDo
 --------------
-* Filtering performances
-* Management of Press Releases
+* Better config
+* Cleaner default templates
 * Translation into other languages
 
 Notes for developers/designers
 ------------------------------
-There are four templates within the plugin, used if the current theme does not include them:
+There are six templates within the plugin, used if the current theme does not include them:
+
 * single-spectacle.php # Single Show page
 * single-performance.php # Single Performance page
 * archive-spectacle.php # List of available Shows
 * archive-performance.php # List of available Performances
+* check-dates-form.php # To filter performances by date
+* taxonomy-format.php # Productions by category
 
 To customize these templates, copy the files located in includes/templates within the plugin directory to your theme's directory and modify it to your liking.
 
@@ -63,15 +66,25 @@ Not yet.
 
 Screenshots
 -----------
-![Screenshot 1](/assets/screenshot-1.png "Show single using Twenty Thirteen theme, with upcoming Performances widget.")
-![Screenshot 2](/assets/screenshot-2.png "Performance edition")
-![Screenshot 3](/assets/screenshot-3.png "Shows archive")
-![Screenshot 4](/assets/screenshot-4.png "Upcoming Performances")
+![Screenshot 1](/assets/screenshot-1.png "Design using Theatre WP Plugin")
+![Screenshot 2](/assets/screenshot-2.png "Edit Show")
+![Screenshot 3](/assets/screenshot-3.png "Edit Performance")
+![Screenshot 4](/assets/screenshot-4.png "Types of Production")
+![Screenshot 5](/assets/screenshot-5.png "Productions")
 
 Changelog
 ---------
+### 0.40
+* Filter productions and performances list
+* Dates localization
+* Hierarchical productions taxonomies (types of productions)
+* Productions widget sort options
+* Bug: get_spectacle_link by title not post_name
+* Remove home video custom post
+* Russian translation (thanks to veshinak)
+
 ### 0.39
-Fix empty sponsors
+* Fix empty sponsors
 
 ### 0.38
 * Sponsors management and widget

@@ -29,7 +29,7 @@ class Theatre_WP {
 	 *
 	 * @var     string
 	 */
-	protected $version = '0.39';
+	protected $version = '0.40';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -119,8 +119,8 @@ class Theatre_WP {
 	 * @param int $limit
 	 * @return string
 	 */
-	public function list_spectacles( $limit = 0 ) {
-		return $this->spectacle->get_spectacles( $limit );
+	public function list_spectacles( $limit = 0, $sort_by, $sort ) {
+		return $this->spectacle->get_spectacles( $limit, $sort_by, $sort );
 	}
 
 	/**
@@ -191,6 +191,10 @@ class Theatre_WP {
 		return $this->performance->total_performances;
 	}
 
+	public function get_total_filtered_performances( $performances_filter_params ) {
+		return $this->performance->get_total_filtered_performances( $performances_filter_params );
+	}
+
 	public function get_first_available_year() {
 		return $this->performance->first_available_year;
 	}
@@ -199,5 +203,25 @@ class Theatre_WP {
 		return $this->performance->last_available_year;
 	}
 
+	/**
+	 * Get neccesary data to display calendar filter
+	 *
+	 * @access public
+	 * @return array
+	 */
+	public function get_calendar_data() {
+		$calendar_data = array(
+			'month_names'          => $this->get_month_names(),
+			'current_year'         => date('Y'),
+			'first_available_year' => $this->get_first_available_year(),
+			'last_available_year'  => $this->get_last_available_year()
+		);
+
+		return $calendar_data;
+	}
+
+	public function get_calendar( $calendar_filter_params ) {
+		return $this->performance->get_filtered_calendar( $calendar_filter_params );
+	}
 }
 

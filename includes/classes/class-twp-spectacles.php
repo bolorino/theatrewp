@@ -6,6 +6,8 @@ class TWP_Spectacle {
 
 	public static $audience;
 
+	private $_valid_sort_by;
+
 	public function __construct() {
 
 		// Define the available audiences
@@ -16,6 +18,8 @@ class TWP_Spectacle {
  			__('Kids', 'theatrewp'),
  			__('Young', 'theatrewp')
  		);
+
+ 		$this->_valid_sort_by = array( 'title', 'post_date' );
 	}
 
 	/**
@@ -30,7 +34,7 @@ class TWP_Spectacle {
 
 		$spectacle_query = $wpdb->prepare(
 			"
-			SELECT post_title, post_name FROM $wpdb->posts
+			SELECT ID, post_title, post_name FROM $wpdb->posts
 			WHERE post_name = %s
 			AND post_type = 'spectacle'
 			AND post_status = 'publish'
@@ -45,6 +49,8 @@ class TWP_Spectacle {
 
 		$spectacle_data = array();
 
+		$spectacle_data['id'] = $spectacle->ID;
+		$spectacle_data['thumbnail'] = get_the_post_thumbnail( $spectacle->ID, 'thumbnail', array( 'class' => 'twp_production_thumbnail' ) );
 		$spectacle_data['title'] = __( $spectacle->post_title );
 		$spectacle_data['link'] = home_url('/') . get_option( 'twp_spectacle_slug' ) . '/' . $spectacle->post_name . '/';
 
@@ -83,14 +89,22 @@ class TWP_Spectacle {
 	 * @access public
 	 * @return string
 	 */
-	public function get_spectacles( $limit ) {
+	public function get_spectacles( $limit, $sort_by, $sort ) {
 		$limit = intval( $limit );
 
 		if ( $limit == 0 ) {
 			$limit = -1;
 		}
 
-		$shows_query = get_posts( "post_type=spectacle&post_status=publish&orderby=post_date&order=ASC&numberposts=$limit" );
+		if ( ! in_array( $sort_by, $this->_valid_sort_by ) ) {
+			return false;
+		}
+
+		if ( 'ASC' != $sort && 'DESC' != $sort ) {
+			return false;
+		}
+
+		$shows_query = get_posts( "post_type=spectacle&post_status=publish&orderby=$sort_by&order=$sort&numberposts=$limit" );
 
 		if ( ! $shows_query ) {
 			return false;
@@ -146,7 +160,7 @@ class TWP_Spectacle {
 		$spectacle_query = $wpdb->prepare(
 			"SELECT post_name
 			FROM $wpdb->posts
-			WHERE post_name = %s
+			WHERE post_title = %s
 			AND post_type = 'spectacle'
 			AND post_status = 'publish'
 			LIMIT 1",
@@ -161,4 +175,5 @@ class TWP_Spectacle {
 
 		return $link;
 	}
+
 }

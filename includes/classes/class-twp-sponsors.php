@@ -20,15 +20,16 @@ class TWP_Sponsor {
         if ( ! $sponsors_query ) {
             $sponsors[] = array(
                 'id' => 0,
-                'title' => __('There are no sponsors yet. This checkbox will disappear after you add some in the Sponsors menu.')
+                'title' => __( 'There are no sponsors yet. This checkbox will disappear after you add some in the Sponsors menu.', 'theatrewp' )
             );
+
             return $sponsors;
         }
 
         foreach ( $sponsors_query as $sponsor ) {
             $sponsors[] =  array(
                 'id' => $sponsor->ID,
-                'title' => __($sponsor->post_title)
+                'title' => __( $sponsor->post_title )
             );
         }
 

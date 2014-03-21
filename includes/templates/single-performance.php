@@ -18,8 +18,13 @@ get_header(); ?>
 				$performance_custom = $theatre_wp->get_performance_custom( get_the_ID() );
 
 				if ( $performance_custom['date_first'] ) {
-					$performance_date = strftime( "%A %B %d, %Y", $performance_custom['date_first'] );
-					$performance_time = strftime( '%H:%M', $performance_custom['date_first'] );
+					$performance_first_date = date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] );
+					$performance_first_time = strftime( '%H:%M', $performance_custom['date_first'] );
+				}
+
+				if ( $performance_custom['date_last'] ) {
+					$performance_last_date = date_i18n( get_option( 'date_format' ), $performance_custom['date_last'] );
+					$performance_last_time = strftime( '%H:%M', $performance_custom['date_last'] );
 				}
 				?>
 
@@ -32,22 +37,47 @@ get_header(); ?>
 					<div class="entry-content">
 						<?php
 						if ( isset($performance_date) ) { ?>
-							<h3><?php echo __('When', 'theatrewp'); ?></h3>
-							<p>
-								<span class="performance-date"><?php echo $performance_date; ?></span><br>
-								<span class="performance-time"><?php echo $performance_time;?></span><br>
+							<h3><?php echo __( 'When', 'theatrewp' ); ?></h3>
+							<p class="single-performance-dates">
+								<?php
+								if ( isset( $performance_last_date ) ) {
+									echo _x( 'From', '(date) performing from day', 'theatrewp' ) . ' ';
+								}
+								?>
+								<span class="performance-date"><?php echo $performance_first_date; ?></span>
+								(<span class="performance-time"><?php echo $performance_first_time;?></span>)
+								<?php
+								if ( isset( $performance_last_date ) ) {
+									echo _x( 'To', '(date) performing to day', 'theatrewp' ) . ' ';
+								?>
+									<span class="performance-date"><?php echo $performance_last_date; ?></span>
+									(<span class="performance-time"><?php echo $performance_last_time;?></span>)<br>
+								<?php
+								}
+								?>
 							</p>
 						<?php } ?>
 
 						<?php if ( $performance_custom['spectacle_title'] ) { ?>
-							<h3><?php echo __('Show', 'theatrewp'); ?></h3>
+							<h3><?php echo __( 'Show', 'theatrewp' ); ?></h3>
 							<div class="show">
-								<a href="<?php echo $performance_custom['spectacle_url']; ?>"><?php echo $performance_custom['spectacle_title']; ?></a>
+								<?php
+								$spectacle_data = $theatre_wp->get_spectacle_data( sanitize_title( $performance_custom['performance'] ) );
+
+								if ( has_post_thumbnail( $spectacle_data['id'] ) ) { ?>
+									<a href="<?php echo $performance_custom['spectacle_url']; ?>"><?php echo $spectacle_data['thumbnail']; ?></a>
+								<?php
+								}
+								?>
+
+								<p>
+									<strong><a href="<?php echo $performance_custom['spectacle_url']; ?>"><?php echo $performance_custom['spectacle_title']; ?></a> </strong>
+								</p>
 							</div>
 						<?php } ?>
 
 						<?php if ( $performance_custom['event'] ) { ?>
-							<h3><?php echo __('Event', 'theatrewp'); ?></h3>
+							<h3><?php echo __( 'Event', 'theatrewp' ); ?></h3>
 							<div class="event">
 								<?php echo $performance_custom['event']; ?>
 							</div>
@@ -71,8 +101,6 @@ get_header(); ?>
 					<span class="nav-previous"><?php previous_post_link( '%link', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'twentytwelve' ) . '</span> %title' ); ?></span>
 					<span class="nav-next"><?php next_post_link( '%link', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'twentytwelve' ) . '</span>' ); ?></span>
 				</nav><!-- .nav-single -->
-
-				<?php comments_template( '', true ); ?>
 
 			<?php endwhile; // end of the loop. ?>
 

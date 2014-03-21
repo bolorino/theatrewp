@@ -35,7 +35,7 @@ class TWP_Performance {
 	* @return array
 	*/
 	public function get_performance_custom( TWP_Spectacle $spectacle, $ID ) {
-		$custom = get_post_custom( intval($ID) );
+		$custom = get_post_custom( intval( $ID ) );
 
 		if ( ! $custom ) {
 			return false;
@@ -107,11 +107,14 @@ class TWP_Performance {
 	        }
 
 	        if ( $performance_custom['date_last'] ) {
-	        	$output .= '<span class="fecha">Del ' . strftime('%A %e de %B de %Y', $performance_custom['date_first'] )
-	        	. '<br />' . ' al ' . strftime( '%A %e de %B de %Y', $performance_custom['date_last'] ) . '</span>';
+	        	$output .= '<span class="twpdate">';
+	        	$output .= _x( 'From', '(date) performing from day', 'theatrewp' );
+	        	$output .= ' ' . date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] ) . ' '
+	        		. _x( 'To', '(date) performing to day', 'theatrewp' ) . ' '
+	        		. date_i18n( get_option( 'date_format' ), $performance_custom['date_last'] )
+					. '</span>';
 	        } else {
-	        	$performance_date = strftime( '%A %e de %B de %Y', $performance_custom['date_first'] );
-	        	$output .= ucfirst( $performance_date );
+	        	$output .= date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] );
 	        }
 
 	        $output .= '<br>';
@@ -188,12 +191,15 @@ class TWP_Performance {
 	        	$output .= '<br />';
 
 	        	if ( $performance_custom['date_last'] ) {
-	        		$output .= '<span class="fecha">Del ' . strftime('%A %e de %B de %Y', $performance_custom['date_first'] )
-	        		. '<br />' . ' al ' . strftime( '%A %e de %B de %Y', $performance_custom['date_last'] ) . '</span>';
-	        	} else {
-	        		$performance_date = strftime( '%A %e de %B de %Y', $performance_custom['date_first'] );
-	        		$output .= ucfirst( $performance_date );
-	        	}
+		        	$output .= '<span class="twpdate">';
+		        	$output .= _x( 'From', '(date) performing from day', 'theatrewp' );
+		        	$output .= ' ' . date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] ) . ' '
+		        		. _x( 'To', '(date) performing to day', 'theatrewp' ) . ' '
+		        		. date_i18n( get_option( 'date_format' ), $performance_custom['date_last'] )
+						. '</span>';
+		        } else {
+		        	$output .= date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] );
+		        }
 
 	        	$output .= '</li>';
 	        }
@@ -206,6 +212,115 @@ class TWP_Performance {
 	    }
 
 	    return $output;
+	}
+
+	/**
+	* Get a date filtered list of performances.
+	*
+	* @access public
+	* @param array $calendar_filter_params
+	* @return object
+	*/
+	public function get_filtered_calendar( $calendar_filter_params ) {
+		global $wpdb, $post;
+		// $calendar_filter_params:
+		// month, year, page
+
+		// Default values
+		$month = 0;
+		$year = 0;
+		$page = 1;
+
+		if ( ! empty( $calendar_filter_params ) ) {
+			$month = intval( $calendar_filter_params['month'] );
+			$year = intval( $calendar_filter_params['year'] );
+			$page = intval( $calendar_filter_params['page'] );
+		}
+
+		$performances_per_page = get_option( 'twp_performances_number' );
+		$offset = ($page-1)*$performances_per_page;
+
+		$sql_calendar = "SELECT ID, post_title, post_name, meta_key, meta_value, FROM_UNIXTIME(meta_value, '%M') AS month, FROM_UNIXTIME(meta_value, '%Y') AS year, post_author, post_date, post_content
+			FROM $wpdb->posts, $wpdb->postmeta
+			WHERE " . $wpdb->posts . '.ID = ' . $wpdb->postmeta . ".post_id
+			AND post_type = 'performance'
+			AND meta_key = '" . Theatre_WP::$twp_prefix . "date_first' ";
+
+		if ( 0 == $month && 0 == $year ) {
+			// Upcoming performances. Not month nor year passed
+			// @TODO $topdate to config
+			$topdate = time()-72800;
+			$sql_calendar .= "AND meta_value >= $topdate ";
+		} elseif ( $year == 0 ) {
+			$year = date('Y');
+		}
+
+		if ( 0 != $year ) {
+			$sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%Y') = $year ";
+		}
+
+		if ( 0 != $month ) {
+			$sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%m') = $month ";
+		}
+
+		$sql_calendar .= 'ORDER BY meta_value ';
+
+		if ( $page != 0 ) {
+			$sql_calendar .= " LIMIT $offset, $performances_per_page ";
+		}
+
+		$filtered_calendar = $wpdb->get_results( $sql_calendar, OBJECT );
+
+		if ( empty( $filtered_calendar ) ) {
+			return false;
+		}
+
+		return $filtered_calendar;
+	}
+
+	public function get_total_filtered_performances( $performances_filter_params ) {
+		global $wpdb;
+
+		// Default values
+		$month = 0;
+		$year = 0;
+
+		if ( ! empty( $performances_filter_params ) ) {
+			$month = intval( $performances_filter_params['month'] );
+			$year = intval( $performances_filter_params['year'] );
+		}
+
+		$sql_calendar = "SELECT COUNT(ID) AS total
+			FROM $wpdb->posts, $wpdb->postmeta
+			WHERE " . $wpdb->posts . '.ID = ' . $wpdb->postmeta . ".post_id
+			AND post_type = 'performance'
+			AND meta_key = '" . Theatre_WP::$twp_prefix . "date_first' ";
+
+		if ( 0 == $month && 0 == $year ) {
+			// Upcoming performances. Not month nor year passed
+			// @TODO $topdate to config
+			$topdate = time()-72800;
+			$sql_calendar .= "AND meta_value >= $topdate ";
+		} elseif ( $year == 0 ) {
+			$year = date('Y');
+		}
+
+		if ( 0 != $year ) {
+			$sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%Y') = $year ";
+		}
+
+		if ( 0 != $month ) {
+			$sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%m') = $month ";
+		}
+
+		$count_filtered_performances = $wpdb->get_row( $sql_calendar );
+
+		if ( empty( $count_filtered_performances ) ) {
+			return false;
+		}
+
+		return $count_filtered_performances->total;
+
 	}
 
 	/**
@@ -242,8 +357,10 @@ class TWP_Performance {
 
 	private function _set_month_names() {
 		$month_names = array();
+		$month_names[] = __( 'Select one' );
+
 		for ( $n=1; $n <= 12; $n++ ) {
-			$month_names[] = date( 'F', mktime( 0, 0, 0, $n, 1 ) );
+			$month_names[] = date_i18n( 'F', mktime( 0, 0, 0, $n, 1 ) );
 		}
 
 		return $month_names;

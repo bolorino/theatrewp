@@ -23,6 +23,7 @@ get_header(); ?>
 					<header class="entry-header">
 						<h1 class="entry-title"><?php the_title(); ?></h1>
 						<?php the_post_thumbnail(); ?>
+
 						<?php if ( $spectacle_custom['audience'] ) { ?>
 							<p>
 								<span class="audience">
@@ -66,8 +67,6 @@ get_header(); ?>
 					<span class="nav-previous"><?php previous_post_link( '%link', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'twentytwelve' ) . '</span> %title' ); ?></span>
 					<span class="nav-next"><?php next_post_link( '%link', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'twentytwelve' ) . '</span>' ); ?></span>
 				</nav><!-- .nav-single -->
-
-				<?php comments_template( '', true ); ?>
 
 			<?php endwhile; // end of the loop. ?>
 

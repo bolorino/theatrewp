@@ -34,11 +34,10 @@ get_header(); ?>
 					<div class="spectacle">
 						<?php the_title( '<h2 class="entry-title"><a href="' . get_permalink() . '" title="' . the_title_attribute( 'echo=0' ) . '" rel="bookmark">', '</a></h2>' ); ?>
 
-						<!--<div class="entry-content">-->
-							<?php if ( function_exists('has_post_thumbnail') && has_post_thumbnail() ) { ?>
+							<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail() ) { ?>
 								<div class="spectacle-image">
 									<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
-										<?php the_post_thumbnail('medium', array("class" => "post_thumbnail" )); ?>
+										<?php the_post_thumbnail( 'medium', array( "class" => "post_thumbnail" ) ); ?>
 									</a>
 								</div>
 							<?php } ?>

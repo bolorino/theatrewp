@@ -7,7 +7,7 @@
 *
 * Copyright: © 2013
 * @author Jose Bolorino
-* @version: 0.39
+* @version: 0.40
 * {@link http://www.bolorino.net/ Jose Bolorino.}
 *
 * Released under the terms of the GNU General Public License.
@@ -19,17 +19,18 @@
 * @since 0.1
 */
 
-/*
-Plugin Name: TheatreWP
-Plugin URI: http://www.bolorino.net/theatre-wp/
-Description: CMS for Theatre and Performing Arts Companies. Managing Shows and Performances made easy.
-Tags: theatre, troupe, actors, shows, performing arts
-Version: 0.39
-License: GPLv2
-Author: Jose Bolorino <jose.bolorino@gmail.com>
-Author URI: http://www.bolorino.net/
-
-Copyright 2013 Jose Bolorino
+/**
+* Plugin Name: TheatreWP
+* Plugin URI: http://www.bolorino.net/theatre-wp/
+* Description: CMS for Theatre and Performing Arts Companies. Managing Shows and Performances made easy.
+* Tags: theatre, troupe, actors, shows, performing arts
+* Version: 0.40
+* License: GPLv2
+* Author: Jose Bolorino <jose.bolorino@gmail.com>
+* Author URI: http://www.bolorino.net/
+* Text Domain: theatrewp
+*
+* Copyright 2013 Jose Bolorino
 */
 
 if ( realpath(__FILE__) === realpath($_SERVER['SCRIPT_FILENAME']) )
@@ -52,9 +53,11 @@ register_activation_hook( __FILE__, array( 'TWP_Setup', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'TWP_Setup', 'deactivate' ) );
 
 // Localization
-// @TODO Got out of setup class due to early initialization of meta boxes before the localization.
-// It works but needs @FIX
+add_action( 'plugins_loaded', 'twp_load_plugin_textdomain' );
 $locale = apply_filters( 'plugin_locale', get_locale(), 'theatrewp' );
-load_plugin_textdomain('theatrewp', false, '/' . TWP_DIR . '/languages/' );
 
-$theatre_wp = new Theatre_WP(TWP_DIR);
+function twp_load_plugin_textdomain() {
+    load_plugin_textdomain( 'theatrewp', false, plugin_dir_path( __FILE__ ) . 'languages' );
+}
+
+$theatre_wp = new Theatre_WP( TWP_DIR );
