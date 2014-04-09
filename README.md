@@ -4,8 +4,8 @@ Theatre WP
 
 WordPress
 Requires at least: 3.8
-Tested up to: 3.8.1
-Stable tag: 0.40
+Tested up to: 3.8.2
+Stable tag: 0.41
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,7 +24,7 @@ What does the plugin include?
 * Widget for upcoming Performances of a particular Show
 * Widget for upcoming Performances in general
 * Widget for Production Sponsors
-* Translation into English and Spanish
+* Translation into English, Russian and Spanish
 
 Plugin benefits
 ------------------------
@@ -74,6 +74,10 @@ Screenshots
 
 Changelog
 ---------
+### 0.41
+* WordPress 3.8.2
+* Production duration
+
 ### 0.40
 * Filter productions and performances list
 * Dates localization

@@ -6,7 +6,7 @@
  * @author    Jose Bolorino <jose.bolorino@gmail.com>
  * @license   GPL-2.0+
  * @link      http://www.bolorino.net/TheatreWP
- * @copyright 2013 Jose Bolorino
+ * @copyright 2013-2014 Jose Bolorino
  */
 
 /**

@@ -5,9 +5,9 @@
 * This file loads the plugin after checking
 * PHP, WordPress® and other compatibility requirements.
 *
-* Copyright: © 2013
+* Copyright: © 2013-2014
 * @author Jose Bolorino
-* @version: 0.40
+* @version: 0.41
 * {@link http://www.bolorino.net/ Jose Bolorino.}
 *
 * Released under the terms of the GNU General Public License.
@@ -24,13 +24,13 @@
 * Plugin URI: http://www.bolorino.net/theatre-wp/
 * Description: CMS for Theatre and Performing Arts Companies. Managing Shows and Performances made easy.
 * Tags: theatre, troupe, actors, shows, performing arts
-* Version: 0.40
+* Version: 0.41
 * License: GPLv2
 * Author: Jose Bolorino <jose.bolorino@gmail.com>
 * Author URI: http://www.bolorino.net/
 * Text Domain: theatrewp
 *
-* Copyright 2013 Jose Bolorino
+* Copyright 2013-2014 Jose Bolorino
 */
 
 if ( realpath(__FILE__) === realpath($_SERVER['SCRIPT_FILENAME']) )

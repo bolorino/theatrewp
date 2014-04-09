@@ -3,8 +3,8 @@ Contributors: bollofino
 Donate link:
 Tags: theatre, troupe, dance, performing arts
 Requires at least: 3.8
-Tested up to: 3.8.1
-Stable tag: 0.40
+Tested up to: 3.8.2
+Stable tag: 0.41
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,13 +51,9 @@ There are six templates within the plugin, used if the current theme does not in
 To customize these templates, copy the files located in includes/templates within the plugin directory to your theme's directory and modify it to your liking.
 
 == Upgrade Notice ==
-= 0.40 =
-* Filter productions and performances list
-* Dates localization
-* Hierarchical productions taxonomies (types of productions)
-* Productions widget sort options
-* Bug: get_spectacle_link by title not post_name
-* Remove home video custom post
+= 0.41 =
+* WordPress 3.8.2
+* Production duration
 * Russian translation (thanks to veshinak)
 
 == Installation ==
@@ -79,6 +75,11 @@ Not yet.
 5. Productions
 
 == Changelog ==
+= 0.41 =
+* WordPress 3.8.2
+* Production duration
+* Russian translation (thanks to veshinak)
+
 = 0.40 =
 * Filter productions and performances list
 * Dates localization
@@ -86,6 +87,7 @@ Not yet.
 * Productions widget sort
 * Bug: get_spectacle_link by title not post_name
 * Remove home video custom post
+* Russian translation (thanks to veshinak)
 
 = 0.39 =
 Fix empty sponsors

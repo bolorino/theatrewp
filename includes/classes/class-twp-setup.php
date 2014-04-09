@@ -242,6 +242,7 @@ class TWP_Setup {
 			// Delete post meta
 			delete_post_meta( $twp_spectacle->ID, Theatre_WP::$twp_prefix . 'synopsis' );
 			delete_post_meta( $twp_spectacle->ID, Theatre_WP::$twp_prefix . 'audience' );
+			delete_post_meta( $twp_spectacle->ID, Theatre_WP::$twp_prefix . 'duration' );
 			delete_post_meta( $twp_spectacle->ID, Theatre_WP::$twp_prefix . 'credits' );
 			delete_post_meta( $twp_spectacle->ID, Theatre_WP::$twp_prefix . 'sheet' );
 			delete_post_meta( $twp_spectacle->ID, Theatre_WP::$twp_prefix . 'prod-sponsor' );
@@ -296,15 +297,15 @@ class TWP_Setup {
 			'labels' => array(
 				'name'          => self::$default_options['twp_spectacles_name'],
 				'singular_name' => self::$default_options['twp_spectacle_name'],
-				'add_new'       => __('Add new', 'theatrewp'),
-				'add_new_item'  => __('Add new Show', 'theatrewp'),
-				'edit_item'     => __('Edit Show', 'theatrewp'),
-				'new_item'      => __('New Show', 'theatrewp'),
-				'view'          => __('View Show', 'theatrewp'),
-				'view_item'     => __('View Show', 'theatrewp'),
-				'search_items'  => __('Search Shows', 'theatrewp')
+				'add_new'       => __( 'Add new', 'theatrewp' ),
+				'add_new_item'  => __( 'Add new Show', 'theatrewp' ),
+				'edit_item'     => __( 'Edit Show', 'theatrewp' ),
+				'new_item'      => __( 'New Show', 'theatrewp' ),
+				'view'          => __( 'View Show', 'theatrewp' ),
+				'view_item'     => __( 'View Show', 'theatrewp' ),
+				'search_items'  => __( 'Search Shows', 'theatrewp' )
 				),
-			'singular_label'  => __('Show', 'theatrewp'),
+			'singular_label'  => __( 'Show', 'theatrewp' ),
 			'public'          => true,
 			'has_archive'     => self::$default_options['twp_spectacles_slug'],
 			'rewrite'         => array( 'slug' => self::$default_options['twp_spectacle_slug'] ),
@@ -552,7 +553,7 @@ class TWP_Setup {
 		$new_columns['cb'] = '<input type="checkbox" />';
 
 		$new_columns['id']         = __( 'ID' );
-		$new_columns['title']      = _x('Performance', 'column name');
+		$new_columns['title']      = _x( 'Performance', 'column name' );
 		$new_columns['spectacle']  = __( 'Spectacle', 'theatrewp' );
 		$new_columns['first_date'] = __( 'First Date', 'theatrewp' );
 		$new_columns['last_date']  = __( 'Last Date', 'theatrewp' );
@@ -740,6 +741,13 @@ class TWP_Setup {
 						'id' => Theatre_WP::$twp_prefix . 'audience',
 						'type' => 'select',
 						'options' => TWP_Spectacle::$audience
+						),
+					array(
+						'name' => __( 'Duration', 'theatrewp' ),
+						'desc' => __( 'Duration in minutes', 'theatrewp' ),
+						'id' => Theatre_WP::$twp_prefix . 'duration',
+						'type' => 'text',
+						'std' => ''
 						),
 					array(
 						'name' => __( 'Credits', 'theatrewp' ),
