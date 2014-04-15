@@ -6,6 +6,8 @@ class TWP_Spectacle {
 
 	public static $audience;
 
+	public static $production_category_slug = 'format';
+
 	private $_valid_sort_by;
 
 	public function __construct() {
@@ -116,7 +118,7 @@ class TWP_Spectacle {
 			$output .= '<li>';
 
 	        $output .= '<strong><a href="' . get_permalink( $post->ID ) . '">';
-	        $output .= get_the_title( $post->ID ) .'</a></strong> <br />';
+	        $output .= get_the_title( $post->ID ) .'</a></strong> ';
 
 	        $output .= '</li>';
 

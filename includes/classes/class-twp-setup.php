@@ -405,15 +405,15 @@ class TWP_Setup {
 		);
 
 		$args = array(
-			'hierarchical' 	=> true,
-			'public'		=> true,
-			'label'			=> __( 'Format', 'theatrewp' ),
-			'labels'		=> $labels,
-			'show_ui' 		=> true,
+			'hierarchical'      => true,
+			'public'            => true,
+			'label'             => __( 'Format', 'theatrewp' ),
+			'labels'            => $labels,
+			'show_ui'           => true,
 			'show_in_nav_menus' => true,
 			'show_admin_column' => true,
-			'query_var' 	=> true,
-			'rewrite' 		=> array( 'slug' => 'format' ),
+			'query_var'         => true,
+			'rewrite'           => array( 'slug' => 'format' ),
 		);
 
 		register_taxonomy( 'format', 'spectacle', $args );
@@ -912,10 +912,10 @@ class TWP_Setup {
 	 */
 	public function widget_show_spectacles( $args ) {
 
-		$widget_title = get_option( 'twp_widget_spectacles_title' );
+		$widget_title      = get_option( 'twp_widget_spectacles_title' );
 		$spectacles_number = get_option( 'twp_widget_spectacles_number' );
-		$sort_by = get_option( 'twp_widget_spectacles_sortby' );
-		$sort = get_option( 'twp_widget_spectacles_sort' );
+		$sort_by           = get_option( 'twp_widget_spectacles_sortby' );
+		$sort              = get_option( 'twp_widget_spectacles_sort' );
 
 		if ( ! $spectacles = $this->spectacle->get_spectacles( $spectacles_number, $sort_by, $sort ) ) {
 			return false;

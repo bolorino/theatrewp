@@ -29,7 +29,7 @@ class Theatre_WP {
 	 *
 	 * @var     string
 	 */
-	protected $version = '0.40';
+	protected $version = '0.41';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -166,7 +166,26 @@ class Theatre_WP {
 		return $this->spectacle->get_spectacle_link( $spectacle_title );
 	}
 
+	/**
+	 * Get full URL for a given production category slug
+	 *
+	 * @access public
+	 * @param string $slug
+	 * @return string
+	 */
+	public function get_production_cat_url( $slug ) {
+		return bloginfo('url') . '/' . TWP_Spectacle::$production_category_slug . '/' . sanitize_title( $slug );
+	}
+
 	/* Performance public methods */
+
+	/**
+	 * Get performance custom metadata.
+	 *
+	 * @access public
+	 * @param int $ID
+	 * @return array
+	 */
 	public function get_performance_custom( $ID ) {
 		return $this->performance->get_performance_custom( $this->spectacle, $ID );
 	}
