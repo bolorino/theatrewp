@@ -3,8 +3,8 @@ Contributors: bollofino
 Donate link:
 Tags: theatre, troupe, dance, performing arts
 Requires at least: 3.8
-Tested up to: 3.8.3
-Stable tag: 0.41
+Tested up to: 3.9
+Stable tag: 0.42
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,10 +51,9 @@ There are six templates within the plugin, used if the current theme does not in
 To customize these templates, copy the files located in includes/templates within the plugin directory to your theme's directory and modify it to your liking.
 
 == Upgrade Notice ==
-= 0.41 =
-* WordPress 3.8.2
-* Production duration
-* Russian translation (thanks to veshinak)
+= 0.42 =
+* WordPress 3.9
+* Get Production Category URL
 
 == Installation ==
 
@@ -75,6 +74,10 @@ Not yet.
 5. Productions
 
 == Changelog ==
+= 0.42 =
+* WordPress 3.9
+* Get Production Category URL
+
 = 0.41 =
 * WordPress 3.8.2
 * Production duration
