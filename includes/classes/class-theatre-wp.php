@@ -29,7 +29,7 @@ class Theatre_WP {
 	 *
 	 * @var     string
 	 */
-	protected $version = '0.42';
+	protected $version = '0.43';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -66,11 +66,16 @@ class Theatre_WP {
  	public $sponsor;
 
  	/**
+ 	 * @var TWP_Widget
+ 	 */
+ 	public $widget;
+
+ 	/**
  	 * @var TWP_Setup
  	 */
  	protected $setup;
 
- 	public function __construct($path) {
+ 	public function __construct( $path ) {
 		self::$plugin_dir = $path;
 
  		// Include required files
@@ -79,8 +84,9 @@ class Theatre_WP {
 		$this->spectacle = new TWP_Spectacle;
 		$this->performance = new TWP_Performance( $this->spectacle );
 		$this->sponsor = new TWP_Sponsor;
+		$this->widget = new TWP_Widget( $this->spectacle, $this->performance );
 
-		$this->setup = new TWP_Setup( self::$plugin_dir, $this->spectacle, $this->performance, $this->sponsor );
+		$this->setup = new TWP_Setup( self::$plugin_dir, $this->spectacle, $this->performance, $this->sponsor, $this->widget );
 
 		if ( is_admin() ) $this->admin_includes();
  	}
@@ -97,6 +103,7 @@ class Theatre_WP {
 		include( 'class-twp-performances.php' );
 		include( 'class-twp-sponsors.php' );
 		include( 'class-twp-metaboxes.php' );
+		include( 'class-twp-widget.php' );
 	}
 
 	/**

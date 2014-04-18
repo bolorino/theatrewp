@@ -11,17 +11,28 @@ get_header(); ?>
     <div id="primary" class="site-content">
         <div id="content" role="main">
             <?php
+            $productions_per_page = get_option( 'twp_spectacles_number' );
             $term = get_query_var( 'term' );
             $term_properties = get_term_by( 'slug', $term, 'format' );
-            $loop = new WP_Query( array( 'format' => $term, 'posts_per_page' => 10 ) ); ?>
+            $paged = get_query_var('paged') ? intval( get_query_var('paged') ) : 1;
 
-            <h2 class="taxonomy-title"><?php printf( _x( '%s Spectacles', 'spectacles that belong to %s category', 'theatrewp' ), $term_properties->name ); ?></h2>
+            $args = array(
+                'post_type'     => 'spectacle',
+                'format'        => $term,
+                'paged'         => $paged,
+                'posts_per_page'=> $productions_per_page
+                );
+
+            query_posts( $args );
+            ?>
+
+            <h2 class="taxonomy-title"><?php echo $term_properties->name; ?></h2>
 
             <?php
-            while ( $loop->have_posts() ) : $loop->the_post(); ?>
+            while ( have_posts() ) : the_post(); ?>
                 <div class="spectacles" id="spectacle-<?php the_ID(); ?>">
                     <?php
-                    $spectacle_custom = $theatre_wp->get_spectacle_custom( get_the_ID() );
+                    $production_custom = $theatre_wp->get_spectacle_custom( get_the_ID() );
                     ?>
                     <div class="spectacle">
                         <?php the_title( '<h2 class="entry-title"><a href="' . get_permalink() . '" title="' . the_title_attribute( 'echo=0' ) . '" rel="bookmark">', '</a></h2>' ); ?>
@@ -36,9 +47,9 @@ get_header(); ?>
 
                             <div class="spectacle-description">
                                 <?php
-                                if ( isset( $spectacle_custom['synopsis'] ) ) { ?>
+                                if ( isset( $production_custom['synopsis'] ) && ! empty( $production_custom['synopsis'] ) ) { ?>
                                     <p class="synopsis">
-                                        <?php echo $spectacle_custom['synopsis']; ?>
+                                        <?php echo $production_custom['synopsis']; ?>
                                     </p>
                                 <?php
                                 }

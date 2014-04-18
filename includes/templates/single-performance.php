@@ -36,7 +36,7 @@ get_header(); ?>
 
 					<div class="entry-content">
 						<?php
-						if ( isset($performance_date) ) { ?>
+						if ( isset( $performance_first_date ) ) { ?>
 							<h3><?php echo __( 'When', 'theatrewp' ); ?></h3>
 							<p class="single-performance-dates">
 								<?php
@@ -62,10 +62,10 @@ get_header(); ?>
 							<h3><?php echo __( 'Show', 'theatrewp' ); ?></h3>
 							<div class="show">
 								<?php
-								$spectacle_data = $theatre_wp->get_spectacle_data( sanitize_title( $performance_custom['performance'] ) );
+								$production_custom = $theatre_wp->get_spectacle_data( sanitize_title( $performance_custom['performance'] ) );
 
-								if ( has_post_thumbnail( $spectacle_data['id'] ) ) { ?>
-									<a href="<?php echo $performance_custom['spectacle_url']; ?>"><?php echo $spectacle_data['thumbnail']; ?></a>
+								if ( has_post_thumbnail( $production_custom['id'] ) ) { ?>
+									<a href="<?php echo $performance_custom['spectacle_url']; ?>"><?php echo $production_custom['thumbnail']; ?></a>
 								<?php
 								}
 								?>

@@ -15,26 +15,50 @@ get_header(); ?>
 
 			<?php while ( have_posts() ) : the_post(); ?>
 				<?php
-				$spectacle_custom = $theatre_wp->get_spectacle_custom( get_the_ID() );
+				// Get the Production formats
+				$production_format = get_the_terms( $post->ID, 'format' );
+
+				foreach ( $production_format as $format ) {
+					$formats[] = array(
+						'name' => $format->name,
+						'slug' => $format->slug
+					);
+				}
+
+				// Production custom metadata
+				$production_custom = $theatre_wp->get_spectacle_custom( get_the_ID() );
 				?>
 
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 					<header class="entry-header">
-						<h1 class="entry-title"><?php the_title(); ?></h1>
+						<h2 class="entry-title"><?php the_title(); ?></h2>
+
+						<p class="production-formats">
+							<?php
+							// Display and link the Production formats
+							foreach ( $formats as $format ) {
+							?>
+								<a href="<?php echo $theatre_wp->get_production_cat_url( $format['slug'] ); ?>"><?php echo $format['name']; ?></a>
+							<?php
+							}
+							?>
+						</p>
+
 						<?php the_post_thumbnail(); ?>
 
-						<?php if ( $spectacle_custom['audience'] ) { ?>
+						<?php if ( $production_custom['audience'] ) { ?>
 							<p>
 								<span class="audience">
-									<?php echo $spectacle_custom['audience']; ?>
+									<?php echo $production_custom['audience']; ?>
 								</span>
 							</p>
 						<?php } ?>
-						<?php if ( $spectacle_custom['synopsis'] ) { ?>
+
+						<?php if ( $production_custom['synopsis'] ) { ?>
 							<p>
 								<span class="synopsis">
-									<?php echo $spectacle_custom['synopsis']; ?>
+									<?php echo $production_custom['synopsis']; ?>
 								</span>
 							</p>
 						<?php } ?>
@@ -43,17 +67,17 @@ get_header(); ?>
 					<div class="entry-content">
 						<?php the_content(); ?>
 
-						<?php if ( $spectacle_custom['credits'] ) { ?>
+						<?php if ( $production_custom['credits'] ) { ?>
 							<h2><?php echo __('Credits', 'theatrewp'); ?></h2>
 							<div class="credits">
-								<?php echo nl2br( $spectacle_custom['credits'] ); ?>
+								<?php echo nl2br( $production_custom['credits'] ); ?>
 							</div>
 						<?php } ?>
 
-						<?php if ( $spectacle_custom['sheet'] ) { ?>
+						<?php if ( $production_custom['sheet'] ) { ?>
 							<h2><?php echo __('Sheet', 'theatrewp'); ?></h2>
 							<div class="sheet">
-								<?php echo nl2br( $spectacle_custom['sheet'] ); ?>
+								<?php echo nl2br( $production_custom['sheet'] ); ?>
 							</div>
 						<?php } ?>
 

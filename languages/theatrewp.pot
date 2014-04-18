@@ -585,3 +585,54 @@ msgstr ""
 msgctxt "spectacles that belong to %s category"
 msgid "%s Spectacles"
 msgstr ""
+
+#: includes/templates/admin/admin-options.php:3
+msgid "Theatre WP Options "
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:10
+msgid ""
+"Your Singular Spectacles name (Spectacle, Choreography, Show, Production...)"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:14
+msgid ""
+"Your Plural Spectacles name (Spectacles, Choreographies, Shows, "
+"Productions...)"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:18
+msgid "Single Spectacle slug"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:22
+msgid "Plural Spectacles slug"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:26
+msgid "Your Singular Performances name (Performance, Play, Gig...)"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:30
+msgid "Your Plural Performances name (Performances, Plays, Gigs...)"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:34
+msgid "Single Performance slug"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:38
+msgid "Plural Performances slug"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:42
+msgid "Number of Shows per page"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:46
+msgid "Number of Performances per page"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:50
+msgid "Delete all data when uninstall"
+msgstr ""

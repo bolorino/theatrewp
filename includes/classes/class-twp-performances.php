@@ -179,7 +179,7 @@ class TWP_Performance {
 
 	        	$output .= '<li>';
 
-	        	$output .= '<a href="' . get_permalink() . '">';
+	        	$output .= '<a href="' . get_permalink( $performance->ID ) . '">';
 	        	$output .= get_the_title( $performance->ID ) .'</a> <br />';
 
 	        	if ( $performance_custom['event'] ) {

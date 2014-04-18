@@ -49,7 +49,7 @@ get_header(); ?>
 							<?php } ?>
 							<div class="spectacle-description">
 								<?php
-								if ( isset( $spectacle_custom['synopsis'] ) ) { ?>
+								if ( isset( $spectacle_custom['synopsis'] ) && ! empty( $spectacle_custom['synopsis'] ) ) { ?>
 									<p class="synopsis">
 										<?php echo $spectacle_custom['synopsis']; ?>
 									</p>

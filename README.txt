@@ -4,7 +4,7 @@ Donate link:
 Tags: theatre, troupe, dance, performing arts
 Requires at least: 3.8
 Tested up to: 3.9
-Stable tag: 0.42
+Stable tag: 0.43
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,9 +51,11 @@ There are six templates within the plugin, used if the current theme does not in
 To customize these templates, copy the files located in includes/templates within the plugin directory to your theme's directory and modify it to your liking.
 
 == Upgrade Notice ==
-= 0.42 =
-* WordPress 3.9
-* Get Production Category URL
+= 0.43 =
+* Fixes
+* Widget class
+* Template updates
+* Pot file updates
 
 == Installation ==
 
@@ -74,6 +76,12 @@ Not yet.
 5. Productions
 
 == Changelog ==
+= 0.43 =
+* Fixes
+* Widget class
+* Template updates
+* Pot file updates
+
 = 0.42 =
 * WordPress 3.9
 * Get Production Category URL

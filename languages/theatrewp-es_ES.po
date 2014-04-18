@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TheatreWP\n"
 "POT-Creation-Date: 2014-03-13 17:42+0100\n"
-"PO-Revision-Date: 2014-03-21 14:41+0100\n"
+"PO-Revision-Date: 2014-04-18 14:03+0100\n"
 "Last-Translator: Jose Bolorino <jose.bolorino@gmail.com>\n"
 "Language-Team:  <jose.bolorino@gmail.com>\n"
 "Language: es_ES\n"
@@ -25,7 +25,7 @@ msgstr "Selecciona uno"
 #: includes/classes/class-twp-setup.php:142
 #: includes/classes/class-twp-setup.php:150
 msgid "Spectacles"
-msgstr "Coreografías"
+msgstr "Espectáculos"
 
 #: includes/classes/class-twp-setup.php:145
 msgid "Display a list of your spectacles"
@@ -160,13 +160,13 @@ msgstr "Buscar patrocinadores"
 #: includes/classes/class-twp-setup.php:393
 msgctxt "taxonomy general name"
 msgid "Types of Production"
-msgstr "Tipos de producción [ nombre general de la taxonomía ]"
+msgstr "Tipos de producción"
 
 #: includes/classes/class-twp-setup.php:426
 #: includes/classes/class-twp-setup.php:394
 msgctxt "taxonomy singular name"
 msgid "Type of Production"
-msgstr "Tipo de producción [ nombre general de la taxonomía ]"
+msgstr "Tipo de producción"
 
 #: includes/classes/class-twp-setup.php:427
 #: includes/classes/class-twp-setup.php:395
@@ -209,7 +209,7 @@ msgstr "ID"
 #: includes/classes/class-twp-setup.php:549
 msgctxt "column name"
 msgid "Performance"
-msgstr "Actuación [ nombre de columna ]"
+msgstr "Actuación"
 
 #: includes/classes/class-twp-setup.php:582
 #: includes/classes/class-twp-setup.php:550
@@ -578,6 +578,66 @@ msgstr "al"
 msgctxt "spectacles that belong to %s category"
 msgid "%s Spectacles"
 msgstr "Espectáculos de %s"
+
+#: includes/templates/admin/admin-options.php:3
+#, fuzzy
+msgid "Theatre WP Options "
+msgstr "Opciones de Theatre WP"
+
+#: includes/templates/admin/admin-options.php:10
+msgid ""
+"Your Singular Spectacles name (Spectacle, Choreography, Show, Production...)"
+msgstr ""
+"El nombre en singular de los espectáculos (Espectáculo, Coreografía, "
+"Producción...)"
+
+#: includes/templates/admin/admin-options.php:14
+msgid ""
+"Your Plural Spectacles name (Spectacles, Choreographies, Shows, "
+"Productions...)"
+msgstr ""
+"El nombre en plural de los espectáculos (Espectáculos, Coreografías, "
+"Producciones...)"
+
+#: includes/templates/admin/admin-options.php:18
+msgid "Single Spectacle slug"
+msgstr "Slug singular del espectáculo"
+
+#: includes/templates/admin/admin-options.php:22
+msgid "Plural Spectacles slug"
+msgstr "Slug plural de los espectáculos"
+
+#: includes/templates/admin/admin-options.php:26
+msgid "Your Singular Performances name (Performance, Play, Gig...)"
+msgstr ""
+"El nombre en singular de las actuaciones (Actuación, Función, "
+"Representación...)"
+
+#: includes/templates/admin/admin-options.php:30
+msgid "Your Plural Performances name (Performances, Plays, Gigs...)"
+msgstr ""
+"El nombre en plural de las actuaciones (Actuaciones, Funciones, "
+"Representaciones...)"
+
+#: includes/templates/admin/admin-options.php:34
+msgid "Single Performance slug"
+msgstr "Slug singular para las funciones"
+
+#: includes/templates/admin/admin-options.php:38
+msgid "Plural Performances slug"
+msgstr "Slug plural para las funciones"
+
+#: includes/templates/admin/admin-options.php:42
+msgid "Number of Shows per page"
+msgstr "Número de espectáculos por página"
+
+#: includes/templates/admin/admin-options.php:46
+msgid "Number of Performances per page"
+msgstr "Número de funciones por página"
+
+#: includes/templates/admin/admin-options.php:50
+msgid "Delete all data when uninstall"
+msgstr "Borrar todos los datos al desinstalar"
 
 #~ msgid "From %s to %s (%s)"
 #~ msgstr "Del %s al %s (%s)"
