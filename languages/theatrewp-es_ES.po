@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TheatreWP\n"
 "POT-Creation-Date: 2014-03-13 17:42+0100\n"
-"PO-Revision-Date: 2014-04-18 14:03+0100\n"
+"PO-Revision-Date: 2014-05-27 20:45+0100\n"
 "Last-Translator: Jose Bolorino <jose.bolorino@gmail.com>\n"
 "Language-Team:  <jose.bolorino@gmail.com>\n"
 "Language: es_ES\n"
@@ -579,11 +579,6 @@ msgctxt "spectacles that belong to %s category"
 msgid "%s Spectacles"
 msgstr "Espectáculos de %s"
 
-#: includes/templates/admin/admin-options.php:3
-#, fuzzy
-msgid "Theatre WP Options "
-msgstr "Opciones de Theatre WP"
-
 #: includes/templates/admin/admin-options.php:10
 msgid ""
 "Your Singular Spectacles name (Spectacle, Choreography, Show, Production...)"
@@ -638,6 +633,14 @@ msgstr "Número de funciones por página"
 #: includes/templates/admin/admin-options.php:50
 msgid "Delete all data when uninstall"
 msgstr "Borrar todos los datos al desinstalar"
+
+#: includes/classes/class-twp-upcoming-performances-widget.php:18
+msgid "Display a list of upcoming performances"
+msgstr "Muestra una lista de próximas funciones"
+
+#: includes/classes/class-twp-production-sponsors-widget.php:18
+msgid "Display a list Sponsors for the current production"
+msgstr "Muestra una lista de patrocinadores para el espectáculo actual"
 
 #~ msgid "From %s to %s (%s)"
 #~ msgstr "Del %s al %s (%s)"

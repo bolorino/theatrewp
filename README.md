@@ -4,8 +4,8 @@ Theatre WP
 
 WordPress
 Requires at least: 3.8
-Tested up to: 3.9
-Stable tag: 0.43
+Tested up to: 3.9.1
+Stable tag: 0.44
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,13 +73,16 @@ Screenshots
 ![Screenshot 5](/assets/screenshot-5.png "Productions")
 
 Changelog
+### 0.44
+* Widget API update. (Warning! You need to setup again your TheatreWP widgets after this update)
+
+---------
 ### 0.43
 * Fixes
 * Widget class
 * Template updates
 * Pot file updates
 
----------
 ### 0.42
 * WordPress 3.9
 * Get Production Category URL

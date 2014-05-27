@@ -41,8 +41,6 @@ class TWP_Setup {
 
 	public $sponsor;
 
-	public $widget;
-
 	public static $default_options = array();
 
 	/**
@@ -58,7 +56,7 @@ class TWP_Setup {
 
 	public static $twp_dateformat;
 
-	public function __construct( $plugin_dir, $spectacle, $performance, $sponsor, $widget ) {
+	public function __construct( $plugin_dir, $spectacle, $performance, $sponsor ) {
 		self::$plugin_dir = $plugin_dir;
 
 		self::$default_spectacle_slug    = ( get_option( 'twp_spectacle_slug' ) ? get_option( 'twp_spectacle_slug' ) : self::$default_spectacle_slug );
@@ -92,11 +90,11 @@ class TWP_Setup {
 		$this->spectacle = $spectacle;
 		$this->performance = $performance;
 		$this->sponsor = $sponsor;
-		$this->widget = $widget;
 
 		// Actions
 		add_action( 'init', array( $this, 'init' ), 0 );
 		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
+		add_action( 'widgets_init', array( $this, 'init_widgets' ) );
 	}
 
 	/**
@@ -139,9 +137,6 @@ class TWP_Setup {
 			add_action( 'manage_performance_posts_custom_column', array( $this, 'twp_manage_performances_columns' ), 10, 2);
 		}
 
-		// Widgets
-		$this->widget->init();
-
 	}
 
 	/**
@@ -178,6 +173,13 @@ class TWP_Setup {
 		self::twp_unregister_settings();
 
 		flush_rewrite_rules();
+	}
+
+	public function init_widgets( ) {
+		register_widget( 'TWP_Spectacles_Widget' );
+		register_widget( 'TWP_Upcoming_Performances_Widget' );
+		register_widget( 'TWP_Show_Upcoming_Performances_Widget' );
+		register_widget( 'TWP_Production_Sponsors_Widget' );
 	}
 
 	/**
