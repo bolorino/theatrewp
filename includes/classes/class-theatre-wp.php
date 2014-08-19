@@ -29,7 +29,7 @@ class Theatre_WP {
 	 *
 	 * @var     string
 	 */
-	protected $version = '0.44';
+	protected $version = '0.45';
 
 	/**
 	 * Unique identifier for your plugin.

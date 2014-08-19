@@ -1,5 +1,5 @@
 <div id="twp-check-dates">
-    <form name="twpdates" action="<?php $action_form; ?>" method="POST">
+    <form name="twpdates" action="<?php echo $action_form; ?>" method="POST">
         <select name="twpm" id="month">
             <?php foreach ( $calendar_data['month_names'] as $key => $value ) { ?>
                 <option value="<?php echo $key; ?>"<?php if ( $key == $selected_month ) {?> selected="selected"<?php }?>><?php echo __( $value ); ?></option>

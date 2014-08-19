@@ -9,6 +9,10 @@ class TWP_Performance {
 
 	public $month_names;
 
+	public $month;
+
+	public $year;
+
 	public $total_performances;
 
 	public $first_available_year;
@@ -19,6 +23,8 @@ class TWP_Performance {
 		$this->spectacle = $spectacle;
 
 		$this->month_names = $this->_set_month_names();
+		$this->month = date('m');
+		$this->year = date('Y');
 
 		$this->total_performances = $this->_set_total_performances();
 
@@ -227,18 +233,20 @@ class TWP_Performance {
 		// month, year, page
 
 		// Default values
-		$month = 0;
-		$year = 0;
 		$page = 1;
+		$offset = 0;
 
 		if ( ! empty( $calendar_filter_params ) ) {
-			$month = intval( $calendar_filter_params['month'] );
-			$year = intval( $calendar_filter_params['year'] );
+			$this->month = intval( $calendar_filter_params['month'] );
+			$this->year = intval( $calendar_filter_params['year'] );
 			$page = intval( $calendar_filter_params['page'] );
 		}
 
 		$performances_per_page = get_option( 'twp_performances_number' );
-		$offset = ($page-1)*$performances_per_page;
+
+		if ( $page > 1 ) {
+			$offset = ($page-1)*$performances_per_page;
+		}
 
 		$sql_calendar = "SELECT ID, post_title, post_name, meta_key, meta_value, FROM_UNIXTIME(meta_value, '%M') AS month, FROM_UNIXTIME(meta_value, '%Y') AS year, post_author, post_date, post_content
 			FROM $wpdb->posts, $wpdb->postmeta
@@ -246,27 +254,28 @@ class TWP_Performance {
 			AND post_type = 'performance'
 			AND meta_key = '" . Theatre_WP::$twp_prefix . "date_first' ";
 
-		if ( 0 == $month && 0 == $year ) {
+		if ( 0 == $this->month && 0 == $this->year ) {
 			// Upcoming performances. Not month nor year passed
 			// @TODO $topdate to config
 			$topdate = time()-72800;
 			$sql_calendar .= "AND meta_value >= $topdate ";
-		} elseif ( $year == 0 ) {
-			$year = date('Y');
+		} elseif ( $this->year == 0 ) {
+			$this->year = date('Y');
 		}
 
-		if ( 0 != $year ) {
-			$sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%Y') = $year ";
+		if ( 0 != $this->year ) {
+			$sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%Y') = $this->year ";
 		}
 
-		if ( 0 != $month ) {
-			$sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%m') = $month ";
+		if ( 0 != $this->month ) {
+			$sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%m') = $this->month ";
 		}
 
 		$sql_calendar .= 'ORDER BY meta_value ';
+		$sql_calendar .= " LIMIT $performances_per_page ";
 
-		if ( $page != 0 ) {
-			$sql_calendar .= " LIMIT $offset, $performances_per_page ";
+		if ( $page > 1 ) {
+			$sql_calendar .= " OFFSET $offset";
 		}
 
 		$filtered_calendar = $wpdb->get_results( $sql_calendar, OBJECT );
@@ -281,13 +290,9 @@ class TWP_Performance {
 	public function get_total_filtered_performances( $performances_filter_params ) {
 		global $wpdb;
 
-		// Default values
-		$month = 0;
-		$year = 0;
-
 		if ( ! empty( $performances_filter_params ) ) {
-			$month = intval( $performances_filter_params['month'] );
-			$year = intval( $performances_filter_params['year'] );
+			$this->month = intval( $performances_filter_params['month'] );
+			$this->year = intval( $performances_filter_params['year'] );
 		}
 
 		$sql_calendar = "SELECT COUNT(ID) AS total
@@ -296,21 +301,21 @@ class TWP_Performance {
 			AND post_type = 'performance'
 			AND meta_key = '" . Theatre_WP::$twp_prefix . "date_first' ";
 
-		if ( 0 == $month && 0 == $year ) {
+		if ( 0 == $this->month && 0 == $this->year ) {
 			// Upcoming performances. Not month nor year passed
 			// @TODO $topdate to config
 			$topdate = time()-72800;
 			$sql_calendar .= "AND meta_value >= $topdate ";
-		} elseif ( $year == 0 ) {
-			$year = date('Y');
+		} elseif ( $this->year == 0 ) {
+			$this->year = date('Y');
 		}
 
-		if ( 0 != $year ) {
-			$sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%Y') = $year ";
+		if ( 0 != $this->year ) {
+			$sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%Y') = $this->year ";
 		}
 
-		if ( 0 != $month ) {
-			$sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%m') = $month ";
+		if ( 0 != $this->month ) {
+			$sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%m') = $this->month ";
 		}
 
 		$count_filtered_performances = $wpdb->get_row( $sql_calendar );

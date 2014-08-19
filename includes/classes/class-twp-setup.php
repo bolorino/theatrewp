@@ -104,15 +104,12 @@ class TWP_Setup {
 	 * @return void
 	 */
 	public function init() {
-		// Set up localisation @TODO
-		// $this->load_plugin_textdomain();
 
 		// Setup custom posts
 		add_action( 'init', array( $this, 'create_spectacles' ) );
 		add_action( 'init', array( $this, 'create_performances' ) );
 		add_action( 'init', array( $this, 'create_sponsors' ) );
 
-		//add_action( 'init', array( $this, 'build_taxonomies' ), 0 );
 		add_action( 'init', array( $this, 'twp_metaboxes' ) );
 
 		// Filters
@@ -219,6 +216,8 @@ class TWP_Setup {
 	 * @return void
 	 */
 	private static function _remove_all_data() {
+		// Remove productions
+
 		$twp_spectacle_custom_posts = get_posts( array(
 			'numberposts'	=> -1,
 			'post_type'		=> 'spectacle',
@@ -240,6 +239,7 @@ class TWP_Setup {
 			wp_delete_post( $twp_spectacle->ID, true );
 		}
 
+		// Remove performances
 		$twp_performance_custom_posts = get_posts( array(
 			'numberposts'	=> -1,
 			'post_type'		=> 'performance',
@@ -265,8 +265,21 @@ class TWP_Setup {
 			wp_delete_post( $twp_performance->ID, true );
 		}
 
-		// @TODO
-		// Delete custom posts home_video and sponsor
+		// Remove sponsors
+		$twp_sponsor_custom_posts = get_posts( array(
+			'numberposts'	=> -1,
+			'post_type'		=> 'sponsor',
+			'post_status'	=> 'any'
+			)
+		);
+
+		foreach ( $twp_sponsor_custom_posts as $twp_sponsor ) {
+			delete_post_meta( $twp_sponsor->ID, Theatre_WP::$twp_prefix . 'sponsor-url' );
+			delete_post_meta( $twp_sponsor->ID, Theatre_WP::$twp_prefix . 'sponsor-weight' );
+
+			// Delete post
+			wp_delete_post( $twp_sponsor->ID, true );
+		}
 
 		// Delete plugin options
 		foreach ( self::$default_options as $key => $value ) {

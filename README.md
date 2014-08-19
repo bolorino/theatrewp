@@ -3,9 +3,9 @@ Theatre WP
 [Theatre WP website](http://www.bolorino.net/theatre-wp/)
 
 WordPress
-Requires at least: 3.8
-Tested up to: 3.9.1
-Stable tag: 0.44
+Requires at least: 3.9
+Tested up to: 3.9.2
+Stable tag: 0.45
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,12 +37,16 @@ Plugin benefits
 
 ToDo
 --------------
-* Better config
+* Better options panel
 * Cleaner default templates
 * Translation into other languages
 
 Notes for developers/designers
 ------------------------------
+A Theatre WP theme is coming soon for you to use it as a template. If you are using this plugin in your own theme, please add the functions below in your theme functions.php to enable performances pagination:
+https://gist.github.com/bolorino/6637ef0d81395590e5a3
+Checkout the changes in the archive-performance.php template.
+
 There are six templates within the plugin, used if the current theme does not include them:
 
 * single-spectacle.php # Single Show page
@@ -73,6 +77,10 @@ Screenshots
 ![Screenshot 5](/assets/screenshot-5.png "Productions")
 
 Changelog
+### 0.45
+* WordPress 3.9.2
+* Performances fixes and pagination
+
 ### 0.44
 * Widget API update. (Warning! You need to setup again your TheatreWP widgets after this update)
 

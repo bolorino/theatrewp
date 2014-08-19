@@ -2,9 +2,9 @@
 Contributors: bollofino
 Donate link:
 Tags: theatre, troupe, dance, performing arts
-Requires at least: 3.8
-Tested up to: 3.9.1
-Stable tag: 0.44
+Requires at least: 3.9
+Tested up to: 3.9.2
+Stable tag: 0.45
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,7 +34,7 @@ This plugin provides productions and performances management.
 * Open to improvements and suggestions
 
 === ToDo ===
-* Better config
+* Better options panel
 * Cleaner default templates
 * Translation into other languages
 
@@ -51,9 +51,13 @@ There are six templates within the plugin, used if the current theme does not in
 To customize these templates, copy the files located in includes/templates within the plugin directory to your theme's directory and modify it to your liking.
 
 == Upgrade Notice ==
-* Widget API update. (Warning! You need to setup again your Theatre WP widgets after this update)
-The Theatre WP widgets (Productions, Upcoming Performances, Current Production Upcoming Performances and Sponsors) are now compatible with other plugins like, for example, Polylang.
+* A Theatre WP theme is coming soon for you to use it as a template. If you are using this plugin in your own theme, please add the functions below in your theme functions.php to enable performances pagination:
+https://gist.github.com/bolorino/6637ef0d81395590e5a3
+Checkout the changes in the archive-performance.php template.
 
+= 0.45 =
+* WordPress 3.9.2
+* Performances fixes and pagination
 
 == Installation ==
 
@@ -74,15 +78,13 @@ Not yet.
 5. Productions
 
 == Changelog ==
+= 0.45 =
+* WordPress 3.9.2
+* Performances fixes and pagination
+
 = 0.44 =
 * Widget API update. (Warning! You need to setup again your Theatre WP widgets after this update)
 The Theatre WP widgets (Productions, Upcoming Performances, Current Production Upcoming Performances and Sponsors) are now compatible with other plugins like, for example, Polylang.
-
-= 0.43 =
-* Fixes
-* Widget class
-* Template updates
-* Pot file updates
 
 = 0.43 =
 * Fixes

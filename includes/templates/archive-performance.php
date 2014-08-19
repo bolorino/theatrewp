@@ -6,32 +6,56 @@
  * @subpackage TheatreWordPress
  * @since TheatreWordPress 0.1
  */
+if ( ! session_id() ) {
+    session_start();
+}
 
 get_header(); ?>
 <?php
 // Performances archive URL
 $action_form = home_url( '/' ) . get_option( 'twp_performances_slug' );
+$reset_agenda_link = $action_form . '/?upcoming=1';
 
 $dates_sent = false;
 $calendar_data = $theatre_wp->get_calendar_data();
 
 $total_performances = $theatre_wp->get_total_performances();
 
-$paged = get_query_var( 'paged' ) ? get_query_var('paged') : 1;
+$paged = get_query_var( 'paged' ) ? get_query_var('paged') : 0;
 $calendar_filter_params = array();
+
+if ( get_query_var('upcoming') ) {
+    $_SESSION['month'] = 0;
+    $_SESSION['year']  = 0;
+
+    if ( session_id() ) {
+        session_destroy();
+    }
+}
 
 // check for sent date
 if ( isset( $_POST['twpm'] ) && isset( $_POST['twpy'] ) ) {
 	$calendar_filter_params = array(
 		'month'	=> intval( $_POST['twpm'] ),
-		'year'	=> intval( $_POST['twpy'] ),
-		'page'	=> 0
+		'year'	=> intval( $_POST['twpy'] )
 	);
 
-	$total_performances = $theatre_wp->get_total_filtered_performances( $calendar_filter_params );
+	$_SESSION['month'] = intval( $_POST['twpm'] );
+    $_SESSION['year']  = intval( $_POST['twpy'] );
 
 	$dates_sent = true;
+} elseif ( isset( $_SESSION['month'] ) ) {
+    $calendar_filter_params = array(
+        'month' => intval( $_SESSION['month'] ),
+        'year'  => intval( $_SESSION['year'] )
+    );
 }
+
+if ( ! empty( $calendar_filter_params ) ) {
+    $total_performances = $theatre_wp->get_total_filtered_performances( $calendar_filter_params );
+}
+
+$calendar_filter_params['page'] = $paged;
 
 $selected_month = ( isset( $calendar_filter_params['month'] ) ? $calendar_filter_params['month'] : date('m') );
 $selected_year = ( isset( $calendar_filter_params['year'] ) ? $calendar_filter_params['year'] : date('Y') );
@@ -40,6 +64,7 @@ $calendar = $theatre_wp->get_calendar( $calendar_filter_params );
 
 if ( empty( $calendar ) && $dates_sent ) {
 	$msg = __( 'There are no registered performances for dates searched', 'theatrewp' );
+	$msg .= '<a href="' . $reset_agenda_link . '">' . __( 'View upcoming performances', 'theatrewp' ) . '</a>';
 } elseif ( empty( $calendar ) ) {
 	$msg = __( 'There are no performaces right now', 'theatrewp' );
 }
@@ -59,10 +84,10 @@ if ( empty( $calendar ) && $dates_sent ) {
 				if ( ! empty( $calendar ) ) { ?>
 					<p>
 						<?php
-						printf( __( '%s Total performances', 'theatrewp' ), $total_performances );
+						printf( _n( 'One performance', '%s Total performances', $total_performances, 'theatrewp' ), $total_performances );
 
-						if ( $dates_sent ) { ?>
-							<a href="<?php $action_form; ?>"><?php echo __( 'View upcoming performances', 'theatrewp' ); ?></a>
+						if ( $dates_sent OR isset( $_SESSION['month'] ) && $_SESSION['month']  > 1 ) { ?>
+							<a href="<?php echo $action_form; ?>"><?php echo __( 'View upcoming performances', 'theatrewp' ); ?></a>
 					<?php }	?>
 					</p>
 					<?php
@@ -139,8 +164,10 @@ if ( empty( $calendar ) && $dates_sent ) {
 
 			<?php if ( isset( $msg ) ) { ?> <h3><?php echo $msg;?></h3> <?php } ?>
 
-			<div class="nav-previous alignleft"><?php next_posts_link( __( 'Upcoming Performances', 'theatrewp' ) ); ?></div>
-			<div class="nav-next alignright"><?php previous_posts_link( __( 'Previous Performances', 'theatrewp') ); ?></div>
+			<?php if ( function_exists('performances_pagination') ) { performances_pagination( $calendar_filter_params ); } else if ( is_paged() ) { ?>
+				<div class="nav-previous alignleft"><?php next_posts_link( __( 'Upcoming Performances', 'theatrewp' ) ); ?></div>
+				<div class="nav-next alignright"><?php previous_posts_link( __( 'Previous Performances', 'theatrewp') ); ?></div>
+			<?php } ?>
 
 			</div> <?php // entry-content ?>
 		</div>

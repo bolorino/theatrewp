@@ -559,6 +559,13 @@ msgstr ""
 msgid "View upcoming performances"
 msgstr ""
 
+#: archive-performance.php:87
+#, php-format
+msgid "One performance"
+msgid_plural "%s Total performances"
+msgstr[0] ""
+msgstr[1] ""
+
 #: includes/templates/archive-performance.php:114
 #, php-format
 msgctxt "From day one to day two at (hour)"
