@@ -1,6 +1,6 @@
 Theatre WP
 ==========
-[Theatre WP website](http://www.bolorino.net/theatre-wp/)
+[Theatre WP website](http://www.bolorino.net/theatre-wp-wordpress-plugin-performing-arts/)
 
 WordPress
 Requires at least: 3.9
