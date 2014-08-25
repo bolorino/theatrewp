@@ -5,7 +5,7 @@ Theatre WP
 WordPress
 Requires at least: 3.9
 Tested up to: 3.9.2
-Stable tag: 0.45
+Stable tag: 0.46
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,6 +77,10 @@ Screenshots
 ![Screenshot 5](/assets/screenshot-5.png "Productions")
 
 Changelog
+### 0.46
+* Performances Polylang compatibility
+* Performances fixes
+
 ### 0.45
 * WordPress 3.9.2
 * Performances fixes and pagination
@@ -84,7 +88,6 @@ Changelog
 ### 0.44
 * Widget API update. (Warning! You need to setup again your TheatreWP widgets after this update)
 
----------
 ### 0.43
 * Fixes
 * Widget class

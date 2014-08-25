@@ -4,7 +4,7 @@ Donate link:
 Tags: theatre, troupe, dance, performing arts
 Requires at least: 3.9
 Tested up to: 3.9.2
-Stable tag: 0.45
+Stable tag: 0.46
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,13 +51,12 @@ There are six templates within the plugin, used if the current theme does not in
 To customize these templates, copy the files located in includes/templates within the plugin directory to your theme's directory and modify it to your liking.
 
 == Upgrade Notice ==
+= 0.46 =
+* Performances Polylang compatibility
+* Performances fixes
 * A Theatre WP theme is coming soon for you to use it as a template. If you are using this plugin in your own theme, please add the functions below in your theme functions.php to enable performances pagination:
 https://gist.github.com/bolorino/6637ef0d81395590e5a3
 Checkout the changes in the archive-performance.php template.
-
-= 0.45 =
-* WordPress 3.9.2
-* Performances fixes and pagination
 
 == Installation ==
 
@@ -78,60 +77,9 @@ Not yet.
 5. Productions
 
 == Changelog ==
-= 0.45 =
-* WordPress 3.9.2
-* Performances fixes and pagination
+= 0.46 =
+* Performances Polylang compatibility
+* Performances fixes
 
-= 0.44 =
-* Widget API update. (Warning! You need to setup again your Theatre WP widgets after this update)
-The Theatre WP widgets (Productions, Upcoming Performances, Current Production Upcoming Performances and Sponsors) are now compatible with other plugins like, for example, Polylang.
-
-= 0.43 =
-* Fixes
-* Widget class
-* Template updates
-* Pot file updates
-
-= 0.42 =
-* WordPress 3.9
-* Get Production Category URL
-
-= 0.41 =
-* WordPress 3.8.2
-* Production duration
-* Russian translation (thanks to veshinak)
-
-= 0.40 =
-* Filter productions and performances list
-* Dates localization
-* Hierarchical productions taxonomies (types of productions)
-* Productions widget sort
-* Bug: get_spectacle_link by title not post_name
-* Remove home video custom post
-* Russian translation (thanks to veshinak)
-
-= 0.39 =
-Fix empty sponsors
-
-= 0.38 =
-* Sponsors management and widget
-* Home video
-* Various bug fixes
-
-= 0.37 =
-Fixed custom slug spectacle links
-
-= 0.36 =
-Fixed Credits display
-
-= 0.35 =
-Fixed Spectacle Admin UI
-
-= 0.33 =
-Fixed event's date selection
-
-= 0.32 =
-WordPress 3.8
-
-= 0.3 =
-First public Beta
+Please, see full changelog in the plugin website
+http://www.bolorino.net/theatre-wp-wordpress-plugin-performing-arts/

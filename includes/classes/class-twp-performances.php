@@ -19,6 +19,8 @@ class TWP_Performance {
 
 	public $last_available_year;
 
+	public $language;
+
 	public function __construct( $spectacle ) {
 		$this->spectacle = $spectacle;
 
@@ -26,11 +28,11 @@ class TWP_Performance {
 		$this->month = date('m');
 		$this->year = date('Y');
 
-		$this->total_performances = $this->_set_total_performances();
+		$this->total_performances = $this->_get_total_performances();
 
-		$this->first_available_year = $this->_set_first_available_year();
+		$this->first_available_year = $this->_get_first_available_year();
 
-		$this->last_available_year = $this->_set_last_available_year();
+		$this->last_available_year = $this->_get_last_available_year();
 	}
 
 	/**
@@ -84,7 +86,7 @@ class TWP_Performance {
 			'meta_compare' => '>=',
 			'meta_value' => $now,
 			'order' => 'ASC',
-			'numberposts' => 5 // @TODO limit by config
+			'numberposts' => 5 // @TODO limit by widget config
 		);
 
 		$next = get_posts( $args );
@@ -160,16 +162,16 @@ class TWP_Performance {
 			'meta_compare' => '>=',
 			'meta_value' => $now,
 			'order' => 'ASC',
-			'numberposts' => 5 // @TODO limit by config
+			'numberposts' => 5 // @TODO limit by widget config
 		);
 
+		// @TODO It would be possible to get the show related performances directly?
 		$next = get_posts( $args );
 
 		if ( ! $next ) {
 			return false;
 		}
 
-		// @TODO It would be possible to get the show related performances directly?
 	    $this_show = false; // There are future performances, but need to check for this show
 
 	    $output = '<ul class="next-performances">';
@@ -237,9 +239,9 @@ class TWP_Performance {
 		$offset = 0;
 
 		if ( ! empty( $calendar_filter_params ) ) {
-			$this->month = intval( $calendar_filter_params['month'] );
-			$this->year = intval( $calendar_filter_params['year'] );
-			$page = intval( $calendar_filter_params['page'] );
+			$this->month = ( array_key_exists( 'month', $calendar_filter_params ) ? intval( $calendar_filter_params['month'] ) : 0 );
+			$this->year  = ( array_key_exists( 'year', $calendar_filter_params ) ? intval( $calendar_filter_params['year'] ) : 0 );
+			$page        = ( array_key_exists( 'page', $calendar_filter_params ) ? intval( $calendar_filter_params['page'] ) : 1 );
 		}
 
 		$performances_per_page = get_option( 'twp_performances_number' );
@@ -248,8 +250,22 @@ class TWP_Performance {
 			$offset = ($page-1)*$performances_per_page;
 		}
 
-		$sql_calendar = "SELECT ID, post_title, post_name, meta_key, meta_value, FROM_UNIXTIME(meta_value, '%M') AS month, FROM_UNIXTIME(meta_value, '%Y') AS year, post_author, post_date, post_content
-			FROM $wpdb->posts, $wpdb->postmeta
+		$sql_calendar = "SELECT $wpdb->posts.ID, post_title, post_name, meta_key, meta_value, FROM_UNIXTIME(meta_value, '%M') AS month, FROM_UNIXTIME(meta_value, '%Y') AS year, post_author, post_date, post_content
+			FROM $wpdb->posts, $wpdb->postmeta";
+
+		// Polylang compatibility
+		$this->language = $this->get_polylang_language();
+
+		if ( $this->language ) {
+			$sql_calendar .= " INNER JOIN $wpdb->term_relationships wtr
+				ON ($wpdb->postmeta.post_id = wtr.object_id)
+				INNER JOIN $wpdb->term_taxonomy wtt
+					ON (wtr.term_taxonomy_id = wtt.term_taxonomy_id)
+				INNER JOIN $wpdb->terms wt
+					ON (wt.term_id = wtt.term_id) ";
+		}
+
+		$sql_calendar .= "
 			WHERE " . $wpdb->posts . '.ID = ' . $wpdb->postmeta . ".post_id
 			AND post_type = 'performance'
 			AND meta_key = '" . Theatre_WP::$twp_prefix . "date_first' ";
@@ -269,6 +285,12 @@ class TWP_Performance {
 
 		if ( 0 != $this->month ) {
 			$sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%m') = $this->month ";
+		}
+
+		// Polylang compatibility
+		if ( $this->language ) {
+			$sql_calendar .= "AND wtt.taxonomy = 'language'
+				AND wt.slug = '$this->language' ";
 		}
 
 		$sql_calendar .= 'ORDER BY meta_value ';
@@ -287,17 +309,30 @@ class TWP_Performance {
 		return $filtered_calendar;
 	}
 
-	public function get_total_filtered_performances( $performances_filter_params ) {
+	public function get_total_filtered_performances( $calendar_filter_params ) {
 		global $wpdb;
 
-		if ( ! empty( $performances_filter_params ) ) {
-			$this->month = intval( $performances_filter_params['month'] );
-			$this->year = intval( $performances_filter_params['year'] );
+		if ( ! empty( $calendar_filter_params ) ) {
+			$this->month = ( array_key_exists( 'month', $calendar_filter_params ) ? intval( $calendar_filter_params['month'] ) : 0 );
+			$this->year  = ( array_key_exists( 'year', $calendar_filter_params ) ? intval( $calendar_filter_params['year'] ) : 0 );
 		}
 
 		$sql_calendar = "SELECT COUNT(ID) AS total
-			FROM $wpdb->posts, $wpdb->postmeta
-			WHERE " . $wpdb->posts . '.ID = ' . $wpdb->postmeta . ".post_id
+			FROM $wpdb->posts, $wpdb->postmeta";
+
+		// Polylang compatibility
+		$this->language = $this->get_polylang_language();
+
+		if ( $this->language ) {
+			$sql_calendar .= " INNER JOIN $wpdb->term_relationships wtr
+				ON ($wpdb->postmeta.post_id = wtr.object_id)
+				INNER JOIN $wpdb->term_taxonomy wtt
+					ON (wtr.term_taxonomy_id = wtt.term_taxonomy_id)
+				INNER JOIN $wpdb->terms wt
+					ON (wt.term_id = wtt.term_id) ";
+		}
+
+		$sql_calendar .= "WHERE " . $wpdb->posts . '.ID = ' . $wpdb->postmeta . ".post_id
 			AND post_type = 'performance'
 			AND meta_key = '" . Theatre_WP::$twp_prefix . "date_first' ";
 
@@ -316,6 +351,12 @@ class TWP_Performance {
 
 		if ( 0 != $this->month ) {
 			$sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%m') = $this->month ";
+		}
+
+		// Polylang compatibility
+		if ( $this->language ) {
+			$sql_calendar .= " AND wtt.taxonomy = 'language'
+				AND wt.slug = '$this->language' ";
 		}
 
 		$count_filtered_performances = $wpdb->get_row( $sql_calendar );
@@ -362,7 +403,7 @@ class TWP_Performance {
 
 	private function _set_month_names() {
 		$month_names = array();
-		$month_names[] = __( 'Select one' );
+		$month_names[] = __( 'Select one', 'theatrewp' );
 
 		for ( $n=1; $n <= 12; $n++ ) {
 			$month_names[] = date_i18n( 'F', mktime( 0, 0, 0, $n, 1 ) );
@@ -371,7 +412,7 @@ class TWP_Performance {
 		return $month_names;
 	}
 
-	private function _set_total_performances() {
+	private function _get_total_performances() {
 		global $wpdb;
 
 		$sql_total_performances = $wpdb->get_row( "SELECT COUNT(ID) AS total FROM $wpdb->posts WHERE post_type = 'performance' AND post_status = 'publish' ");
@@ -379,7 +420,7 @@ class TWP_Performance {
 		return $sql_total_performances->total;
 	}
 
-	private function _set_first_available_year() {
+	private function _get_first_available_year() {
 		global $wpdb;
 
 		$sql_first_available_year = $wpdb->get_row( "SELECT meta_key, meta_value AS date_selection FROM $wpdb->postmeta WHERE meta_key = 'twp_date_first' ORDER BY meta_value ASC LIMIT 1 ");
@@ -391,7 +432,7 @@ class TWP_Performance {
 		return date( 'Y', $sql_first_available_year->date_selection );
 	}
 
-	private function _set_last_available_year() {
+	private function _get_last_available_year() {
 		global $wpdb;
 
 		$sql_last_available_year = $wpdb->get_row( "SELECT meta_key, meta_value AS date_selection FROM $wpdb->postmeta WHERE meta_key = 'twp_date_first' ORDER BY meta_value DESC LIMIT 1 ");
@@ -401,5 +442,18 @@ class TWP_Performance {
 		}
 
 		return date( 'Y', $sql_last_available_year->date_selection );
+	}
+
+	/**
+ 	* Polylang compatibility for performances custom query
+  	*
+  	* @return string - two char Country ISO code set by Polylang
+  	*/
+	public function get_polylang_language() {
+		if ( ! function_exists( 'pll_current_language' ) ) {
+			return false;
+		}
+
+		return pll_current_language();
 	}
 }
