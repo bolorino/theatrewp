@@ -19,16 +19,9 @@ class TWP_Spectacles_Widget extends WP_Widget {
 
 
     /**
-     * @var TWP_Spectacle
-     */
-    public $spectacle;
-
-    /**
      * Register widget with WordPress.
      */
     function __construct() {
-
-        $this->spectacle = new TWP_Spectacle;
 
         parent::__construct(
             $this->id, // Base ID
@@ -46,13 +39,15 @@ class TWP_Spectacles_Widget extends WP_Widget {
      * @param array $instance Saved values from database.
      */
     public function widget( $args, $instance ) {
+        global $theatre_wp;
+
         $title = apply_filters( 'widget_title', $instance['title'] );
 
         echo $args['before_widget'];
         if ( ! empty( $title ) )
             echo $args['before_title'] . $title . $args['after_title'];
 
-        if ( ! $spectacles = $this->spectacle->get_spectacles( $instance['number'], $instance['sortby'], $instance['sort'] ) ) {
+        if ( ! $spectacles = $theatre_wp->list_spectacles( $instance['number'], $instance['sortby'], $instance['sort'] ) ) {
             return false;
         }
 
@@ -126,23 +121,6 @@ class TWP_Spectacles_Widget extends WP_Widget {
         $instance['sort'] = ( ! empty( $new_instance['sort'] ) ) ? strip_tags( $new_instance['sort'] ) : 'ASC';
 
         return $instance;
-    }
-
-    public function set_valid_widgets() {
-        $this->valid_widgets = array(
-            'twp-show-spectacles',
-            'twp-show-next-performances',
-            'twp-next-performances',
-            'twp-production-sponsors'
-        );
-    }
-
-    public function is_valid_widget( $widget_id ) {
-        if ( ! in_array( $widget_id, $this->valid_widgets ) ) {
-            return false;
-        }
-
-        return true;
     }
 
 } // class TWP_Spectacles_Widget

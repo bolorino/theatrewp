@@ -87,9 +87,9 @@ class TWP_Setup {
 
 		self::$twp_dateformat = get_option( 'date_format');
 
-		$this->spectacle = $spectacle;
+		$this->spectacle   = $spectacle;
 		$this->performance = $performance;
-		$this->sponsor = $sponsor;
+		$this->sponsor     = $sponsor;
 
 		// Actions
 		add_action( 'init', array( $this, 'init' ), 0 );

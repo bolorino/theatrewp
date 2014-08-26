@@ -33,6 +33,7 @@ class TWP_Performance {
 		$this->first_available_year = $this->_get_first_available_year();
 
 		$this->last_available_year = $this->_get_last_available_year();
+
 	}
 
 	/**

@@ -18,22 +18,9 @@ class TWP_Show_Upcoming_Performances_Widget extends WP_Widget {
     public $description = 'Display a list of upcoming performances for the current production';
 
     /**
-     * @var TWP_Spectacle
-     */
-    public $spectacle;
-
-    /**
-     * @var TWP_Performance
-     */
-    public $performance;
-
-    /**
      * Register widget with WordPress.
      */
     function __construct() {
-
-        $this->spectacle = new TWP_Spectacle;
-        $this->performance = new TWP_Performance( $this->spectacle );
 
         parent::__construct(
             $this->id, // Base ID
@@ -51,14 +38,14 @@ class TWP_Show_Upcoming_Performances_Widget extends WP_Widget {
      * @param array $instance Saved values from database.
      */
     public function widget( $args, $instance ) {
-        global $post;
+        global $post, $theatre_wp;
         $current_category = get_post_type();
 
         if ( $current_category != 'spectacle' OR ! is_single() ) {
             return false;
         }
 
-        if ( ! $performances = $this->performance->get_show_next_performances() ) {
+        if ( ! $performances = $theatre_wp->get_show_next_performances() ) {
             return false;
         }
 
