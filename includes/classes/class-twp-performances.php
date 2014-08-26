@@ -318,7 +318,7 @@ class TWP_Performance {
 		}
 
 		$sql_calendar = "SELECT COUNT(ID) AS total
-			FROM $wpdb->posts, $wpdb->postmeta";
+			FROM $wpdb->posts, $wpdb->postmeta ";
 
 		// Polylang compatibility
 		$this->language = $this->get_polylang_language();
