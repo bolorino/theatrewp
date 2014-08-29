@@ -5,7 +5,7 @@ Theatre WP
 WordPress
 Requires at least: 3.9
 Tested up to: 3.9.2
-Stable tag: 0.46
+Stable tag: 0.47
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,6 +77,13 @@ Screenshots
 ![Screenshot 5](/assets/screenshot-5.png "Productions")
 
 Changelog
+### 0.47
+* Fix redundant object creation
+* Update performances meta
+* Performances templates fixes
+* Fix audience array
+* [Polylang] List only translated shows in performance edit
+
 ### 0.46
 * Performances Polylang compatibility
 * Performances fixes

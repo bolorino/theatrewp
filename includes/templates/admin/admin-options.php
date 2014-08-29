@@ -1,6 +1,10 @@
 <div class="wrap">
 	<?php screen_icon(); ?>
 	<h2><?php _e( 'Theatre WP Options ', 'theatrewp' ); ?></h2>
+	<p>
+		v <?php echo get_option( 'twp_version' ); ?>
+	</p>
+
 	<form action="options.php" method="post">
 		<?php settings_fields( 'twp-main' );
 		do_settings_sections( 'theatre-main' );

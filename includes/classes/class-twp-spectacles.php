@@ -14,11 +14,26 @@ class TWP_Spectacle {
 
 		// Define the available audiences
 		self::$audience = array(
- 			__('All Audiences', 'theatrewp'),
- 			__('Adults', 'theatrewp'),
- 			__('Family', 'theatrewp'),
- 			__('Kids', 'theatrewp'),
- 			__('Young', 'theatrewp')
+			array(
+				'label'	=> __('All Audiences', 'theatrewp'),
+				'value' => __('All Audiences', 'theatrewp')
+			),
+			array(
+				'label'	=> __('Adults', 'theatrewp'),
+				'value' => __('Adults', 'theatrewp')
+			),
+			array(
+				'label'	=> __('Family', 'theatrewp'),
+				'value' => __('Family', 'theatrewp')
+			),
+			array(
+				'label'	=> __('Kids', 'theatrewp'),
+				'value' => __('Kids', 'theatrewp')
+			),
+			array(
+				'label'	=> __('Young', 'theatrewp'),
+				'value' => __('Young', 'theatrewp')
+			)
  		);
 
  		$this->_valid_sort_by = array( 'title', 'post_date' );
@@ -31,29 +46,20 @@ class TWP_Spectacle {
 	 * @param string $post_name
 	 * @return array
 	 */
-	public function get_spectacle_data( $post_name ) {
+	public function get_spectacle_data( $ID ) {
 		global $wpdb;
 
-		$spectacle_query = $wpdb->prepare(
-			"
-			SELECT ID, post_title, post_name FROM $wpdb->posts
-			WHERE post_name = %s
-			AND post_type = 'spectacle'
-			AND post_status = 'publish'
-			LIMIT 1
-			",
-			$post_name
-		);
-
-		if ( ! $spectacle = $wpdb->get_row( $spectacle_query ) ) {
+		if ( ! $spectacle = get_post( intval( $ID) ) ) {
 			return false;
 		}
+
+		// @todo has_term( false, 'spectacle', $ID )
 
 		$spectacle_data = array();
 
 		$spectacle_data['id'] = $spectacle->ID;
 		$spectacle_data['thumbnail'] = get_the_post_thumbnail( $spectacle->ID, 'thumbnail', array( 'class' => 'twp_production_thumbnail' ) );
-		$spectacle_data['title'] = __( $spectacle->post_title );
+		$spectacle_data['title'] = $spectacle->post_title;
 		$spectacle_data['link'] = home_url('/') . get_option( 'twp_spectacle_slug' ) . '/' . $spectacle->post_name . '/';
 
 		return $spectacle_data;
@@ -68,7 +74,7 @@ class TWP_Spectacle {
 	 */
 	public function get_spectacle_custom( $ID ) {
 
-		$custom = get_post_custom( intval($ID) );
+		$custom = get_post_custom( intval( $ID ) );
 
 		if ( ! $custom ) {
 			return false;
@@ -143,8 +149,68 @@ class TWP_Spectacle {
 			return false;
 		}
 
+		$shows = array();
+
 		foreach ( $shows_query as $show ) {
-			$shows[] =  __($show->post_title);
+			$shows[] =  $show->post_title;
+		}
+
+		return $shows;
+	}
+
+	/**
+	 * Get an array of spectacles [titles] -> [ID]
+	 *
+	 * @access public
+	 * @return array
+	 */
+	public function get_spectacles_array() {
+		$args = array(
+			'post_type'		=> 'spectacle',
+			'post_status'	=> 'publish',
+			'orderby'		=> 'title',
+			'order'			=> 'ASC',
+			'numberposts'	=> -1
+		);
+
+		/* Polylang compatibility.
+		 * If editing a performance get the list of spectacles
+		 * in the appropriate language
+		 */
+		if ( is_admin() ) {
+			$lang = false;
+			$editing_post = ( isset( $_GET['post'] ) ? intval( $_GET['post'] ) : false );
+
+			// Adding a new translation. No post ID yet but new_lang param in URL
+			if ( ! $editing_post ) {
+				// @TODO Sanitize 2 char ISO Code
+				$lang = ( isset( $_GET['new_lang'] ) ? $_GET['new_lang'] : false );
+			}
+
+			// List only translated spectacles
+			if ( function_exists( 'pll_get_post_language' ) && current_user_can( 'edit_posts' ) ) {
+				$lang = ( $lang ? $lang : pll_get_post_language( $editing_post ) );
+			}
+
+			// Add the $lang arg to get the translated posts
+			if ( $lang ) {
+				$args['lang'] = $lang;
+			}
+		}
+
+		$shows_query =  get_posts( $args );
+
+		if ( ! $shows_query ) {
+			return false;
+		}
+
+		$shows = array();
+
+		foreach ( $shows_query as $show ) {
+			$shows[] = array(
+				'label'	=> $show->post_title,
+				'value' => $show->ID
+			);
 		}
 
 		return $shows;
@@ -154,23 +220,13 @@ class TWP_Spectacle {
 	 * Get spectacle URL from post name.
 	 *
 	 * @access public
-	 * @param string $post_name
+	 * @param int $ID
 	 * @return string
 	 */
-	public function get_spectacle_link( $post_name ) {
+	public function get_spectacle_link( $ID ) {
 		global $wpdb;
 
-		$spectacle_query = $wpdb->prepare(
-			"SELECT post_name
-			FROM $wpdb->posts
-			WHERE post_title = %s
-			AND post_type = 'spectacle'
-			AND post_status = 'publish'
-			LIMIT 1",
-			$post_name
-		);
-
-		if ( ! $spectacle = $wpdb->get_row( $spectacle_query ) ) {
+		if ( ! $spectacle = get_post( intval( $ID) ) ) {
 			return false;
 		}
 

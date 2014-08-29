@@ -15,23 +15,23 @@ class TWP_Setup {
 
 	protected static $plugin_dir;
 
-	protected static $default_spectacle_name = 'Spectacle';
+	protected static $default_spectacle_name      = 'Spectacle';
 
-	protected static $default_spectacles_name = 'Spectacles';
+	protected static $default_spectacles_name     = 'Spectacles';
 
-	protected static $default_spectacle_slug = 'spectacle';
+	protected static $default_spectacle_slug      = 'spectacle';
 
-	protected static $default_spectacles_slug = 'spectacles';
+	protected static $default_spectacles_slug     = 'spectacles';
 
-	protected static $default_performance_name = 'Performance';
+	protected static $default_performance_name    = 'Performance';
 
-	protected static $default_performances_name = 'Performances';
+	protected static $default_performances_name   = 'Performances';
 
-	protected static $default_performance_slug = 'performance';
+	protected static $default_performance_slug    = 'performance';
 
-	protected static $default_performances_slug = 'performances';
+	protected static $default_performances_slug   = 'performances';
 
-	protected static $default_spectacles_number = 5;
+	protected static $default_spectacles_number   = 5;
 
 	protected static $default_performances_number = 5;
 
@@ -72,6 +72,7 @@ class TWP_Setup {
 		self::$default_performances_name = ( get_option( 'twp_performances_name' ) ? get_option( 'twp_performances_name' ) : self::$default_performances_name );
 
 		self::$default_options = array(
+			'twp_version'			  => Theatre_WP::$version,
 			'twp_spectacle_name'      => self::$default_spectacle_name,
 			'twp_spectacles_name'     => self::$default_spectacles_name,
 			'twp_spectacle_slug'      => sanitize_title( self::$default_spectacle_slug, false, 'save' ),
@@ -120,6 +121,9 @@ class TWP_Setup {
 		// Enable a different post_per_page param for custom post
 		add_filter( 'option_posts_per_page', array( 'TWP_Setup', 'twp_option_post_per_page' ) );
 
+		// Format title for custom post archives
+		// add_filter( 'wp_title', array( 'TWP_Setup', 'twp_taxonomy_title' ) );
+
 		// Admin menu
 		if ( is_admin() ) {
 			add_action( 'admin_menu', array( 'TWP_Setup', 'twp_menu' ) );
@@ -146,12 +150,52 @@ class TWP_Setup {
 	public static function activate( $network_wide ) {
 		self::twp_register_settings();
 
+		// @TODO
+		/* After v 0.46 a DB update is needed to change performances metadata.
+		 * $performance_custom['performance'] contained the Production slug (Ouch!)
+		 * Now it should be $performance_custom['spectacle_id']
+		 * The twp_version option is saved for the first time after v 0.46
+		 * so, if it doesn't exist we call a method to fix the mess.
+		 * UPADTE post_meta SET prefix_performance -> prefix_spectacle_id
+		 * SELECT slugs -> GET IDs
+		 * UPDATE post_meta SET value = ID from slug
+		 */
+
+		if ( ! get_option( 'twp_version' ) ) {
+			self::_upgrade_performances_meta();
+		}
+
 		// Set default options
 		foreach ( self::$default_options as $key => $value ) {
 			update_option( $key, $value );
 		}
 
 		self::_update_rewrite_rules();
+	}
+
+	private static function _upgrade_performances_meta() {
+		global $wpdb;
+
+		$shows =  get_posts( 'post_type=spectacle&orderby=title&order=ASC&numberposts=-1' );
+
+		if ( ! $shows ) {
+			return false;
+		}
+
+		foreach ( $shows as $show ) {
+			$update_meta_query = "UPDATE $wpdb->postmeta
+				SET meta_value = '" . $show->ID . "'
+				WHERE meta_key = '" . Theatre_WP::$twp_prefix . 'performance'
+				. "' AND meta_value = '" . $show->post_title . "' ";
+
+			$wpdb->query( $update_meta_query );
+		}
+
+		$update_meta_key = "UPDATE $wpdb->postmeta
+			SET meta_key = '" . Theatre_WP::$twp_prefix . 'spectacle_id'
+			. "' WHERE meta_key = '" . Theatre_WP::$twp_prefix . 'performance' . "' ";
+
+		$wpdb->query( $update_meta_key );
 	}
 
 	/**
@@ -186,12 +230,13 @@ class TWP_Setup {
 	 *
 	 */
 	private static function _update_rewrite_rules() {
+		// @TODO format rule
 
 		flush_rewrite_rules();
 
 		// Set rewrite rules
 		global $wp_rewrite;
-		$spectacle_slug = self::$default_options['twp_spectacle_slug'];
+		$spectacle_slug   = self::$default_options['twp_spectacle_slug'];
 		$performance_slug = self::$default_options['twp_performance_slug'];
 
 		// Spectacles archive and pagination
@@ -205,6 +250,9 @@ class TWP_Setup {
 		// Single Spectacle and Performance
 		add_rewrite_rule( "^$spectacle_slug/([^/]*)/?", 'index.php?spectacle=$matches[1]', 'top' );
 		add_rewrite_rule( "^$performance_slug/([^/]*)/?", 'index.php?performance=$matches[1]', 'top' );
+
+		// format/([^/]+)/page/?([0-9]{1,})/?$	index.php?format=$matches[1]&paged=$matches[2]
+		// format/([^/]+)/?$	index.php?format=$matches[1]
 
 		$wp_rewrite->flush_rules();
 	}
@@ -249,7 +297,7 @@ class TWP_Setup {
 
 		foreach ( $twp_performance_custom_posts as $twp_performance ) {
 			// Delete post meta
-			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'performance' );
+			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'spectacle_id' );
 			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'date_first' );
 			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'date_last' );
 			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'event' );
@@ -433,6 +481,7 @@ class TWP_Setup {
 		$locale = apply_filters( 'plugin_locale', get_locale(), 'theatrewp' );
 
 		load_plugin_textdomain( 'theatrewp', false, self::$plugin_dir . '/languages' );
+
 	}
 
 	/**
@@ -633,6 +682,7 @@ class TWP_Setup {
 	 * @return void
 	 */
 	public static function twp_register_settings() {
+		register_setting( 'twp-main', 'twp_version' );
 		register_setting( 'twp-main', 'twp_spectacle_name' );
 		register_setting( 'twp-main', 'twp_spectacles_name' );
 		register_setting( 'twp-main', 'twp_spectacle_slug' );
@@ -653,6 +703,7 @@ class TWP_Setup {
 	 * @return void
 	 */
 	public static function twp_unregister_settings() {
+		unregister_setting( 'twp-main', 'twp_version' );
 		unregister_setting( 'twp-main', 'twp_spectacle_name' );
 		unregister_setting( 'twp-main', 'twp_spectacles_name' );
 		unregister_setting( 'twp-main', 'twp_spectacle_slug' );
@@ -712,6 +763,24 @@ class TWP_Setup {
 		}
 
 		return $option_posts_per_page;
+	}
+
+	// @TODO nice archives title
+	public static function twp_taxonomy_title( $title ) {
+		global $paged, $page, $wp_query;
+		echo 'twp_taxonomy_title ';
+
+		if ( is_tax( 'performance' ) ) {
+			//$title .= ;
+			echo 'is_tax ';
+
+			if ( session_id() ) {
+				echo 'session_id ';
+				$title .= sprintf( __( 'Performances for %s %s' ), $_SESSION['year'], $_SESSION['month'] );
+			}
+		}
+
+		return $title;
 	}
 
 	/**
@@ -790,9 +859,9 @@ class TWP_Setup {
 					array(
 						'name'    => __( 'Show', 'theatrewp' ),
 						'desc'    => __( 'Performing Show', 'theatrewp' ),
-						'id'      => Theatre_WP::$twp_prefix . 'performance',
+						'id'      => Theatre_WP::$twp_prefix . 'spectacle_id',
 						'type'    => 'select',
-						'options' => $this->spectacle->get_spectacles_titles()
+						'options' => $this->spectacle->get_spectacles_array()
 						),
 					array(
 						'name' => __( 'First date', 'theatrewp' ),

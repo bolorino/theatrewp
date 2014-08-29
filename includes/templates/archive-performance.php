@@ -100,7 +100,7 @@ if ( empty( $calendar ) && $dates_sent ) {
 							$last_year = $current_loop_year;
 							$current_loop_month = date( 'F', $performance_custom['date_first'] );
 							$current_loop_year = date( 'Y', $performance_custom['date_first'] );
-							$spectacle_data = $theatre_wp->get_spectacle_data( sanitize_title( $performance_custom['performance'] ) );
+							$spectacle_data = $theatre_wp->get_spectacle_data( $performance_custom['spectacle_id'] );
 
 							if ( ! $last_month OR $last_month != $current_loop_month ) {
 							?>

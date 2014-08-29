@@ -62,7 +62,7 @@ get_header(); ?>
 							<h3><?php echo __( 'Show', 'theatrewp' ); ?></h3>
 							<div class="show">
 								<?php
-								$production_custom = $theatre_wp->get_spectacle_data( sanitize_title( $performance_custom['performance'] ) );
+								$production_custom = $theatre_wp->get_spectacle_data( $performance_custom['spectacle_id'] );
 
 								if ( has_post_thumbnail( $production_custom['id'] ) ) { ?>
 									<a href="<?php echo $performance_custom['spectacle_url']; ?>"><?php echo $production_custom['thumbnail']; ?></a>

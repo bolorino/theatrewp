@@ -52,7 +52,7 @@ class TWP_Performance {
 
 		$performance_custom = array();
 
-		$performance_custom['performance'] = isset( $custom[Theatre_WP::$twp_prefix . 'performance'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'performance'][0] : false;
+		$performance_custom['spectacle_id'] = isset( $custom[Theatre_WP::$twp_prefix . 'spectacle_id'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'spectacle_id'][0] : false;
 		$performance_custom['event']       = isset( $custom[Theatre_WP::$twp_prefix . 'event'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'event'][0] : false;
 		$performance_custom['place']       = isset( $custom[Theatre_WP::$twp_prefix . 'place'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'place'][0] : false;
 		$performance_custom['address']     = isset( $custom[Theatre_WP::$twp_prefix . 'address'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'address'][0] : false;
@@ -63,8 +63,7 @@ class TWP_Performance {
 		$performance_custom['display_map'] = isset( $custom[Theatre_WP::$twp_prefix . 'display_map'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'display_map'][0] : false;
 
 
-		$spectacle_name                        = sanitize_title( $performance_custom['performance'] );
-		$spectacle_data                        = $this->spectacle->get_spectacle_data( $spectacle_name );
+		$spectacle_data                        = $this->spectacle->get_spectacle_data( $performance_custom['spectacle_id'] );
 		$performance_custom['spectacle_title'] = $spectacle_data['title'];
 		$performance_custom['spectacle_url']   = $spectacle_data['link'];
 
@@ -101,7 +100,7 @@ class TWP_Performance {
 	    foreach ( $next as $post ) : setup_postdata( $post );
 	    	$performance_custom = $this->get_performance_custom( $this->spectacle, $post->ID );
 
-	        $spectacle_link = $this->spectacle->get_spectacle_link( $performance_custom['performance'] );
+	        $spectacle_link = $this->spectacle->get_spectacle_link( $performance_custom['spectacle_id'] );
 
 	        $output .= '<li>';
 
@@ -109,7 +108,7 @@ class TWP_Performance {
 	        $output .= get_the_title( $post->ID ) .'</a></strong> <br />';
 
 	        $output .= '<em><a href="' . $spectacle_link . '">';
-	        $output .= $performance_custom['performance'] .'</a></em> <br />';
+	        $output .= get_post_field( 'post_title', $performance_custom['spectacle_id'] ) .'</a></em> <br />';
 
 	        if ( $performance_custom['event'] ) {
 	        	$output .= $performance_custom['event'] . '<br />';
@@ -154,7 +153,6 @@ class TWP_Performance {
 		}
 
 		$now = time();
-		$title = get_the_title( $post->ID );
 
 		$args = array(
 			'post_type' => 'performance',
@@ -180,10 +178,9 @@ class TWP_Performance {
 	    foreach ( $next as $performance ) : setup_postdata( $performance );
 	    	$performance_custom = $this->get_performance_custom( $this->spectacle, $performance->ID );
 
-	        $spectacle_title = sanitize_title( $performance_custom['performance'] );
-	        $spectacle_link = $this->spectacle->get_spectacle_link( $spectacle_title );
+	        $spectacle_link = $this->spectacle->get_spectacle_link( $performance_custom['spectacle_id'] );
 
-	        if ( $title == $performance_custom['performance'] ) {
+	        if ( $post->ID == $performance_custom['spectacle_id'] ) {
 	        	$this_show = true;
 
 	        	$output .= '<li>';

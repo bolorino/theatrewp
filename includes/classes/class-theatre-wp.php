@@ -29,7 +29,7 @@ class Theatre_WP {
 	 *
 	 * @var     string
 	 */
-	protected $version = '0.46';
+	static $version = '0.47';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -157,22 +157,22 @@ class Theatre_WP {
 	 * Get spectacle title and URL from Spectacle title.
 	 *
 	 * @access public
-	 * @param string $spectacle_title
+	 * @param int $ID
 	 * @return array
 	 */
-	public function get_spectacle_data( $spectacle_title ) {
-		return $this->spectacle->get_spectacle_data( $spectacle_title );
+	public function get_spectacle_data( $ID ) {
+		return $this->spectacle->get_spectacle_data( intval( $ID ) );
 	}
 
 	/**
 	 * Get spectacle URL from Spectacle title.
 	 *
 	 * @access public
-	 * @param string $spectacle_title
+	 * @param int $ID
 	 * @return string
 	 */
-	public function get_spectacle_link( $spectacle_title ) {
-		return $this->spectacle->get_spectacle_link( $spectacle_title );
+	public function get_spectacle_link( $ID ) {
+		return $this->spectacle->get_spectacle_link( intval( $ID ) );
 	}
 
 	/**
