@@ -7,7 +7,7 @@
 *
 * Copyright: © 2013-2014
 * @author Jose Bolorino
-* @version: 0.47
+* @version: 0.48
 * {@link http://www.bolorino.net/ Jose Bolorino.}
 *
 * Released under the terms of the GNU General Public License.
@@ -24,7 +24,7 @@
 * Plugin URI: http://www.bolorino.net/theatre-wp-wordpress-plugin-performing-arts/
 * Description: CMS for Theatre and Performing Arts Companies. Managing Shows and Performances made easy.
 * Tags: theatre, troupe, actors, shows, performing arts
-* Version: 0.47
+* Version: 0.48
 * License: GPLv2
 * Author: Jose Bolorino <jose.bolorino@gmail.com>
 * Author URI: http://www.bolorino.net/
@@ -56,8 +56,48 @@ register_deactivation_hook( __FILE__, array( 'TWP_Setup', 'deactivate' ) );
 add_action( 'plugins_loaded', 'twp_load_plugin_textdomain' );
 $locale = apply_filters( 'plugin_locale', get_locale(), 'theatrewp' );
 
+/* After v 0.46 a DB update is needed to change performances metadata.
+ * $performance_custom['performance'] contained the Production slug (Ouch!)
+ * Now it should be $performance_custom['spectacle_id']
+ * The twp_version option is saved for the first time after v 0.46
+ * so, if it doesn't exist we call a method to fix the mess.
+ * UPADTE post_meta SET prefix_performance -> prefix_spectacle_id
+ * SELECT slugs -> GET IDs
+ * UPDATE post_meta SET value = ID from slug
+ */
+
+$current_version = get_option( 'twp_version' );
+
+if ( ! $current_version OR $current_version < '0.48' ) {
+    _upgrade_performances_meta();
+}
+
 function twp_load_plugin_textdomain() {
     load_plugin_textdomain( 'theatrewp', false, plugin_dir_path( __FILE__ ) . 'languages' );
+}
+
+function _upgrade_performances_meta() {
+    global $wpdb;
+
+    $shows =  get_posts( 'post_type=spectacle&orderby=title&order=ASC&numberposts=-1' );
+
+    if ( ! $shows ) {
+        return false;
+    }
+
+    foreach ( $shows as $show ) {
+        $update_meta_query = "UPDATE $wpdb->postmeta
+            SET meta_value = '$show->ID'
+            WHERE meta_key = 'twp_performance'
+            AND meta_value = '$show->post_title'";
+        $wpdb->query( $update_meta_query );
+    }
+
+    $update_meta_key = "UPDATE $wpdb->postmeta
+        SET meta_key = 'twp_spectacle_id'
+        WHERE meta_key = 'twp_performance' ";
+
+    $wpdb->query( $update_meta_key );
 }
 
 $theatre_wp = new Theatre_WP( TWP_DIR );

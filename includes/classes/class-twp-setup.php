@@ -150,52 +150,12 @@ class TWP_Setup {
 	public static function activate( $network_wide ) {
 		self::twp_register_settings();
 
-		// @TODO
-		/* After v 0.46 a DB update is needed to change performances metadata.
-		 * $performance_custom['performance'] contained the Production slug (Ouch!)
-		 * Now it should be $performance_custom['spectacle_id']
-		 * The twp_version option is saved for the first time after v 0.46
-		 * so, if it doesn't exist we call a method to fix the mess.
-		 * UPADTE post_meta SET prefix_performance -> prefix_spectacle_id
-		 * SELECT slugs -> GET IDs
-		 * UPDATE post_meta SET value = ID from slug
-		 */
-
-		if ( ! get_option( 'twp_version' ) ) {
-			self::_upgrade_performances_meta();
-		}
-
 		// Set default options
 		foreach ( self::$default_options as $key => $value ) {
 			update_option( $key, $value );
 		}
 
 		self::_update_rewrite_rules();
-	}
-
-	private static function _upgrade_performances_meta() {
-		global $wpdb;
-
-		$shows =  get_posts( 'post_type=spectacle&orderby=title&order=ASC&numberposts=-1' );
-
-		if ( ! $shows ) {
-			return false;
-		}
-
-		foreach ( $shows as $show ) {
-			$update_meta_query = "UPDATE $wpdb->postmeta
-				SET meta_value = '" . $show->ID . "'
-				WHERE meta_key = '" . Theatre_WP::$twp_prefix . 'performance'
-				. "' AND meta_value = '" . $show->post_title . "' ";
-
-			$wpdb->query( $update_meta_query );
-		}
-
-		$update_meta_key = "UPDATE $wpdb->postmeta
-			SET meta_key = '" . Theatre_WP::$twp_prefix . 'spectacle_id'
-			. "' WHERE meta_key = '" . Theatre_WP::$twp_prefix . 'performance' . "' ";
-
-		$wpdb->query( $update_meta_key );
 	}
 
 	/**
@@ -766,22 +726,22 @@ class TWP_Setup {
 	}
 
 	// @TODO nice archives title
-	public static function twp_taxonomy_title( $title ) {
-		global $paged, $page, $wp_query;
-		echo 'twp_taxonomy_title ';
+	// public static function twp_taxonomy_title( $title ) {
+	// 	global $paged, $page, $wp_query;
+	// 	echo 'twp_taxonomy_title ';
 
-		if ( is_tax( 'performance' ) ) {
-			//$title .= ;
-			echo 'is_tax ';
+	// 	if ( is_tax( 'performance' ) ) {
+	// 		//$title .= ;
+	// 		echo 'is_tax ';
 
-			if ( session_id() ) {
-				echo 'session_id ';
-				$title .= sprintf( __( 'Performances for %s %s' ), $_SESSION['year'], $_SESSION['month'] );
-			}
-		}
+	// 		if ( session_id() ) {
+	// 			echo 'session_id ';
+	// 			$title .= sprintf( __( 'Performances for %s %s' ), $_SESSION['year'], $_SESSION['month'] );
+	// 		}
+	// 	}
 
-		return $title;
-	}
+	// 	return $title;
+	// }
 
 	/**
 	 * Define metaboxes

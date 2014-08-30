@@ -3,12 +3,14 @@
 *.err
 *.orig
 *.log
+*.bck
 *.rej
 *.swo
 *.swp
 *.vi
 *~
 *.sass-cache
+notes.txt
 
 # OS or Editor folders
 .DS_Store

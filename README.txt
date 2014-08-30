@@ -5,7 +5,7 @@ Donate link:
 Tags: theatre, troupe, dance, performing arts
 Requires at least: 3.9
 Tested up to: 3.9.2
-Stable tag: 0.47
+Stable tag: 0.48
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,15 +52,9 @@ There are six templates within the plugin, used if the current theme does not in
 To customize these templates, copy the files located in includes/templates within the plugin directory to your theme's directory and modify it to your liking.
 
 == Upgrade Notice ==
-= 0.47 =
-* Fix redundant object creation
-* Update performances meta
-* Performances templates fixes
-* Fix audience array
-* [Polylang] List only translated shows in performance edit
-* A Theatre WP theme is coming soon for you to use it as a template. If you are using this plugin in your own theme, please add the functions below in your theme functions.php to enable performances pagination:
-https://gist.github.com/bolorino/6637ef0d81395590e5a3
-Checkout the changes in the archive-performance.php template.
+= 0.48 =
+* Fix performance meta update error
+Please, upgrade!
 
 == Installation ==
 
@@ -81,6 +75,7 @@ Not yet.
 5. Productions
 
 == Changelog ==
+= 0.47 =
 * Fix redundant object creation
 * Upgrade performances meta
 * Fix audience array
