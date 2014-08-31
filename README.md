@@ -18,6 +18,8 @@ The plugin "Theatre WP" makes easy the work of developers and designers who use 
 Theatre WP is intended for designers and developers using WordPress to setup a performing arts company website.
 This plugin provides productions and performances management.
 
+[Demo site](http://theatrewp.bolorino.net/)
+
 What does the plugin include?
 -----------------------------
 * Custom posts for Shows, Performances and Sponsors
@@ -38,6 +40,7 @@ Plugin benefits
 ToDo
 --------------
 * Better options panel
+* Hookable
 * Cleaner default templates
 * Translation into other languages
 
@@ -77,6 +80,12 @@ Screenshots
 ![Screenshot 5](/assets/screenshot-5.png "Productions")
 
 Changelog
+### 0.49
+* Fix plugin version
+
+### 0.48
+* Fix performance meta update error
+
 ### 0.47
 * Fix redundant object creation
 * Update performances meta

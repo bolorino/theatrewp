@@ -1,11 +1,10 @@
 === Theatre WP ===
-
 Contributors: bollofino
 Donate link:
 Tags: theatre, troupe, dance, performing arts
 Requires at least: 3.9
 Tested up to: 3.9.2
-Stable tag: 0.48
+Stable tag: 0.49
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,15 +17,18 @@ The plugin "Theatre WP" makes easy the work of developers and designers who use 
 Theatre WP is intended for designers and developers using WordPress to setup a performing arts company website.
 This plugin provides productions and performances management.
 
-=== What does the plugin include? ===
+Demo site: http://theatrewp.bolorino.net/
+
+**What does the plugin include?**
 
 * Custom posts for Productions, Performances and Sponsors
 * Widget for upcoming Performances of a particular Show
 * Widget for upcoming Performances in general
 * Widget for Production Sponsors
-* Translation into English and Spanish
+* Translation into English, Spanish and Russian
 
-=== Plugin benefits ===
+**Plugin benefits**
+
 * Adapted to the basic needs of most Theater Companies
 * Organized and well structured information of Shows and Performances to facilitate their management and accessibility
 * Independent of the theme used in WordPress
@@ -34,12 +36,14 @@ This plugin provides productions and performances management.
 * Translatable
 * Open to improvements and suggestions
 
-=== ToDo ===
+**ToDo**
+
 * Better options panel
+* Hookable
 * Cleaner default templates
 * Translation into other languages
 
-=== Notes for developers/designers ===
+== Notes for developers/designers ==
 There are six templates within the plugin, used if the current theme does not include them:
 
 * single-spectacle.php # Single Show page
@@ -50,11 +54,6 @@ There are six templates within the plugin, used if the current theme does not in
 * taxonomy-format.php # Productions by category
 
 To customize these templates, copy the files located in includes/templates within the plugin directory to your theme's directory and modify it to your liking.
-
-== Upgrade Notice ==
-= 0.48 =
-* Fix performance meta update error
-Please, upgrade!
 
 == Installation ==
 
@@ -75,6 +74,13 @@ Not yet.
 5. Productions
 
 == Changelog ==
+= 0.49 =
+* Fix plugin version
+
+= 0.48 =
+* Fix performance meta update error
+Please, upgrade!
+
 = 0.47 =
 * Fix redundant object creation
 * Upgrade performances meta
@@ -90,3 +96,7 @@ Checkout the changes in the archive-performance.php template.
 
 Please, see full changelog in the plugin website
 http://www.bolorino.net/theatre-wp-wordpress-plugin-performing-arts/
+
+== Upgrade Notice ==
+= 0.49 =
+Fix plugin version
