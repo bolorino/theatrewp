@@ -5,7 +5,7 @@ Theatre WP
 WordPress
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 0.47
+Stable tag: 0.50
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,6 +80,11 @@ Screenshots
 ![Screenshot 5](/assets/screenshot-5.png "Productions")
 
 Changelog
+### 0.50
+* WordPress 4.0
+* Custom posts info in Dashboard (At a glance)
+* Cleanup activation and deactivation hooks
+
 ### 0.49
 * Fix plugin version
 

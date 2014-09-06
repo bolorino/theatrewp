@@ -71,6 +71,9 @@ class TWP_Setup {
 		self::$default_performance_name  = ( get_option( 'twp_performance_name' ) ? get_option( 'twp_performance_name' ) : self::$default_performance_name );
 		self::$default_performances_name = ( get_option( 'twp_performances_name' ) ? get_option( 'twp_performances_name' ) : self::$default_performances_name );
 
+		self::$default_spectacles_number  = ( get_option( 'twp_spectacles_number' ) ? get_option( 'twp_spectacles_number' ) : self::$default_spectacles_number );
+		self::$default_performances_number  = ( get_option( 'twp_performances_number' ) ? get_option( 'twp_performances_number' ) : self::$default_performances_number );
+
 		self::$default_options = array(
 			'twp_version'			  => Theatre_WP::$version,
 			'twp_spectacle_name'      => self::$default_spectacle_name,
@@ -94,7 +97,8 @@ class TWP_Setup {
 
 		// Actions
 		add_action( 'init', array( $this, 'init' ), 0 );
-		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
+		// @ToDo check
+		// add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 		add_action( 'widgets_init', array( $this, 'init_widgets' ) );
 	}
 
@@ -131,13 +135,15 @@ class TWP_Setup {
 
 			add_action( 'admin_init', array( $this, 'build_taxonomies' ), 0 );
 
+			// Dashboard custom posts
+			add_action( 'dashboard_glance_items' , array( 'TWP_Setup', 'twp_right_now_content_table_end' ) );
+
 			// Update rewrite rules after Options update
 			add_action( 'update_option_twp-main', array('TWP_Setup', '_update_rewrite_rules') );
 
 			add_filter( 'manage_edit-performance_columns', array( 'TWP_Setup', 'twp_performances_columns' ) );
 			add_action( 'manage_performance_posts_custom_column', array( $this, 'twp_manage_performances_columns' ), 10, 2);
 		}
-
 	}
 
 	/**
@@ -166,14 +172,19 @@ class TWP_Setup {
 	 * @param    boolean    $network_wide    True if WPMU superadmin uses "Network Deactivate" action, false if WPMU is disabled or plugin is deactivated on an individual blog.
 	 */
 	public static function deactivate( $network_wide ) {
+
+		self::twp_unregister_settings();
+
+		flush_rewrite_rules();
+	}
+
+	public static function uninstall( ) {
+
 		// Should custom post be removed?
 		if ( get_option( 'twp_clean_on_uninstall' ) == '1' ) {
 			self::_remove_all_data();
 		}
 
-		self::twp_unregister_settings();
-
-		flush_rewrite_rules();
 	}
 
 	public function init_widgets( ) {
@@ -320,7 +331,6 @@ class TWP_Setup {
 			'rewrite'         => array( 'slug' => self::$default_options['twp_spectacle_slug'] ),
 			'show_ui'         => true,
 			'hiearchical'	  => true,
-			//'taxonomies'	  => array( 'format' ),
 			'menu_position'   => 5,
 			'supports'        => array( 'title', 'editor', 'excerpt', 'thumbnail' )
 			);
@@ -642,7 +652,6 @@ class TWP_Setup {
 	 * @return void
 	 */
 	public static function twp_register_settings() {
-		register_setting( 'twp-main', 'twp_version' );
 		register_setting( 'twp-main', 'twp_spectacle_name' );
 		register_setting( 'twp-main', 'twp_spectacles_name' );
 		register_setting( 'twp-main', 'twp_spectacle_slug' );
@@ -663,7 +672,6 @@ class TWP_Setup {
 	 * @return void
 	 */
 	public static function twp_unregister_settings() {
-		unregister_setting( 'twp-main', 'twp_version' );
 		unregister_setting( 'twp-main', 'twp_spectacle_name' );
 		unregister_setting( 'twp-main', 'twp_spectacles_name' );
 		unregister_setting( 'twp-main', 'twp_spectacle_slug' );
@@ -931,7 +939,48 @@ class TWP_Setup {
 		foreach ( $TWP_meta_boxes as $meta_box ) {
 		    $my_box = new TWP_Metaboxes( $meta_box );
 		}
+	}
 
+	// Add Custom Post Type to WP-ADMIN Right Now Widget
+	// Ref Link: http://wpsnipp.com/index.php/functions-php/include-custom-post-types-in-right-now-admin-dashboard-widget/
+	// http://wordpress.org/support/topic/dashboard-at-a-glance-custom-post-types
+	// http://halfelf.org/2012/my-custom-posttypes-live-in-mu/
+	public static function twp_right_now_content_table_end() {
+	    $args = array(
+	        'public' => true ,
+	        '_builtin' => false
+	    );
+
+	    $output = 'object';
+	    $operator = 'and';
+
+	    $post_types = get_post_types( $args , $output , $operator );
+
+	    foreach( $post_types as $post_type ) {
+	        $num_posts = wp_count_posts( $post_type->name );
+	        $num = number_format_i18n( $num_posts->publish );
+	        $text = _n( $post_type->labels->singular_name, $post_type->labels->name , intval( $num_posts->publish ) );
+
+	        if ( current_user_can( 'edit_posts' ) ) {
+	            $cpt_name = $post_type->name;
+	        }
+
+	        echo '<li class="'.$cpt_name.'-count"><tr><a href="edit.php?post_type='.$cpt_name.'"><td class="first b b-' . $post_type->name . '"></td>' . $num . ' <td class="t ' . $post_type->name . '">' . $text . '</td></a></tr></li>';
+	    }
+
+	    $taxonomies = get_taxonomies( $args , $output , $operator );
+
+	    foreach( $taxonomies as $taxonomy ) {
+	        $num_terms  = wp_count_terms( $taxonomy->name );
+	        $num = number_format_i18n( $num_terms );
+	        $text = _n( $taxonomy->labels->name, $taxonomy->labels->name , intval( $num_terms ));
+
+	        if ( current_user_can( 'manage_categories' ) ) {
+	            $cpt_tax = $taxonomy->name;
+	        }
+
+	        echo '<li class="post-count"><tr><a href="edit-tags.php?taxonomy='.$cpt_tax.'"><td class="first b b-' . $taxonomy->name . '"></td>' . $num . ' <td class="t ' . $taxonomy->name . '">' . $text . '</td></a></tr></li>';
+	    }
 	}
 
 	private function _strip_array_index( $array_to_strip ) {

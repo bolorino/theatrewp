@@ -7,7 +7,7 @@
 *
 * Copyright: © 2013-2014
 * @author Jose Bolorino
-* @version: 0.49
+* @version: 0.50
 * {@link http://www.bolorino.net/ Jose Bolorino.}
 *
 * Released under the terms of the GNU General Public License.
@@ -24,7 +24,7 @@
 * Plugin URI: http://www.bolorino.net/theatre-wp-wordpress-plugin-performing-arts/
 * Description: CMS for Theatre and Performing Arts Companies. Managing Shows and Performances made easy.
 * Tags: theatre, troupe, actors, shows, performing arts
-* Version: 0.49
+* Version: 0.50
 * License: GPLv2
 * Author: Jose Bolorino <jose.bolorino@gmail.com>
 * Author URI: http://www.bolorino.net/
@@ -48,34 +48,27 @@ define( 'TWP_BASE_PATH', plugin_dir_path( __FILE__ ) );
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/classes/class-theatre-wp.php' );
 
-// Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
-register_activation_hook( __FILE__, array( 'TWP_Setup', 'activate' ) );
-register_deactivation_hook( __FILE__, array( 'TWP_Setup', 'deactivate' ) );
-
 // Localization
 add_action( 'plugins_loaded', 'twp_load_plugin_textdomain' );
 $locale = apply_filters( 'plugin_locale', get_locale(), 'theatrewp' );
+
+function twp_load_plugin_textdomain() {
+    load_plugin_textdomain( 'theatrewp', false, plugin_dir_path( __FILE__ ) . 'languages' );
+}
 
 /* After v 0.46 a DB update is needed to change performances metadata.
  * $performance_custom['performance'] contained the Production slug (Ouch!)
  * Now it should be $performance_custom['spectacle_id']
  * The twp_version option is saved for the first time after v 0.46
  * so, if it doesn't exist we call a method to fix the mess.
- * UPADTE post_meta SET prefix_performance -> prefix_spectacle_id
- * SELECT slugs -> GET IDs
- * UPDATE post_meta SET value = ID from slug
  */
 
 $current_version = get_option( 'twp_version' );
 
-function twp_load_plugin_textdomain() {
-    load_plugin_textdomain( 'theatrewp', false, plugin_dir_path( __FILE__ ) . 'languages' );
-}
-
 if ( ! $current_version OR $current_version < '0.49' ) {
     _upgrade_performances_meta();
     // Temporary ugly fix
-    update_option( 'twp_version', '0.49' );
+    update_option( 'twp_version', '0.50' );
 }
 
 function _upgrade_performances_meta() {
@@ -103,3 +96,8 @@ function _upgrade_performances_meta() {
 }
 
 $theatre_wp = new Theatre_WP( TWP_DIR );
+
+// Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
+register_activation_hook( __FILE__, array( 'TWP_Setup', 'activate' ) );
+register_deactivation_hook( __FILE__, array( 'TWP_Setup', 'deactivate' ) );
+register_uninstall_hook( __FILE__, array( 'TWP_Setup', 'uninstall' ) );
