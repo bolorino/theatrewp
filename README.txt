@@ -4,7 +4,7 @@ Donate link:
 Tags: theatre, troupe, dance, performing arts
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 0.50
+Stable tag: 0.51
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,7 +44,7 @@ Demo site: http://theatrewp.bolorino.net/
 * Translation into other languages
 
 == Notes for developers/designers ==
-There are six templates within the plugin, used if the current theme does not include them:
+There are six templates within the plugin as examples to use it in your custom theme:
 
 * single-spectacle.php # Single Show page
 * single-performance.php # Single Performance page
@@ -53,7 +53,7 @@ There are six templates within the plugin, used if the current theme does not in
 * check-dates-form.php # To filter performances by date
 * taxonomy-format.php # Productions by category
 
-To customize these templates, copy the files located in includes/templates within the plugin directory to your theme's directory and modify it to your liking.
+You can copy the files located in includes/templates within the plugin directory to your theme's directory and modify it to your liking.
 
 == Installation ==
 
@@ -74,36 +74,21 @@ Not yet.
 5. Productions
 
 == Changelog ==
+
+= 0.51 =
+* Works now with (almost) any theme!
+* Content filtered instead of using custom templates inside plugin
+* Define TWP_THEME in your custom theme if using templates for productions and performances to avoid duplicate content
+* Fix: return get_bloginfo instead bloginfo in get_production_cat_url
+* Fix: option_post_per_page returns empty
+
 = 0.50 =
 * WordPress 4.0
 * Custom posts info in Dashboard (At a glance)
 * Cleanup activation and deactivation hooks
-
-= 0.49 =
-* Fix plugin version
-
-= 0.48 =
-* Fix performance meta update error
-Please, upgrade!
-
-= 0.47 =
-* Fix redundant object creation
-* Upgrade performances meta
-* Fix audience array
-* [Polylang] List only translated shows in performance edit
-
-= 0.46 =
-* Performances Polylang compatibility
-* Performances fixes
-* A Theatre WP theme is coming soon for you to use it as a template. If you are using this plugin in your own theme, please add the functions below in your theme functions.php to enable performances pagination:
-https://gist.github.com/bolorino/6637ef0d81395590e5a3
-Checkout the changes in the archive-performance.php template.
 
 Please, see full changelog in the plugin website
 http://www.bolorino.net/theatre-wp-wordpress-plugin-performing-arts/
 
 == Upgrade Notice ==
-= 0.50 =
-* WordPress 4.0
-* Custom posts info in Dashboard (At a glance)
-* Cleanup activation and deactivation hooks
+Works now with (almost) any theme!

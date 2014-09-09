@@ -29,7 +29,7 @@ class Theatre_WP {
 	 *
 	 * @var     string
 	 */
-	static $version = '0.50';
+	static $version = '0.51';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -183,7 +183,7 @@ class Theatre_WP {
 	 * @return string
 	 */
 	public function get_production_cat_url( $slug ) {
-		return bloginfo('url') . '/' . TWP_Spectacle::$production_category_slug . '/' . sanitize_title( $slug );
+		return get_bloginfo('url') . '/' . TWP_Spectacle::$production_category_slug . '/' . sanitize_title( $slug );
 	}
 
 	/* Performance public methods */
@@ -251,5 +251,210 @@ class Theatre_WP {
 	public function get_calendar( $calendar_filter_params ) {
 		return $this->performance->get_filtered_calendar( $calendar_filter_params );
 	}
+
+	/**
+	 * Add TWP custom data to single spectacle content
+	 *
+	 * @access public
+	 * @param string $content
+	 * @return string
+	 */
+	public function get_single_spectacle_content( $content ) {
+		global $post;
+
+		$twp_content = '<div id="twp-pre_content">';
+		$pre_content = false;
+
+		// Production custom metadata
+		$production_custom = $this->get_spectacle_custom( $post->ID );
+
+		// Get the Production formats
+		$production_format = get_the_terms( $post->ID, 'format' );
+
+		foreach ( $production_format as $format ) {
+			$formats[] = array(
+				'name' => $format->name,
+				'slug' => $format->slug
+			);
+		}
+
+		if ( ! empty( $formats ) ) {
+			$twp_content .= '<div class="twp-formats">';
+
+			foreach ( $formats as $format ) {
+				$twp_content .= '<a href="'
+				. $this->get_production_cat_url( $format['slug'] )
+				. '">'
+				. $format['name']
+				. '</a> ';
+			}
+			$twp_content .= '</div>';
+
+			$pre_content = true;
+		}
+
+		if ( $production_custom['audience'] ) {
+			$twp_content .= '<div class="twp-audience">';
+			$twp_content .= $production_custom['audience'];
+			$twp_content .= '</div>';
+			$pre_content = true;
+		}
+
+		if ( $production_custom['synopsis'] ) {
+			$twp_content .= '<p>';
+			$twp_content .= $production_custom['synopsis'];
+			$twp_content .= '</p>';
+			$pre_content = true;
+		}
+
+		$twp_content .= '</div>';
+
+		if ( $pre_content ) {
+			$twp_content .= $content;
+		}
+
+		$twp_content .= '<div id="twp-content">';
+
+		if ( $production_custom['video'] ) {
+			$twp_content .= '<div id="twp-video" class="video">'
+			. $production_custom['video']
+			. '</div>';
+		}
+
+		if ( $production_custom['credits'] ) {
+			$twp_content .= '<div id="twp-credits">'
+			. '<h2 class="twp-subtitle">'
+			. __('Credits', 'theatrewp')
+			. '</h2>'
+			. $production_custom['credits']
+			. '</div>';
+		}
+
+		if ( $production_custom['sheet'] ) {
+			$twp_content .= '<div class="sheet">'
+			. '<h2 class="twp-subtitle">'
+			. __('Sheet', 'theatrewp')
+			. '</h2>'
+			. nl2br( $production_custom['sheet'] )
+			. '</div>';
+		}
+
+		$twp_content .= '</div>';
+
+		if ( ! $pre_content ) {
+			$twp_content .= $content;
+		}
+
+		return $twp_content;
+	}
+
+	/**
+	 * Add TWP custom data to single performance content
+	 *
+	 * @access public
+	 * @param string $content
+	 * @return string
+	 */
+	public function get_single_performance_content( $content ) {
+		global $post;
+
+		$twp_content = '<div id="twp-pre_content">';
+
+		// Get performance custom metadata
+		$performance_custom = $this->get_performance_custom( get_the_ID() );
+
+        if ( $performance_custom['date_first'] ) {
+            $performance_first_date = date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] );
+            $performance_first_time = strftime( '%H:%M', $performance_custom['date_first'] );
+        }
+
+        if ( $performance_custom['date_last'] ) {
+            $performance_last_date = date_i18n( get_option( 'date_format' ), $performance_custom['date_last'] );
+            $performance_last_time = strftime( '%H:%M', $performance_custom['date_last'] );
+        }
+
+        // Get Spectacle data
+        $spectacle_data = $this->get_spectacle_data( $performance_custom['spectacle_id'] );
+
+        if ( isset( $performance_first_date ) ) {
+        	$twp_content .= '<h3>'
+        	. __( 'When', 'theatrewp' )
+        	. '</h3>'
+        	. '<p class="single-performance-dates">';
+
+            if ( isset( $performance_last_date ) ) {
+                $twp_content .= _x( 'From', '(date) performing from day', 'theatrewp' );
+            }
+
+            $twp_content .= '<span class="performance-date">'
+            . $performance_first_date
+            . '</span> '
+            . '(<span class="performance-time">'
+            . $performance_first_time
+            . '</span>)';
+
+            if ( isset( $performance_last_date ) ) {
+            	$twp_content .= _x( 'To', '(date) performing to day', 'theatrewp' ) . ' '
+            	. '<span class="performance-date">'
+            	. $performance_last_date
+            	. '</span>'
+                . '(<span class="performance-time">'
+                . $performance_last_time
+                . '</span>)<br>';
+            }
+
+            $twp_content .= '</p>';
+        }
+
+        $twp_content .= '<h3>'
+        . '<a href="' . $performance_custom['spectacle_url'] . '">'
+        . $performance_custom['spectacle_title']
+        . '</a>'
+        . '</h3>';
+
+        if ( $performance_custom['event'] ) {
+        	$twp_content .= '<h3>'
+        	. __( 'Event', 'theatrewp' )
+        	. '</h3>'
+        	. '<div class="event">'
+        	. '<p>'
+            . '<em>'
+            . $performance_custom['event']
+            . '</em>'
+            . '</p>'
+            . '</div>';
+        }
+
+        $twp_content .= '<p class="location">';
+
+        if ( $performance_custom['place'] ) {
+            $twp_content .= $performance_custom['place'] . '<br>';
+        }
+
+        if ( $performance_custom['address'] ) {
+            $twp_content .= $performance_custom['address'] . '<br>';
+        }
+
+        if ( $performance_custom['town'] ) {
+            $twp_content .= $performance_custom['town'] . ' ';
+        }
+
+        if ( $performance_custom['country'] ) {
+            $twp_content .= '(' . $performance_custom['country'] . ') ';
+        }
+
+        $twp_content .= '</p>';
+
+        if ( $performance_custom['display_map'] ) {
+        	$twp_content .= '<div id="performance-map">';
+            $map = $this->display_performance_map( $performance_custom );
+            $twp_content .= $map
+            . '</div>';
+        }
+
+        return $twp_content . $content;
+
+	}
+
 }
 

@@ -97,8 +97,6 @@ class TWP_Setup {
 
 		// Actions
 		add_action( 'init', array( $this, 'init' ), 0 );
-		// @ToDo check
-		// add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 		add_action( 'widgets_init', array( $this, 'init_widgets' ) );
 	}
 
@@ -118,9 +116,11 @@ class TWP_Setup {
 		add_action( 'init', array( $this, 'twp_metaboxes' ) );
 
 		// Filters
-		// Default custom posts templates
-		add_filter( 'single_template', array( $this, 'get_twp_single_template' ) );
-		add_filter( 'archive_template', array( $this, 'get_twp_archive_template' ) );
+
+		// Chek if we are using a TWP compatible theme
+		if ( ! defined( 'TWP_THEME' ) ) {
+			add_filter( 'the_content', array( $this, 'twp_content' ) );
+		}
 
 		// Enable a different post_per_page param for custom post
 		add_filter( 'option_posts_per_page', array( 'TWP_Setup', 'twp_option_post_per_page' ) );
@@ -455,59 +455,6 @@ class TWP_Setup {
 	}
 
 	/**
-	 * Get the path to the custom posts (spectacle/performance) single templates
-	 *
-	 * @access public
-	 * @return string
-	 */
-	public function get_twp_single_template( $template ) {
-
-		if ( 'spectacle' == get_post_type( get_queried_object_id() ) && ! $this->_check_theme_templates(self::$templates['single-spectacle']) ) {
-			$template = TWP_BASE_PATH . '/includes/templates/single-spectacle.php';
-		}
-
-		if ( 'performance' == get_post_type( get_queried_object_id() ) && ! $this->_check_theme_templates(self::$templates['single-performance']) ) {
-			$template = TWP_BASE_PATH . '/includes/templates/single-performance.php';
-		}
-
-		return $template;
-
-	}
-
-	/**
-	 * Get the path to the custom posts (spectacle/performance) archive templates
-	 *
-	 * @access public
-	 * @return string
-	 */
-	public function get_twp_archive_template( $template ) {
-		// Custom post archive pages
-		if ( is_post_type_archive( 'performance' ) && ! $this->_check_theme_templates(self::$templates['archive-performance']) ) {
-			$template = plugin_dir_path(__FILE__) . '../templates/archive-performance.php';
-		}
-
-		if ( is_post_type_archive( 'spectacle' ) && ! $this->_check_theme_templates(self::$templates['archive-spectacle']) ) {
-			$template = plugin_dir_path(__FILE__) . '../templates/archive-spectacle.php';
-		}
-
-		return $template;
-	}
-
-	/**
-	 * Checks if template files exists
-	 *
-	 * @access private
-	 * @return bool
-	 */
-	private function _check_theme_templates( $template)  {
-		if ( ! locate_template( $template, false ) ) {
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
 	* Adding scripts and styles
 	*
 	* @access public
@@ -719,15 +666,14 @@ class TWP_Setup {
 	 * @access public
 	 * @return int
 	 */
-	public static function twp_option_post_per_page( $value ) {
-		global $option_posts_per_page;
+	public static function twp_option_post_per_page( $option_posts_per_page ) {
 
 		if ( is_tax( 'performance' ) ) {
-			return get_option( 'twp_performances_number' );
+			$option_posts_per_page = get_option( 'twp_performances_number' );
 		}
 
 		if ( is_tax( 'spectacle' ) ) {
-			return get_option( 'twp_spectacles_number' );
+			$option_posts_per_page = get_option( 'twp_spectacles_number' );
 		}
 
 		return $option_posts_per_page;
@@ -981,6 +927,28 @@ class TWP_Setup {
 
 	        echo '<li class="post-count"><tr><a href="edit-tags.php?taxonomy='.$cpt_tax.'"><td class="first b b-' . $taxonomy->name . '"></td>' . $num . ' <td class="t ' . $taxonomy->name . '">' . $text . '</td></a></tr></li>';
 	    }
+	}
+
+	// Content filter
+	public function twp_content( $content ) {
+		global $post, $theatre_wp;
+
+		$twp_content = false;
+
+		// Single spectacle
+		// @TODO check template file exists in addition to TWP_THEME constant?
+		if ( is_single() && 'spectacle' == get_post_type( get_queried_object_id() ) ) {
+			$twp_content = $theatre_wp->get_single_spectacle_content( $content );
+		} elseif ( is_single() && 'performance' == get_post_type( get_queried_object_id() ) ) {
+			// Single performance
+			$twp_content = $theatre_wp->get_single_performance_content( $content );
+		}
+
+		if ( $twp_content ) {
+			return $twp_content;
+		}
+
+		return $content;
 	}
 
 	private function _strip_array_index( $array_to_strip ) {
