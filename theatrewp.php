@@ -49,8 +49,8 @@ define( 'TWP_BASE_PATH', plugin_dir_path( __FILE__ ) );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/classes/class-theatre-wp.php' );
 
 // Localization
-add_action( 'plugins_loaded', 'twp_load_plugin_textdomain' );
-$locale = apply_filters( 'plugin_locale', get_locale(), 'theatrewp' );
+// add_action( 'plugins_loaded', 'twp_load_plugin_textdomain' );
+// $locale = apply_filters( 'plugin_locale', get_locale(), 'theatrewp' );
 
 function twp_load_plugin_textdomain() {
     load_plugin_textdomain( 'theatrewp', false, plugin_dir_path( __FILE__ ) . 'languages' );
@@ -68,7 +68,7 @@ $current_version = get_option( 'twp_version' );
 if ( ! $current_version OR $current_version < '0.49' ) {
     _upgrade_performances_meta();
     // Temporary ugly fix
-    update_option( 'twp_version', '0.50' );
+    update_option( 'twp_version', '0.51' );
 }
 
 function _upgrade_performances_meta() {
