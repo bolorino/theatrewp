@@ -16,23 +16,23 @@ class TWP_Spectacle {
 		self::$audience = array(
 			array(
 				'label'	=> __('All Audiences', 'theatrewp'),
-				'value' => __('All Audiences', 'theatrewp')
+				'value' => 'All Audiences'
 			),
 			array(
 				'label'	=> __('Adults', 'theatrewp'),
-				'value' => __('Adults', 'theatrewp')
+				'value' => 'Adults'
 			),
 			array(
 				'label'	=> __('Family', 'theatrewp'),
-				'value' => __('Family', 'theatrewp')
+				'value' => 'Family'
 			),
 			array(
 				'label'	=> __('Kids', 'theatrewp'),
-				'value' => __('Kids', 'theatrewp')
+				'value' => 'Kids'
 			),
 			array(
 				'label'	=> __('Young', 'theatrewp'),
-				'value' => __('Young', 'theatrewp')
+				'value' => 'Young'
 			)
  		);
 

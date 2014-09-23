@@ -521,7 +521,7 @@ class TWP_Setup {
 		$new_columns['cb'] = '<input type="checkbox" />';
 
 		$new_columns['id']         = __( 'ID' );
-		$new_columns['title']      = _x( 'Performance', 'column name' );
+		$new_columns['title']      = _x( 'Performance', 'column name', 'theatrewp' );
 		$new_columns['spectacle']  = __( 'Spectacle', 'theatrewp' );
 		$new_columns['first_date'] = __( 'First Date', 'theatrewp' );
 		$new_columns['last_date']  = __( 'Last Date', 'theatrewp' );

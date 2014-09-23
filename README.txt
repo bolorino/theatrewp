@@ -44,6 +44,7 @@ Demo site: http://theatrewp.bolorino.net/
 * Translation into other languages
 
 == Notes for developers/designers ==
+
 There are six templates within the plugin as examples to use it in your custom theme:
 
 * single-spectacle.php # Single Show page
@@ -54,6 +55,9 @@ There are six templates within the plugin as examples to use it in your custom t
 * taxonomy-format.php # Productions by category
 
 You can copy the files located in includes/templates within the plugin directory to your theme's directory and modify it to your liking.
+
+Define TWP_THEME constant in your theme if using the templates to avoid duplicate content:
+define( 'TWP_THEME', true );
 
 == Installation ==
 

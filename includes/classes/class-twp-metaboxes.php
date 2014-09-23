@@ -49,7 +49,7 @@ class TWP_Metaboxes {
                 	if ( $field['options'] ) {
                 		echo '<select name="', $field['id'], '" id="', $field['id'], '">';
 	                    foreach ( $field['options'] as $option ) {
-	                        echo '<option', $meta == $option['value'] ? ' selected="selected"' : '', ' value="', $option['value'], '">', $option['label'], '</option>';
+	                        echo '<option', $meta == $option['value'] ? ' selected="selected"' : '', ' value="', $option['value'], '">', __( $option['label'], 'theatrewp' ), '</option>';
 	                    }
 	                    echo '</select>';
                 	} else {

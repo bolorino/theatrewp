@@ -52,9 +52,9 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/classes/class-theatre-wp.p
 // add_action( 'plugins_loaded', 'twp_load_plugin_textdomain' );
 // $locale = apply_filters( 'plugin_locale', get_locale(), 'theatrewp' );
 
-function twp_load_plugin_textdomain() {
-    load_plugin_textdomain( 'theatrewp', false, plugin_dir_path( __FILE__ ) . 'languages' );
-}
+// function twp_load_plugin_textdomain() {
+//     load_plugin_textdomain( 'theatrewp', false, plugin_dir_path( __FILE__ ) . 'languages' );
+// }
 
 /* After v 0.46 a DB update is needed to change performances metadata.
  * $performance_custom['performance'] contained the Production slug (Ouch!)
