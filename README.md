@@ -5,7 +5,7 @@ Theatre WP
 WordPress
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 0.51
+Stable tag: 0.52
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,6 +79,9 @@ Screenshots
 ![Screenshot 5](/assets/screenshot-5.png "Productions")
 
 Changelog
+### 0.52
+* Fix missing translations
+
 ### 0.51
 * Works now with (almost) any theme!
 * Content filtered instead of using custom templates inside plugin

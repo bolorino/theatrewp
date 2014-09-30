@@ -7,7 +7,7 @@
 *
 * Copyright: © 2013-2014
 * @author Jose Bolorino
-* @version: 0.51
+* @version: 0.52
 * {@link http://www.bolorino.net/ Jose Bolorino.}
 *
 * Released under the terms of the GNU General Public License.
@@ -24,7 +24,7 @@
 * Plugin URI: http://www.bolorino.net/theatre-wp-wordpress-plugin-performing-arts/
 * Description: CMS for Theatre and Performing Arts Companies. Managing Shows and Performances made easy.
 * Tags: theatre, troupe, actors, shows, performing arts
-* Version: 0.51
+* Version: 0.52
 * License: GPLv2
 * Author: Jose Bolorino <jose.bolorino@gmail.com>
 * Author URI: http://www.bolorino.net/
@@ -48,14 +48,6 @@ define( 'TWP_BASE_PATH', plugin_dir_path( __FILE__ ) );
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/classes/class-theatre-wp.php' );
 
-// Localization
-// add_action( 'plugins_loaded', 'twp_load_plugin_textdomain' );
-// $locale = apply_filters( 'plugin_locale', get_locale(), 'theatrewp' );
-
-// function twp_load_plugin_textdomain() {
-//     load_plugin_textdomain( 'theatrewp', false, plugin_dir_path( __FILE__ ) . 'languages' );
-// }
-
 /* After v 0.46 a DB update is needed to change performances metadata.
  * $performance_custom['performance'] contained the Production slug (Ouch!)
  * Now it should be $performance_custom['spectacle_id']
@@ -68,7 +60,7 @@ $current_version = get_option( 'twp_version' );
 if ( ! $current_version OR $current_version < '0.49' ) {
     _upgrade_performances_meta();
     // Temporary ugly fix
-    update_option( 'twp_version', '0.51' );
+    update_option( 'twp_version', '0.52' );
 }
 
 function _upgrade_performances_meta() {
