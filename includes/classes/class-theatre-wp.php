@@ -29,7 +29,7 @@ class Theatre_WP {
 	 *
 	 * @var     string
 	 */
-	static $version = '0.52';
+	static $version = '0.53';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -183,10 +183,25 @@ class Theatre_WP {
 	 * @return string
 	 */
 	public function get_production_cat_url( $slug ) {
-		return get_bloginfo('url') . '/' . TWP_Spectacle::$production_category_slug . '/' . sanitize_title( $slug );
+		return esc_url( home_url() ) . '/' . TWP_Spectacle::$production_category_slug . '/' . sanitize_title( $slug );
 	}
 
 	/* Performance public methods */
+
+	public function are_there_performances() {
+		$args = array(
+			'post_type' => 'performance',
+			'numberposts' => 1
+		);
+
+		$check_performances = get_posts( $args );
+
+		if ( ! $check_performances ) {
+			return false;
+		}
+
+		return true;
+	}
 
 	/**
 	 * Get performance custom metadata.
@@ -457,4 +472,3 @@ class Theatre_WP {
 	}
 
 }
-

@@ -369,7 +369,7 @@ class TWP_Setup {
 			'exclude_from_search' => false,
 			'capability_type' => 'post',
 			'menu_position'   => 6,
-			'supports'        => array( 'title' )
+			'supports'        => array( 'title', 'excerpt' )
 			);
 
 		register_post_type( 'performance', $performances_args );

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TheatreWP\n"
 "POT-Creation-Date: 2014-03-13 17:42+0100\n"
-"PO-Revision-Date: 2014-09-10 19:31+0100\n"
+"PO-Revision-Date: 2014-10-19 00:36+0100\n"
 "Last-Translator: Jose Bolorino <jose.bolorino@gmail.com>\n"
 "Language-Team:  <jose.bolorino@gmail.com>\n"
 "Language: es_ES\n"
@@ -660,8 +660,14 @@ msgstr "Muestra una lista de patrocinadores para el espectáculo actual"
 msgid "Production Upcoming Performances"
 msgstr "Próximas funciones del espectáculo"
 
+msgid "Display a list of upcoming performances for the current production"
+msgstr "Muestra una lista de las próximas funciones del espectáculo actual"
+
 msgid "Productions"
 msgstr "Espectáculos"
+
+msgid "Display a list of your productions"
+msgstr "Muestra una lista de tus espectáculos"
 
 #~ msgid "From %s to %s (%s)"
 #~ msgstr "Del %s al %s (%s)"

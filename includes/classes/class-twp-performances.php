@@ -424,7 +424,7 @@ class TWP_Performance {
 		$sql_first_available_year = $wpdb->get_row( "SELECT meta_key, meta_value AS date_selection FROM $wpdb->postmeta WHERE meta_key = 'twp_date_first' ORDER BY meta_value ASC LIMIT 1 ");
 
 		if ( ! $sql_first_available_year OR ! $sql_first_available_year->date_selection ) {
-			return false;
+			return date( 'Y' );
 		}
 
 		return date( 'Y', $sql_first_available_year->date_selection );
@@ -436,7 +436,7 @@ class TWP_Performance {
 		$sql_last_available_year = $wpdb->get_row( "SELECT meta_key, meta_value AS date_selection FROM $wpdb->postmeta WHERE meta_key = 'twp_date_first' ORDER BY meta_value DESC LIMIT 1 ");
 
 		if ( ! $sql_last_available_year OR ! $sql_last_available_year->date_selection ) {
-			return false;
+			return date( 'Y' );
 		}
 
 		return date( 'Y', $sql_last_available_year->date_selection );

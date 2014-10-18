@@ -14,7 +14,7 @@ if ( realpath(__FILE__) === realpath($_SERVER['SCRIPT_FILENAME']) )
 class TWP_Show_Upcoming_Performances_Widget extends WP_Widget {
 
     public $id = 'twp-show-next-performances';
-    public $title = 'Production Upcoming Performances ';
+    public $title = 'Production Upcoming Performances';
     public $description = 'Display a list of upcoming performances for the current production';
 
     /**

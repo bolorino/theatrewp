@@ -14,7 +14,7 @@ if ( realpath(__FILE__) === realpath($_SERVER['SCRIPT_FILENAME']) )
 class TWP_Spectacles_Widget extends WP_Widget {
 
     public $id = 'twp-show-spectacles';
-    public $title = 'Productions ';
+    public $title = 'Productions';
     public $description = 'Display a list of your productions';
 
 

@@ -5,7 +5,7 @@ Theatre WP
 WordPress
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 0.52
+Stable tag: 0.53
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,6 +79,11 @@ Screenshots
 ![Screenshot 5](/assets/screenshot-5.png "Productions")
 
 Changelog
+### 0.53
+* Excerpt added to Performances
+* Function to check if there are performances $theatrewp->are_there_performances();
+* Minor bug fixes
+
 ### 0.52
 * Fix missing translations
 

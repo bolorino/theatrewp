@@ -519,6 +519,26 @@ msgid ""
 "in the Sponsors menu."
 msgstr ""
 
+#: includes/classes/class-twp-show-upcoming-performances-widget.php:17
+msgid "Production Upcoming Performances"
+msgstr ""
+
+#: includes/classes/class-twp-show-upcoming-performances-widget.php:18
+msgid "Display a list of upcoming performances for the current production"
+msgstr ""
+
+#: includes/classes/class-twp-spectacles-widget.php:17
+msgid "Productions"
+msgstr ""
+
+#: includes/classes/class-twp-spectacles-widget.php:18
+msgid "Display a list of your productions"
+msgstr ""
+
+#: includes/classes/class-twp-upcoming-performances-widget.php:18
+msgid "Display a list of upcoming performances"
+msgstr ""
+
 #: includes/templates/archive-performance.php:37
 #: includes/templates/archive-performance.php:42
 msgid "There are no registered performances for dates searched"

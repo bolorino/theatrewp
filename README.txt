@@ -4,7 +4,7 @@ Donate link:
 Tags: theatre, troupe, dance, performing arts
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 0.52
+Stable tag: 0.53
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,6 +79,11 @@ Not yet.
 
 == Changelog ==
 
+= 0.53 =
+* Excerpt added to Performances
+* Function to check if there are performances $theatrewp->are_there_performances();
+* Minor bug fixes
+
 = 0.52 =
 * Fix translations
 
@@ -98,4 +103,5 @@ Please, see full changelog in the plugin website
 http://www.bolorino.net/theatre-wp-wordpress-plugin-performing-arts/
 
 == Upgrade Notice ==
-Fixed some untranslated strings
+
+Excerpt added to Performances
