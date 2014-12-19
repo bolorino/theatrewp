@@ -40,6 +40,8 @@ class TWP_Upcoming_Performances_Widget extends WP_Widget {
     public function widget( $args, $instance ) {
         global $theatre_wp;
 
+        // @ ToDo add param to exclude current spectacle
+        // in TWP_Performance get_next_performances()
         if ( ! $performances = $theatre_wp->get_next_performances() ) {
             return false;
         }
