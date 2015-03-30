@@ -3,9 +3,9 @@ Theatre WP
 [Theatre WP website](http://www.bolorino.net/theatre-wp-wordpress-plugin-performing-arts/)
 
 WordPress
-Requires at least: 3.9
-Tested up to: 4.1
-Stable tag: 0.54
+Requires at least: 4.1
+Tested up to: 4.1.1
+Stable tag: 0.55
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,6 +79,10 @@ Screenshots
 ![Screenshot 5](/assets/screenshot-5.png "Productions")
 
 Changelog
+### 0.55
+* WordPress 4.1.1
+* Partial Catalan translation
+
 ### 0.54
 * WordPress 4.1
 

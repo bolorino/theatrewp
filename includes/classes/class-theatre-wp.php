@@ -6,7 +6,7 @@
  * @author    Jose Bolorino <jose.bolorino@gmail.com>
  * @license   GPL-2.0+
  * @link      http://www.bolorino.net/TheatreWP
- * @copyright 2013-2014 Jose Bolorino
+ * @copyright 2013-2015 Jose Bolorino
  */
 
 /**
@@ -29,7 +29,7 @@ class Theatre_WP {
 	 *
 	 * @var     string
 	 */
-	static $version = '0.54';
+	static $version = '0.55';
 
 	/**
 	 * Unique identifier for your plugin.

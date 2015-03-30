@@ -1,0 +1,672 @@
+# Theatre-WP Plugin.
+# Copyright (C) 2014-2015 Jose Bolorino
+# This file is distributed under the same license as the WordPress package.
+# Jose Bolorino <jose.bolorino@gmail.com>, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Theatre-WP\n"
+"POT-Creation-Date: 2015-03-30 14:18+0100\n"
+"PO-Revision-Date: 2015-03-30 16:49+0100\n"
+"Last-Translator: Jose Bolorino <jose.bolorino@gmail.com>\n"
+"Language-Team:  <jose.bolorino@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.4\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ca_ES\n"
+"X-Poedit-KeywordsList: __;_;_e;__ngettext;_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ..\n"
+"X-Poedit-SearchPath-2: ../includes/classes\n"
+"X-Poedit-SearchPath-3: ../includes/templates\n"
+
+#: includes/classes/class-twp-metaboxes.php:56
+msgid "You have no shows registered yet."
+msgstr "Encara no tens espectacles registrats"
+
+#: includes/classes/class-twp-performances.php:354
+msgid "Select one"
+msgstr "Selecciona un"
+
+#: includes/classes/class-twp-setup.php:142
+#: includes/classes/class-twp-setup.php:150
+msgid "Spectacles"
+msgstr "Espectacles"
+
+#: includes/classes/class-twp-setup.php:145
+msgid "Display a list of your spectacles"
+msgstr "Mostra una llista de tots els teus espectacles."
+
+#: includes/classes/class-twp-setup.php:154
+msgid "Spectacle Next Performances"
+msgstr "Properes funcions de l'espectacle"
+
+#: includes/classes/class-twp-setup.php:156
+msgid "Global Next Performances"
+msgstr "Properes funcions"
+
+#: includes/classes/class-twp-setup.php:158
+msgid "Production Sponsors"
+msgstr "Patrocinadors de l'espectacle"
+
+#: includes/classes/class-twp-setup.php:299
+#: includes/classes/class-twp-setup.php:336
+#: includes/classes/class-twp-setup.php:370
+#: includes/classes/class-twp-setup.php:402
+msgid "Add new"
+msgstr "Afegir nou"
+
+#: includes/classes/class-twp-setup.php:300
+msgid "Add new Show"
+msgstr "Afegir nou espectacle"
+
+#: includes/classes/class-twp-setup.php:301
+msgid "Edit Show"
+msgstr "Editar espectacle"
+
+#: includes/classes/class-twp-setup.php:302
+msgid "New Show"
+msgstr "Nou espectacle"
+
+#: includes/classes/class-twp-setup.php:303
+#: includes/classes/class-twp-setup.php:304
+msgid "View Show"
+msgstr "Veure espectacle"
+
+#: includes/classes/class-twp-setup.php:305
+msgid "Search Shows"
+msgstr "Buscar espectacles"
+
+#: includes/classes/class-twp-setup.php:307
+#: includes/classes/class-twp-setup.php:802
+#: includes/classes/class-twp-setup.php:770
+#: includes/templates/single-performance.php:62
+msgid "Show"
+msgstr "Espectacle"
+
+#: includes/classes/class-twp-setup.php:337
+msgid "Add new Performance"
+msgstr "Afegir nova funció"
+
+#: includes/classes/class-twp-setup.php:338
+msgid "Edit Performance"
+msgstr "Editar funció"
+
+#: includes/classes/class-twp-setup.php:339
+msgid "New Performance"
+msgstr "Nova funció"
+
+#: includes/classes/class-twp-setup.php:340
+msgid "View Performances"
+msgstr "Veure funcions"
+
+#: includes/classes/class-twp-setup.php:341
+msgid "View Performance"
+msgstr "Veure funció"
+
+#: includes/classes/class-twp-setup.php:342
+msgid "Search Performance"
+msgstr "Buscar funció"
+
+#: includes/classes/class-twp-setup.php:344
+msgid "Performance"
+msgstr "Funció"
+
+#: includes/classes/class-twp-setup.php:400
+#: includes/classes/class-twp-setup.php:779
+#: includes/classes/class-twp-setup.php:780
+#: includes/classes/class-twp-setup.php:1143
+#: includes/classes/class-twp-setup.php:368
+#: includes/classes/class-twp-setup.php:747
+#: includes/classes/class-twp-setup.php:748
+#: includes/classes/class-twp-setup.php:1094
+msgid "Sponsors"
+msgstr "Patrocinadors"
+
+#: includes/classes/class-twp-setup.php:401
+#: includes/classes/class-twp-setup.php:410
+#: includes/classes/class-twp-setup.php:906
+#: includes/classes/class-twp-setup.php:369
+#: includes/classes/class-twp-setup.php:378
+#: includes/classes/class-twp-setup.php:858
+msgid "Sponsor"
+msgstr "Patrocinador"
+
+#: includes/classes/class-twp-setup.php:403
+#: includes/classes/class-twp-setup.php:371
+msgid "Add new Sponsor"
+msgstr "Afegir nou patrocinador"
+
+#: includes/classes/class-twp-setup.php:404
+#: includes/classes/class-twp-setup.php:372
+msgid "Edit Sponsor"
+msgstr "Editar patrocinador"
+
+#: includes/classes/class-twp-setup.php:405
+#: includes/classes/class-twp-setup.php:373
+msgid "New Sponsor"
+msgstr "Nou patrocinador"
+
+#: includes/classes/class-twp-setup.php:406
+#: includes/classes/class-twp-setup.php:374
+msgid "View Sponsors"
+msgstr "Veure patrocinadors"
+
+#: includes/classes/class-twp-setup.php:407
+#: includes/classes/class-twp-setup.php:375
+msgid "View Sponsor"
+msgstr "Veure patrocinador"
+
+#: includes/classes/class-twp-setup.php:408
+#: includes/classes/class-twp-setup.php:376
+msgid "Search Sponsors"
+msgstr "Buscar patrocinadors"
+
+#: includes/classes/class-twp-setup.php:425
+#: includes/classes/class-twp-setup.php:393
+msgctxt "taxonomy general name"
+msgid "Types of Production"
+msgstr "Tipus de producció"
+
+#: includes/classes/class-twp-setup.php:426
+#: includes/classes/class-twp-setup.php:394
+msgctxt "taxonomy singular name"
+msgid "Type of Production"
+msgstr "Tipus de producció"
+
+#: includes/classes/class-twp-setup.php:427
+#: includes/classes/class-twp-setup.php:395
+msgid "New format of Production"
+msgstr "Nou format de producció"
+
+#: includes/classes/class-twp-setup.php:428
+#: includes/classes/class-twp-setup.php:396
+msgid "New format name"
+msgstr "Nou format"
+
+#: includes/classes/class-twp-setup.php:429
+#: includes/classes/class-twp-setup.php:435
+#: includes/classes/class-twp-setup.php:397
+#: includes/classes/class-twp-setup.php:403
+msgid "Format"
+msgstr "Format"
+
+#: includes/classes/class-twp-setup.php:537
+#: includes/classes/class-twp-setup.php:505
+msgid "Done"
+msgstr "Fet"
+
+#: includes/classes/class-twp-setup.php:538
+#: includes/classes/class-twp-setup.php:506
+msgid "Today"
+msgstr "Avui"
+
+#: includes/classes/class-twp-setup.php:541
+#: includes/classes/class-twp-setup.php:509
+msgid "Show a different month"
+msgstr "Mostrar un altre mes"
+
+#: includes/classes/class-twp-setup.php:580
+#: includes/classes/class-twp-setup.php:548
+msgid "ID"
+msgstr "ID"
+
+#: includes/classes/class-twp-setup.php:581
+#: includes/classes/class-twp-setup.php:549
+msgctxt "column name"
+msgid "Performance"
+msgstr "Actuació"
+
+#: includes/classes/class-twp-setup.php:582
+#: includes/classes/class-twp-setup.php:550
+msgid "Spectacle"
+msgstr "Espectacle"
+
+#: includes/classes/class-twp-setup.php:583
+#: includes/classes/class-twp-setup.php:551
+msgid "First Date"
+msgstr "Primera data"
+
+#: includes/classes/class-twp-setup.php:584
+#: includes/classes/class-twp-setup.php:552
+msgid "Last Date"
+msgstr "Última data"
+
+#: includes/classes/class-twp-setup.php:585
+#: includes/classes/class-twp-setup.php:831
+#: includes/classes/class-twp-setup.php:553
+#: includes/classes/class-twp-setup.php:799
+#: includes/templates/single-performance.php:80
+msgid "Event"
+msgstr "Esdeveniment"
+
+#: includes/classes/class-twp-setup.php:635
+#: includes/classes/class-twp-setup.php:603
+msgid "Theatre WP Options"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:715
+#: includes/classes/class-twp-setup.php:683
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:745
+#: includes/classes/class-twp-setup.php:713
+msgid "Spectacle Options"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:751
+#: includes/classes/class-twp-setup.php:719
+msgid "Synopsis"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:752
+#: includes/classes/class-twp-setup.php:720
+msgid "Short description"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:758
+#: includes/classes/class-twp-setup.php:726
+msgid "Audience"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:731
+msgid "Duration"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:733
+msgid "Duration in minutes"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:759
+#: includes/classes/class-twp-setup.php:727
+msgid "Intended Audience"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:765
+#: includes/classes/class-twp-setup.php:733
+#: includes/templates/single-spectacle.php:47
+msgid "Credits"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:766
+#: includes/classes/class-twp-setup.php:734
+msgid "Credits Titles"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:772
+#: includes/classes/class-twp-setup.php:740
+#: includes/templates/single-spectacle.php:54
+msgid "Sheet"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:773
+#: includes/classes/class-twp-setup.php:741
+msgid "Technical Sheet"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:786
+#: includes/classes/class-twp-setup.php:754
+msgid "Video"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:755
+msgid "Video Code. The code of the video in YouTube or Vimeo"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:796
+#: includes/classes/class-twp-setup.php:764
+msgid "Performance Options"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:803
+#: includes/classes/class-twp-setup.php:771
+msgid "Performing Show"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:809
+#: includes/classes/class-twp-setup.php:777
+msgid "First date"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:810
+#: includes/classes/class-twp-setup.php:778
+msgid "First performing date. [Date selection / Time]"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:818
+#: includes/classes/class-twp-setup.php:786
+msgid "Select Date"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:819
+#: includes/classes/class-twp-setup.php:787
+msgid "dd-mm-yyyy"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:824
+#: includes/classes/class-twp-setup.php:792
+msgid "Last date"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:825
+#: includes/classes/class-twp-setup.php:793
+msgid "Last performing date. [Date selection / Time]"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:832
+#: includes/classes/class-twp-setup.php:800
+msgid "Event in which the show is performed (Festival, Arts Program...)"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:838
+#: includes/classes/class-twp-setup.php:806
+msgid "Stage"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:839
+#: includes/classes/class-twp-setup.php:807
+msgid "Where is the Show to be played (Theatre)"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:845
+#: includes/classes/class-twp-setup.php:813
+msgid "Theatre Address"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:852
+#: includes/classes/class-twp-setup.php:820
+msgid "Postal Code"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:859
+#: includes/classes/class-twp-setup.php:827
+msgid "Town"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:860
+#: includes/classes/class-twp-setup.php:828
+msgid "Performing in this Town"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:866
+#: includes/classes/class-twp-setup.php:834
+msgid "Region"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:867
+#: includes/classes/class-twp-setup.php:835
+msgid "e.g. Province, County..."
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:873
+#: includes/classes/class-twp-setup.php:841
+msgid "Country"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:880
+#: includes/classes/class-twp-setup.php:848
+msgid "Display Map"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:881
+#: includes/classes/class-twp-setup.php:849
+msgid "Check to display map"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:890
+msgid "Video code"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:896
+msgid "Video URL"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:912
+#: includes/classes/class-twp-setup.php:864
+msgid "Link"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:913
+#: includes/classes/class-twp-setup.php:865
+msgid "Sponsor Link"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:919
+#: includes/classes/class-twp-setup.php:871
+msgid "Weight"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:920
+#: includes/classes/class-twp-setup.php:872
+msgid "A number between 0 and 99 to set the importance. 99 is higher"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:980
+#: includes/classes/class-twp-setup.php:932
+msgid "Title:"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:985
+#: includes/classes/class-twp-setup.php:937
+msgid "Number of spectacles to show (0 for all):"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:991
+#: includes/classes/class-twp-setup.php:943
+msgid "Sort by"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:1000
+#: includes/classes/class-twp-setup.php:952
+msgid "Date"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:1007
+#: includes/classes/class-twp-setup.php:959
+msgid "Title"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:1016
+#: includes/classes/class-twp-setup.php:968
+msgid "Asc"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:1024
+#: includes/classes/class-twp-setup.php:976
+msgid "Desc"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:1049
+#: includes/classes/class-twp-setup.php:1001
+#: includes/templates/archive-performance.php:142
+msgid "Upcoming Performances"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:1079
+#: includes/classes/class-twp-setup.php:1031
+#, php-format
+msgid "“%s” Upcoming Performances"
+msgstr ""
+
+#: includes/classes/class-twp-spectacles.php:15
+msgid "All Audiences"
+msgstr "Per tots els públics"
+
+#: includes/classes/class-twp-spectacles.php:16
+msgid "Adults"
+msgstr "Adults"
+
+#: includes/classes/class-twp-spectacles.php:17
+msgid "Family"
+msgstr "Familiar"
+
+#: includes/classes/class-twp-spectacles.php:18
+msgid "Kids"
+msgstr "Infantil"
+
+#: includes/classes/class-twp-spectacles.php:19
+msgid "Young"
+msgstr "Juvenil"
+
+#: includes/classes/class-twp-sponsors.php:23
+msgid ""
+"There are no sponsors yet. This checkbox will disappear after you add some "
+"in the Sponsors menu."
+msgstr ""
+
+#: includes/classes/class-twp-show-upcoming-performances-widget.php:17
+msgid "Production Upcoming Performances"
+msgstr ""
+
+#: includes/classes/class-twp-show-upcoming-performances-widget.php:18
+msgid "Display a list of upcoming performances for the current production"
+msgstr ""
+
+#: includes/classes/class-twp-spectacles-widget.php:17
+msgid "Productions"
+msgstr ""
+
+#: includes/classes/class-twp-spectacles-widget.php:18
+msgid "Display a list of your productions"
+msgstr ""
+
+#: includes/classes/class-twp-upcoming-performances-widget.php:18
+msgid "Display a list of upcoming performances"
+msgstr ""
+
+#: includes/templates/archive-performance.php:37
+#: includes/templates/archive-performance.php:42
+msgid "There are no registered performances for dates searched"
+msgstr ""
+
+#: includes/templates/archive-performance.php:39
+#: includes/templates/archive-performance.php:44
+msgid "There are no performaces right now"
+msgstr ""
+
+#: includes/templates/archive-performance.php:118
+#: includes/templates/archive-performance.php:143
+msgid "Previous Performances"
+msgstr ""
+
+#: includes/templates/archive-spectacle.php:47
+#: includes/templates/archive-spectacle.php:46
+msgid "Audience:"
+msgstr ""
+
+#: includes/templates/archive-spectacle.php:67
+#: includes/templates/archive-spectacle.php:66
+msgid "More Spectacles"
+msgstr ""
+
+#: includes/templates/archive-spectacle.php:68
+#: includes/templates/archive-spectacle.php:67
+msgid "Previous Spectacles"
+msgstr ""
+
+#: includes/templates/check-dates-form.php:15
+msgid "Check dates"
+msgstr ""
+
+#: includes/templates/single-performance.php:35
+#: includes/templates/single-performance.php:40
+msgid "When"
+msgstr ""
+
+#: includes/templates/archive-performance.php:62
+#, php-format
+msgid "%s Total performances"
+msgstr ""
+
+#: includes/templates/archive-performance.php:65
+msgid "View upcoming performances"
+msgstr ""
+
+#: archive-performance.php:87
+#, php-format
+msgid "One performance"
+msgid_plural "%s Total performances"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/templates/archive-performance.php:114
+#, php-format
+msgctxt "From day one to day two at (hour)"
+msgid "From %s to %s (%s)"
+msgstr ""
+
+#: includes/templates/archive-performance.php:116
+#, php-format
+msgctxt "From day one at (hour) to day two at (hour)"
+msgid "From %s (%s) to %s (%s)"
+msgstr ""
+
+#: includes/templates/single-performance.php:44
+msgctxt "(date) performing from day"
+msgid "From"
+msgstr ""
+
+#: includes/templates/single-performance.php:51
+msgctxt "(date) performing to day"
+msgid "To"
+msgstr ""
+
+#: includes/templates/taxonomy-format.php:18
+msgctxt "spectacles that belong to %s category"
+msgid "%s Spectacles"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:3
+msgid "Theatre WP Options "
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:10
+msgid ""
+"Your Singular Spectacles name (Spectacle, Choreography, Show, Production...)"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:14
+msgid ""
+"Your Plural Spectacles name (Spectacles, Choreographies, Shows, "
+"Productions...)"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:18
+msgid "Single Spectacle slug"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:22
+msgid "Plural Spectacles slug"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:26
+msgid "Your Singular Performances name (Performance, Play, Gig...)"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:30
+msgid "Your Plural Performances name (Performances, Plays, Gigs...)"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:34
+msgid "Single Performance slug"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:38
+msgid "Plural Performances slug"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:42
+msgid "Number of Shows per page"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:46
+msgid "Number of Performances per page"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:50
+msgid "Delete all data when uninstall"
+msgstr ""

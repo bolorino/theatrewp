@@ -2,9 +2,9 @@
 Contributors: bollofino
 Donate link:
 Tags: theatre, troupe, dance, performing arts
-Requires at least: 3.9
-Tested up to: 4.1
-Stable tag: 0.54
+Requires at least: 4.1
+Tested up to: 4.1.1
+Stable tag: 0.55
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,6 +79,10 @@ Not yet.
 
 == Changelog ==
 
+= 0.55 =
+* Partial Catalan translation
+* WordPress 4.1.1
+
 = 0.54 =
 * WordPress 4.1
 
@@ -106,4 +110,4 @@ Please, see full changelog in the plugin website
 http://www.bolorino.net/theatre-wp-wordpress-plugin-performing-arts/
 
 == Upgrade Notice ==
-WordPress 4.1
+Partial Catalan translation
