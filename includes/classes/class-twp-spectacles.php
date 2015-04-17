@@ -13,7 +13,7 @@ class TWP_Spectacle {
 	public function __construct() {
 
 		// Define the available audiences
-		self::$audience = array(
+		self::$audience = apply_filters( 'twp_set_audiences', array(
 			array(
 				'label'	=> __('All Audiences', 'theatrewp'),
 				'value' => 'All Audiences'
@@ -34,7 +34,7 @@ class TWP_Spectacle {
 				'label'	=> __('Young', 'theatrewp'),
 				'value' => 'Young'
 			)
- 		);
+ 		) );
 
  		$this->_valid_sort_by = array( 'title', 'post_date' );
 	}
@@ -55,12 +55,12 @@ class TWP_Spectacle {
 
 		// @todo has_term( false, 'spectacle', $ID )
 
-		$spectacle_data = array();
-
-		$spectacle_data['id'] = $spectacle->ID;
-		$spectacle_data['thumbnail'] = get_the_post_thumbnail( $spectacle->ID, 'thumbnail', array( 'class' => 'twp_production_thumbnail' ) );
-		$spectacle_data['title'] = $spectacle->post_title;
-		$spectacle_data['link'] = home_url('/') . get_option( 'twp_spectacle_slug' ) . '/' . $spectacle->post_name . '/';
+		$spectacle_data = apply_filters( 'twp_get_spectacle_data', array(
+			'id'        => $spectacle->ID,
+			'thumbnail' => get_the_post_thumbnail( $spectacle->ID, 'thumbnail', array( 'class' => 'twp_production_thumbnail' ) ),
+			'title'     => $spectacle->post_title,
+			'link'      => home_url('/') . get_option( 'twp_spectacle_slug' ) . '/' . $spectacle->post_name . '/'
+		) );
 
 		return $spectacle_data;
 	}
@@ -80,14 +80,14 @@ class TWP_Spectacle {
 			return false;
 		}
 
-		$spectacle_custom = array();
-
-		$spectacle_custom['synopsis'] = ( isset($custom[Theatre_WP::$twp_prefix . 'synopsis'][0]) ? $custom[Theatre_WP::$twp_prefix . 'synopsis'][0] : false );
-		$spectacle_custom['audience'] = ( isset($custom[Theatre_WP::$twp_prefix . 'audience'][0]) ? $custom[Theatre_WP::$twp_prefix . 'audience'][0] : false );
-		$spectacle_custom['duration'] = ( isset($custom[Theatre_WP::$twp_prefix . 'duration'][0]) ? $custom[Theatre_WP::$twp_prefix . 'duration'][0] : false );
-		$spectacle_custom['credits']  = ( isset($custom[Theatre_WP::$twp_prefix . 'credits'][0]) ? $custom[Theatre_WP::$twp_prefix . 'credits'][0] : false );
-		$spectacle_custom['sheet']    = ( isset($custom[Theatre_WP::$twp_prefix . 'sheet'][0]) ? $custom[Theatre_WP::$twp_prefix . 'sheet'][0] : false );
-		$spectacle_custom['video']    = ( isset($custom[Theatre_WP::$twp_prefix . 'video'][0]) ? $custom[Theatre_WP::$twp_prefix . 'video'][0] : false );
+		$spectacle_custom = apply_filters( 'twp_get_spectacle_custom', array(
+			'synopsis' => ( isset($custom[Theatre_WP::$twp_prefix . 'synopsis'][0]) ? $custom[Theatre_WP::$twp_prefix . 'synopsis'][0] : false ),
+			'audience' => ( isset($custom[Theatre_WP::$twp_prefix . 'audience'][0]) ? $custom[Theatre_WP::$twp_prefix . 'audience'][0] : false ),
+			'duration' => ( isset($custom[Theatre_WP::$twp_prefix . 'duration'][0]) ? $custom[Theatre_WP::$twp_prefix . 'duration'][0] : false ),
+			'credits'  => ( isset($custom[Theatre_WP::$twp_prefix . 'credits'][0]) ? $custom[Theatre_WP::$twp_prefix . 'credits'][0] : false ),
+			'sheet'    => ( isset($custom[Theatre_WP::$twp_prefix . 'sheet'][0]) ? $custom[Theatre_WP::$twp_prefix . 'sheet'][0] : false ),
+			'video'    => ( isset($custom[Theatre_WP::$twp_prefix . 'video'][0]) ? $custom[Theatre_WP::$twp_prefix . 'video'][0] : false )
+		) );
 
 		return $spectacle_custom;
 	}
@@ -98,7 +98,7 @@ class TWP_Spectacle {
 	 * @access public
 	 * @return string
 	 */
-	public function get_spectacles( $limit, $sort_by, $sort ) {
+	public function get_spectacles_list( $limit, $sort_by, $sort ) {
 		$limit = intval( $limit );
 
 		if ( $limit == 0 ) {
@@ -119,21 +119,21 @@ class TWP_Spectacle {
 			return false;
 		}
 
-		$output = '<ul class="spectacles">';
+		$content = '<ul class="spectacles">';
 
 		foreach ( $shows_query as $post ) : setup_postdata( $post );
-			$output .= '<li>';
+			$content .= '<li>';
 
-	        $output .= '<strong><a href="' . get_permalink( $post->ID ) . '">';
-	        $output .= get_the_title( $post->ID ) .'</a></strong> ';
+	        $content .= '<strong><a href="' . get_permalink( $post->ID ) . '">';
+	        $content .= get_the_title( $post->ID ) .'</a></strong> ';
 
-	        $output .= '</li>';
+	        $content .= '</li>';
 
 		endforeach;
 
-	    $output .= '</ul>';
+	    $content .= '</ul>';
 
-	    return $output;
+	    return apply_filters( 'twp_get_spectacles_list', $content );
 	}
 
 	/**
@@ -142,8 +142,16 @@ class TWP_Spectacle {
 	 * @access public
 	 * @return array
 	 */
-	public function get_spectacles_titles() {
-		$shows_query =  get_posts( 'post_type=spectacle&post_status=publish&orderby=title&order=ASC&numberposts=-1' );
+	public function get_spectacles_titles_array() {
+		$query_args = array(
+			'post_type'   => 'spectacle',
+			'post_status' => 'publish',
+			'orderby'     => 'title',
+			'order'       => 'ASC',
+			'numberposts' => -1
+			);
+
+		$shows_query =  get_posts( apply_filters( 'twp_get_spectacles_titles_array', $query_args ) );
 
 		if ( ! $shows_query ) {
 			return false;
@@ -184,7 +192,7 @@ class TWP_Spectacle {
 			// Adding a new translation. No post ID yet but new_lang param in URL
 			if ( ! $editing_post ) {
 				// @TODO Sanitize 2 char ISO Code
-				$lang = ( isset( $_GET['new_lang'] ) ? $_GET['new_lang'] : false );
+				$lang = ( isset( $_GET['new_lang'] ) ? substr( $_GET['new_lang'], 0, 2 ) : false );
 			}
 
 			// List only translated spectacles
@@ -198,7 +206,7 @@ class TWP_Spectacle {
 			}
 		}
 
-		$shows_query =  get_posts( $args );
+		$shows_query =  get_posts( apply_filters( 'twp_get_spectacles_array', $args ) );
 
 		if ( ! $shows_query ) {
 			return false;
@@ -207,10 +215,10 @@ class TWP_Spectacle {
 		$shows = array();
 
 		foreach ( $shows_query as $show ) {
-			$shows[] = array(
+			$shows[] = apply_filters( 'twp_spectacles_titles_array', array(
 				'label'	=> $show->post_title,
 				'value' => $show->ID
-			);
+			) );
 		}
 
 		return $shows;
@@ -234,5 +242,4 @@ class TWP_Spectacle {
 
 		return $link;
 	}
-
 }

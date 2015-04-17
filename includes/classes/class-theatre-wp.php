@@ -29,7 +29,7 @@ class Theatre_WP {
 	 *
 	 * @var     string
 	 */
-	static $version = '0.55';
+	static $version = '0.56b';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -129,7 +129,7 @@ class Theatre_WP {
 	 * @return string
 	 */
 	public function list_spectacles( $limit = 0, $sort_by, $sort ) {
-		return $this->spectacle->get_spectacles( $limit, $sort_by, $sort );
+		return $this->spectacle->get_spectacles_list( $limit, $sort_by, $sort );
 	}
 
 	/**
@@ -139,7 +139,7 @@ class Theatre_WP {
 	 * @return array
 	 */
 	public function get_spectacles_titles() {
-		return $this->spectacle->get_spectacles_titles();
+		return $this->spectacle->get_spectacles_titles_array();
 	}
 
 	/**
