@@ -456,6 +456,10 @@ msgstr ""
 msgid "Number of spectacles to show (0 for all):"
 msgstr ""
 
+#: includes/classes/class-upcoming-performances-widget.php:85
+msgid "Number of performances to show (0 for all):"
+msgstr ""
+
 #: includes/classes/class-twp-setup.php:991
 #: includes/classes/class-twp-setup.php:943
 msgid "Sort by"

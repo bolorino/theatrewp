@@ -50,18 +50,17 @@ class TWP_Performance {
 			return false;
 		}
 
-		$performance_custom = array();
-
-		$performance_custom['spectacle_id'] = isset( $custom[Theatre_WP::$twp_prefix . 'spectacle_id'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'spectacle_id'][0] : false;
-		$performance_custom['event']       = isset( $custom[Theatre_WP::$twp_prefix . 'event'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'event'][0] : false;
-		$performance_custom['place']       = isset( $custom[Theatre_WP::$twp_prefix . 'place'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'place'][0] : false;
-		$performance_custom['address']     = isset( $custom[Theatre_WP::$twp_prefix . 'address'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'address'][0] : false;
-		$performance_custom['town']        = isset( $custom[Theatre_WP::$twp_prefix . 'town'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'town'][0] : false;
-		$performance_custom['country']     = isset( $custom[Theatre_WP::$twp_prefix . 'country'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'country'][0] : false;
-		$performance_custom['date_first']  = isset( $custom[Theatre_WP::$twp_prefix . 'date_first'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'date_first'][0] : false;
-		$performance_custom['date_last']   = isset( $custom[Theatre_WP::$twp_prefix . 'date_last'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'date_last'][0] : false;
-		$performance_custom['display_map'] = isset( $custom[Theatre_WP::$twp_prefix . 'display_map'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'display_map'][0] : false;
-
+		$performance_custom = apply_filters( 'twp_get_performance_custom', array(
+			'spectacle_id' => isset( $custom[Theatre_WP::$twp_prefix . 'spectacle_id'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'spectacle_id'][0] : false,
+			'event'       => isset( $custom[Theatre_WP::$twp_prefix . 'event'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'event'][0] : false,
+			'place'       => isset( $custom[Theatre_WP::$twp_prefix . 'place'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'place'][0] : false,
+			'address'     => isset( $custom[Theatre_WP::$twp_prefix . 'address'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'address'][0] : false,
+			'town'        => isset( $custom[Theatre_WP::$twp_prefix . 'town'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'town'][0] : false,
+			'country'     => isset( $custom[Theatre_WP::$twp_prefix . 'country'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'country'][0] : false,
+			'date_first'  => isset( $custom[Theatre_WP::$twp_prefix . 'date_first'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'date_first'][0] : false,
+			'date_last'   => isset( $custom[Theatre_WP::$twp_prefix . 'date_last'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'date_last'][0] : false,
+			'display_map' => isset( $custom[Theatre_WP::$twp_prefix . 'display_map'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'display_map'][0] : false
+		) );
 
 		$spectacle_data                        = $this->spectacle->get_spectacle_data( $performance_custom['spectacle_id'] );
 		$performance_custom['spectacle_title'] = $spectacle_data['title'];
@@ -76,20 +75,20 @@ class TWP_Performance {
 	 * @access public
 	 * @return string
 	 */
-	public function get_next_performances() {
+	public function get_next_performances( $count ) {
 		$now = time();
 
-		$args = array(
+		$query_args = array(
 			'post_type' => 'performance',
 			'meta_key' => Theatre_WP::$twp_prefix . 'date_first',
 			'orderby' => 'meta_value',
 			'meta_compare' => '>=',
 			'meta_value' => $now,
 			'order' => 'ASC',
-			'numberposts' => 5 // @TODO limit by widget config
+			'numberposts' => intval( $count )
 		);
 
-		$next = get_posts( $args );
+		$next = get_posts( apply_filters( 'twp_get_next_performances', $query_args ) );
 
 		if ( ! $next ) {
 			return false;

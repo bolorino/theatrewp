@@ -47,7 +47,7 @@ class TWP_Spectacles_Widget extends WP_Widget {
         if ( ! empty( $title ) )
             echo $args['before_title'] . $title . $args['after_title'];
 
-        if ( ! $spectacles = $theatre_wp->list_spectacles( $instance['number'], $instance['sortby'], $instance['sort'] ) ) {
+        if ( ! $spectacles = $theatre_wp->list_spectacles( intval( $instance['number'] ), $instance['sortby'], $instance['sort'] ) ) {
             return false;
         }
 

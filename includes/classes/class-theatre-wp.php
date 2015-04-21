@@ -218,8 +218,8 @@ class Theatre_WP {
 		return $this->performance->get_show_next_performances();
 	}
 
-	public function get_next_performances() {
-		return $this->performance->get_next_performances();
+	public function get_next_performances( $count ) {
+		return $this->performance->get_next_performances( intval( $count ) );
 	}
 
 	public function display_performance_map( $custom_meta, $width = '', $height = '' ) {

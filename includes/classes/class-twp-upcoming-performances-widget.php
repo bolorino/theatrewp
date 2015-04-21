@@ -42,7 +42,7 @@ class TWP_Upcoming_Performances_Widget extends WP_Widget {
 
         // @ ToDo add param to exclude current spectacle
         // in TWP_Performance get_next_performances()
-        if ( ! $performances = $theatre_wp->get_next_performances() ) {
+        if ( ! $performances = $theatre_wp->get_next_performances( intval( $instance['number'] ) ) ) {
             return false;
         }
 
@@ -71,11 +71,19 @@ class TWP_Upcoming_Performances_Widget extends WP_Widget {
         else {
             $title = __( 'New title', 'theatrewp' );
         }
+
+        $number = ( isset( $instance['number'] ) && intval( $instance['number'] ) > 0 ? intval( $instance['number'] ) : get_option( 'twp_widget_performances_number' ) );
+
         ?>
 
         <p>
         <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
         <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
+        </p>
+
+        <p>
+        <label for="<?php echo $this->get_field_id( 'number' ); ?>"><?php _e( 'Number of performances to show (0 for all):', 'theatrewp' ); ?></label>
+        <input id="<?php echo $this->get_field_id( 'number' ); ?>" name="<?php echo $this->get_field_name( 'number' ); ?>" type="text" size="3" value="<?php echo intval( $number ); ?>">
         </p>
 
         <?php
@@ -94,6 +102,7 @@ class TWP_Upcoming_Performances_Widget extends WP_Widget {
     public function update( $new_instance, $old_instance ) {
         $instance = array();
         $instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+        $instance['number'] = ( ! empty( $new_instance['number'] ) ) ? intval( $new_instance['number'] ) : 0;
 
         return $instance;
     }
