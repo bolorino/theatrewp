@@ -5,7 +5,7 @@ Theatre WP
 - WordPress plugin
 - Requires at least: 4.1.2
 - Tested up to: 4.2
-- Stable tag: 0.55
+- Stable tag: 0.56
 - License: GPLv2 or later
 - License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,8 +79,12 @@ Screenshots
 ![Screenshot 5](/assets/screenshot-5.png "Productions")
 
 Changelog
-### 0.55
+### 0.56
 * WordPress 4.2
+* Minor bugfixes
+
+### 0.55
+* WordPress 4.1.1
 * Partial Catalan translation
 
 ### 0.54

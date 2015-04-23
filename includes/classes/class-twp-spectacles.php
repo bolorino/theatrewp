@@ -183,8 +183,7 @@ class TWP_Spectacle {
 
 			// Adding a new translation. No post ID yet but new_lang param in URL
 			if ( ! $editing_post ) {
-				// @TODO Sanitize 2 char ISO Code
-				$lang = ( isset( $_GET['new_lang'] ) ? $_GET['new_lang'] : false );
+				$lang = ( isset( $_GET['new_lang'] ) ? substr( $_GET['new_lang'], 0, 2 ) : false );
 			}
 
 			// List only translated spectacles

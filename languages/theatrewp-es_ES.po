@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TheatreWP\n"
 "POT-Creation-Date: 2014-03-13 17:42+0100\n"
-"PO-Revision-Date: 2014-10-19 00:36+0100\n"
+"PO-Revision-Date: 2015-04-23 23:14+0100\n"
 "Last-Translator: Jose Bolorino <jose.bolorino@gmail.com>\n"
 "Language-Team:  <jose.bolorino@gmail.com>\n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.7.5\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -445,7 +445,7 @@ msgstr "Título:"
 #: includes/classes/class-twp-setup.php:985
 #: includes/classes/class-twp-setup.php:937
 msgid "Number of spectacles to show (0 for all):"
-msgstr "Número de espectáculos a mostrar (o para todos):"
+msgstr "Número de espectáculos a mostrar (0 para todos):"
 
 #: includes/classes/class-twp-setup.php:991
 #: includes/classes/class-twp-setup.php:943
