@@ -2,12 +2,12 @@ Theatre WP
 ==========
 [Theatre WP website](http://www.bolorino.net/theatre-wp-wordpress-plugin-performing-arts/)
 
-WordPress
-Requires at least: 4.1
-Tested up to: 4.1.1
-Stable tag: 0.55
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+- WordPress plugin
+- Requires at least: 4.1.2
+- Tested up to: 4.2
+- Stable tag: 0.55
+- License: GPLv2 or later
+- License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Management of Productions and Performances for Theatre and Performing Arts Companies. WordPress Plugin.
 
@@ -80,7 +80,7 @@ Screenshots
 
 Changelog
 ### 0.55
-* WordPress 4.1.1
+* WordPress 4.2
 * Partial Catalan translation
 
 ### 0.54

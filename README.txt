@@ -2,8 +2,8 @@
 Contributors: bollofino
 Donate link:
 Tags: theatre, troupe, dance, performing arts
-Requires at least: 4.1
-Tested up to: 4.1.1
+Requires at least: 4.1.2
+Tested up to: 4.2
 Stable tag: 0.55
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -81,7 +81,7 @@ Not yet.
 
 = 0.55 =
 * Partial Catalan translation
-* WordPress 4.1.1
+* WordPress 4.2
 
 = 0.54 =
 * WordPress 4.1
