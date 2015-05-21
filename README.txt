@@ -3,8 +3,8 @@ Contributors: bollofino
 Donate link:
 Tags: theatre, troupe, dance, performing arts
 Requires at least: 4.1.2
-Tested up to: 4.2
-Stable tag: 0.56
+Tested up to: 4.2.2
+Stable tag: 0.57
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,6 +78,10 @@ Not yet.
 5. Productions
 
 == Changelog ==
+= 0.57 =
+* New option to select sponsors in spectacle edition as list instead of check boxes
+* Minor bugfixes
+
 = 0.56 =
 * WordPress 4.2
 * Minor bugfixes
@@ -104,13 +108,8 @@ Not yet.
 * Fix: return get_bloginfo instead bloginfo in get_production_cat_url
 * Fix: option_post_per_page returns empty
 
-= 0.50 =
-* WordPress 4.0
-* Custom posts info in Dashboard (At a glance)
-* Cleanup activation and deactivation hooks
-
-Please, see full changelog in the plugin website
+Full changelog in the plugin website
 http://www.bolorino.net/theatre-wp-wordpress-plugin-performing-arts/
 
 == Upgrade Notice ==
-Partial Catalan translation
+New option to select sponsors in spectacle edition as list instead of check boxes

@@ -4,8 +4,8 @@ Theatre WP
 
 - WordPress plugin
 - Requires at least: 4.1.2
-- Tested up to: 4.2
-- Stable tag: 0.56
+- Tested up to: 4.2.2
+- Stable tag: 0.57
 - License: GPLv2 or later
 - License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,6 +79,10 @@ Screenshots
 ![Screenshot 5](/assets/screenshot-5.png "Productions")
 
 Changelog
+## 0.57
+* New option to select sponsors in spectacle edition as list instead of check boxes
+* Minor bugfixes
+
 ### 0.56
 * WordPress 4.2
 * Minor bugfixes

@@ -51,6 +51,10 @@
 	        	<td><input type="text" size="2" name="twp_performances_number" value="<?php echo get_option( 'twp_performances_number' ); ?>" /></td>
 	        </tr>
 	        <tr valign="top">
+	        	<th scope="row"><?php _e( 'Sponsors as list in Spectacle', 'theatrewp' );?> </th>
+	        	<td><input type="checkbox" name="twp_single_sponsor" <?php echo ( get_option( 'twp_single_sponsor' ) == '1' ? 'checked="checked"' : '' ); ?> value="1" /></td>
+	        </tr>
+	        <tr valign="top">
 	        	<th scope="row"><?php _e( 'Delete all data when uninstall', 'theatrewp' );?> </th>
 	        	<td><input type="checkbox" name="twp_clean_on_uninstall" <?php echo ( get_option( 'twp_clean_on_uninstall' ) == '1' ? 'checked="checked"' : '' ); ?> value="1" /></td>
 	        </tr>

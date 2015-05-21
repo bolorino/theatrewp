@@ -56,6 +56,17 @@ class TWP_Metaboxes {
                 		echo __('You have no shows registered yet.', 'theatrewp');
                 	}
                     break;
+                case 'sponsorselect':
+                    if ( $field['options'] ) {
+                        echo '<select name="', $field['id'], '[]', '" id="', $field['id'], '" size="3" multiple="multiple">';
+                        foreach ( $field['options'] as $option ) {
+                            echo '<option', ( is_array( $meta ) && in_array( $option['id'], $meta ) || $meta == $option['id'] ) ? ' selected="selected"' : '', ' value="', $option['id'], '">', __( $option['title'], 'theatrewp' ), '</option>';
+                        }
+                        echo '</select>';
+                    } else {
+                        echo __('You have no Sponsors registered yet.', 'theatrewp');
+                    }
+                    break;
                 case 'radio':
                     foreach ($field['options'] as $option) {
                         echo '<input type="radio" name="', $field['id'], '" value="', $option['value'], '"', $meta == $option['value'] ? ' checked="checked"' : '', ' />', $option['name'];
@@ -67,7 +78,7 @@ class TWP_Metaboxes {
                 case 'multicheckbox':
                     $n = 0;
                     foreach( $field['options'] as $option ) {
-                        echo '<input type="checkbox" name="', $field['id'], '[]', '" id="', $field['id'], '"', 'value="', $option['id'], '" ', ( is_array($meta) && in_array( $option['id'], $meta ) ) ? ' checked="checked"' : '', ' /> ', $option['title'], '<br />';
+                        echo '<input type="checkbox" name="', $field['id'], '[]', '" id="', $field['id'], '"', 'value="', $option['id'], '" ', ( is_array( $meta ) && in_array( $option['id'], $meta ) || $meta == $option['id'] ) ? ' checked="checked"' : '', ' /> ', $option['title'], '<br />';
                         $n++;
                     }
                     break;

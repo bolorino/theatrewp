@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Theatre-WP\n"
 "POT-Creation-Date: 2014-03-13 17:42+0100\n"
-"PO-Revision-Date: 2014-03-21 14:32+0100\n"
+"PO-Revision-Date: 2015-05-20 17:50+0100\n"
 "Last-Translator: Jose Bolorino <jose.bolorino@gmail.com>\n"
 "Language-Team:  <jose.bolorino@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -514,9 +514,11 @@ msgid "Young"
 msgstr ""
 
 #: includes/classes/class-twp-sponsors.php:23
-msgid ""
-"There are no sponsors yet. This checkbox will disappear after you add some "
-"in the Sponsors menu."
+msgid "There are no sponsors yet. Add some in the Sponsors menu."
+msgstr ""
+
+#: includes/classes/class-twp-sponsors.php:36
+msgid "No sponsors"
 msgstr ""
 
 #: includes/classes/class-twp-show-upcoming-performances-widget.php:17
@@ -670,4 +672,8 @@ msgstr ""
 
 #: includes/templates/admin/admin-options.php:50
 msgid "Delete all data when uninstall"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:54
+msgid "Sponsors as list in Spectacle"
 msgstr ""

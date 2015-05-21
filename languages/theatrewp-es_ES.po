@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TheatreWP\n"
 "POT-Creation-Date: 2014-03-13 17:42+0100\n"
-"PO-Revision-Date: 2015-04-23 23:14+0100\n"
+"PO-Revision-Date: 2015-05-21 15:19+0100\n"
 "Last-Translator: Jose Bolorino <jose.bolorino@gmail.com>\n"
 "Language-Team:  <jose.bolorino@gmail.com>\n"
 "Language: es_ES\n"
@@ -505,12 +505,12 @@ msgid "Young"
 msgstr "Jóvenes"
 
 #: includes/classes/class-twp-sponsors.php:23
-msgid ""
-"There are no sponsors yet. This checkbox will disappear after you add some "
-"in the Sponsors menu."
-msgstr ""
-"Aún no hay patrocinadores. Esta casilla desaparecerá después de que añadas "
-"alguna en el menú de patrocinadores."
+msgid "There are no sponsors yet. Add some in the Sponsors menu."
+msgstr "Aún no hay patrocinadores. Añade alguno en el menú de patrocinadores."
+
+#: includes/classes/class-twp-sponsors.php:36
+msgid "No sponsors"
+msgstr "Sin patrocinadores"
 
 #: includes/templates/archive-performance.php:37
 #: includes/templates/archive-performance.php:42
@@ -648,6 +648,10 @@ msgstr "Número de funciones por página"
 #: includes/templates/admin/admin-options.php:50
 msgid "Delete all data when uninstall"
 msgstr "Borrar todos los datos al desinstalar"
+
+#: includes/templates/admin/admin-options.php:54
+msgid "Sponsors as list in Spectacle"
+msgstr "Mostrar patrocinadores como lista en espectáculo"
 
 #: includes/classes/class-twp-upcoming-performances-widget.php:18
 msgid "Display a list of upcoming performances"

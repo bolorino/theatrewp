@@ -4,8 +4,11 @@ if ( realpath(__FILE__) === realpath($_SERVER['SCRIPT_FILENAME']) )
 
 class TWP_Sponsor {
 
+    protected static $default_single_sponsor = 0;
+
     public function __construct() {
 
+        self::$default_single_sponsor  = ( get_option( 'twp_single_sponsor' ) == 1 ? 1 : 0 );
     }
 
     /**
@@ -17,13 +20,21 @@ class TWP_Sponsor {
     public function get_sponsors_titles() {
         $sponsors_query =  get_posts( 'post_type=sponsor&post_status=publish&orderby=title&order=ASC&numberposts=-1' );
 
+
         if ( ! $sponsors_query ) {
             $sponsors[] = array(
                 'id' => 0,
-                'title' => __( 'There are no sponsors yet. This checkbox will disappear after you add some in the Sponsors menu.', 'theatrewp' )
+                'title' => __( 'There are no sponsors yet. Add some in the Sponsors menu.', 'theatrewp' )
             );
 
             return $sponsors;
+        }
+
+        if ( self::$default_single_sponsor == 1 ) {
+            $sponsors[] = array(
+                'id' => 0,
+                'title' => __( 'No sponsors', 'theatrewp' )
+            );
         }
 
         foreach ( $sponsors_query as $sponsor ) {

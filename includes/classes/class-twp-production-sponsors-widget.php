@@ -55,14 +55,22 @@ class TWP_Production_Sponsors_Widget extends WP_Widget {
             return false;
         }
 
-        $production_sponsors = unserialize( $custom[Theatre_WP::$twp_prefix . 'prod-sponsor'][0] );
+        $output = '<ul id="sponsors-list">';
+
+        $sponsors_ids = $custom[Theatre_WP::$twp_prefix . 'prod-sponsor'][0];
+
+        $production_sponsors = unserialize( $sponsors_ids );
+
+        if ( $production_sponsors[0] == '0' ) {
+            return false;
+        }
 
         foreach ( $production_sponsors as $production_sponsor ) {
             $production_sponsor_data = get_post( $production_sponsor );
             $production_sponsor_metadata = get_post_custom( $production_sponsor );
 
             $sponsors2sort[] = array(
-                'sponsor_weight' => $production_sponsor_metadata[Theatre_WP::$twp_prefix . 'sponsor-weight'][0],
+                'sponsor_weight' => ( array_key_exists( Theatre_WP::$twp_prefix . 'sponsor-weight', $production_sponsor_metadata ) ? intval( $production_sponsor_metadata[Theatre_WP::$twp_prefix . 'sponsor-weight'][0] ) : 0 ),
                 'ID'           => $production_sponsor_data->ID,
                 'sponsor_logo' => get_the_post_thumbnail( $production_sponsor_data->ID, 'medium' ),
                 'sponsor_name' => $production_sponsor_data->post_title,
@@ -72,7 +80,7 @@ class TWP_Production_Sponsors_Widget extends WP_Widget {
 
         array_multisort( $sponsors2sort, SORT_DESC );
 
-        $sponsors_list = '<ul id="sponsors-list">';
+        $sponsors_list = '';
 
         foreach ( $sponsors2sort as $sponsor2show ) {
             $sponsors_list .= '<li>'
@@ -83,14 +91,16 @@ class TWP_Production_Sponsors_Widget extends WP_Widget {
             . '</li>';
         }
 
-        $sponsors_list .= '</ul>';
+        $output .= $sponsors_list;
+
+        $output .= '</ul>';
 
         echo $args['before_widget'];
 
         if ( ! empty( $title ) )
             echo $args['before_title'] . $title . $args['after_title'];
 
-        echo $sponsors_list;
+        echo $output;
 
         echo $args['after_widget'];
     }
@@ -128,6 +138,5 @@ class TWP_Production_Sponsors_Widget extends WP_Widget {
 
         return $instance;
     }
-
 
 } // class TWP_Production_Sponsors_Widget

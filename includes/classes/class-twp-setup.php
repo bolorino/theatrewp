@@ -15,6 +15,7 @@ class TWP_Setup {
 
 	protected static $plugin_dir;
 
+	// Plugin default options
 	protected static $default_spectacle_name      = 'Spectacle';
 
 	protected static $default_spectacles_name     = 'Spectacles';
@@ -34,6 +35,8 @@ class TWP_Setup {
 	protected static $default_spectacles_number   = 5;
 
 	protected static $default_performances_number = 5;
+
+	protected static $default_single_sponsor = 0;
 
 	public $performance;
 
@@ -71,8 +74,11 @@ class TWP_Setup {
 		self::$default_performance_name  = ( get_option( 'twp_performance_name' ) ? get_option( 'twp_performance_name' ) : self::$default_performance_name );
 		self::$default_performances_name = ( get_option( 'twp_performances_name' ) ? get_option( 'twp_performances_name' ) : self::$default_performances_name );
 
-		self::$default_spectacles_number  = ( get_option( 'twp_spectacles_number' ) ? get_option( 'twp_spectacles_number' ) : self::$default_spectacles_number );
-		self::$default_performances_number  = ( get_option( 'twp_performances_number' ) ? get_option( 'twp_performances_number' ) : self::$default_performances_number );
+		self::$default_spectacles_number  = ( get_option( 'twp_spectacles_number' ) ? intval( get_option( 'twp_spectacles_number' ) ) : self::$default_spectacles_number );
+		self::$default_performances_number  = ( get_option( 'twp_performances_number' ) ? intval( get_option( 'twp_performances_number' ) ) : self::$default_performances_number );
+
+		self::$default_single_sponsor  = ( get_option( 'twp_single_sponsor' ) ? intval( get_option( 'twp_single_sponsor' ) ) : self::$default_single_sponsor );
+
 
 		self::$default_options = array(
 			'twp_version'			  => Theatre_WP::$version,
@@ -86,7 +92,8 @@ class TWP_Setup {
 			'twp_performances_slug'   => sanitize_title( self::$default_performances_slug, false, 'save' ),
 			'twp_spectacles_number'   => self::$default_spectacles_number,
 			'twp_performances_number' => self::$default_performances_number,
-			'twp_clean_on_uninstall'  => 0
+			'twp_clean_on_uninstall'  => 0,
+			'twp_single_sponsor'	  => self::$default_single_sponsor
 		);
 
 		self::$twp_dateformat = get_option( 'date_format');
@@ -610,6 +617,8 @@ class TWP_Setup {
 		register_setting( 'twp-main', 'twp_performances_slug' );
 		register_setting( 'twp-main', 'twp_spectacles_number', 'intval' );
 		register_setting( 'twp-main', 'twp_performances_number', 'intval' );
+		register_setting( 'twp-main', 'twp_single_sponsor', 'intval' );
+
 		register_setting( 'twp-main', 'twp_clean_on_uninstall' );
 	}
 
@@ -630,6 +639,8 @@ class TWP_Setup {
 		unregister_setting( 'twp-main', 'twp_performances_slug' );
 		unregister_setting( 'twp-main', 'twp_spectacles_number', 'intval' );
 		unregister_setting( 'twp-main', 'twp_performances_number', 'intval' );
+		unregister_setting( 'twp-main', 'twp_single_sponsor', 'intval' );
+
 		unregister_setting( 'twp-main', 'twp_clean_on_uninstall' );
 	}
 
@@ -752,7 +763,7 @@ class TWP_Setup {
 						'name' => __( 'Sponsors', 'theatrewp' ),
 						'desc' => __( 'Sponsors', 'theatrewp' ),
 						'id' => Theatre_WP::$twp_prefix . 'prod-sponsor',
-						'type' => 'multicheckbox',
+						'type' => ( self::$default_options['twp_single_sponsor'] == 1 ? 'sponsorselect' : 'multicheckbox' ),
 						'options' => $this->sponsor->get_sponsors_titles()
 					),
 					array(
