@@ -3,9 +3,9 @@ Theatre WP
 [Theatre WP website](http://www.bolorino.net/theatre-wp-wordpress-plugin-performing-arts/)
 
 - WordPress plugin
-- Requires at least: 4.1.2
-- Tested up to: 4.2.2
-- Stable tag: 0.57
+- Requires at least: 4.2.2
+- Tested up to: 4.3
+- Stable tag: 0.58
 - License: GPLv2 or later
 - License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,8 +17,6 @@ The plugin "Theatre WP" makes easy the work of developers and designers who use 
 
 Theatre WP is intended for designers and developers using WordPress to setup a performing arts company website.
 This plugin provides productions and performances management.
-
-[Demo site](http://theatrewp.bolorino.net/)
 
 What does the plugin include?
 -----------------------------
@@ -79,6 +77,9 @@ Screenshots
 ![Screenshot 5](/assets/screenshot-5.png "Productions")
 
 Changelog
+## 0.58
+* WordPress 4.3
+
 ## 0.57
 * New option to select sponsors in spectacle edition as list instead of check boxes
 * Minor bugfixes
