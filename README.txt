@@ -3,8 +3,8 @@ Contributors: bollofino
 Donate link:
 Tags: theatre, troupe, dance, performing arts
 Requires at least: 4.2.2
-Tested up to: 4.3
-Stable tag: 0.58
+Tested up to: 4.4
+Stable tag: 0.59
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,7 +76,12 @@ Not yet.
 5. Productions
 
 == Changelog ==
-= 0.58=
+= 0.59 =
+* WordPress 4.4
+* Fix productions list in admin with multiple languages
+* Fix custom posts dashboard icons
+
+= 0.58 =
 * WordPress 4.3
 
 = 0.57 =

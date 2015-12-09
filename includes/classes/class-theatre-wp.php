@@ -29,7 +29,7 @@ class Theatre_WP {
 	 *
 	 * @var     string
 	 */
-	static $version = '0.58';
+	static $version = '0.59';
 
 	/**
 	 * Unique identifier for your plugin.

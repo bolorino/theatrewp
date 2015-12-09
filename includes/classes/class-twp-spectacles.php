@@ -165,6 +165,7 @@ class TWP_Spectacle {
 	 * @return array
 	 */
 	public function get_spectacles_array() {
+
 		$args = array(
 			'post_type'		=> 'spectacle',
 			'post_status'	=> 'publish',
@@ -184,17 +185,24 @@ class TWP_Spectacle {
 			// Adding a new translation. No post ID yet but new_lang param in URL
 			if ( ! $editing_post ) {
 				$lang = ( isset( $_GET['new_lang'] ) ? substr( $_GET['new_lang'], 0, 2 ) : false );
+			} elseif ( function_exists( 'pll_get_post_language' ) && current_user_can( 'edit_posts' ) ) {
+				$lang = pll_get_post_language( $editing_post );
 			}
 
-			// List only translated spectacles
-			if ( function_exists( 'pll_get_post_language' ) && current_user_can( 'edit_posts' ) ) {
-				$lang = ( $lang ? $lang : pll_get_post_language( $editing_post ) );
+			// If lang is not set default back
+			if ( ! $lang OR empty( $lang ) ) {
+				$lang = substr( get_locale(), 0, 2 );
+
+				if ( function_exists( 'pll_default_language' ) ) {
+					$lang = pll_default_language();
+				}
 			}
 
 			// Add the $lang arg to get the translated posts
 			if ( $lang ) {
 				$args['lang'] = $lang;
 			}
+
 		}
 
 		$shows_query =  get_posts( $args );
