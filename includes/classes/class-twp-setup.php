@@ -477,11 +477,12 @@ class TWP_Setup {
 
 		// only enqueue our scripts/styles on the proper pages
 		if ( 'post.php' == $hook || 'post-new.php' == $hook ) {
-			$twp_script_array = array( 'jquery-migrate', 'jquery-ui-datepicker' );
+
+			$twp_script_array = array( 'jquery-migrate', 'jquery-ui-core', 'jquery-ui-datepicker' );
 			$twp_style_array = array( 'thickbox' );
 
-			wp_register_script( 'twp-timepicker', TWP_META_BOX_URL . 'js/jquery.timePicker.min.js', $twp_script_array, '1.10.3' );
-			wp_register_script( 'twp-scripts', TWP_META_BOX_URL . 'js/twp.js', $twp_script_array, '1.10.3', true );
+			wp_register_script( 'twp-timepicker', TWP_META_BOX_URL . 'js/jquery.timepicker.min.js', $twp_script_array, false, false );
+			wp_register_script( 'twp-scripts', TWP_META_BOX_URL . 'js/twp.js', $twp_script_array, false, false );
 
 			wp_localize_script( 'twp-scripts', 'twp_ajax_data', array( 'ajax_nonce' => wp_create_nonce( 'ajax_nonce' ), 'post_id' => get_the_ID() ) );
 
@@ -509,7 +510,9 @@ class TWP_Setup {
 			wp_enqueue_script( 'twp-scripts' );
 
 			wp_register_style( 'twp-styles', TWP_META_BOX_URL . 'style.css', $twp_style_array );
+			wp_register_style( 'twp-datepicker-styles', TWP_META_BOX_URL . 'js/jquery.timepicker.css' );
 			wp_enqueue_style( 'twp-styles' );
+			wp_enqueue_style( 'twp-datepicker-styles' );
 		}
 
 		// Dashboard custom post icons
@@ -992,7 +995,13 @@ class TWP_Setup {
 	        case 'd/m/Y':
 	            return( 'dd-mm-yy' );
 	            break;
+	        case 'Y-m-d':
+	        	return( 'yy-mm-dd');
+	        	break;
 	     }
+
+	     // Return default
+	     return 'dd-mm-yy';
 	}
 
 	public static function date_format_php_to_form( $date_format ) {

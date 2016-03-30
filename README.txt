@@ -2,9 +2,9 @@
 Contributors: bollofino
 Donate link:
 Tags: theatre, troupe, dance, performing arts
-Requires at least: 4.2.2
-Tested up to: 4.4
-Stable tag: 0.59
+Requires at least: 4.4
+Tested up to: 4.4.2
+Stable tag: 0.60
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,6 +76,12 @@ Not yet.
 5. Productions
 
 == Changelog ==
+= 0.60 =
+* Fix datepicker in performances (by now it supports default WordPress date formats)
+* Fix draft performances displaying
+* Fix performance map language
+* French translation (merci to Jean-Bernard Huet)
+
 = 0.59 =
 * WordPress 4.4
 * Fix productions list in admin with multiple languages

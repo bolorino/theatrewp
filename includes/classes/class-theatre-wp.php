@@ -6,7 +6,7 @@
  * @author    Jose Bolorino <jose.bolorino@gmail.com>
  * @license   GPL-2.0+
  * @link      http://www.bolorino.net/TheatreWP
- * @copyright 2013-2015 Jose Bolorino
+ * @copyright 2013-2016 Jose Bolorino
  */
 
 /**
@@ -29,7 +29,7 @@ class Theatre_WP {
 	 *
 	 * @var     string
 	 */
-	static $version = '0.59';
+	static $version = '0.60';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -78,9 +78,9 @@ class Theatre_WP {
  		// Include required files
 		$this->includes();
 
-		$this->spectacle = new TWP_Spectacle;
-		$this->performance = new TWP_Performance( $this->spectacle );
-		$this->sponsor = new TWP_Sponsor;
+        $this->spectacle   = new TWP_Spectacle;
+        $this->performance = new TWP_Performance( $this->spectacle );
+        $this->sponsor     = new TWP_Sponsor;
 
 		$this->setup = new TWP_Setup( self::$plugin_dir, $this->spectacle, $this->performance, $this->sponsor );
 

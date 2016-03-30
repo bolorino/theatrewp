@@ -21,6 +21,8 @@ class TWP_Performance {
 
 	public $language;
 
+	public $polylang_language;
+
 	public function __construct( $spectacle ) {
 		$this->spectacle = $spectacle;
 
@@ -80,13 +82,14 @@ class TWP_Performance {
 		$now = time();
 
 		$args = array(
-			'post_type' => 'performance',
-			'meta_key' => Theatre_WP::$twp_prefix . 'date_first',
-			'orderby' => 'meta_value',
+			'post_status'  => 'publish',
+			'post_type'    => 'performance',
+			'meta_key'     => Theatre_WP::$twp_prefix . 'date_last',
+			'orderby'      => 'meta_value',
 			'meta_compare' => '>=',
-			'meta_value' => $now,
-			'order' => 'ASC',
-			'numberposts' => 5 // @TODO limit by widget config
+			'meta_value'   => $now,
+			'order'        => 'ASC',
+			'numberposts'  => 5 // @TODO limit by widget config
 		);
 
 		$next = get_posts( $args );
@@ -155,6 +158,7 @@ class TWP_Performance {
 		$now = time();
 
 		$args = array(
+			'post_status'  => 'publish',
 			'post_type' => 'performance',
 			'meta_key' => Theatre_WP::$twp_prefix . 'date_first',
 			'orderby' => 'meta_value',
@@ -248,13 +252,13 @@ class TWP_Performance {
 			$offset = ($page-1)*$performances_per_page;
 		}
 
-		$sql_calendar = "SELECT $wpdb->posts.ID, post_title, post_name, meta_key, meta_value, FROM_UNIXTIME(meta_value, '%M') AS month, FROM_UNIXTIME(meta_value, '%Y') AS year, post_author, post_date, post_content
+		$sql_calendar = "SELECT $wpdb->posts.ID, post_title, post_name, meta_key, meta_value, FROM_UNIXTIME(meta_value, '%M') AS month, FROM_UNIXTIME(meta_value, '%Y') AS year, post_author, post_date, post_content, post_status
 			FROM $wpdb->posts, $wpdb->postmeta";
 
 		// Polylang compatibility
-		$this->language = $this->get_polylang_language();
+		$this->polylang_language = $this->get_polylang_language();
 
-		if ( $this->language ) {
+		if ( $this->polylang_language ) {
 			$sql_calendar .= " INNER JOIN $wpdb->term_relationships wtr
 				ON ($wpdb->postmeta.post_id = wtr.object_id)
 				INNER JOIN $wpdb->term_taxonomy wtt
@@ -266,6 +270,7 @@ class TWP_Performance {
 		$sql_calendar .= "
 			WHERE " . $wpdb->posts . '.ID = ' . $wpdb->postmeta . ".post_id
 			AND post_type = 'performance'
+			AND post_status = 'publish'
 			AND meta_key = '" . Theatre_WP::$twp_prefix . "date_first' ";
 
 		if ( 0 == $this->month && 0 == $this->year ) {
@@ -286,9 +291,9 @@ class TWP_Performance {
 		}
 
 		// Polylang compatibility
-		if ( $this->language ) {
+		if ( $this->polylang_language ) {
 			$sql_calendar .= "AND wtt.taxonomy = 'language'
-				AND wt.slug = '$this->language' ";
+				AND wt.slug = '$this->polylang_language' ";
 		}
 
 		$sql_calendar .= 'ORDER BY meta_value ';
@@ -319,9 +324,9 @@ class TWP_Performance {
 			FROM $wpdb->posts, $wpdb->postmeta ";
 
 		// Polylang compatibility
-		$this->language = $this->get_polylang_language();
+		$this->polylang_language = $this->get_polylang_language();
 
-		if ( $this->language ) {
+		if ( $this->polylang_language ) {
 			$sql_calendar .= " INNER JOIN $wpdb->term_relationships wtr
 				ON ($wpdb->postmeta.post_id = wtr.object_id)
 				INNER JOIN $wpdb->term_taxonomy wtt
@@ -332,6 +337,7 @@ class TWP_Performance {
 
 		$sql_calendar .= "WHERE " . $wpdb->posts . '.ID = ' . $wpdb->postmeta . ".post_id
 			AND post_type = 'performance'
+			AND post_status = 'publish'
 			AND meta_key = '" . Theatre_WP::$twp_prefix . "date_first' ";
 
 		if ( 0 == $this->month && 0 == $this->year ) {
@@ -352,9 +358,9 @@ class TWP_Performance {
 		}
 
 		// Polylang compatibility
-		if ( $this->language ) {
+		if ( $this->polylang_language ) {
 			$sql_calendar .= " AND wtt.taxonomy = 'language'
-				AND wt.slug = '$this->language' ";
+				AND wt.slug = '$this->polylang_language' ";
 		}
 
 		$count_filtered_performances = $wpdb->get_row( $sql_calendar );
@@ -377,6 +383,8 @@ class TWP_Performance {
   	*/
 	function get_event_google_map_embed( $custom_meta, $width ='', $height = '' ) {
 
+		$this->language = substr( get_locale(), 0, 2 );
+
 		$location_meta_fields = array( 'address', 'town', 'region', 'postal_code', 'country' );
 		$to_url_encode = '';
 
@@ -392,7 +400,9 @@ class TWP_Performance {
 		if( $to_url_encode ) $google_address = urlencode( trim( $to_url_encode ) );
 
 		if ( $google_address ) {
-			$google_iframe = '<div id="googlemaps"><iframe width="' . $width . '" height="' . $height . '" src="http://www.google.com/maps?f=q&amp;source=s_q&amp;hl=es&amp;geocode=&amp;q='.$google_address.'?>&amp;output=embed"></iframe></div>';
+			$google_iframe = '<div id="googlemaps"><iframe width="' . $width . '" height="' . $height . '" src="http://www.google.com/maps?f=q&amp;source=s_q&amp;hl='
+			. $this->language
+			. '&amp;geocode=&amp;q='.$google_address.'?>&amp;output=embed"></iframe></div>';
 			return $google_iframe;
 		}
 
