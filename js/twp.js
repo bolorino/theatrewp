@@ -23,11 +23,11 @@ jQuery(document).ready(function ($) {
 	* Initialize timepicker (this will be moved inline in a future release)
 	*/
 
-	$('.twp_timepicker').each(function () {
-		$('#' + jQuery(this).attr('id')).timePicker({
-			startTime: "08:00",
+		$('.twp_timepicker').each(function () {
+		$('#' + jQuery(this).attr('id')).timepicker({
+			startTime: "09:00",
 			endTime: "23:00",
-			show24Hours: true,
+			timeFormat: 'H:i',
 			separator: ':',
 			step: 30
 		});
