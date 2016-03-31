@@ -80,16 +80,17 @@ class TWP_Performance {
 	 */
 	public function get_next_performances() {
 		$now = time();
+		$number_to_display = intval( get_option( 'twp_widget_performances_number' ) );
 
 		$args = array(
 			'post_status'  => 'publish',
 			'post_type'    => 'performance',
-			'meta_key'     => Theatre_WP::$twp_prefix . 'date_last',
+			'meta_key'     => Theatre_WP::$twp_prefix . 'date_first',
 			'orderby'      => 'meta_value',
 			'meta_compare' => '>=',
 			'meta_value'   => $now,
 			'order'        => 'ASC',
-			'numberposts'  => 5 // @TODO limit by widget config
+			'posts_per_page'  => ( isset( $number_to_display ) && $number_to_display > 0 ? $number_to_display : -1 )
 		);
 
 		$next = get_posts( $args );

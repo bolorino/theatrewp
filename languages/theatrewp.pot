@@ -541,6 +541,10 @@ msgstr ""
 msgid "Display a list of upcoming performances"
 msgstr ""
 
+#: includes/classes/class-twp-upcoming-performances-widget.php:84
+msgid "Number of performances to display (0 for all):"
+msgstr ""
+
 #: includes/templates/archive-performance.php:37
 #: includes/templates/archive-performance.php:42
 msgid "There are no registered performances for dates searched"

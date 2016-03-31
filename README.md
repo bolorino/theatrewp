@@ -5,7 +5,7 @@ Theatre WP
 - WordPress plugin
 - Requires at least: 4.4
 - Tested up to: 4.4.2
-- Stable tag: 0.60
+- Stable tag: 0.61
 - License: GPLv2 or later
 - License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,6 +77,10 @@ Screenshots
 ![Screenshot 5](/assets/screenshot-5.png "Productions")
 
 Changelog
+## 0.61
+* Fix missing javascript
+* Select the number of performances to display in upcoming performances widget
+
 ## 0.60
 * Fix datepicker in performances (by now it supports default WordPress date formats)
 * Fix draft performances displaying

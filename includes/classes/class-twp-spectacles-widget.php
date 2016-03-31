@@ -71,7 +71,7 @@ class TWP_Spectacles_Widget extends WP_Widget {
             $title = __( 'New title', 'theatrewp' );
         }
 
-        $number = ( isset( $instance['number'] ) && intval( $instance['number'] ) > 0 ? intval( $instance['number'] ) : get_option( 'twp_widget_spectacles_number' ) );
+        $number = ( isset( $instance['number'] ) && intval( $instance['number'] ) >= 0 ? intval( $instance['number'] ) : get_option( 'twp_widget_spectacles_number' ) );
 
         $sortby = ( isset( $instance['sortby'] ) ? $instance['sortby'] : get_option( 'twp_widget_spectacles_sortby' ) );
 
@@ -119,6 +119,8 @@ class TWP_Spectacles_Widget extends WP_Widget {
         $instance['number'] = ( ! empty( $new_instance['number'] ) ) ? intval( $new_instance['number'] ) : 0;
         $instance['sortby'] = ( ! empty( $new_instance['sortby'] ) ) ? strip_tags( $new_instance['sortby'] ) : '';
         $instance['sort'] = ( ! empty( $new_instance['sort'] ) ) ? strip_tags( $new_instance['sort'] ) : 'ASC';
+
+        update_option( 'twp_widget_spectacles_number', $instance['number'] );
 
         return $instance;
     }
