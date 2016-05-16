@@ -4,8 +4,8 @@ Theatre WP
 
 - WordPress plugin
 - Requires at least: 4.4
-- Tested up to: 4.5
-- Stable tag: 0.61
+- Tested up to: 4.5.2
+- Stable tag: 0.62
 - License: GPLv2 or later
 - License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,7 +37,6 @@ Plugin benefits
 
 ToDo
 --------------
-* Better options panel
 * Hookable
 * Cleaner default templates
 * Translation into other languages
@@ -77,6 +76,10 @@ Screenshots
 ![Screenshot 5](/assets/screenshot-5.png "Productions")
 
 Changelog
+## 0.62
+* Tabbed options panel
+* First hook to filter audience
+
 ## 0.61
 * Fix missing javascript
 * Select the number of performances to display in upcoming performances widget

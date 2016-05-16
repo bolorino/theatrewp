@@ -3,8 +3,8 @@ Contributors: bollofino
 Donate link:
 Tags: theatre, troupe, dance, performing arts
 Requires at least: 4.4
-Tested up to: 4.5
-Stable tag: 0.61
+Tested up to: 4.5.2
+Stable tag: 0.62
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,7 +36,6 @@ This plugin provides productions and performances management.
 
 **ToDo**
 
-* Better options panel
 * Hookable
 * Cleaner default templates
 * Translation into other languages
@@ -78,7 +77,7 @@ Not yet.
 == Changelog ==
 = 0.62 =
 * First extensible filter: twp_define_audiences
-* Now you are able to include your custom audience
+* Tabbed options panel
 
 = 0.61 =
 * Fix missing javascript
