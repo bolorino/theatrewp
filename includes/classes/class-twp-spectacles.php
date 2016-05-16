@@ -13,7 +13,13 @@ class TWP_Spectacle {
 	public function __construct() {
 
 		// Define the available audiences
-		self::$audience = array(
+ 		$this->set_audiences();
+
+ 		$this->_valid_sort_by = array( 'title', 'post_date' );
+	}
+
+	public function set_audiences() {
+		$audience = array(
 			array(
 				'label'	=> __('All Audiences', 'theatrewp'),
 				'value' => 'All Audiences'
@@ -36,7 +42,7 @@ class TWP_Spectacle {
 			)
  		);
 
- 		$this->_valid_sort_by = array( 'title', 'post_date' );
+		self::$audience = $audience;
 	}
 
 	/**

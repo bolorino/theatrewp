@@ -742,7 +742,7 @@ class TWP_Setup {
 						'desc' => __( 'Intended Audience', 'theatrewp' ),
 						'id' => Theatre_WP::$twp_prefix . 'audience',
 						'type' => 'select',
-						'options' => TWP_Spectacle::$audience
+						'options' => apply_filters( 'twp_define_audiences', TWP_Spectacle::$audience ) /* twp_define_audiences filter */
 						),
 					array(
 						'name' => __( 'Duration', 'theatrewp' ),

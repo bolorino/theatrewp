@@ -76,6 +76,10 @@ Not yet.
 5. Productions
 
 == Changelog ==
+= 0.62 =
+* First extensible filter: twp_define_audiences
+* Now you are able to include your custom audience
+
 = 0.61 =
 * Fix missing javascript
 * Select the number of performances to display in upcoming performances widget

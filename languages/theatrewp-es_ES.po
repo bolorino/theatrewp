@@ -653,6 +653,30 @@ msgstr "Borrar todos los datos al desinstalar"
 msgid "Sponsors as list in Spectacle"
 msgstr "Mostrar patrocinadores como lista en espectáculo"
 
+#: includes/templates/admin/admin-options.php:68
+msgid "Is this plugin useful to you? Say thanks or buy me a coffee, so I can keep working on it. Thanks!"
+msgstr "¿Te resulta útil este plugin? Di gracias o regálame un café para que pueda seguir trabajando en él. ¡Gracias!"
+
+#: includes/templates/admin/admin-options.php:71
+msgid "Buy me a coffee (2 Euro)"
+msgstr "Invítame a un café (2 Euros)"
+
+#: includes/templates/admin/admin-options.php:72
+msgid "Buy me one month subscription to Netflix (9,99 Euro)"
+msgstr "Invítame a un mes de suscripción a Netflix (9,99 Euros)"
+
+#: includes/templates/admin/admin-options.php:73
+msgid "Buy me whatever you want"
+msgstr "Invítame a lo que quieras"
+
+#: includes/templates/admin/admin-options.php:74
+msgid "Buy me some gift from my Amazon whish list"
+msgstr "Regálame algo de mi lista de deseos de Amazon"
+
+#: includes/templates/admin/admin-options.php:77
+msgid "Thanks for using the Theatre WP Plugin!"
+msgstr "¡Gracias por usar el plugin Theatre WP!"
+
 #: includes/classes/class-twp-upcoming-performances-widget.php:18
 msgid "Display a list of upcoming performances"
 msgstr "Muestra una lista de próximas funciones"

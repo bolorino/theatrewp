@@ -681,3 +681,27 @@ msgstr ""
 #: includes/templates/admin/admin-options.php:54
 msgid "Sponsors as list in Spectacle"
 msgstr ""
+
+#: includes/templates/admin/admin-options.php:68
+msgid "Is this plugin useful to you? Say thanks or buy me a coffee, so I can keep working on it. Thanks!"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:71
+msgid "Buy me a coffee (2 Euro)"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:72
+msgid "Buy me one month subscription to Netflix (9,99 Euro)"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:73
+msgid "Buy me whatever you want"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:74
+msgid "Buy me some gift from my Amazon whish list"
+msgstr ""
+
+#: includes/templates/admin/admin-options.php:77
+msgid "Thanks for using the Theatre WP Plugin!"
+msgstr ""
