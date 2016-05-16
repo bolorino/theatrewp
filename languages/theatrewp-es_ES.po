@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TheatreWP\n"
 "POT-Creation-Date: 2014-03-13 17:42+0100\n"
-"PO-Revision-Date: 2016-03-31 14:54+0200\n"
+"PO-Revision-Date: 2016-05-16 14:36+0200\n"
 "Last-Translator: Jose Bolorino <jose.bolorino@gmail.com>\n"
 "Language-Team: jose.bolorino@gmail.com\n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -22,8 +22,7 @@ msgstr "Aún no tienes espectáculos registrados"
 msgid "Select one"
 msgstr "Selecciona uno"
 
-#: includes/classes/class-twp-setup.php:142
-#: includes/classes/class-twp-setup.php:150
+#: includes/classes/class-twp-setup.php:142 includes/classes/class-twp-setup.php:150
 msgid "Spectacles"
 msgstr "Espectáculos"
 
@@ -43,10 +42,8 @@ msgstr "Próximas funciones"
 msgid "Production Sponsors"
 msgstr "Patrocinadores del espectáculo"
 
-#: includes/classes/class-twp-setup.php:299
-#: includes/classes/class-twp-setup.php:336
-#: includes/classes/class-twp-setup.php:370
-#: includes/classes/class-twp-setup.php:402
+#: includes/classes/class-twp-setup.php:299 includes/classes/class-twp-setup.php:336
+#: includes/classes/class-twp-setup.php:370 includes/classes/class-twp-setup.php:402
 msgid "Add new"
 msgstr "Añadir nuevo"
 
@@ -62,8 +59,7 @@ msgstr "Editar espectáculo"
 msgid "New Show"
 msgstr "Nuevo espectáculo"
 
-#: includes/classes/class-twp-setup.php:303
-#: includes/classes/class-twp-setup.php:304
+#: includes/classes/class-twp-setup.php:303 includes/classes/class-twp-setup.php:304
 msgid "View Show"
 msgstr "Ver espectáculo"
 
@@ -71,10 +67,8 @@ msgstr "Ver espectáculo"
 msgid "Search Shows"
 msgstr "Buscar espectáculos"
 
-#: includes/classes/class-twp-setup.php:307
-#: includes/classes/class-twp-setup.php:802
-#: includes/classes/class-twp-setup.php:770
-#: includes/templates/single-performance.php:62
+#: includes/classes/class-twp-setup.php:307 includes/classes/class-twp-setup.php:802
+#: includes/classes/class-twp-setup.php:770 includes/templates/single-performance.php:62
 msgid "Show"
 msgstr "Espectáculo"
 
@@ -106,166 +100,130 @@ msgstr "Buscar función"
 msgid "Performance"
 msgstr "Función"
 
-#: includes/classes/class-twp-setup.php:400
-#: includes/classes/class-twp-setup.php:779
-#: includes/classes/class-twp-setup.php:780
-#: includes/classes/class-twp-setup.php:1143
-#: includes/classes/class-twp-setup.php:368
-#: includes/classes/class-twp-setup.php:747
-#: includes/classes/class-twp-setup.php:748
-#: includes/classes/class-twp-setup.php:1094
+#: includes/classes/class-twp-setup.php:400 includes/classes/class-twp-setup.php:779
+#: includes/classes/class-twp-setup.php:780 includes/classes/class-twp-setup.php:1143
+#: includes/classes/class-twp-setup.php:368 includes/classes/class-twp-setup.php:747
+#: includes/classes/class-twp-setup.php:748 includes/classes/class-twp-setup.php:1094
 msgid "Sponsors"
 msgstr "Patrocinadores"
 
-#: includes/classes/class-twp-setup.php:401
-#: includes/classes/class-twp-setup.php:410
-#: includes/classes/class-twp-setup.php:906
-#: includes/classes/class-twp-setup.php:369
-#: includes/classes/class-twp-setup.php:378
-#: includes/classes/class-twp-setup.php:858
+#: includes/classes/class-twp-setup.php:401 includes/classes/class-twp-setup.php:410
+#: includes/classes/class-twp-setup.php:906 includes/classes/class-twp-setup.php:369
+#: includes/classes/class-twp-setup.php:378 includes/classes/class-twp-setup.php:858
 msgid "Sponsor"
 msgstr "Patrocinador"
 
-#: includes/classes/class-twp-setup.php:403
-#: includes/classes/class-twp-setup.php:371
+#: includes/classes/class-twp-setup.php:403 includes/classes/class-twp-setup.php:371
 msgid "Add new Sponsor"
 msgstr "Añadir nuevo patrocinador"
 
-#: includes/classes/class-twp-setup.php:404
-#: includes/classes/class-twp-setup.php:372
+#: includes/classes/class-twp-setup.php:404 includes/classes/class-twp-setup.php:372
 msgid "Edit Sponsor"
 msgstr "Editar patrocinador"
 
-#: includes/classes/class-twp-setup.php:405
-#: includes/classes/class-twp-setup.php:373
+#: includes/classes/class-twp-setup.php:405 includes/classes/class-twp-setup.php:373
 msgid "New Sponsor"
 msgstr "Nuevo patrocinador"
 
-#: includes/classes/class-twp-setup.php:406
-#: includes/classes/class-twp-setup.php:374
+#: includes/classes/class-twp-setup.php:406 includes/classes/class-twp-setup.php:374
 msgid "View Sponsors"
 msgstr "Ver patrocinadores"
 
-#: includes/classes/class-twp-setup.php:407
-#: includes/classes/class-twp-setup.php:375
+#: includes/classes/class-twp-setup.php:407 includes/classes/class-twp-setup.php:375
 msgid "View Sponsor"
 msgstr "Ver patrocinador"
 
-#: includes/classes/class-twp-setup.php:408
-#: includes/classes/class-twp-setup.php:376
+#: includes/classes/class-twp-setup.php:408 includes/classes/class-twp-setup.php:376
 msgid "Search Sponsors"
 msgstr "Buscar patrocinadores"
 
-#: includes/classes/class-twp-setup.php:425
-#: includes/classes/class-twp-setup.php:393
+#: includes/classes/class-twp-setup.php:425 includes/classes/class-twp-setup.php:393
 msgctxt "taxonomy general name"
 msgid "Types of Production"
 msgstr "Tipos de producción"
 
-#: includes/classes/class-twp-setup.php:426
-#: includes/classes/class-twp-setup.php:394
+#: includes/classes/class-twp-setup.php:426 includes/classes/class-twp-setup.php:394
 msgctxt "taxonomy singular name"
 msgid "Type of Production"
 msgstr "Tipo de producción"
 
-#: includes/classes/class-twp-setup.php:427
-#: includes/classes/class-twp-setup.php:395
+#: includes/classes/class-twp-setup.php:427 includes/classes/class-twp-setup.php:395
 msgid "New format of Production"
 msgstr "Nuevo formato de producción"
 
-#: includes/classes/class-twp-setup.php:428
-#: includes/classes/class-twp-setup.php:396
+#: includes/classes/class-twp-setup.php:428 includes/classes/class-twp-setup.php:396
 msgid "New format name"
 msgstr "Nuevo formato"
 
-#: includes/classes/class-twp-setup.php:429
-#: includes/classes/class-twp-setup.php:435
-#: includes/classes/class-twp-setup.php:397
-#: includes/classes/class-twp-setup.php:403
+#: includes/classes/class-twp-setup.php:429 includes/classes/class-twp-setup.php:435
+#: includes/classes/class-twp-setup.php:397 includes/classes/class-twp-setup.php:403
 msgid "Format"
 msgstr "Formato"
 
-#: includes/classes/class-twp-setup.php:537
-#: includes/classes/class-twp-setup.php:505
+#: includes/classes/class-twp-setup.php:537 includes/classes/class-twp-setup.php:505
 msgid "Done"
 msgstr "Hecho"
 
-#: includes/classes/class-twp-setup.php:538
-#: includes/classes/class-twp-setup.php:506
+#: includes/classes/class-twp-setup.php:538 includes/classes/class-twp-setup.php:506
 msgid "Today"
 msgstr "Hoy"
 
-#: includes/classes/class-twp-setup.php:541
-#: includes/classes/class-twp-setup.php:509
+#: includes/classes/class-twp-setup.php:541 includes/classes/class-twp-setup.php:509
 msgid "Show a different month"
 msgstr "Mostrar otro mes"
 
-#: includes/classes/class-twp-setup.php:580
-#: includes/classes/class-twp-setup.php:548
+#: includes/classes/class-twp-setup.php:580 includes/classes/class-twp-setup.php:548
 msgid "ID"
 msgstr "ID"
 
-#: includes/classes/class-twp-setup.php:581
-#: includes/classes/class-twp-setup.php:549
+#: includes/classes/class-twp-setup.php:581 includes/classes/class-twp-setup.php:549
 msgctxt "column name"
 msgid "Performance"
 msgstr "Actuación"
 
-#: includes/classes/class-twp-setup.php:582
-#: includes/classes/class-twp-setup.php:550
+#: includes/classes/class-twp-setup.php:582 includes/classes/class-twp-setup.php:550
 msgid "Spectacle"
 msgstr "Espectáculo"
 
-#: includes/classes/class-twp-setup.php:583
-#: includes/classes/class-twp-setup.php:551
+#: includes/classes/class-twp-setup.php:583 includes/classes/class-twp-setup.php:551
 msgid "First Date"
 msgstr "Primera fecha"
 
-#: includes/classes/class-twp-setup.php:584
-#: includes/classes/class-twp-setup.php:552
+#: includes/classes/class-twp-setup.php:584 includes/classes/class-twp-setup.php:552
 msgid "Last Date"
 msgstr "Última fecha"
 
-#: includes/classes/class-twp-setup.php:585
-#: includes/classes/class-twp-setup.php:831
-#: includes/classes/class-twp-setup.php:553
-#: includes/classes/class-twp-setup.php:799
+#: includes/classes/class-twp-setup.php:585 includes/classes/class-twp-setup.php:831
+#: includes/classes/class-twp-setup.php:553 includes/classes/class-twp-setup.php:799
 #: includes/templates/single-performance.php:80
 msgid "Event"
 msgstr "Evento"
 
-#: includes/classes/class-twp-setup.php:635
-#: includes/classes/class-twp-setup.php:603
+#: includes/classes/class-twp-setup.php:635 includes/classes/class-twp-setup.php:603
 msgid "Theatre WP Options"
 msgstr "Opciones de Theatre WP"
 
-#: includes/classes/class-twp-setup.php:715
-#: includes/classes/class-twp-setup.php:683
+#: includes/classes/class-twp-setup.php:715 includes/classes/class-twp-setup.php:683
 msgid "You do not have sufficient permissions to access this page."
 msgstr "No tienes permisos suficientes para acceder a esta página."
 
-#: includes/classes/class-twp-setup.php:745
-#: includes/classes/class-twp-setup.php:713
+#: includes/classes/class-twp-setup.php:745 includes/classes/class-twp-setup.php:713
 msgid "Spectacle Options"
 msgstr "Opciones de espectáculo"
 
-#: includes/classes/class-twp-setup.php:751
-#: includes/classes/class-twp-setup.php:719
+#: includes/classes/class-twp-setup.php:751 includes/classes/class-twp-setup.php:719
 msgid "Synopsis"
 msgstr "Sinopsis"
 
-#: includes/classes/class-twp-setup.php:752
-#: includes/classes/class-twp-setup.php:720
+#: includes/classes/class-twp-setup.php:752 includes/classes/class-twp-setup.php:720
 msgid "Short description"
 msgstr "Descripción breve"
 
-#: includes/classes/class-twp-setup.php:758
-#: includes/classes/class-twp-setup.php:726
+#: includes/classes/class-twp-setup.php:758 includes/classes/class-twp-setup.php:726
 msgid "Audience"
 msgstr "Público"
 
-#: includes/classes/class-twp-setup.php:759
-#: includes/classes/class-twp-setup.php:727
+#: includes/classes/class-twp-setup.php:759 includes/classes/class-twp-setup.php:727
 msgid "Intended Audience"
 msgstr "Público al que se dirige"
 
@@ -277,30 +235,25 @@ msgstr "Duración"
 msgid "Duration in minutes"
 msgstr "Duración en minutos"
 
-#: includes/classes/class-twp-setup.php:765
-#: includes/classes/class-twp-setup.php:733
+#: includes/classes/class-twp-setup.php:765 includes/classes/class-twp-setup.php:733
 #: includes/templates/single-spectacle.php:47
 msgid "Credits"
 msgstr "Ficha artística"
 
-#: includes/classes/class-twp-setup.php:766
-#: includes/classes/class-twp-setup.php:734
+#: includes/classes/class-twp-setup.php:766 includes/classes/class-twp-setup.php:734
 msgid "Credits Titles"
 msgstr "Ficha artística"
 
-#: includes/classes/class-twp-setup.php:772
-#: includes/classes/class-twp-setup.php:740
+#: includes/classes/class-twp-setup.php:772 includes/classes/class-twp-setup.php:740
 #: includes/templates/single-spectacle.php:54
 msgid "Sheet"
 msgstr "Ficha técnica"
 
-#: includes/classes/class-twp-setup.php:773
-#: includes/classes/class-twp-setup.php:741
+#: includes/classes/class-twp-setup.php:773 includes/classes/class-twp-setup.php:741
 msgid "Technical Sheet"
 msgstr "Ficha técnica"
 
-#: includes/classes/class-twp-setup.php:786
-#: includes/classes/class-twp-setup.php:754
+#: includes/classes/class-twp-setup.php:786 includes/classes/class-twp-setup.php:754
 msgid "Video"
 msgstr "Vídeo"
 
@@ -308,104 +261,83 @@ msgstr "Vídeo"
 msgid "Video Code. The code of the video in YouTube or Vimeo"
 msgstr "Código del vídeo. El código del vídeo en YouTube o Vimeo"
 
-#: includes/classes/class-twp-setup.php:796
-#: includes/classes/class-twp-setup.php:764
+#: includes/classes/class-twp-setup.php:796 includes/classes/class-twp-setup.php:764
 msgid "Performance Options"
 msgstr "Opciones de actuación"
 
-#: includes/classes/class-twp-setup.php:803
-#: includes/classes/class-twp-setup.php:771
+#: includes/classes/class-twp-setup.php:803 includes/classes/class-twp-setup.php:771
 msgid "Performing Show"
 msgstr "Espectáculo"
 
-#: includes/classes/class-twp-setup.php:809
-#: includes/classes/class-twp-setup.php:777
+#: includes/classes/class-twp-setup.php:809 includes/classes/class-twp-setup.php:777
 msgid "First date"
 msgstr "Primera fecha"
 
-#: includes/classes/class-twp-setup.php:810
-#: includes/classes/class-twp-setup.php:778
+#: includes/classes/class-twp-setup.php:810 includes/classes/class-twp-setup.php:778
 msgid "First performing date. [Date selection / Time]"
 msgstr "Fecha de la primera actuación. [Selección de fecha / Hora]"
 
-#: includes/classes/class-twp-setup.php:818
-#: includes/classes/class-twp-setup.php:786
+#: includes/classes/class-twp-setup.php:818 includes/classes/class-twp-setup.php:786
 msgid "Select Date"
 msgstr "Seleccionar fecha"
 
-#: includes/classes/class-twp-setup.php:819
-#: includes/classes/class-twp-setup.php:787
+#: includes/classes/class-twp-setup.php:819 includes/classes/class-twp-setup.php:787
 msgid "dd-mm-yyyy"
 msgstr "dd-mm-AAAA"
 
-#: includes/classes/class-twp-setup.php:824
-#: includes/classes/class-twp-setup.php:792
+#: includes/classes/class-twp-setup.php:824 includes/classes/class-twp-setup.php:792
 msgid "Last date"
 msgstr "Última fecha"
 
-#: includes/classes/class-twp-setup.php:825
-#: includes/classes/class-twp-setup.php:793
+#: includes/classes/class-twp-setup.php:825 includes/classes/class-twp-setup.php:793
 msgid "Last performing date. [Date selection / Time]"
 msgstr "Fecha de la última función. [Selección de fecha / Hora]"
 
-#: includes/classes/class-twp-setup.php:832
-#: includes/classes/class-twp-setup.php:800
+#: includes/classes/class-twp-setup.php:832 includes/classes/class-twp-setup.php:800
 msgid "Event in which the show is performed (Festival, Arts Program...)"
-msgstr ""
-"Evento en el que se representa el espectáculo (Festival, programación...)"
+msgstr "Evento en el que se representa el espectáculo (Festival, programación...)"
 
-#: includes/classes/class-twp-setup.php:838
-#: includes/classes/class-twp-setup.php:806
+#: includes/classes/class-twp-setup.php:838 includes/classes/class-twp-setup.php:806
 msgid "Stage"
 msgstr "Escenario"
 
-#: includes/classes/class-twp-setup.php:839
-#: includes/classes/class-twp-setup.php:807
+#: includes/classes/class-twp-setup.php:839 includes/classes/class-twp-setup.php:807
 msgid "Where is the Show to be played (Theatre)"
 msgstr "Dónde se va a representar el espectáculo (Teatro)"
 
-#: includes/classes/class-twp-setup.php:845
-#: includes/classes/class-twp-setup.php:813
+#: includes/classes/class-twp-setup.php:845 includes/classes/class-twp-setup.php:813
 msgid "Theatre Address"
 msgstr "Dirección del teatro"
 
-#: includes/classes/class-twp-setup.php:852
-#: includes/classes/class-twp-setup.php:820
+#: includes/classes/class-twp-setup.php:852 includes/classes/class-twp-setup.php:820
 msgid "Postal Code"
 msgstr "Código postal"
 
-#: includes/classes/class-twp-setup.php:859
-#: includes/classes/class-twp-setup.php:827
+#: includes/classes/class-twp-setup.php:859 includes/classes/class-twp-setup.php:827
 msgid "Town"
 msgstr "Ciudad"
 
-#: includes/classes/class-twp-setup.php:860
-#: includes/classes/class-twp-setup.php:828
+#: includes/classes/class-twp-setup.php:860 includes/classes/class-twp-setup.php:828
 msgid "Performing in this Town"
 msgstr "Representando en esta población"
 
-#: includes/classes/class-twp-setup.php:866
-#: includes/classes/class-twp-setup.php:834
+#: includes/classes/class-twp-setup.php:866 includes/classes/class-twp-setup.php:834
 msgid "Region"
 msgstr "Región"
 
-#: includes/classes/class-twp-setup.php:867
-#: includes/classes/class-twp-setup.php:835
+#: includes/classes/class-twp-setup.php:867 includes/classes/class-twp-setup.php:835
 msgid "e.g. Province, County..."
 msgstr "P.e. provincia"
 
-#: includes/classes/class-twp-setup.php:873
-#: includes/classes/class-twp-setup.php:841
+#: includes/classes/class-twp-setup.php:873 includes/classes/class-twp-setup.php:841
 msgid "Country"
 msgstr "País"
 
-#: includes/classes/class-twp-setup.php:880
-#: includes/classes/class-twp-setup.php:848
+#: includes/classes/class-twp-setup.php:880 includes/classes/class-twp-setup.php:848
 msgid "Display Map"
 msgstr "Mostrar mapa"
 
-#: includes/classes/class-twp-setup.php:881
-#: includes/classes/class-twp-setup.php:849
+#: includes/classes/class-twp-setup.php:881 includes/classes/class-twp-setup.php:849
 msgid "Check to display map"
 msgstr "Marcar para mostrar el mapa"
 
@@ -417,69 +349,56 @@ msgstr "Código del vídeo"
 msgid "Video URL"
 msgstr "Dirección URL del vídeo"
 
-#: includes/classes/class-twp-setup.php:912
-#: includes/classes/class-twp-setup.php:864
+#: includes/classes/class-twp-setup.php:912 includes/classes/class-twp-setup.php:864
 msgid "Link"
 msgstr "Enlace"
 
-#: includes/classes/class-twp-setup.php:913
-#: includes/classes/class-twp-setup.php:865
+#: includes/classes/class-twp-setup.php:913 includes/classes/class-twp-setup.php:865
 msgid "Sponsor Link"
 msgstr "Enlace del patrocinador"
 
-#: includes/classes/class-twp-setup.php:919
-#: includes/classes/class-twp-setup.php:871
+#: includes/classes/class-twp-setup.php:919 includes/classes/class-twp-setup.php:871
 msgid "Weight"
 msgstr "Peso"
 
-#: includes/classes/class-twp-setup.php:920
-#: includes/classes/class-twp-setup.php:872
+#: includes/classes/class-twp-setup.php:920 includes/classes/class-twp-setup.php:872
 msgid "A number between 0 and 99 to set the importance. 99 is higher"
 msgstr "Un número entre 0 y 99 para establecer la importancia. 99 es mayor"
 
-#: includes/classes/class-twp-setup.php:980
-#: includes/classes/class-twp-setup.php:932
+#: includes/classes/class-twp-setup.php:980 includes/classes/class-twp-setup.php:932
 msgid "Title:"
 msgstr "Título:"
 
-#: includes/classes/class-twp-setup.php:985
-#: includes/classes/class-twp-setup.php:937
+#: includes/classes/class-twp-setup.php:985 includes/classes/class-twp-setup.php:937
 msgid "Number of spectacles to show (0 for all):"
 msgstr "Número de espectáculos a mostrar (0 para todos):"
 
-#: includes/classes/class-twp-setup.php:991
-#: includes/classes/class-twp-setup.php:943
+#: includes/classes/class-twp-setup.php:991 includes/classes/class-twp-setup.php:943
 msgid "Sort by"
 msgstr "Ordenar por"
 
-#: includes/classes/class-twp-setup.php:1000
-#: includes/classes/class-twp-setup.php:952
+#: includes/classes/class-twp-setup.php:1000 includes/classes/class-twp-setup.php:952
 msgid "Date"
 msgstr "Fecha"
 
-#: includes/classes/class-twp-setup.php:1007
-#: includes/classes/class-twp-setup.php:959
+#: includes/classes/class-twp-setup.php:1007 includes/classes/class-twp-setup.php:959
 msgid "Title"
 msgstr "Título"
 
-#: includes/classes/class-twp-setup.php:1016
-#: includes/classes/class-twp-setup.php:968
+#: includes/classes/class-twp-setup.php:1016 includes/classes/class-twp-setup.php:968
 msgid "Asc"
 msgstr "Ascendente"
 
-#: includes/classes/class-twp-setup.php:1024
-#: includes/classes/class-twp-setup.php:976
+#: includes/classes/class-twp-setup.php:1024 includes/classes/class-twp-setup.php:976
 msgid "Desc"
 msgstr "Descendente"
 
-#: includes/classes/class-twp-setup.php:1049
-#: includes/classes/class-twp-setup.php:1001
+#: includes/classes/class-twp-setup.php:1049 includes/classes/class-twp-setup.php:1001
 #: includes/templates/archive-performance.php:142
 msgid "Upcoming Performances"
 msgstr "Próximas actuaciones"
 
-#: includes/classes/class-twp-setup.php:1079
-#: includes/classes/class-twp-setup.php:1031
+#: includes/classes/class-twp-setup.php:1079 includes/classes/class-twp-setup.php:1031
 #, php-format
 msgid "“%s” Upcoming Performances"
 msgstr "Próximas actuaciones de “%s”"
@@ -512,33 +431,27 @@ msgstr "Aún no hay patrocinadores. Añade alguno en el menú de patrocinadores.
 msgid "No sponsors"
 msgstr "Sin patrocinadores"
 
-#: includes/templates/archive-performance.php:37
-#: includes/templates/archive-performance.php:42
+#: includes/templates/archive-performance.php:37 includes/templates/archive-performance.php:42
 msgid "There are no registered performances for dates searched"
 msgstr "No hay funciones registradas para las fechas solicitadas"
 
-#: includes/templates/archive-performance.php:39
-#: includes/templates/archive-performance.php:44
+#: includes/templates/archive-performance.php:39 includes/templates/archive-performance.php:44
 msgid "There are no performaces right now"
 msgstr "No hay actuaciones registradas en este momento"
 
-#: includes/templates/archive-performance.php:118
-#: includes/templates/archive-performance.php:143
+#: includes/templates/archive-performance.php:118 includes/templates/archive-performance.php:143
 msgid "Previous Performances"
 msgstr "Actuaciones anteriores"
 
-#: includes/templates/archive-spectacle.php:47
-#: includes/templates/archive-spectacle.php:46
+#: includes/templates/archive-spectacle.php:47 includes/templates/archive-spectacle.php:46
 msgid "Audience:"
 msgstr "Público"
 
-#: includes/templates/archive-spectacle.php:67
-#: includes/templates/archive-spectacle.php:66
+#: includes/templates/archive-spectacle.php:67 includes/templates/archive-spectacle.php:66
 msgid "More Spectacles"
 msgstr "Más espectáculos"
 
-#: includes/templates/archive-spectacle.php:68
-#: includes/templates/archive-spectacle.php:67
+#: includes/templates/archive-spectacle.php:68 includes/templates/archive-spectacle.php:67
 msgid "Previous Spectacles"
 msgstr "Espectáculos anteriores"
 
@@ -546,8 +459,7 @@ msgstr "Espectáculos anteriores"
 msgid "Check dates"
 msgstr "Comprobar fechas"
 
-#: includes/templates/single-performance.php:35
-#: includes/templates/single-performance.php:40
+#: includes/templates/single-performance.php:35 includes/templates/single-performance.php:40
 msgid "When"
 msgstr "Cuándo"
 
@@ -595,19 +507,12 @@ msgid "%s Spectacles"
 msgstr "Espectáculos de %s"
 
 #: includes/templates/admin/admin-options.php:10
-msgid ""
-"Your Singular Spectacles name (Spectacle, Choreography, Show, Production...)"
-msgstr ""
-"El nombre en singular de los espectáculos (Espectáculo, Coreografía, "
-"Producción...)"
+msgid "Your Singular Spectacles name (Spectacle, Choreography, Show, Production...)"
+msgstr "El nombre en singular de los espectáculos (Espectáculo, Coreografía, Producción...)"
 
 #: includes/templates/admin/admin-options.php:14
-msgid ""
-"Your Plural Spectacles name (Spectacles, Choreographies, Shows, "
-"Productions...)"
-msgstr ""
-"El nombre en plural de los espectáculos (Espectáculos, Coreografías, "
-"Producciones...)"
+msgid "Your Plural Spectacles name (Spectacles, Choreographies, Shows, Productions...)"
+msgstr "El nombre en plural de los espectáculos (Espectáculos, Coreografías, Producciones...)"
 
 #: includes/templates/admin/admin-options.php:18
 msgid "Single Spectacle slug"
@@ -619,15 +524,11 @@ msgstr "Slug plural de los espectáculos"
 
 #: includes/templates/admin/admin-options.php:26
 msgid "Your Singular Performances name (Performance, Play, Gig...)"
-msgstr ""
-"El nombre en singular de las actuaciones (Actuación, Función, "
-"Representación...)"
+msgstr "El nombre en singular de las actuaciones (Actuación, Función, Representación...)"
 
 #: includes/templates/admin/admin-options.php:30
 msgid "Your Plural Performances name (Performances, Plays, Gigs...)"
-msgstr ""
-"El nombre en plural de las actuaciones (Actuaciones, Funciones, "
-"Representaciones...)"
+msgstr "El nombre en plural de las actuaciones (Actuaciones, Funciones, Representaciones...)"
 
 #: includes/templates/admin/admin-options.php:34
 msgid "Single Performance slug"
