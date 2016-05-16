@@ -675,7 +675,49 @@ class TWP_Setup {
 			wp_die( __( 'You do not have sufficient permissions to access this page.') );
 		}
 
-		include( plugin_dir_path( __FILE__ ) . '../templates/admin/admin-options.php' );
+		$current = ( isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : 'shows' );
+
+		$tabs = array(
+			'shows'        => __( 'Shows', 'theatrewp' ),
+			'performances' => __( 'Performances', 'theatrewp' ),
+			'advanced'     => __( 'Advanced', 'theatrewp' )
+		);
+
+		$links = array();
+
+		foreach ( $tabs as $tab => $name ) {
+			if ( $tab == $current ) {
+				$links[] = "<a class='nav-tab nav-tab-active' href='?page=theatre-wp&tab=$tab'>$name</a>";
+			} else {
+				$links[] = "<a class='nav-tab' href='?page=theatre-wp&tab=$tab'>$name</a>";
+			}
+		}
+
+		echo '<h2>';
+		foreach ( $links as $link ) {
+			echo $link;
+		}
+		echo '</h2> <br class="clear" /> <hr />';
+
+		// $tab = 'shows';
+
+		// if ( isset ( $_GET['tab'] ) ) {
+		// 	$tab = sanitize_key( $_GET['tab'] );
+		// }
+
+		switch ( $current ) {
+			case 'shows' :
+				include( plugin_dir_path( __FILE__ ) . '../templates/admin/admin-options-shows.php' );
+				break;
+			case 'performances' :
+				include( plugin_dir_path( __FILE__ ) . '../templates/admin/admin-options-performances.php' );
+				break;
+			case 'advanced' :
+				include( plugin_dir_path( __FILE__ ) . '../templates/admin/admin-options-advanced.php' );
+				break;
+		}
+
+		// include( plugin_dir_path( __FILE__ ) . '../templates/admin/admin-options.php' );
 	}
 
 	/**

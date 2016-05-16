@@ -701,6 +701,15 @@ msgstr "Espectáculos"
 msgid "Display a list of your productions"
 msgstr "Muestra una lista de tus espectáculos"
 
+msgid "Shows"
+msgstr "Espectáculos"
+
+msgid "Performances"
+msgstr "Actuaciones"
+
+msgid "Advanced"
+msgstr "Avanzado"
+
 #~ msgid "From %s to %s (%s)"
 #~ msgstr "Del %s al %s (%s)"
 

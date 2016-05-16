@@ -705,3 +705,12 @@ msgstr ""
 #: includes/templates/admin/admin-options.php:77
 msgid "Thanks for using the Theatre WP Plugin!"
 msgstr ""
+
+msgid "Shows"
+msgstr ""
+
+msgid "Performances"
+msgstr ""
+
+msgid "Advanced"
+msgstr ""
