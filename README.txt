@@ -4,7 +4,7 @@ Donate link:
 Tags: theatre, troupe, dance, performing arts
 Requires at least: 4.4
 Tested up to: 4.5.2
-Stable tag: 0.62
+Stable tag: 0.63
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -75,6 +75,9 @@ Not yet.
 5. Productions
 
 == Changelog ==
+= 0.63 =
+* Fix options saving
+
 = 0.62 =
 * First extensible filter: twp_define_audiences
 * Tabbed options panel

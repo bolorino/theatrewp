@@ -33,6 +33,13 @@
 		        	<td><input type="text" size="2" name="twp_spectacles_number" value="<?php echo get_option( 'twp_spectacles_number' ); ?>" /></td>
 		        </tr>
 		    </table>
+		    <input type="hidden" name="twp_performance_name" value="<?php echo get_option( 'twp_performance_name' ); ?>" />
+		    <input type="hidden" name="twp_performances_name" value="<?php echo get_option( 'twp_performances_name' ); ?>" />
+		    <input type="hidden" name="twp_performance_slug" value="<?php echo get_option( 'twp_performance_slug' ); ?>" />
+		    <input type="hidden" name="twp_performances_slug" value="<?php echo get_option( 'twp_performances_slug' ); ?>" />
+		    <input type="hidden" name="twp_performances_number" value="<?php echo get_option( 'twp_performances_number' ); ?>" />
+		    <input type="hidden" name="twp_single_sponsor" value="<?php echo get_option( 'twp_single_sponsor' ); ?>" />
+		    <input type="hidden" name="twp_clean_on_uninstall" value="<?php echo get_option( 'twp_clean_on_uninstall' ); ?>" />
 			<?php submit_button(); ?>
 		</form>
 	</div> <!-- twp-options -->
