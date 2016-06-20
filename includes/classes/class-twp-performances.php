@@ -59,6 +59,7 @@ class TWP_Performance {
 		$performance_custom['place']       = isset( $custom[Theatre_WP::$twp_prefix . 'place'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'place'][0] : false;
 		$performance_custom['address']     = isset( $custom[Theatre_WP::$twp_prefix . 'address'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'address'][0] : false;
 		$performance_custom['town']        = isset( $custom[Theatre_WP::$twp_prefix . 'town'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'town'][0] : false;
+		$performance_custom['region']      = isset( $custom[Theatre_WP::$twp_prefix . 'region'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'region'][0] : false;
 		$performance_custom['country']     = isset( $custom[Theatre_WP::$twp_prefix . 'country'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'country'][0] : false;
 		$performance_custom['date_first']  = isset( $custom[Theatre_WP::$twp_prefix . 'date_first'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'date_first'][0] : false;
 		$performance_custom['date_last']   = isset( $custom[Theatre_WP::$twp_prefix . 'date_last'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'date_last'][0] : false;
@@ -166,7 +167,7 @@ class TWP_Performance {
 			'meta_compare' => '>=',
 			'meta_value' => $now,
 			'order' => 'ASC',
-			'numberposts' => 5 // @TODO limit by widget config
+			'numberposts' => -1 // @TODO limit by widget config
 		);
 
 		// @TODO It would be possible to get the show related performances directly?
@@ -177,6 +178,8 @@ class TWP_Performance {
 		}
 
 	    $this_show = false; // There are future performances, but need to check for this show
+	    $max_count = 5;
+	    $shown = 0;
 
 	    $output = '<ul class="next-performances">';
 
@@ -185,8 +188,9 @@ class TWP_Performance {
 
 	        $spectacle_link = $this->spectacle->get_spectacle_link( $performance_custom['spectacle_id'] );
 
-	        if ( $post->ID == $performance_custom['spectacle_id'] ) {
+	        if ( $post->ID == $performance_custom['spectacle_id'] AND $shown < $max_count ) {
 	        	$this_show = true;
+	        	$shown++;
 
 	        	$output .= '<li>';
 
