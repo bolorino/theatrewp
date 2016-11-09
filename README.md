@@ -4,8 +4,8 @@ Theatre WP
 
 - WordPress plugin
 - Requires at least: 4.4
-- Tested up to: 4.6
-- Stable tag: 0.64
+- Tested up to: 4.6.1
+- Stable tag: 0.65
 - License: GPLv2 or later
 - License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -75,6 +75,9 @@ Screenshots
 ![Screenshot 5](/assets/screenshot-5.png "Productions")
 
 Changelog
+## 0.65
+* Fix. Display future years in performaces select box
+
 ## 0.64
 * WordPress 4.6
 * Fix limit in performances widget

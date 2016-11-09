@@ -26,7 +26,7 @@ class TWP_Performance {
 	public function __construct( $spectacle ) {
 		$this->spectacle = $spectacle;
 
-		$this->month_names = $this->_set_month_names();
+		$this->month_names = $this->_set_month_names( __( 'Select Month', 'theatrewp' ) );
 		$this->month = date('m');
 		$this->year = date('Y');
 
@@ -414,9 +414,9 @@ class TWP_Performance {
 		return '';
 	}
 
-	private function _set_month_names() {
+	private function _set_month_names( $month_selection_text ) {
 		$month_names = array();
-		$month_names[] = __( 'Select one', 'theatrewp' );
+		$month_names[] = $month_selection_text;
 
 		for ( $n=1; $n <= 12; $n++ ) {
 			$month_names[] = date_i18n( 'F', mktime( 0, 0, 0, $n, 1 ) );
