@@ -13,6 +13,10 @@
 			do_settings_sections( 'theatre-main' );
 			?>
 			<table class="form-table">
+				<tr valign="top">
+		        	<th scope="row"><?php _e( 'Google Maps API (to display performance maps)', 'theatrewp' );?> </th>
+		        	<td><input type="text" name="twp_google_maps_api" value="<?php echo get_option( 'twp_google_maps_api' ); ?>" /></td>
+		        </tr>
 		        <tr valign="top">
 		        	<th scope="row"><?php _e( 'Sponsors as list in Spectacle', 'theatrewp' );?> </th>
 		        	<td><input type="checkbox" name="twp_single_sponsor" <?php echo ( get_option( 'twp_single_sponsor' ) == '1' ? 'checked="checked"' : '' ); ?> value="1" /></td>

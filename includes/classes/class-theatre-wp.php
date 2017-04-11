@@ -160,8 +160,8 @@ class Theatre_WP {
 	 * @param int $ID
 	 * @return array
 	 */
-	public function get_spectacle_data( $ID ) {
-		return $this->spectacle->get_spectacle_data( intval( $ID ) );
+	public function get_spectacle_data( $ID, $thumbnail_size='thumbnail' ) {
+		return $this->spectacle->get_spectacle_data( intval( $ID ), sanitize_text_field( $thumbnail_size ) );
 	}
 
 	/**
@@ -186,8 +186,26 @@ class Theatre_WP {
 		return esc_url( home_url() ) . '/' . TWP_Spectacle::$production_category_slug . '/' . sanitize_title( $slug );
 	}
 
+	/**
+	 * Get spectacle main image in available sizes
+	 *
+	 * @access public
+	 * @param int $ID
+	 * @param array $additional_sizes
+	 * @return array
+	 */
+	public function get_spectacle_thumbnail( $ID, $additional_sizes=array() ) {
+		return $this->spectacle->get_spectacle_thumbnail( intval( $ID ), $additional_sizes );
+	}
+
 	/* Performance public methods */
 
+	/**
+	 * Checks if there are any performances
+	 *
+	 * @access public
+	 * @return bool
+	 */
 	public function are_there_performances() {
 		$args = array(
 			'post_type' => 'performance',

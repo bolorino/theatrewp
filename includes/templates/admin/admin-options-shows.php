@@ -39,6 +39,7 @@
 		    <input type="hidden" name="twp_performances_slug" value="<?php echo get_option( 'twp_performances_slug' ); ?>" />
 		    <input type="hidden" name="twp_performances_number" value="<?php echo get_option( 'twp_performances_number' ); ?>" />
 		    <input type="hidden" name="twp_single_sponsor" value="<?php echo get_option( 'twp_single_sponsor' ); ?>" />
+		    <input type="hidden" name="twp_google_maps_api" value="<?php echo get_option( 'twp_google_maps_api' ); ?>" />
 		    <input type="hidden" name="twp_clean_on_uninstall" value="<?php echo get_option( 'twp_clean_on_uninstall' ); ?>" />
 			<?php submit_button(); ?>
 		</form>

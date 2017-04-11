@@ -405,9 +405,9 @@ class TWP_Performance {
 		if( $to_url_encode ) $google_address = urlencode( trim( $to_url_encode ) );
 
 		if ( $google_address ) {
-			$google_iframe = '<div id="googlemaps"><iframe width="' . $width . '" height="' . $height . '" src="http://www.google.com/maps?f=q&amp;source=s_q&amp;hl='
-			. $this->language
-			. '&amp;geocode=&amp;q='.$google_address.'?>&amp;output=embed"></iframe></div>';
+			$google_iframe = '<div id="googlemaps"><iframe width="' . $width . '" height="' . $height . '" src="https://www.google.com/maps/embed/v1/place?key=' . get_option( 'twp_google_maps_api' )
+			. '&amp;language=' . $this->language
+			. '&amp;q='.$google_address.'?>"></iframe></div>';
 			return $google_iframe;
 		}
 

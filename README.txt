@@ -3,8 +3,8 @@ Contributors: bollofino
 Donate link:
 Tags: theatre, troupe, dance, performing arts
 Requires at least: 4.4
-Tested up to: 4.7
-Stable tag: 0.65
+Tested up to: 4.7.3
+Stable tag: 0.66
 Text Domain: theatrewp
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -56,6 +56,8 @@ You can copy the files located in includes/templates within the plugin directory
 Define TWP_THEME constant in your theme if using the templates to avoid duplicate content:
 define( 'TWP_THEME', true );
 
+Have a look into includes/classes/class-theatre-wp.php for functions to use in your templates.
+
 == Installation ==
 
 Use automatic installer
@@ -75,6 +77,13 @@ Not yet.
 5. Productions
 
 == Changelog ==
+= 0.66 =
+* WordPress 4.7
+* New setup option: Google Maps API
+* Set desired thumbnail size in $theatre_wp->get_spectacle_data
+* New template function to get the featured image in all available sizes (get_spectacle_thumbnail)
+* Enable “tag” taxonomy for shows
+
 = 0.65 =
 * Fix. Display future years in performaces select box
 
@@ -112,31 +121,9 @@ Not yet.
 * New option to select sponsors in spectacle edition as list instead of check boxes
 * Minor bugfixes
 
-= 0.56 =
-* WordPress 4.2
-* Minor bugfixes
-
-= 0.55 =
-* Partial Catalan translation
-* WordPress 4.1.1
-
-= 0.54 =
-* WordPress 4.1
-
-= 0.53 =
-* Excerpt added to Performances
-* Function to check if there are performances $theatrewp->are_there_performances();
-* Minor bug fixes
-
-= 0.52 =
-* Fix translations
-
-= 0.51 =
-* Works now with (almost) any theme!
-* Content filtered instead of using custom templates inside plugin
-* Define TWP_THEME in your custom theme if using templates for productions and performances to avoid duplicate content
-* Fix: return get_bloginfo instead bloginfo in get_production_cat_url
-* Fix: option_post_per_page returns empty
-
 Full changelog in the plugin website
-http://www.bolorino.net/theatre-wp-wordpress-plugin-performing-arts/
+https://www.bolorino.net/theatre-wp-wordpress-plugin-performing-arts/
+
+== Upgrade Notice ==
+= 0.66 =
+* New setup option: Google Maps API. Add your API key to display map in performance.

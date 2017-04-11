@@ -75,6 +75,13 @@ Screenshots
 ![Screenshot 5](/assets/screenshot-5.png "Productions")
 
 Changelog
+##0.66
+* WordPress 4.7
+* New setup option: Google Maps API
+* Set desired thumbnail size in $theatre_wp->get_spectacle_data
+* New template function to get the featured image in all available sizes (get_spectacle_thumbnail)
+* Enable “tag” taxonomy for shows
+
 ## 0.65
 * Fix. Display future years in performaces select box
 

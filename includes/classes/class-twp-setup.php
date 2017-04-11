@@ -38,6 +38,8 @@ class TWP_Setup {
 
 	protected static $default_single_sponsor = 0;
 
+	protected static $default_google_maps_api = '';
+
 	public $performance;
 
 	public $spectacle;
@@ -79,6 +81,9 @@ class TWP_Setup {
 
 		self::$default_single_sponsor  = ( get_option( 'twp_single_sponsor' ) ? intval( get_option( 'twp_single_sponsor' ) ) : self::$default_single_sponsor );
 
+		self::$default_google_maps_api  = ( get_option( 'twp_google_maps_api' ) ? get_option( 'twp_google_maps_api' ) : self::$default_google_maps_api );
+
+
 
 		self::$default_options = array(
 			'twp_version'			  => Theatre_WP::$version,
@@ -93,7 +98,8 @@ class TWP_Setup {
 			'twp_spectacles_number'   => self::$default_spectacles_number,
 			'twp_performances_number' => self::$default_performances_number,
 			'twp_clean_on_uninstall'  => 0,
-			'twp_single_sponsor'	  => self::$default_single_sponsor
+			'twp_single_sponsor'	  => self::$default_single_sponsor,
+			'twp_google_maps_api'	  => self::$default_google_maps_api
 		);
 
 		self::$twp_dateformat = get_option( 'date_format');
@@ -341,6 +347,7 @@ class TWP_Setup {
 			'show_ui'         => true,
 			'hiearchical'	  => true,
 			'menu_position'   => 5,
+			'taxonomies'	  => array( 'post_tag'),
 			'supports'        => array( 'title', 'editor', 'excerpt', 'thumbnail' )
 			);
 
@@ -624,6 +631,7 @@ class TWP_Setup {
 		register_setting( 'twp-main', 'twp_spectacles_number', 'intval' );
 		register_setting( 'twp-main', 'twp_performances_number', 'intval' );
 		register_setting( 'twp-main', 'twp_single_sponsor', 'intval' );
+		register_setting( 'twp-main', 'twp_google_maps_api' );
 
 		register_setting( 'twp-main', 'twp_clean_on_uninstall' );
 	}
@@ -646,6 +654,7 @@ class TWP_Setup {
 		unregister_setting( 'twp-main', 'twp_spectacles_number', 'intval' );
 		unregister_setting( 'twp-main', 'twp_performances_number', 'intval' );
 		unregister_setting( 'twp-main', 'twp_single_sponsor', 'intval' );
+		unregister_setting( 'twp-main', 'twp_google_maps_api' );
 
 		unregister_setting( 'twp-main', 'twp_clean_on_uninstall' );
 	}
@@ -699,12 +708,6 @@ class TWP_Setup {
 		}
 		echo '</h2> <br class="clear" /> <hr />';
 
-		// $tab = 'shows';
-
-		// if ( isset ( $_GET['tab'] ) ) {
-		// 	$tab = sanitize_key( $_GET['tab'] );
-		// }
-
 		switch ( $current ) {
 			case 'shows' :
 				include( plugin_dir_path( __FILE__ ) . '../templates/admin/admin-options-shows.php' );
@@ -717,7 +720,6 @@ class TWP_Setup {
 				break;
 		}
 
-		// include( plugin_dir_path( __FILE__ ) . '../templates/admin/admin-options.php' );
 	}
 
 	/**

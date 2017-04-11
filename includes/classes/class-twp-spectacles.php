@@ -46,25 +46,29 @@ class TWP_Spectacle {
 	}
 
 	/**
-	 * Get spectacle title and URL from post name
+	 * Get spectacle title thumbnail and link
 	 *
 	 * @access public
-	 * @param string $post_name
+	 * @param int $ID
+	 * @param string $thumbnail_size
 	 * @return array
 	 */
-	public function get_spectacle_data( $ID ) {
+	public function get_spectacle_data( $ID, $thumbnail_size='thumbnail' ) {
 		global $wpdb;
 
 		if ( ! $spectacle = get_post( intval( $ID) ) ) {
 			return false;
 		}
 
+		$thumbnail_id = get_post_thumbnail_id( intval( $ID) );
+
 		// @todo has_term( false, 'spectacle', $ID )
 
 		$spectacle_data = array();
 
 		$spectacle_data['id'] = $spectacle->ID;
-		$spectacle_data['thumbnail'] = get_the_post_thumbnail( $spectacle->ID, 'thumbnail', array( 'class' => 'twp_production_thumbnail' ) );
+		$spectacle_data['thumbnail'] = get_the_post_thumbnail( $spectacle->ID, $thumbnail_size, array( 'class' => 'twp_production_thumbnail' ) );
+		$spectacle_data['thumbnail_url'] = wp_get_attachment_image_src( $thumbnail_id, $thumbnail_size, true );
 		$spectacle_data['title'] = $spectacle->post_title;
 		$spectacle_data['link'] = home_url('/') . get_option( 'twp_spectacle_slug' ) . '/' . $spectacle->post_name . '/';
 
@@ -96,6 +100,45 @@ class TWP_Spectacle {
 		$spectacle_custom['video']    = ( isset($custom[Theatre_WP::$twp_prefix . 'video'][0]) ? $custom[Theatre_WP::$twp_prefix . 'video'][0] : false );
 
 		return $spectacle_custom;
+	}
+
+	/**
+	 * Get spectacle main image in available sizes
+	 *
+	 * @access public
+	 * @param int $ID
+	 * @param array $additional_sizes
+	 * @return array
+	 */
+	public function get_spectacle_thumbnail( $ID, $additional_sizes=array() ) {
+		global $wpdb;
+
+		if ( ! $spectacle = get_post( intval( $ID) ) ) {
+			return false;
+		}
+
+		$default_thumbnail_sizes = array(
+			'thumbnail',
+			'medium',
+			'large',
+			'full'
+		);
+
+		$thumbnail_id = get_post_thumbnail_id( intval( $ID) );
+
+		$spectacle_data = array();
+
+		foreach ( $default_thumbnail_sizes as $default_size ) {
+			$spectacle_data["thumbnail-$default_size"] = wp_get_attachment_image_src( $thumbnail_id, $default_size, true );
+		}
+
+		if ( ! empty( $additional_sizes ) ) {
+			foreach( $additional_sizes as $additional_size ) {
+				$spectacle_data["thumbnail-$additional_size"] = wp_get_attachment_image_src( $thumbnail_id, $additional_size, true );
+			}
+		}
+
+		return $spectacle_data;
 	}
 
 	/**
