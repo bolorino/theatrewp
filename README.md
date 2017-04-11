@@ -75,6 +75,7 @@ Screenshots
 ![Screenshot 5](/assets/screenshot-5.png "Productions")
 
 Changelog
+---------
 ##0.66
 * WordPress 4.7
 * New setup option: Google Maps API
