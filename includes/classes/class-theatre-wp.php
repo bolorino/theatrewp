@@ -285,6 +285,10 @@ class Theatre_WP {
 		return $this->performance->get_filtered_calendar( $calendar_filter_params );
 	}
 
+    public function get_busy_dates( $calendar_filter_params ) {
+        return $this->performance->get_busy_dates( $calendar_filter_params );
+    }
+
 	/**
 	 * Add TWP custom data to single spectacle content
 	 *

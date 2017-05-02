@@ -493,6 +493,30 @@ msgstr ""
 msgid "“%s” Upcoming Performances"
 msgstr ""
 
+#: includes/classes/class-twp-setup.php:961
+msgid "Tickets URL"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:962
+msgid "Link to ticket sales"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:969
+msgid "Price"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:970
+msgid "Tickets price"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:977
+msgid "Free entrance"
+msgstr ""
+
+#: includes/classes/class-twp-setup.php:985
+msgid "Invitation needed"
+msgstr ""
+
 #: includes/classes/class-twp-spectacles.php:15
 msgid "All Audiences"
 msgstr ""
@@ -704,6 +728,10 @@ msgstr ""
 
 #: includes/templates/admin/admin-options.php:77
 msgid "Thanks for using the Theatre WP Plugin!"
+msgstr ""
+
+#: includes/templates/admin/admin-options-performances.php:39
+msgid "Enable tickets info"
 msgstr ""
 
 msgid "Shows"

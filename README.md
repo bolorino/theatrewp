@@ -1,19 +1,19 @@
 Theatre WP
 ==========
-[Theatre WP website](http://www.bolorino.net/theatre-wp-wordpress-plugin-performing-arts/)
+[Theatre WP website](https://www.bolorino.net/theatre-wp-wordpress-plugin-performing-arts/)
 
 - WordPress plugin
 - Requires at least: 4.4
-- Tested up to: 4.7
-- Stable tag: 0.65
+- Tested up to: 4.7.4
+- Stable tag: 0.66
 - License: GPLv2 or later
-- License URI: http://www.gnu.org/licenses/gpl-2.0.html
+- License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Management of Productions and Performances for Theatre and Performing Arts Companies. WordPress Plugin.
 
 Description
 -----------
-The plugin "Theatre WP" makes easy the work of developers and designers who use WordPress to create websites for troupes and Performing Arts Companies.
+The plugin "Theatre WP" helps developers and designers who use WordPress to create websites for troupes and Performing Arts Companies.
 
 Theatre WP is intended for designers and developers using WordPress to setup a performing arts company website.
 This plugin provides productions and performances management.
@@ -24,7 +24,6 @@ What does the plugin include?
 * Widget for upcoming Performances of a particular Show
 * Widget for upcoming Performances in general
 * Widget for Production Sponsors
-* Translation into English, Russian and Spanish
 
 Plugin benefits
 ------------------------
@@ -82,6 +81,8 @@ Changelog
 * Set desired thumbnail size in $theatre_wp->get_spectacle_data
 * New template function to get the featured image in all available sizes (get_spectacle_thumbnail)
 * Enable “tag” taxonomy for shows
+* Added get_busy_dates
+* Added tickets options for performances
 
 ## 0.65
 * Fix. Display future years in performaces select box

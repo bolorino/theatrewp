@@ -33,6 +33,13 @@
 		        	<th scope="row"><?php _e( 'Number of Performances per page', 'theatrewp' );?> </th>
 		        	<td><input type="text" size="2" name="twp_performances_number" value="<?php echo get_option( 'twp_performances_number' ); ?>" /></td>
 		        </tr>
+
+		        </tr>
+		        <tr valign="top">
+		        	<th scope="row"><?php _e( 'Enable tickets info', 'theatrewp' );?> </th>
+		        	<td><input type="checkbox" name="twp_tickets_info" <?php echo ( get_option( 'twp_tickets_info' ) == '1' ? 'checked="checked"' : '' ); ?> value="1" /></td>
+		        </tr>
+
 		    </table>
 		    <input type="hidden" name="twp_spectacle_name" value="<?php echo get_option( 'twp_spectacle_name' ); ?>" />
 		    <input type="hidden" name="twp_spectacles_name" value="<?php echo get_option( 'twp_spectacles_name' ); ?>" />

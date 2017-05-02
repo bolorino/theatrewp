@@ -36,9 +36,11 @@ class TWP_Setup {
 
 	protected static $default_performances_number = 5;
 
-	protected static $default_single_sponsor = 0;
+	protected static $default_single_sponsor      = 0;
 
-	protected static $default_google_maps_api = '';
+	protected static $default_google_maps_api     = '';
+
+	protected static $default_tickets_info        = 0;
 
 	public $performance;
 
@@ -83,6 +85,8 @@ class TWP_Setup {
 
 		self::$default_google_maps_api  = ( get_option( 'twp_google_maps_api' ) ? get_option( 'twp_google_maps_api' ) : self::$default_google_maps_api );
 
+		self::$default_tickets_info  = ( get_option( 'twp_tickets_info' ) ? get_option( 'twp_tickets_info' ) : self::$default_tickets_info );
+
 
 
 		self::$default_options = array(
@@ -99,7 +103,8 @@ class TWP_Setup {
 			'twp_performances_number' => self::$default_performances_number,
 			'twp_clean_on_uninstall'  => 0,
 			'twp_single_sponsor'	  => self::$default_single_sponsor,
-			'twp_google_maps_api'	  => self::$default_google_maps_api
+			'twp_google_maps_api'	  => self::$default_google_maps_api,
+			'twp_tickets_info'        => self::$default_tickets_info
 		);
 
 		self::$twp_dateformat = get_option( 'date_format');
@@ -293,6 +298,10 @@ class TWP_Setup {
 			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'region' );
 			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'country' );
 			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'display_map' );
+			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'tickets_url' );
+			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'tickets_price' );
+			delete_post_meta( $twp_performance->ID, Theatre_WP::$twp_prefix . 'free_entrance' );
+
 
 			// Delete post
 			wp_delete_post( $twp_performance->ID, true );
@@ -632,6 +641,7 @@ class TWP_Setup {
 		register_setting( 'twp-main', 'twp_performances_number', 'intval' );
 		register_setting( 'twp-main', 'twp_single_sponsor', 'intval' );
 		register_setting( 'twp-main', 'twp_google_maps_api' );
+		register_setting( 'twp-main', 'twp_tickets_info', 'intval' );
 
 		register_setting( 'twp-main', 'twp_clean_on_uninstall' );
 	}
@@ -655,6 +665,7 @@ class TWP_Setup {
 		unregister_setting( 'twp-main', 'twp_performances_number', 'intval' );
 		unregister_setting( 'twp-main', 'twp_single_sponsor', 'intval' );
 		unregister_setting( 'twp-main', 'twp_google_maps_api' );
+		unregister_setting( 'twp-main', 'twp_tickets_info', 'intval' );
 
 		unregister_setting( 'twp-main', 'twp_clean_on_uninstall' );
 	}
@@ -927,22 +938,62 @@ class TWP_Setup {
 			    'priority' => 'high',
 			    'fields' => array(
 			        array(
-			            'name' => __( 'Link', 'theatrewp' ),
-			            'desc' => __( 'Sponsor Link', 'theatrewp' ),
-			            'id' => Theatre_WP::$twp_prefix . 'sponsor-url',
-			            'type' => 'text',
-			            'std' => 'http://'
+						'name' => __( 'Link', 'theatrewp' ),
+						'desc' => __( 'Sponsor Link', 'theatrewp' ),
+						'id'   => Theatre_WP::$twp_prefix . 'sponsor-url',
+						'type' => 'text',
+						'std'  => 'http://'
 			        ),
 			        array(
-			            'name' => __( 'Weight', 'theatrewp' ),
-			            'desc' => __( 'A number between 0 and 99 to set the importance. 99 is higher', 'theatrewp' ),
-			            'id'   => Theatre_WP::$twp_prefix . 'sponsor-weight',
-			            'type' => 'text',
-			            'std' => '0'
+						'name' => __( 'Weight', 'theatrewp' ),
+						'desc' => __( 'A number between 0 and 99 to set the importance. 99 is higher', 'theatrewp' ),
+						'id'   => Theatre_WP::$twp_prefix . 'sponsor-weight',
+						'type' => 'text',
+						'std'  => '0'
 			        )
 			    )
 			)
 		);
+
+		// Add aditional performance metaboxes if tickets info option is enabled
+		if ( get_option( 'twp_tickets_info' ) == 1 ) {
+			$tickets_info_metabox_url = array(
+				'name'        => __( 'Tickets URL', 'theatrewp' ),
+				'description' => __( 'Link to tickets sales', 'theatrewp' ),
+				'id'          => Theatre_WP::$twp_prefix . 'tickets_url',
+				'type'        => 'text',
+				'std'         => ''
+			);
+
+			$tickets_info_metabox_price = array(
+				'name'        => __( 'Price', 'theatrewp' ),
+				'description' => __( 'Tickets price', 'theatrewp' ),
+				'id'          => Theatre_WP::$twp_prefix . 'tickets_price',
+				'type'        => 'text',
+				'std'         => ''
+			);
+
+			$tickets_info_metabox_entrance = array(
+				'name'        => __( 'Free entrance', 'theatrewp' ),
+				'description' => __( 'Free entrance', 'theatrewp' ),
+				'id'          => Theatre_WP::$twp_prefix . 'free_entrance',
+				'type'        => 'checkbox',
+				'std'         => ''
+			);
+
+			$tickets_info_metabox_invitation = array(
+				'name'        => __( 'Invitation needed', 'theatrewp' ),
+				'description' => __( 'Invitation needed', 'theatrewp' ),
+				'id'          => Theatre_WP::$twp_prefix . 'invitation',
+				'type'        => 'checkbox',
+				'std'         => ''
+			);
+
+			$TWP_meta_boxes[1]['fields'][] = $tickets_info_metabox_url;
+			$TWP_meta_boxes[1]['fields'][] = $tickets_info_metabox_price;
+			$TWP_meta_boxes[1]['fields'][] = $tickets_info_metabox_entrance;
+			$TWP_meta_boxes[1]['fields'][] = $tickets_info_metabox_invitation;
+		}
 
 		foreach ( $TWP_meta_boxes as $meta_box ) {
 		    $my_box = new TWP_Metaboxes( $meta_box );

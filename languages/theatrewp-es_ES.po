@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TheatreWP\n"
-"POT-Creation-Date: 2014-03-13 17:42+0100\n"
-"PO-Revision-Date: 2016-11-09 15:48+0100\n"
+"POT-Creation-Date: 2017-04-11 16:17+0200\n"
+"PO-Revision-Date: 2017-05-02 18:51+0200\n"
 "Last-Translator: Jose Bolorino <jose.bolorino@gmail.com>\n"
 "Language-Team: jose.bolorino@gmail.com\n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 2.0.1\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -18,9 +18,9 @@ msgstr ""
 msgid "You have no shows registered yet."
 msgstr "Aún no tienes espectáculos registrados"
 
-#: includes/classes/class-twp-performances.php:29
-msgid "Select Month"
-msgstr "Seleccione mes"
+#: includes/classes/class-twp-performances.php:354
+msgid "Select one"
+msgstr "Selecciona uno"
 
 #: includes/classes/class-twp-setup.php:142
 #: includes/classes/class-twp-setup.php:150
@@ -264,11 +264,6 @@ msgstr "Descripción breve"
 msgid "Audience"
 msgstr "Público"
 
-#: includes/classes/class-twp-setup.php:759
-#: includes/classes/class-twp-setup.php:727
-msgid "Intended Audience"
-msgstr "Público al que se dirige"
-
 #: includes/classes/class-twp-setup.php:731
 msgid "Duration"
 msgstr "Duración"
@@ -276,6 +271,11 @@ msgstr "Duración"
 #: includes/classes/class-twp-setup.php:733
 msgid "Duration in minutes"
 msgstr "Duración en minutos"
+
+#: includes/classes/class-twp-setup.php:759
+#: includes/classes/class-twp-setup.php:727
+msgid "Intended Audience"
+msgstr "Público al que se dirige"
 
 #: includes/classes/class-twp-setup.php:765
 #: includes/classes/class-twp-setup.php:733
@@ -351,7 +351,8 @@ msgstr "Fecha de la última función. [Selección de fecha / Hora]"
 #: includes/classes/class-twp-setup.php:832
 #: includes/classes/class-twp-setup.php:800
 msgid "Event in which the show is performed (Festival, Arts Program...)"
-msgstr "Evento en el que se representa el espectáculo (Festival, programación...)"
+msgstr ""
+"Evento en el que se representa el espectáculo (Festival, programación...)"
 
 #: includes/classes/class-twp-setup.php:838
 #: includes/classes/class-twp-setup.php:806
@@ -483,6 +484,30 @@ msgstr "Próximas actuaciones"
 msgid "“%s” Upcoming Performances"
 msgstr "Próximas actuaciones de “%s”"
 
+#: includes/classes/class-twp-setup.php:961
+msgid "Tickets URL"
+msgstr "Enlace a las entradas"
+
+#: includes/classes/class-twp-setup.php:962
+msgid "Link to ticket sales"
+msgstr "Enlace a la venta de entradas"
+
+#: includes/classes/class-twp-setup.php:969
+msgid "Price"
+msgstr "Precio"
+
+#: includes/classes/class-twp-setup.php:970
+msgid "Tickets price"
+msgstr "Precio de las entradas"
+
+#: includes/classes/class-twp-setup.php:977
+msgid "Free entrance"
+msgstr "Entrada gratuita"
+
+#: includes/classes/class-twp-setup.php:985
+msgid "Invitation needed"
+msgstr "Se necesita invitación"
+
 #: includes/classes/class-twp-spectacles.php:15
 msgid "All Audiences"
 msgstr "Todos los públicos"
@@ -510,6 +535,30 @@ msgstr "Aún no hay patrocinadores. Añade alguno en el menú de patrocinadores.
 #: includes/classes/class-twp-sponsors.php:36
 msgid "No sponsors"
 msgstr "Sin patrocinadores"
+
+#: includes/classes/class-twp-show-upcoming-performances-widget.php:17
+msgid "Production Upcoming Performances"
+msgstr "Próximas funciones del espectáculo"
+
+#: includes/classes/class-twp-show-upcoming-performances-widget.php:18
+msgid "Display a list of upcoming performances for the current production"
+msgstr "Muestra una lista de las próximas funciones del espectáculo actual"
+
+#: includes/classes/class-twp-spectacles-widget.php:17
+msgid "Productions"
+msgstr "Espectáculos"
+
+#: includes/classes/class-twp-spectacles-widget.php:18
+msgid "Display a list of your productions"
+msgstr "Muestra una lista de tus espectáculos"
+
+#: includes/classes/class-twp-upcoming-performances-widget.php:18
+msgid "Display a list of upcoming performances"
+msgstr "Muestra una lista de próximas funciones"
+
+#: includes/classes/class-twp-upcoming-performances-widget.php:84
+msgid "Number of performances to display (0 for all):"
+msgstr "Número de funciones a mostrar (0 para todas):"
 
 #: includes/templates/archive-performance.php:37
 #: includes/templates/archive-performance.php:42
@@ -593,13 +642,24 @@ msgctxt "spectacles that belong to %s category"
 msgid "%s Spectacles"
 msgstr "Espectáculos de %s"
 
+#: includes/templates/admin/admin-options.php:3
+msgid "Theatre WP Options "
+msgstr "Opciones de Theatre WP"
+
 #: includes/templates/admin/admin-options.php:10
-msgid "Your Singular Spectacles name (Spectacle, Choreography, Show, Production...)"
-msgstr "El nombre en singular de los espectáculos (Espectáculo, Coreografía, Producción...)"
+msgid ""
+"Your Singular Spectacles name (Spectacle, Choreography, Show, Production...)"
+msgstr ""
+"El nombre en singular de los espectáculos (Espectáculo, Coreografía, "
+"Producción...)"
 
 #: includes/templates/admin/admin-options.php:14
-msgid "Your Plural Spectacles name (Spectacles, Choreographies, Shows, Productions...)"
-msgstr "El nombre en plural de los espectáculos (Espectáculos, Coreografías, Producciones...)"
+msgid ""
+"Your Plural Spectacles name (Spectacles, Choreographies, Shows, "
+"Productions...)"
+msgstr ""
+"El nombre en plural de los espectáculos (Espectáculos, Coreografías, "
+"Producciones...)"
 
 #: includes/templates/admin/admin-options.php:18
 msgid "Single Spectacle slug"
@@ -611,11 +671,15 @@ msgstr "Slug plural de los espectáculos"
 
 #: includes/templates/admin/admin-options.php:26
 msgid "Your Singular Performances name (Performance, Play, Gig...)"
-msgstr "El nombre en singular de las actuaciones (Actuación, Función, Representación...)"
+msgstr ""
+"El nombre en singular de las actuaciones (Actuación, Función, "
+"Representación...)"
 
 #: includes/templates/admin/admin-options.php:30
 msgid "Your Plural Performances name (Performances, Plays, Gigs...)"
-msgstr "El nombre en plural de las actuaciones (Actuaciones, Funciones, Representaciones...)"
+msgstr ""
+"El nombre en plural de las actuaciones (Actuaciones, Funciones, "
+"Representaciones...)"
 
 #: includes/templates/admin/admin-options.php:34
 msgid "Single Performance slug"
@@ -642,8 +706,12 @@ msgid "Sponsors as list in Spectacle"
 msgstr "Mostrar patrocinadores como lista en espectáculo"
 
 #: includes/templates/admin/admin-options.php:68
-msgid "Is this plugin useful to you? Say thanks or buy me a coffee, so I can keep working on it. Thanks!"
-msgstr "¿Te resulta útil este plugin? Di gracias o regálame un café para que pueda seguir trabajando en él. ¡Gracias!"
+msgid ""
+"Is this plugin useful to you? Say thanks or buy me a coffee, so I can keep "
+"working on it. Thanks!"
+msgstr ""
+"¿Te resulta útil este plugin? Di gracias o regálame un café para que pueda "
+"seguir trabajando en él. ¡Gracias!"
 
 #: includes/templates/admin/admin-options.php:71
 msgid "Buy me a coffee (2 Euro)"
@@ -665,29 +733,9 @@ msgstr "Regálame algo de mi lista de deseos de Amazon"
 msgid "Thanks for using the Theatre WP Plugin!"
 msgstr "¡Gracias por usar el plugin Theatre WP!"
 
-#: includes/classes/class-twp-upcoming-performances-widget.php:18
-msgid "Display a list of upcoming performances"
-msgstr "Muestra una lista de próximas funciones"
-
-#: includes/classes/class-twp-upcoming-performances-widget.php:84
-msgid "Number of performances to display (0 for all):"
-msgstr "Número de funciones a mostrar (0 para todas):"
-
-#: includes/classes/class-twp-production-sponsors-widget.php:18
-msgid "Display a list Sponsors for the current production"
-msgstr "Muestra una lista de patrocinadores para el espectáculo actual"
-
-msgid "Production Upcoming Performances"
-msgstr "Próximas funciones del espectáculo"
-
-msgid "Display a list of upcoming performances for the current production"
-msgstr "Muestra una lista de las próximas funciones del espectáculo actual"
-
-msgid "Productions"
-msgstr "Espectáculos"
-
-msgid "Display a list of your productions"
-msgstr "Muestra una lista de tus espectáculos"
+#: includes/templates/admin/admin-options-performances.php:39
+msgid "Enable tickets info"
+msgstr "Habilitar información sobre entradas"
 
 msgid "Shows"
 msgstr "Espectáculos"
@@ -697,6 +745,9 @@ msgstr "Actuaciones"
 
 msgid "Advanced"
 msgstr "Avanzado"
+
+#~ msgid "Display a list Sponsors for the current production"
+#~ msgstr "Muestra una lista de patrocinadores para el espectáculo actual"
 
 #~ msgid "From %s to %s (%s)"
 #~ msgstr "Del %s al %s (%s)"

@@ -65,6 +65,11 @@ class TWP_Performance {
 		$performance_custom['date_last']   = isset( $custom[Theatre_WP::$twp_prefix . 'date_last'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'date_last'][0] : false;
 		$performance_custom['display_map'] = isset( $custom[Theatre_WP::$twp_prefix . 'display_map'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'display_map'][0] : false;
 
+		$performance_custom['tickets_url'] = isset( $custom[Theatre_WP::$twp_prefix . 'tickets_url'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'tickets_url'][0] : false;
+		$performance_custom['tickets_price'] = isset( $custom[Theatre_WP::$twp_prefix . 'tickets_price'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'tickets_price'][0] : false;
+		$performance_custom['free_entrance'] = isset( $custom[Theatre_WP::$twp_prefix . 'free_entrance'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'free_entrance'][0] : false;
+		$performance_custom['invitation'] = isset( $custom[Theatre_WP::$twp_prefix . 'invitation'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'invitation'][0] : false;
+
 
 		$spectacle_data                        = $this->spectacle->get_spectacle_data( $performance_custom['spectacle_id'] );
 		$performance_custom['spectacle_title'] = $spectacle_data['title'];
@@ -376,6 +381,78 @@ class TWP_Performance {
 
 		return $count_filtered_performances->total;
 
+	}
+
+	/**
+	* Get an array of busy dates.
+	*
+	* @access public
+	* @param array $calendar_filter_params
+	* @return array
+	*/
+	public function get_busy_dates( $calendar_filter_params ) {
+		global $wpdb, $post;
+		// $calendar_filter_params:
+		// month, year
+
+		if ( ! empty( $calendar_filter_params ) ) {
+			$this->month = ( array_key_exists( 'month', $calendar_filter_params ) ? intval( $calendar_filter_params['month'] ) : 0 );
+			$this->year  = ( array_key_exists( 'year', $calendar_filter_params ) ? intval( $calendar_filter_params['year'] ) : 0 );
+		}
+
+		$sql_calendar = "SELECT $wpdb->posts.ID, post_title, post_name, meta_key, meta_value, FROM_UNIXTIME(meta_value, '%d') AS day, FROM_UNIXTIME(meta_value, '%m') AS month, FROM_UNIXTIME(meta_value, '%Y') AS year, post_status
+			FROM $wpdb->posts, $wpdb->postmeta";
+
+		// Polylang compatibility
+		$this->polylang_language = $this->get_polylang_language();
+
+		if ( $this->polylang_language ) {
+			$sql_calendar .= " INNER JOIN $wpdb->term_relationships wtr
+				ON ($wpdb->postmeta.post_id = wtr.object_id)
+				INNER JOIN $wpdb->term_taxonomy wtt
+					ON (wtr.term_taxonomy_id = wtt.term_taxonomy_id)
+				INNER JOIN $wpdb->terms wt
+					ON (wt.term_id = wtt.term_id) ";
+		}
+
+		$sql_calendar .= "
+			WHERE " . $wpdb->posts . '.ID = ' . $wpdb->postmeta . ".post_id
+			AND post_type = 'performance'
+			AND post_status = 'publish'
+			AND meta_key = '" . Theatre_WP::$twp_prefix . "date_first' ";
+
+		if ( 0 == $this->month && 0 == $this->year ) {
+			// Upcoming performances. Not month nor year passed
+			// @TODO $topdate to config
+			$topdate = time()-72800;
+			$sql_calendar .= "AND meta_value >= $topdate ";
+		} elseif ( $this->year == 0 ) {
+			$this->year = date('Y');
+		}
+
+		if ( 0 != $this->year ) {
+			$sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%Y') = $this->year ";
+		}
+
+		if ( 0 != $this->month ) {
+			$sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%m') = $this->month ";
+		}
+
+		// Polylang compatibility
+		if ( $this->polylang_language ) {
+			$sql_calendar .= "AND wtt.taxonomy = 'language'
+				AND wt.slug = '$this->polylang_language' ";
+		}
+
+		$sql_calendar .= 'ORDER BY meta_value ';
+
+		$filtered_calendar = $wpdb->get_results( $sql_calendar, ARRAY_A );
+
+		if ( empty( $filtered_calendar ) ) {
+			return false;
+		}
+
+		return $filtered_calendar;
 	}
 
 	/**
