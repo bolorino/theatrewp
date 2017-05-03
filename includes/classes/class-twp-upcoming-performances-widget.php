@@ -24,8 +24,8 @@ class TWP_Upcoming_Performances_Widget extends WP_Widget {
 
         parent::__construct(
             $this->id, // Base ID
-            __( $this->title, 'theatrewp' ), // Name
-            array( 'description' => __( $this->description, 'theatrewp' ), ) // Args
+            __( $this->title, 'theatre-wp' ), // Name
+            array( 'description' => __( $this->description, 'theatre-wp' ), ) // Args
         );
     }
 
@@ -69,7 +69,7 @@ class TWP_Upcoming_Performances_Widget extends WP_Widget {
             $title = $instance[ 'title' ];
         }
         else {
-            $title = __( 'New title', 'theatrewp' );
+            $title = __( 'New title', 'theatre-wp' );
         }
 
         $number = ( isset( $instance['number'] ) && intval( $instance['number'] ) >= 0 ? intval( $instance['number'] ) : get_option( 'twp_widget_performances_number' ) );
@@ -81,7 +81,7 @@ class TWP_Upcoming_Performances_Widget extends WP_Widget {
         </p>
 
         <p>
-        <label for="widget-performances-number"><?php _e( 'Number of performances to display (0 for all):', 'theatrewp' ); ?></label>
+        <label for="widget-performances-number"><?php _e( 'Number of performances to display (0 for all):', 'theatre-wp' ); ?></label>
         <input id="widget-performances-number" name="<?php echo $this->get_field_name( 'number' ); ?>" type="text" size="3" value="<?php echo $number; ?>">
         </p>
 

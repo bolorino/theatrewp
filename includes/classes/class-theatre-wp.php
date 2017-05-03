@@ -5,8 +5,8 @@
  * @package   TheatreWP
  * @author    Jose Bolorino <jose.bolorino@gmail.com>
  * @license   GPL-2.0+
- * @link      http://www.bolorino.net/TheatreWP
- * @copyright 2013-2016 Jose Bolorino
+ * @link      https://www.bolorino.net/pages/theatre-wp-wordpress-plugin-performing-arts.html
+ * @copyright 2013-2017 Jose Bolorino
  */
 
 /**
@@ -29,7 +29,7 @@ class Theatre_WP {
 	 *
 	 * @var     string
 	 */
-	static $version = '0.65';
+	static $version = '0.67';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -41,7 +41,7 @@ class Theatre_WP {
 	 *
 	 * @var      string
 	 */
-	protected $plugin_slug = 'theatrewp';
+	public static $plugin_slug = 'theatre-wp';
 
 	protected static $plugin_dir;
 
@@ -50,7 +50,7 @@ class Theatre_WP {
  	 */
 	public static $twp_prefix = 'twp_';
 
-	public static $twp_text_domain = 'theatrewp';
+	public static $twp_text_domain = 'theatre-wp';
 
 	/**
  	 * @var TWP_Spectacle
@@ -332,7 +332,7 @@ class Theatre_WP {
 
 		if ( $production_custom['audience'] ) {
 			$twp_content .= '<div class="twp-audience">';
-			$twp_content .= __( $production_custom['audience'], 'theatrewp' );
+			$twp_content .= __( $production_custom['audience'], 'theatre-wp' );
 			$twp_content .= '</div>';
 			$pre_content = true;
 		}
@@ -361,7 +361,7 @@ class Theatre_WP {
 		if ( $production_custom['credits'] ) {
 			$twp_content .= '<div id="twp-credits">'
 			. '<h2 class="twp-subtitle">'
-			. __('Credits', 'theatrewp')
+			. __('Credits', 'theatre-wp')
 			. '</h2>'
 			. $production_custom['credits']
 			. '</div>';
@@ -370,7 +370,7 @@ class Theatre_WP {
 		if ( $production_custom['sheet'] ) {
 			$twp_content .= '<div class="sheet">'
 			. '<h2 class="twp-subtitle">'
-			. __('Sheet', 'theatrewp')
+			. __('Sheet', 'theatre-wp')
 			. '</h2>'
 			. nl2br( $production_custom['sheet'] )
 			. '</div>';
@@ -415,12 +415,12 @@ class Theatre_WP {
 
         if ( isset( $performance_first_date ) ) {
         	$twp_content .= '<h3>'
-        	. __( 'When', 'theatrewp' )
+        	. __( 'When', 'theatre-wp' )
         	. '</h3>'
         	. '<p class="single-performance-dates">';
 
             if ( isset( $performance_last_date ) ) {
-                $twp_content .= _x( 'From', '(date) performing from day', 'theatrewp' );
+                $twp_content .= _x( 'From', '(date) performing from day', 'theatre-wp' );
             }
 
             $twp_content .= '<span class="performance-date">'
@@ -431,7 +431,7 @@ class Theatre_WP {
             . '</span>)';
 
             if ( isset( $performance_last_date ) ) {
-            	$twp_content .= _x( 'To', '(date) performing to day', 'theatrewp' ) . ' '
+            	$twp_content .= _x( 'To', '(date) performing to day', 'theatre-wp' ) . ' '
             	. '<span class="performance-date">'
             	. $performance_last_date
             	. '</span>'
@@ -451,7 +451,7 @@ class Theatre_WP {
 
         if ( $performance_custom['event'] ) {
         	$twp_content .= '<h3>'
-        	. __( 'Event', 'theatrewp' )
+        	. __( 'Event', 'theatre-wp' )
         	. '</h3>'
         	. '<div class="event">'
         	. '<p>'

@@ -26,7 +26,7 @@ class TWP_Performance {
 	public function __construct( $spectacle ) {
 		$this->spectacle = $spectacle;
 
-		$this->month_names = $this->_set_month_names( __( 'Select Month', 'theatrewp' ) );
+		$this->month_names = $this->_set_month_names( __( 'Select Month', 'theatre-wp' ) );
 		$this->month = date('m');
 		$this->year = date('Y');
 
@@ -126,9 +126,9 @@ class TWP_Performance {
 
 	        if ( $performance_custom['date_last'] ) {
 	        	$output .= '<span class="twpdate">';
-	        	$output .= _x( 'From', '(date) performing from day', 'theatrewp' );
+	        	$output .= _x( 'From', '(date) performing from day', 'theatre-wp' );
 	        	$output .= ' ' . date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] ) . ' '
-	        		. _x( 'To', '(date) performing to day', 'theatrewp' ) . ' '
+	        		. _x( 'To', '(date) performing to day', 'theatre-wp' ) . ' '
 	        		. date_i18n( get_option( 'date_format' ), $performance_custom['date_last'] )
 					. '</span>';
 	        } else {
@@ -212,9 +212,9 @@ class TWP_Performance {
 
 	        	if ( $performance_custom['date_last'] ) {
 		        	$output .= '<span class="twpdate">';
-		        	$output .= _x( 'From', '(date) performing from day', 'theatrewp' );
+		        	$output .= _x( 'From', '(date) performing from day', 'theatre-wp' );
 		        	$output .= ' ' . date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] ) . ' '
-		        		. _x( 'To', '(date) performing to day', 'theatrewp' ) . ' '
+		        		. _x( 'To', '(date) performing to day', 'theatre-wp' ) . ' '
 		        		. date_i18n( get_option( 'date_format' ), $performance_custom['date_last'] )
 						. '</span>';
 		        } else {

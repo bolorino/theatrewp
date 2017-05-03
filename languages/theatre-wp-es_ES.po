@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TheatreWP\n"
 "POT-Creation-Date: 2017-04-11 16:17+0200\n"
-"PO-Revision-Date: 2017-05-02 18:51+0200\n"
+"PO-Revision-Date: 2017-05-03 17:47+0200\n"
 "Last-Translator: Jose Bolorino <jose.bolorino@gmail.com>\n"
 "Language-Team: jose.bolorino@gmail.com\n"
 "Language: es_ES\n"
@@ -42,6 +42,14 @@ msgstr "Próximas funciones"
 #: includes/classes/class-twp-setup.php:158
 msgid "Production Sponsors"
 msgstr "Patrocinadores del espectáculo"
+
+#: includes/classes/class-twp-setup.php:182
+msgid "Settings"
+msgstr "Ajustes"
+
+#: includes/classes/class-twp-setup.php:183
+msgid "Plugin Site"
+msgstr "Página del plugin"
 
 #: includes/classes/class-twp-setup.php:299
 #: includes/classes/class-twp-setup.php:336

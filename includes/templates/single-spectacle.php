@@ -1,6 +1,6 @@
 <?php
 /**
- * The Template for displaying single Spectacles.
+ * The Template for displaying single Spectacle.
  *
  * @package WordPress
  * @subpackage TheatreWordPress
@@ -68,14 +68,14 @@ get_header(); ?>
 						<?php the_content(); ?>
 
 						<?php if ( $production_custom['credits'] ) { ?>
-							<h2><?php echo __('Credits', 'theatrewp'); ?></h2>
+							<h2><?php echo __('Credits', 'theatre-wp'); ?></h2>
 							<div class="credits">
 								<?php echo nl2br( $production_custom['credits'] ); ?>
 							</div>
 						<?php } ?>
 
 						<?php if ( $production_custom['sheet'] ) { ?>
-							<h2><?php echo __('Sheet', 'theatrewp'); ?></h2>
+							<h2><?php echo __('Sheet', 'theatre-wp'); ?></h2>
 							<div class="sheet">
 								<?php echo nl2br( $production_custom['sheet'] ); ?>
 							</div>

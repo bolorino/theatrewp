@@ -1,6 +1,6 @@
 <?php
 /**
- * The Template for displaying single Performances.
+ * The Template for displaying single Performance.
  *
  * @package WordPress
  * @subpackage TheatreWordPress
@@ -37,18 +37,18 @@ get_header(); ?>
 					<div class="entry-content">
 						<?php
 						if ( isset( $performance_first_date ) ) { ?>
-							<h3><?php echo __( 'When', 'theatrewp' ); ?></h3>
+							<h3><?php echo __( 'When', 'theatre-wp' ); ?></h3>
 							<p class="single-performance-dates">
 								<?php
 								if ( isset( $performance_last_date ) ) {
-									echo _x( 'From', '(date) performing from day', 'theatrewp' ) . ' ';
+									echo _x( 'From', '(date) performing from day', 'theatre-wp' ) . ' ';
 								}
 								?>
 								<span class="performance-date"><?php echo $performance_first_date; ?></span>
 								(<span class="performance-time"><?php echo $performance_first_time;?></span>)
 								<?php
 								if ( isset( $performance_last_date ) ) {
-									echo _x( 'To', '(date) performing to day', 'theatrewp' ) . ' ';
+									echo _x( 'To', '(date) performing to day', 'theatre-wp' ) . ' ';
 								?>
 									<span class="performance-date"><?php echo $performance_last_date; ?></span>
 									(<span class="performance-time"><?php echo $performance_last_time;?></span>)<br>
@@ -59,7 +59,7 @@ get_header(); ?>
 						<?php } ?>
 
 						<?php if ( $performance_custom['spectacle_title'] ) { ?>
-							<h3><?php echo __( 'Show', 'theatrewp' ); ?></h3>
+							<h3><?php echo __( 'Show', 'theatre-wp' ); ?></h3>
 							<div class="show">
 								<?php
 								$production_custom = $theatre_wp->get_spectacle_data( $performance_custom['spectacle_id'] );
@@ -77,7 +77,7 @@ get_header(); ?>
 						<?php } ?>
 
 						<?php if ( $performance_custom['event'] ) { ?>
-							<h3><?php echo __( 'Event', 'theatrewp' ); ?></h3>
+							<h3><?php echo __( 'Event', 'theatre-wp' ); ?></h3>
 							<div class="event">
 								<?php echo $performance_custom['event']; ?>
 							</div>
@@ -95,12 +95,6 @@ get_header(); ?>
 					</div><!-- .entry-content -->
 
 				</article>
-
-				<nav class="nav-single">
-					<h3 class="assistive-text"><?php _e( 'Post navigation', 'twentytwelve' ); ?></h3>
-					<span class="nav-previous"><?php previous_post_link( '%link', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'twentytwelve' ) . '</span> %title' ); ?></span>
-					<span class="nav-next"><?php next_post_link( '%link', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'twentytwelve' ) . '</span>' ); ?></span>
-				</nav><!-- .nav-single -->
 
 			<?php endwhile; // end of the loop. ?>
 

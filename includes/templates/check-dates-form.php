@@ -12,6 +12,6 @@
             <?php } ?>
         </select>
 
-        <input type="submit" name="submit" value="<?php echo __( 'Check dates', 'theatrewp' ); ?>" />
+        <input type="submit" name="submit" value="<?php echo __( 'Check dates', 'theatre-wp' ); ?>" />
     </form>
 </div> <!--  twp-check-dates -->

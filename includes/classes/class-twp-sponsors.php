@@ -24,7 +24,7 @@ class TWP_Sponsor {
         if ( ! $sponsors_query ) {
             $sponsors[] = array(
                 'id' => 0,
-                'title' => __( 'There are no sponsors yet. Add some in the Sponsors menu.', 'theatrewp' )
+                'title' => __( 'There are no sponsors yet. Add some in the Sponsors menu.', 'theatre-wp' )
             );
 
             return $sponsors;
@@ -33,7 +33,7 @@ class TWP_Sponsor {
         if ( self::$default_single_sponsor == 1 ) {
             $sponsors[] = array(
                 'id' => 0,
-                'title' => __( 'No sponsors', 'theatrewp' )
+                'title' => __( 'No sponsors', 'theatre-wp' )
             );
         }
 

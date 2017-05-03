@@ -21,23 +21,23 @@ class TWP_Spectacle {
 	public function set_audiences() {
 		$audience = array(
 			array(
-				'label'	=> __('All Audiences', 'theatrewp'),
+				'label'	=> __('All Audiences', 'theatre-wp'),
 				'value' => 'All Audiences'
 			),
 			array(
-				'label'	=> __('Adults', 'theatrewp'),
+				'label'	=> __('Adults', 'theatre-wp'),
 				'value' => 'Adults'
 			),
 			array(
-				'label'	=> __('Family', 'theatrewp'),
+				'label'	=> __('Family', 'theatre-wp'),
 				'value' => 'Family'
 			),
 			array(
-				'label'	=> __('Kids', 'theatrewp'),
+				'label'	=> __('Kids', 'theatre-wp'),
 				'value' => 'Kids'
 			),
 			array(
-				'label'	=> __('Young', 'theatrewp'),
+				'label'	=> __('Young', 'theatre-wp'),
 				'value' => 'Young'
 			)
  		);

@@ -1,11 +1,11 @@
 <div class="wrap">
 	<?php screen_icon(); ?>
-	<h2><?php _e( 'Theatre WP Options', 'theatrewp' ); ?></h2>
+	<h2><?php _e( 'Theatre WP Options', 'theatre-wp' ); ?></h2>
 	<p>
 		v <?php echo get_option( 'twp_version' ); ?>
 	</p>
 
-	<h3><?php _e( 'Performances', 'theatrewp' ); ?></h3>
+	<h3><?php _e( 'Performances', 'theatre-wp' ); ?></h3>
 
 	<div class="twp-options" style="display:inline-block;width:48%">
 		<form action="options.php" method="post">
@@ -14,29 +14,29 @@
 			?>
 			<table class="form-table">
 		        <tr valign="top">
-		        	<th scope="row"><?php _e( 'Your Singular Performances name (Performance, Play, Gig...)', 'theatrewp' );?> </th>
+		        	<th scope="row"><?php _e( 'Your Singular Performances name (Performance, Play, Gig...)', 'theatre-wp' );?> </th>
 		        	<td><input type="text" name="twp_performance_name" value="<?php echo get_option( 'twp_performance_name' ); ?>" /></td>
 		        </tr>
 		        <tr valign="top">
-		        	<th scope="row"><?php _e( 'Your Plural Performances name (Performances, Plays, Gigs...)', 'theatrewp' );?> </th>
+		        	<th scope="row"><?php _e( 'Your Plural Performances name (Performances, Plays, Gigs...)', 'theatre-wp' );?> </th>
 		        	<td><input type="text" name="twp_performances_name" value="<?php echo get_option( 'twp_performances_name' ); ?>" /></td>
 		        </tr>
 		        <tr valign="top">
-		        	<th scope="row"><?php _e( 'Single Performance slug', 'theatrewp' );?> </th>
+		        	<th scope="row"><?php _e( 'Single Performance slug', 'theatre-wp' );?> </th>
 		        	<td><input type="text" name="twp_performance_slug" value="<?php echo get_option( 'twp_performance_slug' ); ?>" /></td>
 		        </tr>
 		        <tr valign="top">
-		        	<th scope="row"><?php _e( 'Plural Performances slug', 'theatrewp' );?> </th>
+		        	<th scope="row"><?php _e( 'Plural Performances slug', 'theatre-wp' );?> </th>
 		        	<td><input type="text" name="twp_performances_slug" value="<?php echo get_option( 'twp_performances_slug' ); ?>" /></td>
 		        </tr>
 		        <tr valign="top">
-		        	<th scope="row"><?php _e( 'Number of Performances per page', 'theatrewp' );?> </th>
+		        	<th scope="row"><?php _e( 'Number of Performances per page', 'theatre-wp' );?> </th>
 		        	<td><input type="text" size="2" name="twp_performances_number" value="<?php echo get_option( 'twp_performances_number' ); ?>" /></td>
 		        </tr>
 
 		        </tr>
 		        <tr valign="top">
-		        	<th scope="row"><?php _e( 'Enable tickets info', 'theatrewp' );?> </th>
+		        	<th scope="row"><?php _e( 'Enable tickets info', 'theatre-wp' );?> </th>
 		        	<td><input type="checkbox" name="twp_tickets_info" <?php echo ( get_option( 'twp_tickets_info' ) == '1' ? 'checked="checked"' : '' ); ?> value="1" /></td>
 		        </tr>
 

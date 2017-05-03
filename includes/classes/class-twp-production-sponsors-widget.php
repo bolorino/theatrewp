@@ -24,8 +24,8 @@ class TWP_Production_Sponsors_Widget extends WP_Widget {
 
         parent::__construct(
             $this->id, // Base ID
-            __( $this->title, 'theatrewp' ), // Name
-            array( 'description' => __( $this->description, 'theatrewp' ), ) // Args
+            __( $this->title, 'theatre-wp' ), // Name
+            array( 'description' => __( $this->description, 'theatre-wp' ), ) // Args
         );
     }
 
@@ -110,7 +110,7 @@ class TWP_Production_Sponsors_Widget extends WP_Widget {
             $title = $instance[ 'title' ];
         }
         else {
-            $title = __( 'New title', 'theatrewp' );
+            $title = __( 'New title', 'theatre-wp' );
         }
         ?>
 

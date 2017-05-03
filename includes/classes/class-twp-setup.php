@@ -160,9 +160,30 @@ class TWP_Setup {
 			// Update rewrite rules after Options update
 			add_action( 'update_option_twp-main', array('TWP_Setup', '_update_rewrite_rules') );
 
+			// Adds link from plugins page to Theatre WP settings
+			add_filter( 'plugin_action_links_' . TWP_PLUGIN_BASENAME, array( $this, 'twp_plugin_action_links' ), 10, 1 );
+
 			add_filter( 'manage_edit-performance_columns', array( 'TWP_Setup', 'twp_performances_columns' ) );
 			add_action( 'manage_performance_posts_custom_column', array( $this, 'twp_manage_performances_columns' ), 10, 2);
 		}
+	}
+
+	/**
+	* Adds link from plugins page to Theatre WP Settings page.
+	*
+	* @param array $links The current links.
+	*
+	* @since 0.67
+	*/
+	public function twp_plugin_action_links( $links ) {
+
+		$twp_links = array();
+
+		$twp_links['settings'] = '<a href="' . esc_url( admin_url( 'options-general.php?page=theatre-wp' ) ) . '">' . __( 'Settings', 'theatre-wp' ) . '</a>';
+		$twp_links['home'] = '<a href="' . esc_url( 'https://www.bolorino.net/pages/theatre-wp-wordpress-plugin-performing-arts.html' ) . '" target="_blank">' . __( 'Plugin Site', 'theatre-wp' ) . '</a>';
+
+		return array_merge( $twp_links, $links );
+
 	}
 
 	/**
@@ -340,15 +361,15 @@ class TWP_Setup {
 			'labels' => array(
 				'name'          => self::$default_options['twp_spectacles_name'],
 				'singular_name' => self::$default_options['twp_spectacle_name'],
-				'add_new'       => __( 'Add new', 'theatrewp' ),
-				'add_new_item'  => __( 'Add new Show', 'theatrewp' ),
-				'edit_item'     => __( 'Edit Show', 'theatrewp' ),
-				'new_item'      => __( 'New Show', 'theatrewp' ),
-				'view'          => __( 'View Show', 'theatrewp' ),
-				'view_item'     => __( 'View Show', 'theatrewp' ),
-				'search_items'  => __( 'Search Shows', 'theatrewp' )
+				'add_new'       => __( 'Add new', 'theatre-wp' ),
+				'add_new_item'  => __( 'Add new Show', 'theatre-wp' ),
+				'edit_item'     => __( 'Edit Show', 'theatre-wp' ),
+				'new_item'      => __( 'New Show', 'theatre-wp' ),
+				'view'          => __( 'View Show', 'theatre-wp' ),
+				'view_item'     => __( 'View Show', 'theatre-wp' ),
+				'search_items'  => __( 'Search Shows', 'theatre-wp' )
 				),
-			'singular_label'  => __( 'Show', 'theatrewp' ),
+			'singular_label'  => __( 'Show', 'theatre-wp' ),
 			'public'          => true,
 			'menu_icon'		  => 'dashicons-visibility',
 			'has_archive'     => self::$default_options['twp_spectacles_slug'],
@@ -378,15 +399,15 @@ class TWP_Setup {
 			'labels' => array(
 				'name'          => self::$default_options['twp_performances_name'],
 				'singular_name' => self::$default_options['twp_performance_name'],
-				'add_new'       => __('Add new', 'theatrewp'),
-				'add_new_item'  => __('Add new Performance', 'theatrewp'),
-				'edit_item'     => __('Edit Performance', 'theatrewp'),
-				'new_item'      => __('New Performance', 'theatrewp'),
-				'view'          => __('View Performances', 'theatrewp'),
-				'view_item'     => __('View Performance', 'theatrewp'),
-				'search_items'  => __('Search Performance', 'theatrewp')
+				'add_new'       => __('Add new', 'theatre-wp'),
+				'add_new_item'  => __('Add new Performance', 'theatre-wp'),
+				'edit_item'     => __('Edit Performance', 'theatre-wp'),
+				'new_item'      => __('New Performance', 'theatre-wp'),
+				'view'          => __('View Performances', 'theatre-wp'),
+				'view_item'     => __('View Performance', 'theatre-wp'),
+				'search_items'  => __('Search Performance', 'theatre-wp')
 				),
-			'singular_label'  => __('Performance', 'theatrewp'),
+			'singular_label'  => __('Performance', 'theatre-wp'),
 			'public'          => true,
 			'menu_icon'		  => 'dashicons-tickets-alt',
 			'has_archive'     => self::$default_options['twp_performances_slug'],
@@ -411,17 +432,17 @@ class TWP_Setup {
 	public function create_sponsors() {
 		$sponsors_args = array(
 			'labels' => array(
-				'name'          => __( 'Sponsors', 'theatrewp' ),
-				'singular_name' => __( 'Sponsor', 'theatrewp' ),
-				'add_new'       => __( 'Add new', 'theatrewp' ),
-				'add_new_item'  => __( 'Add new Sponsor', 'theatrewp' ),
-				'edit_item'     => __( 'Edit Sponsor', 'theatrewp' ),
-				'new_item'      => __( 'New Sponsor', 'theatrewp' ),
-				'view'          => __( 'View Sponsors', 'theatrewp' ),
-				'view_item'     => __( 'View Sponsor', 'theatrewp' ),
-				'search_items'  => __( 'Search Sponsors', 'theatrewp' )
+				'name'          => __( 'Sponsors', 'theatre-wp' ),
+				'singular_name' => __( 'Sponsor', 'theatre-wp' ),
+				'add_new'       => __( 'Add new', 'theatre-wp' ),
+				'add_new_item'  => __( 'Add new Sponsor', 'theatre-wp' ),
+				'edit_item'     => __( 'Edit Sponsor', 'theatre-wp' ),
+				'new_item'      => __( 'New Sponsor', 'theatre-wp' ),
+				'view'          => __( 'View Sponsors', 'theatre-wp' ),
+				'view_item'     => __( 'View Sponsor', 'theatre-wp' ),
+				'search_items'  => __( 'Search Sponsors', 'theatre-wp' )
 				),
-			'singular_label'    => __( 'Sponsor', 'theatrewp' ),
+			'singular_label'    => __( 'Sponsor', 'theatre-wp' ),
 			'public'            => true,
 			'menu_icon'		    => 'dashicons-heart',
 			'show_in_nav_menus' => true,
@@ -443,17 +464,17 @@ class TWP_Setup {
 	 */
 	public function build_taxonomies () {
 		$labels = array(
-			'name'			=> _x( 'Types of Production', 'taxonomy general name', 'theatrewp' ),
-			'singular_name'	=> _x( 'Type of Production', 'taxonomy singular name', 'theatrewp' ),
-			'add_new_item'	=> __( 'New format of Production', 'theatrewp' ),
-			'new_item_name' => __( 'New format name', 'theatrewp' ),
-			'menu_name'		=> __( 'Format', 'theatrewp' )
+			'name'			=> _x( 'Types of Production', 'taxonomy general name', 'theatre-wp' ),
+			'singular_name'	=> _x( 'Type of Production', 'taxonomy singular name', 'theatre-wp' ),
+			'add_new_item'	=> __( 'New format of Production', 'theatre-wp' ),
+			'new_item_name' => __( 'New format name', 'theatre-wp' ),
+			'menu_name'		=> __( 'Format', 'theatre-wp' )
 		);
 
 		$args = array(
 			'hierarchical'      => true,
 			'public'            => true,
-			'label'             => __( 'Format', 'theatrewp' ),
+			'label'             => __( 'Format', 'theatre-wp' ),
 			'labels'            => $labels,
 			'show_ui'           => true,
 			'show_in_nav_menus' => true,
@@ -475,9 +496,9 @@ class TWP_Setup {
 	 * @return void
 	 */
 	public function load_plugin_textdomain() {
-		$locale = apply_filters( 'plugin_locale', get_locale(), 'theatrewp' );
+		$locale = apply_filters( 'plugin_locale', get_locale(), 'theatre-wp' );
 
-		load_plugin_textdomain( 'theatrewp', false, self::$plugin_dir . '/languages' );
+		load_plugin_textdomain( 'theatre-wp', false, self::$plugin_dir . '/languages' );
 
 	}
 
@@ -504,11 +525,11 @@ class TWP_Setup {
 
 			// Localize js
 		    $localize_args = array(
-		        'closeText'         => __( 'Done', 'theatrewp' ),
-		        'currentText'       => __( 'Today', 'theatrewp' ),
+		        'closeText'         => __( 'Done', 'theatre-wp' ),
+		        'currentText'       => __( 'Today', 'theatre-wp' ),
 		        'monthNames'        => $this->_strip_array_index( $wp_locale->month ),
 		        'monthNamesShort'   => $this->_strip_array_index( $wp_locale->month_abbrev ),
-		        'monthStatus'       => __( 'Show a different month', 'theatrewp' ),
+		        'monthStatus'       => __( 'Show a different month', 'theatre-wp' ),
 		        'dayNames'          => $this->_strip_array_index( $wp_locale->weekday ),
 		        'dayNamesShort'     => $this->_strip_array_index( $wp_locale->weekday_abbrev ),
 		        'dayNamesMin'       => $this->_strip_array_index( $wp_locale->weekday_initial ),
@@ -550,11 +571,11 @@ class TWP_Setup {
 		$new_columns['cb'] = '<input type="checkbox" />';
 
 		$new_columns['id']         = __( 'ID' );
-		$new_columns['title']      = _x( 'Performance', 'column name', 'theatrewp' );
-		$new_columns['spectacle']  = __( 'Spectacle', 'theatrewp' );
-		$new_columns['first_date'] = __( 'First Date', 'theatrewp' );
-		$new_columns['last_date']  = __( 'Last Date', 'theatrewp' );
-		$new_columns['event']      = __( 'Event', 'theatrewp' );
+		$new_columns['title']      = _x( 'Performance', 'column name', 'theatre-wp' );
+		$new_columns['spectacle']  = __( 'Spectacle', 'theatre-wp' );
+		$new_columns['first_date'] = __( 'First Date', 'theatre-wp' );
+		$new_columns['last_date']  = __( 'Last Date', 'theatre-wp' );
+		$new_columns['event']      = __( 'Event', 'theatre-wp' );
 
 		return $new_columns;
 	}
@@ -604,7 +625,7 @@ class TWP_Setup {
 	 * @return void
 	 */
 	public static function twp_menu() {
-		$hook = add_options_page( __('Theatre WP Options', 'theatrewp'), 'Theatre WP', 'manage_options', 'theatre-wp', array( 'TWP_Setup', 'twp_options' ) );
+		$hook = add_options_page( __('Theatre WP Options', 'theatre-wp'), 'Theatre WP', 'manage_options', 'theatre-wp', array( 'TWP_Setup', 'twp_options' ) );
 
 		// Add an action to check if plugin options are updated. Update rewrite rules when they are
 		add_action( 'load-' . $hook, array( 'TWP_Setup', 'twp_check_plugin_options_update' ) );
@@ -698,9 +719,9 @@ class TWP_Setup {
 		$current = ( isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : 'shows' );
 
 		$tabs = array(
-			'shows'        => __( 'Shows', 'theatrewp' ),
-			'performances' => __( 'Performances', 'theatrewp' ),
-			'advanced'     => __( 'Advanced', 'theatrewp' )
+			'shows'        => __( 'Shows', 'theatre-wp' ),
+			'performances' => __( 'Performances', 'theatre-wp' ),
+			'advanced'     => __( 'Advanced', 'theatre-wp' )
 		);
 
 		$links = array();
@@ -780,56 +801,56 @@ class TWP_Setup {
 		$TWP_meta_boxes = array(
 			array(
 				'id'       => 'spectacle-meta-box',
-				'title'    => __('Spectacle Options', 'theatrewp' ),
+				'title'    => __('Spectacle Options', 'theatre-wp' ),
 				'pages'    => array( 'spectacle' ),
 				'context'  => 'normal',
 				'priority' => 'high',
 				'fields'   => array(
 					array(
-						'name' => __( 'Synopsis', 'theatrewp' ),
-						'desc' => __( 'Short description', 'theatrewp' ),
+						'name' => __( 'Synopsis', 'theatre-wp' ),
+						'desc' => __( 'Short description', 'theatre-wp' ),
 						'id' => Theatre_WP::$twp_prefix . 'synopsis',
 						'type' => 'textarea',
 						'std' => ''
 						),
 					array(
-						'name' => __( 'Audience', 'theatrewp' ),
-						'desc' => __( 'Intended Audience', 'theatrewp' ),
+						'name' => __( 'Audience', 'theatre-wp' ),
+						'desc' => __( 'Intended Audience', 'theatre-wp' ),
 						'id' => Theatre_WP::$twp_prefix . 'audience',
 						'type' => 'select',
 						'options' => apply_filters( 'twp_define_audiences', TWP_Spectacle::$audience ) /* twp_define_audiences filter */
 						),
 					array(
-						'name' => __( 'Duration', 'theatrewp' ),
-						'desc' => __( 'Duration in minutes', 'theatrewp' ),
+						'name' => __( 'Duration', 'theatre-wp' ),
+						'desc' => __( 'Duration in minutes', 'theatre-wp' ),
 						'id' => Theatre_WP::$twp_prefix . 'duration',
 						'type' => 'text',
 						'std' => ''
 						),
 					array(
-						'name' => __( 'Credits', 'theatrewp' ),
-						'desc' => __( 'Credits Titles', 'theatrewp' ),
+						'name' => __( 'Credits', 'theatre-wp' ),
+						'desc' => __( 'Credits Titles', 'theatre-wp' ),
 						'id'   => Theatre_WP::$twp_prefix . 'credits',
 						'type' => 'wysiwyg',
 						'std'  => ''
 						),
 					array(
-						'name' => __( 'Sheet', 'theatrewp' ),
-						'desc' => __( 'Technical Sheet', 'theatrewp' ),
+						'name' => __( 'Sheet', 'theatre-wp' ),
+						'desc' => __( 'Technical Sheet', 'theatre-wp' ),
 						'id'   => Theatre_WP::$twp_prefix . 'sheet',
 						'type' => 'textarea',
 						'std'  => ''
 						),
 					array(
-						'name' => __( 'Sponsors', 'theatrewp' ),
-						'desc' => __( 'Sponsors', 'theatrewp' ),
+						'name' => __( 'Sponsors', 'theatre-wp' ),
+						'desc' => __( 'Sponsors', 'theatre-wp' ),
 						'id' => Theatre_WP::$twp_prefix . 'prod-sponsor',
 						'type' => ( self::$default_options['twp_single_sponsor'] == 1 ? 'sponsorselect' : 'multicheckbox' ),
 						'options' => $this->sponsor->get_sponsors_titles()
 					),
 					array(
-						'name' => __( 'Video', 'theatrewp' ),
-						'desc' => __( 'Video Code. The code of the video in YouTube or Vimeo', 'theatrewp' ),
+						'name' => __( 'Video', 'theatre-wp' ),
+						'desc' => __( 'Video Code. The code of the video in YouTube or Vimeo', 'theatre-wp' ),
 						'id'   => Theatre_WP::$twp_prefix . 'video',
 						'type' => 'textarea',
 						'std'  => ''
@@ -838,21 +859,21 @@ class TWP_Setup {
 				),
 			array (
 				'id'       => 'performance-meta-box',
-				'title'    => __( 'Performance Options', 'theatrewp' ),
+				'title'    => __( 'Performance Options', 'theatre-wp' ),
 				'pages'    => array( 'performance' ),
 				'context'  => 'normal',
 				'priority' => 'high',
 				'fields'   => array(
 					array(
-						'name'    => __( 'Show', 'theatrewp' ),
-						'desc'    => __( 'Performing Show', 'theatrewp' ),
+						'name'    => __( 'Show', 'theatre-wp' ),
+						'desc'    => __( 'Performing Show', 'theatre-wp' ),
 						'id'      => Theatre_WP::$twp_prefix . 'spectacle_id',
 						'type'    => 'select',
 						'options' => $this->spectacle->get_spectacles_array()
 						),
 					array(
-						'name' => __( 'First date', 'theatrewp' ),
-						'desc' => __( 'First performing date. [Date selection / Time]', 'theatrewp' ),
+						'name' => __( 'First date', 'theatre-wp' ),
+						'desc' => __( 'First performing date. [Date selection / Time]', 'theatre-wp' ),
 						'id'   => Theatre_WP::$twp_prefix . 'date_first',
 						'type' => 'text_datetime_timestamp',
 						'std'  => '',
@@ -860,70 +881,70 @@ class TWP_Setup {
 						'js_options' => array(
 							'appendText'	=> '(yyyy-mm-dd)',
 							'autoSize'		=> true,
-							'buttonText'	=> __( 'Select Date', 'theatrewp' ),
-							'dateFormat'	=> __( 'dd-mm-yyyy', 'theatrewp' ),
+							'buttonText'	=> __( 'Select Date', 'theatre-wp' ),
+							'dateFormat'	=> __( 'dd-mm-yyyy', 'theatre-wp' ),
 							'showButtonPanel' => true
 							)
 						),
 					array(
-						'name' => __( 'Last date', 'theatrewp' ),
-						'desc' => __( 'Last performing date. [Date selection / Time]', 'theatrewp' ),
+						'name' => __( 'Last date', 'theatre-wp' ),
+						'desc' => __( 'Last performing date. [Date selection / Time]', 'theatre-wp' ),
 						'id'   => Theatre_WP::$twp_prefix . 'date_last',
 						'type' => 'text_datetime_timestamp',
 						'std'  => ''
 						),
 					array(
-						'name' => __( 'Event', 'theatrewp' ),
-						'desc' => __( 'Event in which the show is performed (Festival, Arts Program...)', 'theatrewp' ),
+						'name' => __( 'Event', 'theatre-wp' ),
+						'desc' => __( 'Event in which the show is performed (Festival, Arts Program...)', 'theatre-wp' ),
 						'id'   => Theatre_WP::$twp_prefix . 'event',
 						'type' => 'text',
 						'std'  => ''
 						),
 					array(
-						'name' => __( 'Stage', 'theatrewp' ),
-						'desc' => __( 'Where is the Show to be played (Theatre)', 'theatrewp' ),
+						'name' => __( 'Stage', 'theatre-wp' ),
+						'desc' => __( 'Where is the Show to be played (Theatre)', 'theatre-wp' ),
 						'id'   => Theatre_WP::$twp_prefix . 'place',
 						'type' => 'text',
 						'std'  => ''
 						),
 					array(
-						'name' => __( 'Theatre Address', 'theatrewp' ),
+						'name' => __( 'Theatre Address', 'theatre-wp' ),
 						'desc' => '',
 						'id'   => Theatre_WP::$twp_prefix . 'address',
 						'type' => 'text',
 						'std'  => ''
 						),
 					array(
-						'name' => __( 'Postal Code', 'theatrewp' ),
+						'name' => __( 'Postal Code', 'theatre-wp' ),
 						'desc' => '',
 						'id'   => Theatre_WP::$twp_prefix . 'postal_code',
 						'type' => 'text',
 						'std'  => ''
 						),
 					array(
-						'name' => __( 'Town', 'theatrewp' ),
-						'desc' => __( 'Performing in this Town', 'theatrewp' ),
+						'name' => __( 'Town', 'theatre-wp' ),
+						'desc' => __( 'Performing in this Town', 'theatre-wp' ),
 						'id'   => Theatre_WP::$twp_prefix . 'town',
 						'type' => 'text',
 						'std'  => ''
 						),
 					array(
-						'name' => __( 'Region', 'theatrewp' ),
-						'desc' => __( 'e.g. Province, County...', 'theatrewp' ),
+						'name' => __( 'Region', 'theatre-wp' ),
+						'desc' => __( 'e.g. Province, County...', 'theatre-wp' ),
 						'id'   => Theatre_WP::$twp_prefix . 'region',
 						'type' => 'text',
 						'std'  => ''
 						),
 					array(
-						'name' => __( 'Country', 'theatrewp' ),
+						'name' => __( 'Country', 'theatre-wp' ),
 						'desc' => '',
 						'id'   => Theatre_WP::$twp_prefix . 'country',
 						'type' => 'text',
 						'std'  => ''
 						),
 					array(
-						'name' => __( 'Display Map', 'theatrewp' ),
-						'desc' => __( 'Check to display map', 'theatrewp' ),
+						'name' => __( 'Display Map', 'theatre-wp' ),
+						'desc' => __( 'Check to display map', 'theatre-wp' ),
 						'id'   => Theatre_WP::$twp_prefix . 'display_map',
 						'type' => 'checkbox',
 						'std'  => ''
@@ -932,21 +953,21 @@ class TWP_Setup {
 			),
 			array(
 				'id' => 'sponsor-meta-box',
-			    'title' => __( 'Sponsor', 'theatrewp' ),
+			    'title' => __( 'Sponsor', 'theatre-wp' ),
 			    'pages' => array( 'sponsor' ),
 			    'context' => 'normal',
 			    'priority' => 'high',
 			    'fields' => array(
 			        array(
-						'name' => __( 'Link', 'theatrewp' ),
-						'desc' => __( 'Sponsor Link', 'theatrewp' ),
+						'name' => __( 'Link', 'theatre-wp' ),
+						'desc' => __( 'Sponsor Link', 'theatre-wp' ),
 						'id'   => Theatre_WP::$twp_prefix . 'sponsor-url',
 						'type' => 'text',
 						'std'  => 'http://'
 			        ),
 			        array(
-						'name' => __( 'Weight', 'theatrewp' ),
-						'desc' => __( 'A number between 0 and 99 to set the importance. 99 is higher', 'theatrewp' ),
+						'name' => __( 'Weight', 'theatre-wp' ),
+						'desc' => __( 'A number between 0 and 99 to set the importance. 99 is higher', 'theatre-wp' ),
 						'id'   => Theatre_WP::$twp_prefix . 'sponsor-weight',
 						'type' => 'text',
 						'std'  => '0'
@@ -958,32 +979,32 @@ class TWP_Setup {
 		// Add aditional performance metaboxes if tickets info option is enabled
 		if ( get_option( 'twp_tickets_info' ) == 1 ) {
 			$tickets_info_metabox_url = array(
-				'name'        => __( 'Tickets URL', 'theatrewp' ),
-				'description' => __( 'Link to tickets sales', 'theatrewp' ),
+				'name'        => __( 'Tickets URL', 'theatre-wp' ),
+				'desc' => __( 'Link to tickets sales', 'theatre-wp' ),
 				'id'          => Theatre_WP::$twp_prefix . 'tickets_url',
 				'type'        => 'text',
 				'std'         => ''
 			);
 
 			$tickets_info_metabox_price = array(
-				'name'        => __( 'Price', 'theatrewp' ),
-				'description' => __( 'Tickets price', 'theatrewp' ),
+				'name'        => __( 'Price', 'theatre-wp' ),
+				'desc' => __( 'Tickets price', 'theatre-wp' ),
 				'id'          => Theatre_WP::$twp_prefix . 'tickets_price',
 				'type'        => 'text',
 				'std'         => ''
 			);
 
 			$tickets_info_metabox_entrance = array(
-				'name'        => __( 'Free entrance', 'theatrewp' ),
-				'description' => __( 'Free entrance', 'theatrewp' ),
+				'name'        => __( 'Free entrance', 'theatre-wp' ),
+				'desc' => __( 'Free entrance', 'theatre-wp' ),
 				'id'          => Theatre_WP::$twp_prefix . 'free_entrance',
 				'type'        => 'checkbox',
 				'std'         => ''
 			);
 
 			$tickets_info_metabox_invitation = array(
-				'name'        => __( 'Invitation needed', 'theatrewp' ),
-				'description' => __( 'Invitation needed', 'theatrewp' ),
+				'name'        => __( 'Invitation needed', 'theatre-wp' ),
+				'description' => __( 'Invitation needed', 'theatre-wp' ),
 				'id'          => Theatre_WP::$twp_prefix . 'invitation',
 				'type'        => 'checkbox',
 				'std'         => ''

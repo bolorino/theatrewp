@@ -4,8 +4,8 @@ Theatre WP
 
 - WordPress plugin
 - Requires at least: 4.4
-- Tested up to: 4.7.4
-- Stable tag: 0.66
+- Tested up to: 4.8
+- Stable tag: 0.67
 - License: GPLv2 or later
 - License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -75,6 +75,10 @@ Screenshots
 
 Changelog
 ---------
+## 0.67
+* Localization fixes
+* Tickets information fixes
+
 ## 0.66
 * WordPress 4.7
 * New setup option: Google Maps API

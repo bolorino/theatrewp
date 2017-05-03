@@ -24,8 +24,8 @@ class TWP_Show_Upcoming_Performances_Widget extends WP_Widget {
 
         parent::__construct(
             $this->id, // Base ID
-            __( $this->title, 'theatrewp' ), // Name
-            array( 'description' => __( $this->description, 'theatrewp' ), ) // Args
+            __( $this->title, 'theatre-wp' ), // Name
+            array( 'description' => __( $this->description, 'theatre-wp' ), ) // Args
         );
     }
 
@@ -53,7 +53,7 @@ class TWP_Show_Upcoming_Performances_Widget extends WP_Widget {
 
         echo $args['before_widget'];
 
-        echo $args['before_title'] . sprintf( __( '“%s” Upcoming Performances', 'theatrewp' ), $title ) . $args['after_title'];
+        echo $args['before_title'] . sprintf( __( '“%s” Upcoming Performances', 'theatre-wp' ), $title ) . $args['after_title'];
 
         echo $performances;
 

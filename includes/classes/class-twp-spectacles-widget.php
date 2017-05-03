@@ -25,8 +25,8 @@ class TWP_Spectacles_Widget extends WP_Widget {
 
         parent::__construct(
             $this->id, // Base ID
-            __( $this->title, 'theatrewp' ), // Name
-            array( 'description' => __( $this->description, 'theatrewp' ), ) // Args
+            __( $this->title, 'theatre-wp' ), // Name
+            array( 'description' => __( $this->description, 'theatre-wp' ), ) // Args
         );
     }
 
@@ -68,7 +68,7 @@ class TWP_Spectacles_Widget extends WP_Widget {
             $title = $instance[ 'title' ];
         }
         else {
-            $title = __( 'New title', 'theatrewp' );
+            $title = __( 'New title', 'theatre-wp' );
         }
 
         $number = ( isset( $instance['number'] ) && intval( $instance['number'] ) >= 0 ? intval( $instance['number'] ) : get_option( 'twp_widget_spectacles_number' ) );
@@ -84,20 +84,20 @@ class TWP_Spectacles_Widget extends WP_Widget {
         </p>
 
         <p>
-        <label for="widget-show-spectacles-number"><?php _e( 'Number of spectacles to show (0 for all):', 'theatrewp' ); ?></label>
+        <label for="widget-show-spectacles-number"><?php _e( 'Number of spectacles to show (0 for all):', 'theatre-wp' ); ?></label>
         <input id="widget-show-spectacles-number" name="<?php echo $this->get_field_name( 'number' ); ?>" type="text" size="3" value="<?php echo $number; ?>">
         </p>
 
         <p>
-        <label for="widget-show-spectacles-sortby"> <?php _e( 'Sort by', 'theatrewp' ); ?></label>
+        <label for="widget-show-spectacles-sortby"> <?php _e( 'Sort by', 'theatre-wp' ); ?></label>
         <select id="widget-show-spectacles-sortby" name="<?php echo $this->get_field_name( 'sortby' ); ?>">
-            <option <?php if ( $sortby == 'post_date' ) echo 'selected="selected"'; ?> value="post_date"><?php echo __( 'Date' , 'theatrewp' ); ?></option>
-            <option <?php if ( $sortby == 'title' ) echo 'selected="selected"'; ?> value="title"><?php echo __( 'Title' , 'theatrewp' ); ?></option>
+            <option <?php if ( $sortby == 'post_date' ) echo 'selected="selected"'; ?> value="post_date"><?php echo __( 'Date' , 'theatre-wp' ); ?></option>
+            <option <?php if ( $sortby == 'title' ) echo 'selected="selected"'; ?> value="title"><?php echo __( 'Title' , 'theatre-wp' ); ?></option>
         </select>
 
         <select id="widget-show-spectacles-sort" name="<?php echo $this->get_field_name( 'sort' ); ?>">
-            <option <?php if ( $sort == 'ASC' ) echo 'selected="selected"'; ?> value="ASC"><?php echo __( 'ASC' , 'theatrewp' ); ?></option>
-            <option <?php if ( $sort == 'DESC' ) echo 'selected="selected"'; ?> value="DESC"><?php echo __( 'DESC' , 'theatrewp' ); ?></option>
+            <option <?php if ( $sort == 'ASC' ) echo 'selected="selected"'; ?> value="ASC"><?php echo __( 'ASC' , 'theatre-wp' ); ?></option>
+            <option <?php if ( $sort == 'DESC' ) echo 'selected="selected"'; ?> value="DESC"><?php echo __( 'DESC' , 'theatre-wp' ); ?></option>
         </select>
         </p>
         <?php

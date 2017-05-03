@@ -49,22 +49,22 @@ class TWP_Metaboxes {
                 	if ( $field['options'] ) {
                 		echo '<select name="', $field['id'], '" id="', $field['id'], '">';
 	                    foreach ( $field['options'] as $option ) {
-	                        echo '<option', $meta == $option['value'] ? ' selected="selected"' : '', ' value="', $option['value'], '">', __( $option['label'], 'theatrewp' ), '</option>';
+	                        echo '<option', $meta == $option['value'] ? ' selected="selected"' : '', ' value="', $option['value'], '">', __( $option['label'], 'theatre-wp' ), '</option>';
 	                    }
 	                    echo '</select>';
                 	} else {
-                		echo __('You have no shows registered yet.', 'theatrewp');
+                		echo __('You have no shows registered yet.', 'theatre-wp');
                 	}
                     break;
                 case 'sponsorselect':
                     if ( $field['options'] ) {
                         echo '<select name="', $field['id'], '[]', '" id="', $field['id'], '" size="3" multiple="multiple">';
                         foreach ( $field['options'] as $option ) {
-                            echo '<option', ( is_array( $meta ) && in_array( $option['id'], $meta ) || $meta == $option['id'] ) ? ' selected="selected"' : '', ' value="', $option['id'], '">', __( $option['title'], 'theatrewp' ), '</option>';
+                            echo '<option', ( is_array( $meta ) && in_array( $option['id'], $meta ) || $meta == $option['id'] ) ? ' selected="selected"' : '', ' value="', $option['id'], '">', __( $option['title'], 'theatre-wp' ), '</option>';
                         }
                         echo '</select>';
                     } else {
-                        echo __('You have no Sponsors registered yet.', 'theatrewp');
+                        echo __('You have no Sponsors registered yet.', 'theatre-wp');
                     }
                     break;
                 case 'radio':

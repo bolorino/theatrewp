@@ -43,7 +43,7 @@ get_header(); ?>
 							<?php } ?>
 							<?php if ( isset( $spectacle_custom['audience'] ) ) { ?>
 								<p class="audience">
-									<em><?php _e( 'Audience:', 'theatrewp' ); ?></em>
+									<em><?php _e( 'Audience:', 'theatre-wp' ); ?></em>
 									<?php echo $spectacle_custom['audience']; ?>
 								</p>
 							<?php } ?>
@@ -63,8 +63,8 @@ get_header(); ?>
 
 			<?php endwhile; ?>
 
-			<div class="nav-previous alignleft"><?php next_posts_link( __( 'More Spectacles', 'theatrewp' ) ); ?></div>
-			<div class="nav-next alignright"><?php previous_posts_link( __( 'Previous Spectacles', 'theatrewp') ); ?></div>
+			<div class="nav-previous alignleft"><?php next_posts_link( __( 'More Spectacles', 'theatre-wp' ) ); ?></div>
+			<div class="nav-next alignright"><?php previous_posts_link( __( 'Previous Spectacles', 'theatre-wp') ); ?></div>
 
 			</div> <!-- entry-content -->
 		</div>

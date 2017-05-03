@@ -1,10 +1,10 @@
 <div class="wrap">
 	<?php screen_icon(); ?>
-	<h2><?php _e( 'Theatre WP Options', 'theatrewp' ); ?></h2>
+	<h2><?php _e( 'Theatre WP Options', 'theatre-wp' ); ?></h2>
 	<p>
 		v <?php echo get_option( 'twp_version' ); ?>
 	</p>
-	<h3><?php _e( 'Shows', 'theatrewp' ); ?></h3>
+	<h3><?php _e( 'Shows', 'theatre-wp' ); ?></h3>
 
 	<div class="twp-options" style="display:inline-block;width:48%">
 		<form action="options.php" method="post">
@@ -13,23 +13,23 @@
 			?>
 			<table class="form-table">
 		        <tr valign="top">
-		        	<th scope="row"><?php _e( 'Your Singular Spectacles name (Spectacle, Choreography, Show, Production...)', 'theatrewp' );?> </th>
+		        	<th scope="row"><?php _e( 'Your Singular Spectacles name (Spectacle, Choreography, Show, Production...)', 'theatre-wp' );?> </th>
 		        	<td><input type="text" name="twp_spectacle_name" value="<?php echo get_option( 'twp_spectacle_name' ); ?>" /></td>
 		        </tr>
 		        <tr valign="top">
-		        	<th scope="row"><?php _e( 'Your Plural Spectacles name (Spectacles, Choreographies, Shows, Productions...)', 'theatrewp' );?> </th>
+		        	<th scope="row"><?php _e( 'Your Plural Spectacles name (Spectacles, Choreographies, Shows, Productions...)', 'theatre-wp' );?> </th>
 		        	<td><input type="text" name="twp_spectacles_name" value="<?php echo get_option( 'twp_spectacles_name' ); ?>" /></td>
 		        </tr>
 		        <tr valign="top">
-		        	<th scope="row"><?php _e( 'Single Spectacle slug', 'theatrewp' );?> </th>
+		        	<th scope="row"><?php _e( 'Single Spectacle slug', 'theatre-wp' );?> </th>
 		        	<td><input type="text" name="twp_spectacle_slug" value="<?php echo get_option( 'twp_spectacle_slug' ); ?>" /></td>
 		        </tr>
 		        <tr valign="top">
-		        	<th scope="row"><?php _e( 'Plural Spectacles slug', 'theatrewp' );?> </th>
+		        	<th scope="row"><?php _e( 'Plural Spectacles slug', 'theatre-wp' );?> </th>
 		        	<td><input type="text" name="twp_spectacles_slug" value="<?php echo get_option( 'twp_spectacles_slug' ); ?>" /></td>
 		        </tr>
 		        <tr valign="top">
-		        	<th scope="row"><?php _e( 'Number of Shows per page', 'theatrewp' );?> </th>
+		        	<th scope="row"><?php _e( 'Number of Shows per page', 'theatre-wp' );?> </th>
 		        	<td><input type="text" size="2" name="twp_spectacles_number" value="<?php echo get_option( 'twp_spectacles_number' ); ?>" /></td>
 		        </tr>
 		    </table>
