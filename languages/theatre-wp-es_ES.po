@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TheatreWP\n"
 "POT-Creation-Date: 2017-04-11 16:17+0200\n"
-"PO-Revision-Date: 2017-05-03 17:47+0200\n"
+"PO-Revision-Date: 2017-05-03 18:32+0200\n"
 "Last-Translator: Jose Bolorino <jose.bolorino@gmail.com>\n"
 "Language-Team: jose.bolorino@gmail.com\n"
 "Language: es_ES\n"
@@ -497,7 +497,7 @@ msgid "Tickets URL"
 msgstr "Enlace a las entradas"
 
 #: includes/classes/class-twp-setup.php:962
-msgid "Link to ticket sales"
+msgid "Link to tickets sales"
 msgstr "Enlace a la venta de entradas"
 
 #: includes/classes/class-twp-setup.php:969

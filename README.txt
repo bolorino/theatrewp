@@ -5,7 +5,7 @@ Tags: theatre, troupe, dance, performing arts
 Requires at least: 4.4
 Tested up to: 4.8
 Stable tag: 0.67
-Text Domain: theatrewp
+Text Domain: theatre-wp
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -76,6 +76,7 @@ Not yet.
 5. Productions
 
 == Changelog ==
+
 = 0.67 =
 * Localization fixes
 * Tickets information fixes
