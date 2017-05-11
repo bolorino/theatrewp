@@ -65,10 +65,10 @@ class TWP_Performance {
 		$performance_custom['date_last']   = isset( $custom[Theatre_WP::$twp_prefix . 'date_last'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'date_last'][0] : false;
 		$performance_custom['display_map'] = isset( $custom[Theatre_WP::$twp_prefix . 'display_map'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'display_map'][0] : false;
 
-		$performance_custom['tickets_url'] = isset( $custom[Theatre_WP::$twp_prefix . 'tickets_url'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'tickets_url'][0] : false;
+		$performance_custom['tickets_url']   = isset( $custom[Theatre_WP::$twp_prefix . 'tickets_url'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'tickets_url'][0] : false;
 		$performance_custom['tickets_price'] = isset( $custom[Theatre_WP::$twp_prefix . 'tickets_price'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'tickets_price'][0] : false;
 		$performance_custom['free_entrance'] = isset( $custom[Theatre_WP::$twp_prefix . 'free_entrance'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'free_entrance'][0] : false;
-		$performance_custom['invitation'] = isset( $custom[Theatre_WP::$twp_prefix . 'invitation'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'invitation'][0] : false;
+		$performance_custom['invitation']    = isset( $custom[Theatre_WP::$twp_prefix . 'invitation'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'invitation'][0] : false;
 
 
 		$spectacle_data                        = $this->spectacle->get_spectacle_data( $performance_custom['spectacle_id'] );
@@ -153,7 +153,7 @@ class TWP_Performance {
 	 * @access public
 	 * @return string
 	 */
-	public function get_show_next_performances () {
+	public function get_show_next_performances() {
 		global $wpdb, $post;
 
 		$current_category = get_post_type();
@@ -232,6 +232,104 @@ class TWP_Performance {
 	    }
 
 	    return $output;
+	}
+
+	/**
+	 * Get an array containig current show upcoming performances .
+	 *
+	 * @access public
+	 * @return array
+	 */
+	public function get_show_next_performances_array() {
+		global $wpdb, $post;
+
+		$current_category = get_post_type();
+
+		if ( 'spectacle' != $current_category  ) {
+			return false;
+		}
+
+		$now = time();
+
+		$args = array(
+			'post_status'  => 'publish',
+			'post_type' => 'performance',
+			'meta_key' => Theatre_WP::$twp_prefix . 'date_first',
+			'orderby' => 'meta_value',
+			'meta_compare' => '>=',
+			'meta_value' => $now,
+			'order' => 'ASC',
+			'numberposts' => -1 // @TODO limit by widget config
+		);
+
+		// @TODO It would be possible to get the show related performances directly?
+		$next = get_posts( $args );
+
+		if ( ! $next ) {
+			return false;
+		}
+
+		$performances = array();
+	    $this_show = false; // There are future performances, but need to check for this show
+	    $max_count = 5;
+	    $shown = 0;
+
+	    foreach ( $next as $performance ) : setup_postdata( $performance );
+	    	$performance_custom = $this->get_performance_custom( $this->spectacle, $performance->ID );
+
+	        $spectacle_link = $this->spectacle->get_spectacle_link( $performance_custom['spectacle_id'] );
+
+	        if ( $post->ID == $performance_custom['spectacle_id'] AND $shown < $max_count ) {
+	        	$this_show = true;
+
+	        	$performances[$shown]['title'] = get_the_title( $performance->ID );
+	        	$performances[$shown]['link'] = get_permalink( $performance->ID );
+
+	        	if ( $performance_custom['event'] ) {
+	        		$performances[$shown]['event'] = $performance_custom['event'];
+	        	}
+
+	        	$performances[$shown]['town'] = $performance_custom['town'];
+
+	        	if ( ! empty( $performance_custom['region'] ) ) {
+	        		$performances[$shown]['region'] = $performance_custom['region'];
+	        	}
+
+	        	if ( ! empty( $performance_custom['place'] ) ) {
+	        		$performances[$shown]['place'] = $performance_custom['place'];
+	        	}
+
+	        	$performances[$shown]['date_first'] = $performance_custom['date_first'];
+
+	        	if ( $performance_custom['date_last'] ) {
+	        		$performances[$shown]['date_last'] = $performance_custom['date_last'];
+		        }
+
+		        // Get tickets info
+		        if ( get_option( 'twp_tickets_info' ) == 1 ) {
+
+		        	if ( isset( $performance_custom['tickets_url'] ) AND ! empty( $performance_custom['tickets_url'] ) ) {
+		        		$performances[$shown]['tickets_url'] = $performance_custom['tickets_url'];
+		        	}
+
+		        	if ( isset( $performance_custom['tickets_price'] ) AND ! empty( $performance_custom['tickets_price'] ) ) {
+		        		$performances[$shown]['tickets_price'] = $performance_custom['tickets_price'];
+		        	}
+
+		        	if ( isset( $performance_custom['free_entrance'] ) AND ! empty( $performance_custom['free_entrance'] ) ) {
+		        		$performances[$shown]['free_entrance'] = $performance_custom['free_entrance'];
+		        	}
+
+		        	if ( isset( $performance_custom['invitation'] ) AND ! empty( $performance_custom['invitation'] ) ) {
+		        		$performances[$shown]['invitation'] = $performance_custom['invitation'];
+		        	}
+		        }
+
+		        $shown++;
+	        }
+	    endforeach;
+
+	    return $performances;
 	}
 
 	/**

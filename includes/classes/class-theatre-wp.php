@@ -236,6 +236,10 @@ class Theatre_WP {
 		return $this->performance->get_show_next_performances();
 	}
 
+    public function get_show_next_performances_array() {
+        return $this->performance->get_show_next_performances_array();
+    }
+
 	public function get_next_performances() {
 		return $this->performance->get_next_performances();
 	}
@@ -268,14 +272,27 @@ class Theatre_WP {
 	 * Get neccesary data to display calendar filter
 	 *
 	 * @access public
+     * @param int $first_available_year
+     * @param int $last_available_year
 	 * @return array
 	 */
-	public function get_calendar_data() {
+	public function get_calendar_data( $first_available_year = null, $last_available_year = null ) {
+
+        if ( empty( $first_available_year ) ) {
+            $first_available_year = $this->get_first_available_year();
+        }
+
+        if ( empty( $last_available_year ) ) {
+            $last_available_year = $this->get_last_available_year();
+        }
+
+        $month_names = $this->get_month_names();
+
 		$calendar_data = array(
-			'month_names'          => $this->get_month_names(),
+			'month_names'          => $month_names,
 			'current_year'         => date('Y'),
-			'first_available_year' => $this->get_first_available_year(),
-			'last_available_year'  => $this->get_last_available_year()
+			'first_available_year' => intval( $first_available_year ),
+			'last_available_year'  => intval( $last_available_year )
 		);
 
 		return $calendar_data;

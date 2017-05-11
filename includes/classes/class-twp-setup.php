@@ -66,26 +66,26 @@ class TWP_Setup {
 	public function __construct( $plugin_dir, $spectacle, $performance, $sponsor ) {
 		self::$plugin_dir = $plugin_dir;
 
-		self::$default_spectacle_slug    = ( get_option( 'twp_spectacle_slug' ) ? get_option( 'twp_spectacle_slug' ) : self::$default_spectacle_slug );
-		self::$default_spectacles_slug   = ( get_option( 'twp_spectacles_slug' ) ? get_option( 'twp_spectacles_slug' ) : self::$default_spectacles_slug );
+		self::$default_spectacle_slug      = ( get_option( 'twp_spectacle_slug' ) ? get_option( 'twp_spectacle_slug' ) : self::$default_spectacle_slug );
+		self::$default_spectacles_slug     = ( get_option( 'twp_spectacles_slug' ) ? get_option( 'twp_spectacles_slug' ) : self::$default_spectacles_slug );
 
-		self::$default_performance_slug  = ( get_option( 'twp_performance_slug' ) ? get_option( 'twp_performance_slug' ) : self::$default_performance_slug );
-		self::$default_performances_slug = ( get_option( 'twp_performances_slug' ) ? get_option( 'twp_performances_slug' ) : self::$default_performances_slug );
+		self::$default_performance_slug    = ( get_option( 'twp_performance_slug' ) ? get_option( 'twp_performance_slug' ) : self::$default_performance_slug );
+		self::$default_performances_slug   = ( get_option( 'twp_performances_slug' ) ? get_option( 'twp_performances_slug' ) : self::$default_performances_slug );
 
-		self::$default_spectacle_name    = ( get_option( 'twp_spectacle_name' ) ? get_option( 'twp_spectacle_name' ) : self::$default_spectacle_name );
-		self::$default_spectacles_name   = ( get_option( 'twp_spectacles_name' ) ? get_option( 'twp_spectacles_name' ) : self::$default_spectacles_name );
+		self::$default_spectacle_name      = ( get_option( 'twp_spectacle_name' ) ? get_option( 'twp_spectacle_name' ) : self::$default_spectacle_name );
+		self::$default_spectacles_name     = ( get_option( 'twp_spectacles_name' ) ? get_option( 'twp_spectacles_name' ) : self::$default_spectacles_name );
 
-		self::$default_performance_name  = ( get_option( 'twp_performance_name' ) ? get_option( 'twp_performance_name' ) : self::$default_performance_name );
-		self::$default_performances_name = ( get_option( 'twp_performances_name' ) ? get_option( 'twp_performances_name' ) : self::$default_performances_name );
+		self::$default_performance_name    = ( get_option( 'twp_performance_name' ) ? get_option( 'twp_performance_name' ) : self::$default_performance_name );
+		self::$default_performances_name   = ( get_option( 'twp_performances_name' ) ? get_option( 'twp_performances_name' ) : self::$default_performances_name );
 
-		self::$default_spectacles_number  = ( get_option( 'twp_spectacles_number' ) ? intval( get_option( 'twp_spectacles_number' ) ) : self::$default_spectacles_number );
-		self::$default_performances_number  = ( get_option( 'twp_performances_number' ) ? intval( get_option( 'twp_performances_number' ) ) : self::$default_performances_number );
+		self::$default_spectacles_number   = ( get_option( 'twp_spectacles_number' ) ? intval( get_option( 'twp_spectacles_number' ) ) : self::$default_spectacles_number );
+		self::$default_performances_number = ( get_option( 'twp_performances_number' ) ? intval( get_option( 'twp_performances_number' ) ) : self::$default_performances_number );
 
-		self::$default_single_sponsor  = ( get_option( 'twp_single_sponsor' ) ? intval( get_option( 'twp_single_sponsor' ) ) : self::$default_single_sponsor );
+		self::$default_single_sponsor      = ( get_option( 'twp_single_sponsor' ) ? intval( get_option( 'twp_single_sponsor' ) ) : self::$default_single_sponsor );
 
-		self::$default_google_maps_api  = ( get_option( 'twp_google_maps_api' ) ? get_option( 'twp_google_maps_api' ) : self::$default_google_maps_api );
+		self::$default_google_maps_api     = ( get_option( 'twp_google_maps_api' ) ? get_option( 'twp_google_maps_api' ) : self::$default_google_maps_api );
 
-		self::$default_tickets_info  = ( get_option( 'twp_tickets_info' ) ? get_option( 'twp_tickets_info' ) : self::$default_tickets_info );
+		self::$default_tickets_info        = ( get_option( 'twp_tickets_info' ) ? get_option( 'twp_tickets_info' ) : self::$default_tickets_info );
 
 
 
@@ -979,35 +979,35 @@ class TWP_Setup {
 		// Add aditional performance metaboxes if tickets info option is enabled
 		if ( get_option( 'twp_tickets_info' ) == 1 ) {
 			$tickets_info_metabox_url = array(
-				'name'        => __( 'Tickets URL', 'theatre-wp' ),
+				'name' => __( 'Tickets URL', 'theatre-wp' ),
 				'desc' => __( 'Link to tickets sales', 'theatre-wp' ),
-				'id'          => Theatre_WP::$twp_prefix . 'tickets_url',
-				'type'        => 'text',
-				'std'         => ''
+				'id'   => Theatre_WP::$twp_prefix . 'tickets_url',
+				'type' => 'text',
+				'std'  => ''
 			);
 
 			$tickets_info_metabox_price = array(
-				'name'        => __( 'Price', 'theatre-wp' ),
+				'name' => __( 'Price', 'theatre-wp' ),
 				'desc' => __( 'Tickets price', 'theatre-wp' ),
-				'id'          => Theatre_WP::$twp_prefix . 'tickets_price',
-				'type'        => 'text',
-				'std'         => ''
+				'id'   => Theatre_WP::$twp_prefix . 'tickets_price',
+				'type' => 'text',
+				'std'  => ''
 			);
 
 			$tickets_info_metabox_entrance = array(
-				'name'        => __( 'Free entrance', 'theatre-wp' ),
+				'name' => __( 'Free entrance', 'theatre-wp' ),
 				'desc' => __( 'Free entrance', 'theatre-wp' ),
-				'id'          => Theatre_WP::$twp_prefix . 'free_entrance',
-				'type'        => 'checkbox',
-				'std'         => ''
+				'id'   => Theatre_WP::$twp_prefix . 'free_entrance',
+				'type' => 'checkbox',
+				'std'  => ''
 			);
 
 			$tickets_info_metabox_invitation = array(
-				'name'        => __( 'Invitation needed', 'theatre-wp' ),
-				'description' => __( 'Invitation needed', 'theatre-wp' ),
-				'id'          => Theatre_WP::$twp_prefix . 'invitation',
-				'type'        => 'checkbox',
-				'std'         => ''
+				'name' => __( 'Invitation needed', 'theatre-wp' ),
+				'desc' => __( 'Invitation needed', 'theatre-wp' ),
+				'id'   => Theatre_WP::$twp_prefix . 'invitation',
+				'type' => 'checkbox',
+				'std'  => ''
 			);
 
 			$TWP_meta_boxes[1]['fields'][] = $tickets_info_metabox_url;
