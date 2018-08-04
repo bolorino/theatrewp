@@ -6,6 +6,7 @@ Requires at least: 4.4
 Tested up to: 4.8
 Stable tag: 0.67
 Text Domain: theatre-wp
+Domain Path: /languages
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
