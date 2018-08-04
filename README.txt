@@ -3,8 +3,8 @@ Contributors: bollofino
 Donate link:
 Tags: theatre, troupe, dance, performing arts
 Requires at least: 4.4
-Tested up to: 4.8
-Stable tag: 0.67
+Tested up to: 4.9.8
+Stable tag: 0.68
 Text Domain: theatre-wp
 Domain Path: /languages
 License: GPLv2 or later
@@ -77,6 +77,11 @@ Not yet.
 5. Productions
 
 == Changelog ==
+
+= 0.68 =
+* get_show_next_performances_array()
+* Pass $first_available_year and $last_available_year to get_calendar_data()
+* Little fixes
 
 = 0.67 =
 * Localization fixes

@@ -19,7 +19,7 @@ if ( realpath(__FILE__) === realpath( $_SERVER['SCRIPT_FILENAME'] ) )
 if ( ! defined( 'WPINC' ) )
 	die();
 
-define( 'TWP_VERSION', '0.67' );
+define( 'TWP_VERSION', '0.68' );
 define( 'TWP_META_BOX_URL', apply_filters( 'twp_meta_box_url', trailingslashit( str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, dirname( __FILE__ ) ) ) ) );
 
 define( 'TWP_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );

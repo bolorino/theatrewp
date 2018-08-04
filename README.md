@@ -4,8 +4,8 @@ Theatre WP
 
 - WordPress plugin
 - Requires at least: 4.4
-- Tested up to: 4.8
-- Stable tag: 0.67
+- Tested up to: 4.9.8
+- Stable tag: 0.68
 - License: GPLv2 or later
 - License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -75,6 +75,11 @@ Screenshots
 
 Changelog
 ---------
+## 0.68
+* get_show_next_performances_array()
+* Pass $first_available_year and $last_available_year to get_calendar_data()
+* Little fixes
+
 ## 0.67
 * Localization fixes
 * Tickets information fixes
