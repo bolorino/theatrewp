@@ -8,7 +8,7 @@
 
         <select name="twpy" id="year">
             <?php for ( $n = $calendar_data['last_available_year']; $n >= $calendar_data['first_available_year']; $n--) { ?>
-                <option value="<?php echo $n;?>"<?php if ($n == $selected_year) {?> selected="selected"<?php }?>><?php echo $n; ?></option>
+                <option value="<?php echo $n;?>"<?php if ( $n == $selected_year OR $n == $current_year ) {?> selected="selected"<?php }?>><?php echo $n; ?></option> 
             <?php } ?>
         </select>
 
