@@ -6,7 +6,7 @@
  * @author    Jose Bolorino <jose.bolorino@gmail.com>
  * @license   GPL-2.0+
  * @link      https://www.bolorino.net/pages/theatre-wp-wordpress-plugin-performing-arts.html
- * @copyright 2013-2017 Jose Bolorino
+ * @copyright 2013-2019 Jose Bolorino
  */
 
 /**
