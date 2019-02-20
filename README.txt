@@ -4,7 +4,7 @@ Donate link:
 Tags: theatre, troupe, dance, performing arts
 Requires at least: 4.4
 Tested up to: 5.0.3
-Stable tag: 0.68
+Stable tag: 0.69
 Text Domain: theatre-wp
 Domain Path: /languages
 License: GPLv2 or later
@@ -77,6 +77,9 @@ Not yet.
 5. Productions
 
 == Changelog ==
+
+= 0.69 =
+* Fix missing sponsors functions
 
 = 0.68 =
 * get_show_next_performances_array()

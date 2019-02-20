@@ -29,7 +29,7 @@ class Theatre_WP {
 	 *
 	 * @var     string
 	 */
-	static $version = '0.68';
+	static $version = '0.69';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -304,6 +304,12 @@ class Theatre_WP {
 
     public function get_busy_dates( $calendar_filter_params ) {
         return $this->performance->get_busy_dates( $calendar_filter_params );
+    }
+
+    /* Sponsors */
+    public function get_sponsors() {
+        global $post;
+        return $this->sponsor->get_sponsors();
     }
 
 	/**
