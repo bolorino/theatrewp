@@ -1,5 +1,4 @@
 <div class="wrap">
-	<?php screen_icon(); ?>
 	<h2><?php _e( 'Theatre WP Options', 'theatre-wp' ); ?></h2>
 	<p>
 		v <?php echo get_option( 'twp_version' ); ?>

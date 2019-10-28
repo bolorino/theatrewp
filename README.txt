@@ -2,8 +2,8 @@
 Contributors: bollofino
 Donate link:
 Tags: theatre, troupe, dance, performing arts
-Requires at least: 4.4
-Tested up to: 5.0.3
+Requires at least: 5.0
+Tested up to: 5.3
 Stable tag: 0.69
 Text Domain: theatre-wp
 Domain Path: /languages

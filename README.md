@@ -3,8 +3,8 @@ Theatre WP
 [Theatre WP website](https://www.bolorino.net/theatre-wp-wordpress-plugin-performing-arts/)
 
 - WordPress plugin
-- Requires at least: 4.4
-- Tested up to: 4.9.8
+- Requires at least: 5.0
+- Tested up to: 5.3
 - Stable tag: 0.68
 - License: GPLv2 or later
 - License URI: https://www.gnu.org/licenses/gpl-3.0.html
