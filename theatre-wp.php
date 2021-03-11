@@ -10,7 +10,7 @@
 * License: GPLv3
 * Text Domain: theatre-wp
 * Domain Path: /languages
-* Copyright 2013-2019 Jose Bolorino
+* Copyright 2013-2021 Jose Bolorino
 */
 
 if ( realpath(__FILE__) === realpath( $_SERVER['SCRIPT_FILENAME'] ) )

@@ -4,8 +4,8 @@ Theatre WP
 
 - WordPress plugin
 - Requires at least: 5.0
-- Tested up to: 5.3
-- Stable tag: 0.68
+- Tested up to: 5.7
+- Stable tag: 0.69
 - License: GPLv2 or later
 - License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
