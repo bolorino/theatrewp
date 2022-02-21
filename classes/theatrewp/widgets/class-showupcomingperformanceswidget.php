@@ -1,6 +1,6 @@
 <?php
 /**
- * TWP_Show_Upcoming_Performances_Widget class.
+ * ShowUpcomingPerformancesWidget class.
  *
  * Plugin Show Upcoming Performances Widget Class
  *
@@ -8,14 +8,17 @@
  * @author  Jose Bolorino <jose.bolorino@gmail.com>
  */
 
+namespace TheatreWP\Widgets;
+use WP_Widget;
+
 if ( realpath(__FILE__) === realpath($_SERVER['SCRIPT_FILENAME']) )
     exit('Do not access this file directly.');
 
-class TWP_Show_Upcoming_Performances_Widget extends WP_Widget {
+class ShowUpcomingPerformancesWidget extends WP_Widget {
 
     public $id = 'twp-show-next-performances';
-    public $title = 'Production Upcoming Performances';
-    public $description = 'Display a list of upcoming performances for the current production';
+    public string $title = 'Production Upcoming Performances';
+    public string $description = 'Display a list of upcoming performances for the current production';
 
     /**
      * Register widget with WordPress.
@@ -36,6 +39,8 @@ class TWP_Show_Upcoming_Performances_Widget extends WP_Widget {
      *
      * @param array $args     Widget arguments.
      * @param array $instance Saved values from database.
+     *
+     * @return void | bool
      */
     public function widget( $args, $instance ) {
         global $post, $theatre_wp;
@@ -61,4 +66,4 @@ class TWP_Show_Upcoming_Performances_Widget extends WP_Widget {
     }
 
 
-} // class TWP_Upcoming_Performances_Widget
+} // class UpcomingPerformancesWidget

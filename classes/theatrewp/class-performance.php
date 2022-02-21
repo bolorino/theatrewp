@@ -1,11 +1,13 @@
 <?php
+namespace TheatreWP;
+
 if (realpath(__FILE__) === realpath($_SERVER['SCRIPT_FILENAME']))
 	exit('Do not access this file directly.');
 
 
-class TWP_Performance {
+class Performance {
 
-	protected $spectacle;
+	protected Spectacle $spectacle;
 
 	public $month_names;
 
@@ -23,7 +25,7 @@ class TWP_Performance {
 
 	public $polylang_language;
 
-	public function __construct( $spectacle ) {
+	public function __construct( Spectacle $spectacle ) {
 		$this->spectacle = $spectacle;
 
 		$this->month_names = $this->_set_month_names( __( 'Select Month', 'theatre-wp' ) );
@@ -43,9 +45,9 @@ class TWP_Performance {
 	*
 	* @access public
 	* @param int $ID
-	* @return array
+	* @return array | bool
 	*/
-	public function get_performance_custom( TWP_Spectacle $spectacle, $ID ) {
+	public function get_performance_custom( Spectacle $spectacle, $ID ) {
 		$custom = get_post_custom( intval( $ID ) );
 
 		if ( ! $custom ) {
@@ -54,21 +56,21 @@ class TWP_Performance {
 
 		$performance_custom = array();
 
-		$performance_custom['spectacle_id'] = isset( $custom[Theatre_WP::$twp_prefix . 'spectacle_id'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'spectacle_id'][0] : false;
-		$performance_custom['event']       = isset( $custom[Theatre_WP::$twp_prefix . 'event'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'event'][0] : false;
-		$performance_custom['place']       = isset( $custom[Theatre_WP::$twp_prefix . 'place'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'place'][0] : false;
-		$performance_custom['address']     = isset( $custom[Theatre_WP::$twp_prefix . 'address'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'address'][0] : false;
-		$performance_custom['town']        = isset( $custom[Theatre_WP::$twp_prefix . 'town'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'town'][0] : false;
-		$performance_custom['region']      = isset( $custom[Theatre_WP::$twp_prefix . 'region'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'region'][0] : false;
-		$performance_custom['country']     = isset( $custom[Theatre_WP::$twp_prefix . 'country'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'country'][0] : false;
-		$performance_custom['date_first']  = isset( $custom[Theatre_WP::$twp_prefix . 'date_first'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'date_first'][0] : false;
-		$performance_custom['date_last']   = isset( $custom[Theatre_WP::$twp_prefix . 'date_last'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'date_last'][0] : false;
-		$performance_custom['display_map'] = isset( $custom[Theatre_WP::$twp_prefix . 'display_map'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'display_map'][0] : false;
+		$performance_custom['spectacle_id'] = $custom[ Setup::$twp_prefix . 'spectacle_id' ][0] ?? false;
+		$performance_custom['event']       = $custom[ Setup::$twp_prefix . 'event' ][0] ?? false;
+		$performance_custom['place']       = $custom[ Setup::$twp_prefix . 'place' ][0] ?? false;
+		$performance_custom['address']     = $custom[ Setup::$twp_prefix . 'address' ][0] ?? false;
+		$performance_custom['town']        = $custom[ Setup::$twp_prefix . 'town' ][0] ?? false;
+		$performance_custom['region']      = $custom[ Setup::$twp_prefix . 'region' ][0] ?? false;
+		$performance_custom['country']     = $custom[ Setup::$twp_prefix . 'country' ][0] ?? false;
+		$performance_custom['date_first']  = $custom[ Setup::$twp_prefix . 'date_first' ][0] ?? false;
+		$performance_custom['date_last']   = $custom[ Setup::$twp_prefix . 'date_last' ][0] ?? false;
+		$performance_custom['display_map'] = $custom[ Setup::$twp_prefix . 'display_map' ][0] ?? false;
 
-		$performance_custom['tickets_url']   = isset( $custom[Theatre_WP::$twp_prefix . 'tickets_url'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'tickets_url'][0] : false;
-		$performance_custom['tickets_price'] = isset( $custom[Theatre_WP::$twp_prefix . 'tickets_price'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'tickets_price'][0] : false;
-		$performance_custom['free_entrance'] = isset( $custom[Theatre_WP::$twp_prefix . 'free_entrance'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'free_entrance'][0] : false;
-		$performance_custom['invitation']    = isset( $custom[Theatre_WP::$twp_prefix . 'invitation'][0] ) ? $custom[Theatre_WP::$twp_prefix . 'invitation'][0] : false;
+		$performance_custom['tickets_url']   = $custom[ Setup::$twp_prefix . 'tickets_url' ][0] ?? false;
+		$performance_custom['tickets_price'] = $custom[ Setup::$twp_prefix . 'tickets_price' ][0] ?? false;
+		$performance_custom['free_entrance'] = $custom[ Setup::$twp_prefix . 'free_entrance' ][0] ?? false;
+		$performance_custom['invitation']    = $custom[ Setup::$twp_prefix . 'invitation' ][0] ?? false;
 
 
 		$spectacle_data                        = $this->spectacle->get_spectacle_data( $performance_custom['spectacle_id'] );
@@ -91,12 +93,12 @@ class TWP_Performance {
 		$args = array(
 			'post_status'  => 'publish',
 			'post_type'    => 'performance',
-			'meta_key'     => Theatre_WP::$twp_prefix . 'date_first',
+			'meta_key'     => Setup::$twp_prefix . 'date_first',
 			'orderby'      => 'meta_value',
 			'meta_compare' => '>=',
 			'meta_value'   => $now,
 			'order'        => 'ASC',
-			'posts_per_page'  => ( isset( $number_to_display ) && $number_to_display > 0 ? $number_to_display : -1 )
+			'posts_per_page'  => ( $number_to_display > 0 ? $number_to_display : -1 )
 		);
 
 		$next = get_posts( $args );
@@ -151,7 +153,7 @@ class TWP_Performance {
 	 * Get an HTML list of current show upcoming performances .
 	 *
 	 * @access public
-	 * @return string
+	 * @return string | bool
 	 */
 	public function get_show_next_performances() {
 		global $wpdb, $post;
@@ -167,7 +169,7 @@ class TWP_Performance {
 		$args = array(
 			'post_status'  => 'publish',
 			'post_type' => 'performance',
-			'meta_key' => Theatre_WP::$twp_prefix . 'date_first',
+			'meta_key' => Setup::$twp_prefix . 'date_first',
 			'orderby' => 'meta_value',
 			'meta_compare' => '>=',
 			'meta_value' => $now,
@@ -238,7 +240,7 @@ class TWP_Performance {
 	 * Get an array containig current show upcoming performances .
 	 *
 	 * @access public
-	 * @return array
+	 * @return array | bool
 	 */
 	public function get_show_next_performances_array() {
 		global $wpdb, $post;
@@ -254,7 +256,7 @@ class TWP_Performance {
 		$args = array(
 			'post_status'  => 'publish',
 			'post_type' => 'performance',
-			'meta_key' => Theatre_WP::$twp_prefix . 'date_first',
+			'meta_key' => Setup::$twp_prefix . 'date_first',
 			'orderby' => 'meta_value',
 			'meta_compare' => '>=',
 			'meta_value' => $now,
@@ -336,10 +338,12 @@ class TWP_Performance {
 	* Get a date filtered list of performances.
 	*
 	* @access public
+	*
 	* @param array $calendar_filter_params
-	* @return object
+	*
+	* @return object | bool
 	*/
-	public function get_filtered_calendar( $calendar_filter_params ) {
+	public function get_filtered_calendar( array $calendar_filter_params ) {
 		global $wpdb, $post;
 		// $calendar_filter_params:
 		// month, year, page
@@ -379,7 +383,7 @@ class TWP_Performance {
 			WHERE " . $wpdb->posts . '.ID = ' . $wpdb->postmeta . ".post_id
 			AND post_type = 'performance'
 			AND post_status = 'publish'
-			AND meta_key = '" . Theatre_WP::$twp_prefix . "date_first' ";
+			AND meta_key = '" . Setup::$twp_prefix . "date_first' ";
 
 		if ( 0 == $this->month && 0 == $this->year ) {
 			// Upcoming performances. Not month nor year passed
@@ -420,7 +424,7 @@ class TWP_Performance {
 		return $filtered_calendar;
 	}
 
-	public function get_total_filtered_performances( $calendar_filter_params ) {
+	public function get_total_filtered_performances( array $calendar_filter_params ) {
 		global $wpdb;
 
 		if ( ! empty( $calendar_filter_params ) ) {
@@ -446,7 +450,7 @@ class TWP_Performance {
 		$sql_calendar .= "WHERE " . $wpdb->posts . '.ID = ' . $wpdb->postmeta . ".post_id
 			AND post_type = 'performance'
 			AND post_status = 'publish'
-			AND meta_key = '" . Theatre_WP::$twp_prefix . "date_first' ";
+			AND meta_key = '" . Setup::$twp_prefix . "date_first' ";
 
 		if ( 0 == $this->month && 0 == $this->year ) {
 			// Upcoming performances. Not month nor year passed
@@ -488,7 +492,7 @@ class TWP_Performance {
 	* @param array $calendar_filter_params
 	* @return array
 	*/
-	public function get_busy_dates( $calendar_filter_params ) {
+	public function get_busy_dates( array $calendar_filter_params ) {
 		global $wpdb, $post;
 		// $calendar_filter_params:
 		// month, year
@@ -517,7 +521,7 @@ class TWP_Performance {
 			WHERE " . $wpdb->posts . '.ID = ' . $wpdb->postmeta . ".post_id
 			AND post_type = 'performance'
 			AND post_status = 'publish'
-			AND meta_key = '" . Theatre_WP::$twp_prefix . "date_first' ";
+			AND meta_key = '" . Setup::$twp_prefix . "date_first' ";
 
 		if ( 0 == $this->month && 0 == $this->year ) {
 			// Upcoming performances. Not month nor year passed

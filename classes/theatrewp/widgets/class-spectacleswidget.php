@@ -1,6 +1,6 @@
 <?php
 /**
- * TWP_Spectacles_Widget class.
+ * SpectaclesWidget class.
  *
  * Plugin Spectacle widget class
  *
@@ -8,14 +8,17 @@
  * @author  Jose Bolorino <jose.bolorino@gmail.com>
  */
 
+namespace TheatreWP\Widgets;
+use WP_Widget;
+
 if ( realpath(__FILE__) === realpath($_SERVER['SCRIPT_FILENAME']) )
     exit('Do not access this file directly.');
 
-class TWP_Spectacles_Widget extends WP_Widget {
+class SpectaclesWidget extends WP_Widget {
 
     public $id = 'twp-show-spectacles';
-    public $title = 'Productions';
-    public $description = 'Display a list of your productions';
+    public string $title = 'Productions';
+    public string $description = 'Display a list of your productions';
 
 
     /**
@@ -64,18 +67,13 @@ class TWP_Spectacles_Widget extends WP_Widget {
      * @param array $instance Previously saved values from database.
      */
     public function form( $instance ) {
-        if ( isset( $instance[ 'title' ] ) ) {
-            $title = $instance[ 'title' ];
-        }
-        else {
-            $title = __( 'New title', 'theatre-wp' );
-        }
+	    $title = $instance['title'] ?? __( 'New title', 'theatre-wp' );
 
         $number = ( isset( $instance['number'] ) && intval( $instance['number'] ) >= 0 ? intval( $instance['number'] ) : get_option( 'twp_widget_spectacles_number' ) );
 
-        $sortby = ( isset( $instance['sortby'] ) ? $instance['sortby'] : get_option( 'twp_widget_spectacles_sortby' ) );
+        $sortby = ( $instance['sortby'] ?? get_option( 'twp_widget_spectacles_sortby' ) );
 
-        $sort = ( isset( $instance['sort'] ) ? $instance['sort'] : get_option( 'twp_widget_spectacles_sort' ) );
+        $sort = ( $instance['sort'] ?? get_option( 'twp_widget_spectacles_sort' ) );
 
         ?>
         <p>
@@ -125,4 +123,4 @@ class TWP_Spectacles_Widget extends WP_Widget {
         return $instance;
     }
 
-} // class TWP_Spectacles_Widget
+} // class SpectaclesWidget

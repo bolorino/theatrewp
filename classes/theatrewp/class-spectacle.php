@@ -1,14 +1,16 @@
 <?php
+namespace TheatreWP;
+
 if ( realpath(__FILE__) === realpath($_SERVER['SCRIPT_FILENAME']) )
 	exit('Do not access this file directly.');
 
-class TWP_Spectacle {
+class Spectacle {
 
-	public static $audience;
+	public static array $audience;
 
-	public static $production_category_slug = 'format';
+	public static string $production_category_slug = 'format';
 
-	private $_valid_sort_by;
+	private array $_valid_sort_by;
 
 	public function __construct() {
 
@@ -46,14 +48,16 @@ class TWP_Spectacle {
 	}
 
 	/**
-	 * Get spectacle title thumbnail and link
+	 * Get production title thumbnail and link
 	 *
 	 * @access public
+	 *
 	 * @param int $ID
 	 * @param string $thumbnail_size
-	 * @return array
+	 *
+	 * @return array | bool
 	 */
-	public function get_spectacle_data( $ID, $thumbnail_size='thumbnail' ) {
+	public function get_spectacle_data( int $ID, string $thumbnail_size='thumbnail' ) {
 		global $wpdb;
 
 		if ( ! $spectacle = get_post( intval( $ID) ) ) {
@@ -76,13 +80,15 @@ class TWP_Spectacle {
 	}
 
 	/**
-	 * Get spectacle custom metadata.
+	 * Get production custom metadata.
 	 *
 	 * @access public
+	 *
 	 * @param int $ID
-	 * @return array
+	 *
+	 * @return array | bool
 	 */
-	public function get_spectacle_custom( $ID ) {
+	public function get_spectacle_custom( int $ID ) {
 
 		$custom = get_post_custom( intval( $ID ) );
 
@@ -92,25 +98,27 @@ class TWP_Spectacle {
 
 		$spectacle_custom = array();
 
-		$spectacle_custom['synopsis'] = ( isset($custom[Theatre_WP::$twp_prefix . 'synopsis'][0]) ? $custom[Theatre_WP::$twp_prefix . 'synopsis'][0] : false );
-		$spectacle_custom['audience'] = ( isset($custom[Theatre_WP::$twp_prefix . 'audience'][0]) ? $custom[Theatre_WP::$twp_prefix . 'audience'][0] : false );
-		$spectacle_custom['duration'] = ( isset($custom[Theatre_WP::$twp_prefix . 'duration'][0]) ? $custom[Theatre_WP::$twp_prefix . 'duration'][0] : false );
-		$spectacle_custom['credits']  = ( isset($custom[Theatre_WP::$twp_prefix . 'credits'][0]) ? $custom[Theatre_WP::$twp_prefix . 'credits'][0] : false );
-		$spectacle_custom['sheet']    = ( isset($custom[Theatre_WP::$twp_prefix . 'sheet'][0]) ? $custom[Theatre_WP::$twp_prefix . 'sheet'][0] : false );
-		$spectacle_custom['video']    = ( isset($custom[Theatre_WP::$twp_prefix . 'video'][0]) ? $custom[Theatre_WP::$twp_prefix . 'video'][0] : false );
+		$spectacle_custom['synopsis'] = ( $custom[ Setup::$twp_prefix . 'synopsis' ][0] ?? false );
+		$spectacle_custom['audience'] = ( $custom[ Setup::$twp_prefix . 'audience' ][0] ?? false );
+		$spectacle_custom['duration'] = ( $custom[ Setup::$twp_prefix . 'duration' ][0] ?? false );
+		$spectacle_custom['credits']  = ( $custom[ Setup::$twp_prefix . 'credits' ][0] ?? false );
+		$spectacle_custom['sheet']    = ( $custom[ Setup::$twp_prefix . 'sheet' ][0] ?? false );
+		$spectacle_custom['video']    = ( $custom[ Setup::$twp_prefix . 'video' ][0] ?? false );
 
 		return $spectacle_custom;
 	}
 
 	/**
-	 * Get spectacle main image in available sizes
+	 * Get production main image in available sizes
 	 *
 	 * @access public
+	 *
 	 * @param int $ID
 	 * @param array $additional_sizes
-	 * @return array
+	 *
+	 * @return array | bool
 	 */
-	public function get_spectacle_thumbnail( $ID, $additional_sizes=array() ) {
+	public function get_spectacle_thumbnail( int $ID, $additional_sizes=array() ) {
 		global $wpdb;
 
 		if ( ! $spectacle = get_post( intval( $ID) ) ) {
@@ -142,7 +150,7 @@ class TWP_Spectacle {
 	}
 
 	/**
-	 * Get an HTML list of spectacles.
+	 * Get an HTML list of productions.
 	 *
 	 * @access public
 	 * @return string
@@ -186,10 +194,10 @@ class TWP_Spectacle {
 	}
 
 	/**
-	 * Get a list of spectacles titles.
+	 * Get a list of productions titles.
 	 *
 	 * @access public
-	 * @return array
+	 * @return array | bool
 	 */
 	public function get_spectacles_titles() {
 		$shows_query =  get_posts( 'post_type=spectacle&post_status=publish&orderby=title&order=ASC&numberposts=-1' );
@@ -208,12 +216,12 @@ class TWP_Spectacle {
 	}
 
 	/**
-	 * Get an array of spectacles [titles] -> [ID]
+	 * Get an array of productions [titles] -> [ID]
 	 *
 	 * @access public
-	 * @return array
+	 * @return array | bool
 	 */
-	public function get_spectacles_array() {
+	public static function get_spectacles_array() {
 
 		$args = array(
 			'post_type'		=> 'spectacle',
@@ -251,7 +259,6 @@ class TWP_Spectacle {
 			if ( $lang ) {
 				$args['lang'] = $lang;
 			}
-
 		}
 
 		$shows_query =  get_posts( $args );
@@ -273,22 +280,22 @@ class TWP_Spectacle {
 	}
 
 	/**
-	 * Get spectacle URL from post name.
+	 * Get production URL from post name.
 	 *
 	 * @access public
+	 *
 	 * @param int $ID
+	 *
 	 * @return string
 	 */
-	public function get_spectacle_link( $ID ) {
+	public function get_spectacle_link( int $ID ) {
 		global $wpdb;
 
 		if ( ! $spectacle = get_post( intval( $ID) ) ) {
 			return false;
 		}
 
-		$link = home_url( '/' ) . get_option( 'twp_spectacle_slug' ) . '/' . $spectacle->post_name . '/';
-
-		return $link;
+		return home_url( '/' ) . get_option( 'twp_spectacle_slug' ) . '/' . $spectacle->post_name . '/';
 	}
 
 }

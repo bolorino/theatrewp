@@ -1,6 +1,6 @@
 <?php
 /**
- * TWP_Upcoming_Performances_Widget class.
+ * UpcomingPerformancesWidget class.
  *
  * Plugin Upcoming Performances Widget Class
  *
@@ -8,14 +8,17 @@
  * @author  Jose Bolorino <jose.bolorino@gmail.com>
  */
 
+namespace TheatreWP\Widgets;
+use WP_Widget;
+
 if ( realpath(__FILE__) === realpath($_SERVER['SCRIPT_FILENAME']) )
     exit('Do not access this file directly.');
 
-class TWP_Upcoming_Performances_Widget extends WP_Widget {
+class UpcomingPerformancesWidget extends WP_Widget {
 
     public $id          = 'twp-next-performances';
-    public $title       = 'Upcoming Performances';
-    public $description = 'Display a list of upcoming performances';
+    public string $title       = 'Upcoming Performances';
+    public string $description = 'Display a list of upcoming performances';
 
     /**
      * Register widget with WordPress.
@@ -41,7 +44,7 @@ class TWP_Upcoming_Performances_Widget extends WP_Widget {
         global $theatre_wp;
 
         // @ ToDo add param to exclude current spectacle
-        // in TWP_Performance get_next_performances()
+        // in Performance get_next_performances()
         if ( ! $performances = $theatre_wp->get_next_performances() ) {
             return false;
         }
@@ -65,12 +68,7 @@ class TWP_Upcoming_Performances_Widget extends WP_Widget {
      * @param array $instance Previously saved values from database.
      */
     public function form( $instance ) {
-        if ( isset( $instance[ 'title' ] ) ) {
-            $title = $instance[ 'title' ];
-        }
-        else {
-            $title = __( 'New title', 'theatre-wp' );
-        }
+	    $title = $instance['title'] ?? __( 'New title', 'theatre-wp' );
 
         $number = ( isset( $instance['number'] ) && intval( $instance['number'] ) >= 0 ? intval( $instance['number'] ) : get_option( 'twp_widget_performances_number' ) );
         ?>
@@ -108,4 +106,4 @@ class TWP_Upcoming_Performances_Widget extends WP_Widget {
         return $instance;
     }
 
-} // class TWP_Upcoming_Performances_Widget
+} // class UpcomingPerformancesWidget

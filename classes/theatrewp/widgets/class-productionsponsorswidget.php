@@ -1,6 +1,6 @@
 <?php
 /**
- * TWP_Show_Upcoming_Performances_Widget class.
+ * ShowUpcomingPerformancesWidget class.
  *
  * Plugin Production Sponsors Widget Class
  *
@@ -8,14 +8,18 @@
  * @author  Jose Bolorino <jose.bolorino@gmail.com>
  */
 
+namespace TheatreWP\Widgets;
+
+use WP_Widget;
+
 if ( realpath(__FILE__) === realpath($_SERVER['SCRIPT_FILENAME']) )
     exit('Do not access this file directly.');
 
-class TWP_Production_Sponsors_Widget extends WP_Widget {
+class ProductionSponsorsWidget extends WP_Widget {
 
     public $id = 'twp-production-sponsors';
-    public $title = 'Production Sponsors';
-    public $description = 'Display a list Sponsors for the current production';
+    public string $title = 'Production Sponsors';
+    public string $description = 'Display a list Sponsors for the current production';
 
     /**
      * Register widget with WordPress.
@@ -106,12 +110,7 @@ class TWP_Production_Sponsors_Widget extends WP_Widget {
     }
 
     public function form( $instance ) {
-        if ( isset( $instance[ 'title' ] ) ) {
-            $title = $instance[ 'title' ];
-        }
-        else {
-            $title = __( 'New title', 'theatre-wp' );
-        }
+	    $title = $instance['title'] ?? __( 'New title', 'theatre-wp' );
         ?>
 
         <p>
@@ -139,4 +138,4 @@ class TWP_Production_Sponsors_Widget extends WP_Widget {
         return $instance;
     }
 
-} // class TWP_Production_Sponsors_Widget
+} // class ProductionSponsorsWidget

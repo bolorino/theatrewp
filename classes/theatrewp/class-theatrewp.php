@@ -9,8 +9,10 @@
  * @copyright 2013-2019 Jose Bolorino
  */
 
+namespace TheatreWP;
+
 /**
- * Theatre_WP class.
+ * TheatreWP class.
  *
  * Plugin main class
  *
@@ -21,15 +23,7 @@ if ( realpath(__FILE__) === realpath($_SERVER['SCRIPT_FILENAME']) )
 	exit('Do not access this file directly.');
 
 
-class Theatre_WP {
-	/**
-	 * Plugin version.
-	 *
-	 * @since   0.2
-	 *
-	 * @var     string
-	 */
-	static $version = '0.69';
+class TheatreWP {
 
 	/**
 	 * Unique identifier for your plugin.
@@ -41,83 +35,36 @@ class Theatre_WP {
 	 *
 	 * @var      string
 	 */
-	public static $plugin_slug = 'theatre-wp';
+	public static string $plugin_slug = 'theatre-wp';
 
-	protected static $plugin_dir;
-
-	/**
- 	 * @var string
- 	 */
-	public static $twp_prefix = 'twp_';
-
-	public static $twp_text_domain = 'theatre-wp';
+	public static string $twp_text_domain = 'theatre-wp';
 
 	/**
- 	 * @var TWP_Spectacle
+ 	 * @var Spectacle
  	 */
-	public $spectacle;
+	public Spectacle $spectacle;
 
  	/**
- 	 * @var TWP_Performance
+ 	 * @var Performance
  	 */
- 	public $performance;
+ 	public Performance $performance;
 
  	/**
- 	 * @var TWP_Sponsor
+ 	 * @var Sponsor
  	 */
- 	public $sponsor;
+ 	public Sponsor $sponsor;
 
  	/**
- 	 * @var TWP_Setup
+ 	 * @var Setup
  	 */
- 	protected $setup;
+ 	protected Setup $setup;
 
- 	public function __construct( $path ) {
-		self::$plugin_dir = $path;
+ 	public function __construct() {
 
- 		// Include required files
-		$this->includes();
-
-        $this->spectacle   = new TWP_Spectacle;
-        $this->performance = new TWP_Performance( $this->spectacle );
-        $this->sponsor     = new TWP_Sponsor;
-
-		$this->setup = new TWP_Setup( self::$plugin_dir, $this->spectacle, $this->performance, $this->sponsor );
-
-		if ( is_admin() ) $this->admin_includes();
+        $this->spectacle   = new Spectacle;
+        $this->performance = new Performance( $this->spectacle );
+        $this->sponsor     = new Sponsor;
  	}
-
-	/**
-	 * Include required core files.
-	 *
-	 * @access public
-	 * @return void
-	 */
-	private function includes() {
-		include( 'class-twp-setup.php' );
-		include( 'class-twp-spectacles.php' );
-		include( 'class-twp-performances.php' );
-		include( 'class-twp-sponsors.php' );
-		include( 'class-twp-metaboxes.php' );
-
-		// Widgets
-		include( 'class-twp-spectacles-widget.php' );
-		include( 'class-twp-upcoming-performances-widget.php' );
-		include( 'class-twp-show-upcoming-performances-widget.php' );
-		include( 'class-twp-production-sponsors-widget.php');
-
-	}
-
-	/**
-	 * Include admin required files.
-	 *
-	 * @access public
-	 * @return void
-	 */
-	private function admin_includes() {
-		// Enqueue admin scripts
-		add_action( 'admin_enqueue_scripts', array( $this->setup, 'twp_scripts' ), 10 );
-	}
 
 	/* Spectacle public methods */
 
@@ -146,10 +93,12 @@ class Theatre_WP {
 	 * Get spectacle custom metadata.
 	 *
 	 * @access public
+	 *
 	 * @param int $ID
+	 *
 	 * @return array
 	 */
-	public function get_spectacle_custom( $ID ) {
+	public function get_spectacle_custom( int $ID ) {
 		return $this->spectacle->get_spectacle_custom( $ID );
 	}
 
@@ -157,10 +106,12 @@ class Theatre_WP {
 	 * Get spectacle title and URL from Spectacle title.
 	 *
 	 * @access public
+	 *
 	 * @param int $ID
+	 *
 	 * @return array
 	 */
-	public function get_spectacle_data( $ID, $thumbnail_size='thumbnail' ) {
+	public function get_spectacle_data( int $ID, string $thumbnail_size='thumbnail' ) {
 		return $this->spectacle->get_spectacle_data( intval( $ID ), sanitize_text_field( $thumbnail_size ) );
 	}
 
@@ -168,10 +119,12 @@ class Theatre_WP {
 	 * Get spectacle URL from Spectacle title.
 	 *
 	 * @access public
+	 *
 	 * @param int $ID
+	 *
 	 * @return string
 	 */
-	public function get_spectacle_link( $ID ) {
+	public function get_spectacle_link( int $ID ) {
 		return $this->spectacle->get_spectacle_link( intval( $ID ) );
 	}
 
@@ -179,22 +132,26 @@ class Theatre_WP {
 	 * Get full URL for a given production category slug
 	 *
 	 * @access public
+	 *
 	 * @param string $slug
+	 *
 	 * @return string
 	 */
-	public function get_production_cat_url( $slug ) {
-		return esc_url( home_url() ) . '/' . TWP_Spectacle::$production_category_slug . '/' . sanitize_title( $slug );
+	public function get_production_cat_url( string $slug ) {
+		return esc_url( home_url() ) . '/' . Spectacle::$production_category_slug . '/' . sanitize_title( $slug );
 	}
 
 	/**
 	 * Get spectacle main image in available sizes
 	 *
 	 * @access public
+	 *
 	 * @param int $ID
 	 * @param array $additional_sizes
+	 *
 	 * @return array
 	 */
-	public function get_spectacle_thumbnail( $ID, $additional_sizes=array() ) {
+	public function get_spectacle_thumbnail( int $ID, $additional_sizes=array() ) {
 		return $this->spectacle->get_spectacle_thumbnail( intval( $ID ), $additional_sizes );
 	}
 
@@ -225,10 +182,12 @@ class Theatre_WP {
 	 * Get performance custom metadata.
 	 *
 	 * @access public
+	 *
 	 * @param int $ID
+	 *
 	 * @return array
 	 */
-	public function get_performance_custom( $ID ) {
+	public function get_performance_custom( int $ID ) {
 		return $this->performance->get_performance_custom( $this->spectacle, $ID );
 	}
 
@@ -331,14 +290,16 @@ class Theatre_WP {
 		// Get the Production formats
 		$production_format = get_the_terms( $post->ID, 'format' );
 
-		foreach ( $production_format as $format ) {
-			$formats[] = array(
-				'name' => $format->name,
-				'slug' => $format->slug
-			);
-		}
+        if ( $production_format ) {
+            foreach ( $production_format as $format ) {
+                $formats[] = array(
+                    'name' => $format->name,
+                    'slug' => $format->slug
+                );
+            }
+        }
 
-		if ( ! empty( $formats ) ) {
+		if ( isset( $formats ) ) {
 			$twp_content .= '<div class="twp-formats">';
 
 			foreach ( $formats as $format ) {
@@ -386,7 +347,7 @@ class Theatre_WP {
 			. '<h2 class="twp-subtitle">'
 			. __('Credits', 'theatre-wp')
 			. '</h2>'
-			. $production_custom['credits']
+			. nl2br( $production_custom['credits'] )
 			. '</div>';
 		}
 

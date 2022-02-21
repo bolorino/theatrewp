@@ -19,14 +19,37 @@ if ( realpath(__FILE__) === realpath( $_SERVER['SCRIPT_FILENAME'] ) )
 if ( ! defined( 'WPINC' ) )
 	die();
 
-define( 'TWP_VERSION', '0.69' );
-define( 'TWP_META_BOX_URL', apply_filters( 'twp_meta_box_url', trailingslashit( str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, dirname( __FILE__ ) ) ) ) );
-
+const TWP_VERSION = '0.69';
+// define( 'TWP_META_BOX_URL', apply_filters( 'twp_meta_box_url', trailingslashit( str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, dirname( __FILE__ ) ) ) ) );
+define( 'TWP_META_BOX_URL', plugin_dir_url( __FILE__ ) );
 define( 'TWP_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 define( 'TWP_DIR', dirname( TWP_PLUGIN_BASENAME ) );
 define( 'TWP_BASE_PATH', plugin_dir_path( __FILE__ ) );
 
-require_once( TWP_BASE_PATH . 'includes/classes/class-theatre-wp.php' );
+// Autoload TheatreWP classes
+spl_autoload_register( function($classname) {
+
+	// Regular
+	$class      = str_replace( '\\', DIRECTORY_SEPARATOR, strtolower($classname) );
+	$classpath  = dirname(__FILE__) .  DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . $class . '.php';
+
+	// WordPress
+	$parts      = explode('\\', $classname);
+	$class      = 'class-' . strtolower( array_pop($parts) );
+	$folders    = strtolower( implode(DIRECTORY_SEPARATOR, $parts) );
+	$wppath     = dirname(__FILE__) .  DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . $folders . DIRECTORY_SEPARATOR . $class . '.php';
+
+	if ( substr($folders, 0, 9) !== 'theatrewp' ) {
+		return false;
+	}
+
+	if ( file_exists( $classpath ) ) {
+		include_once $classpath;
+	} elseif(  file_exists( $wppath ) ) {
+		include_once $wppath;
+	}
+
+} );
 
 $current_version = get_option( 'twp_version' );
 
@@ -34,9 +57,12 @@ if ( $current_version != TWP_VERSION ) {
     update_option( 'twp_version', TWP_VERSION );
 }
 
-$theatre_wp = new Theatre_WP( TWP_DIR );
+$twp = new TheatreWP\Setup();
+
+// Facade. The main object to use through templates
+$theatre_wp = new \TheatreWP\TheatreWP;
 
 // Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
-register_activation_hook( __FILE__, array( 'TWP_Setup', 'activate' ) );
-register_deactivation_hook( __FILE__, array( 'TWP_Setup', 'deactivate' ) );
-register_uninstall_hook( __FILE__, array( 'TWP_Setup', 'uninstall' ) );
+register_activation_hook( __FILE__, array( 'Setup', 'activate' ) );
+register_deactivation_hook( __FILE__, array( 'Setup', 'deactivate' ) );
+register_uninstall_hook( __FILE__, array( 'Setup', 'uninstall' ) );
