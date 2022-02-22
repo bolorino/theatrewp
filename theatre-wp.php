@@ -4,13 +4,13 @@
 * Plugin URI: https://www.bolorino.net/pages/theatre-wp-wordpress-plugin-performing-arts.html
 * Description: CMS for Theatre and Performing Arts Companies. Managing Shows and Performances made easy.
 * Tags: theatre, troupe, actors, shows, performing arts
-* Version: 0.69
+* Version: 1.0
 * Author: Jose Bolorino <jose.bolorino@gmail.com>
 * Author URI: https://www.bolorino.net/
 * License: GPLv3
 * Text Domain: theatre-wp
 * Domain Path: /languages
-* Copyright 2013-2021 Jose Bolorino
+* Copyright 2013-2022 Jose Bolorino
 */
 
 if ( realpath(__FILE__) === realpath( $_SERVER['SCRIPT_FILENAME'] ) )
@@ -19,7 +19,7 @@ if ( realpath(__FILE__) === realpath( $_SERVER['SCRIPT_FILENAME'] ) )
 if ( ! defined( 'WPINC' ) )
 	die();
 
-const TWP_VERSION = '0.69';
+const TWP_VERSION = '1.0';
 // define( 'TWP_META_BOX_URL', apply_filters( 'twp_meta_box_url', trailingslashit( str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, dirname( __FILE__ ) ) ) ) );
 define( 'TWP_META_BOX_URL', plugin_dir_url( __FILE__ ) );
 define( 'TWP_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );

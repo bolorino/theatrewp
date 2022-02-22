@@ -1,10 +1,10 @@
 === Theatre WP ===
 Contributors: bollofino
-Donate link:
+Donate link: https://paypal.me/Bolorino
 Tags: theatre, troupe, dance, performing arts
 Requires at least: 5.0
-Tested up to: 5.7
-Stable tag: 0.69
+Tested up to: 5.9
+Stable tag: 1.0
 Text Domain: theatre-wp
 Domain Path: /languages
 License: GPLv2 or later
@@ -16,8 +16,8 @@ Management of Productions and Performances for Performing Arts Companies.
 
 The plugin "Theatre WP" helps developers and designers who use WordPress to create websites for troupes and Performing Arts Companies.
 
-Theatre WP is intended for designers and developers using WordPress to setup a performing arts company website.
-This plugin provides productions and performances management.
+Theatre WP is intended for designers and developers using WordPress to set up a performing arts company website.
+This plugin provides productions and performances (gigs) management.
 
 **What does the plugin include?**
 
@@ -29,7 +29,7 @@ This plugin provides productions and performances management.
 **Plugin benefits**
 
 * Adapted to the basic needs of most Theater Companies
-* Organized and well structured information of Shows and Performances to facilitate their management and accessibility
+* Organized and well-structured information of Shows and Performances to facilitate their management and accessibility
 * Independent of the theme used in WordPress
 * Customizable
 * Translatable
@@ -44,19 +44,20 @@ This plugin provides productions and performances management.
 
 There are six templates within the plugin as examples to use it in your custom theme:
 
-* single-spectacle.php # Single Show page
-* single-performance.php # Single Performance page
-* archive-spectacle.php # List of available Shows
-* archive-performance.php # List of available Performances
-* check-dates-form.php # To filter performances by date
-* taxonomy-format.php # Productions by category
+* `single-spectacle.php` # Single Show page
+* `single-performance.php` # Single Performance page
+* `archive-spectacle.php` # List of available Shows
+* `archive-performance.php` # List of available Performances
+* `check-dates-form.php` # To filter performances by date
+* `taxonomy-format.php` # Productions by category
 
 You can copy the files located in includes/templates within the plugin directory to your theme's directory and modify it to your liking.
 
 Define TWP_THEME constant in your theme if using the templates to avoid duplicate content:
-define( 'TWP_THEME', true );
 
-Have a look into includes/classes/class-theatre-wp.php for functions to use in your templates.
+`define( 'TWP_THEME', true );`
+
+Have a look into `classes/class-theatrewp.php` for functions to use in your templates.
 
 == Installation ==
 
@@ -77,6 +78,11 @@ Not yet.
 5. Productions
 
 == Changelog ==
+
+= 1.0 =
+* Code refactor
+* Classes autoload
+* Small fixes
 
 = 0.69 =
 * Fix missing sponsors functions
