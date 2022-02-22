@@ -40,31 +40,31 @@ class TheatreWP {
 	public static string $twp_text_domain = 'theatre-wp';
 
 	/**
- 	 * @var Spectacle
- 	 */
+	 * @var Spectacle
+	 */
 	public Spectacle $spectacle;
 
- 	/**
- 	 * @var Performance
- 	 */
- 	public Performance $performance;
+	/**
+	 * @var Performance
+	 */
+	public Performance $performance;
 
- 	/**
- 	 * @var Sponsor
- 	 */
- 	public Sponsor $sponsor;
+	/**
+	 * @var Sponsor
+	 */
+	public Sponsor $sponsor;
 
- 	/**
- 	 * @var Setup
- 	 */
- 	protected Setup $setup;
+	/**
+	 * @var Setup
+	 */
+	protected Setup $setup;
 
- 	public function __construct() {
+	public function __construct() {
 
-        $this->spectacle   = new Spectacle;
-        $this->performance = new Performance( $this->spectacle );
-        $this->sponsor     = new Sponsor;
- 	}
+		 $this->spectacle   = new Spectacle;
+		 $this->performance = new Performance( $this->spectacle );
+		 $this->sponsor     = new Sponsor;
+	}
 
 	/* Spectacle public methods */
 
@@ -73,8 +73,8 @@ class TheatreWP {
 	 *
 	 * @access public
 	 * @param int $limit
-     * @param string $sort_by
-     * @param string $sort
+	 * @param string $sort_by
+	 * @param string $sort
 	 * @return string
 	 */
 	public function list_spectacles( int $limit, string $sort_by, string $sort ) {
@@ -103,15 +103,15 @@ class TheatreWP {
 		return $this->spectacle->get_spectacle_custom( $ID );
 	}
 
-    /**
-     * Get spectacle title and URL from Spectacle title.
-     *
-     * @access public
-     *
-     * @param int $ID
-     * @param string $thumbnail_size
-     * @return array
-     */
+	/**
+	 * Get spectacle title and URL from Spectacle title.
+	 *
+	 * @access public
+	 *
+	 * @param int $ID
+	 * @param string $thumbnail_size
+	 * @return array
+	 */
 	public function get_spectacle_data( int $ID, string $thumbnail_size='thumbnail' ) {
 		return $this->spectacle->get_spectacle_data( $ID, sanitize_text_field( $thumbnail_size ) );
 	}
@@ -188,154 +188,154 @@ class TheatreWP {
 		return $this->performance->get_performance_custom( $this->spectacle, $ID );
 	}
 
-    /**
-     * Get upcoming performances for current show
-     *
-     * @access public
-     *
-     * @return string
-     */
+	/**
+	 * Get upcoming performances for current show
+	 *
+	 * @access public
+	 *
+	 * @return string
+	 */
 	public function get_show_next_performances() {
 		return $this->performance->get_show_next_performances();
 	}
 
-    /**
-     * Get an array of upcoming performances for current show
-     *
-     * @access public
-     * @return array
-     */
-    public function get_show_next_performances_array() {
-        return $this->performance->get_show_next_performances_array();
-    }
+	/**
+	 * Get an array of upcoming performances for current show
+	 *
+	 * @access public
+	 * @return array
+	 */
+	public function get_show_next_performances_array() {
+		return $this->performance->get_show_next_performances_array();
+	}
 
-    /**
-     * Get a list of upcoming performances
-     *
-     * @access public
-     * @return string
-     */
+	/**
+	 * Get a list of upcoming performances
+	 *
+	 * @access public
+	 * @return string
+	 */
 	public function get_next_performances() {
 		return $this->performance->get_next_performances();
 	}
 
-    /**
-     * Display Google Map for performance
-     *
-     * @param array $custom_meta
-     * @param string $width
-     * @param string $height
-     * @return string
-     */
+	/**
+	 * Display Google Map for performance
+	 *
+	 * @param array $custom_meta
+	 * @param string $width
+	 * @param string $height
+	 * @return string
+	 */
 	public function display_performance_map( array $custom_meta, string $width = '', string $height = '' ) {
 		return $this->performance->get_event_google_map_embed( $custom_meta, $width, $height );
 	}
 
-    /**
-     * Get the localized array of month names
-     *
-     * @return array
-     */
+	/**
+	 * Get the localized array of month names
+	 *
+	 * @return array
+	 */
 	public function get_month_names( ) {
 		return $this->performance->month_names;
 	}
 
-    /**
-     * Get the total number of performances
-     *
-     * @return int
-     */
+	/**
+	 * Get the total number of performances
+	 *
+	 * @return int
+	 */
 	public function get_total_performances() {
 		return $this->performance->total_performances;
 	}
 
-    /**
-     * Get total performances for a given period
-     *
-     * @param array $performances_filter_params
-     * @return int
-     */
+	/**
+	 * Get total performances for a given period
+	 *
+	 * @param array $performances_filter_params
+	 * @return int
+	 */
 	public function get_total_filtered_performances( array $performances_filter_params ) {
 		return $this->performance->get_total_filtered_performances( $performances_filter_params );
 	}
 
-    /**
-     * Get the year of the first registered performance
-     *
-     * @return string
-     */
+	/**
+	 * Get the year of the first registered performance
+	 *
+	 * @return string
+	 */
 	public function get_first_available_year() {
 		return $this->performance->first_available_year;
 	}
 
-    /**
-     * Get the year of the las registered performance
-     *
-     * @return string
-     */
+	/**
+	 * Get the year of the las registered performance
+	 *
+	 * @return string
+	 */
 	public function get_last_available_year() {
 		return $this->performance->last_available_year;
 	}
 
-    /**
-     * Get necessary data to display calendar filter
-     *
-     * @access public
-     * @param int|null $first_available_year
-     * @param int|null $last_available_year
-     * @return array
-     */
+	/**
+	 * Get necessary data to display calendar filter
+	 *
+	 * @access public
+	 * @param int|null $first_available_year
+	 * @param int|null $last_available_year
+	 * @return array
+	 */
 	public function get_calendar_data( int $first_available_year = null, int $last_available_year = null ) {
 
-        if ( empty( $first_available_year ) ) {
-            $first_available_year = $this->get_first_available_year();
-        }
+		if ( empty( $first_available_year ) ) {
+			$first_available_year = $this->get_first_available_year();
+		}
 
-        if ( empty( $last_available_year ) ) {
-            $last_available_year = $this->get_last_available_year();
-        }
+		if ( empty( $last_available_year ) ) {
+			$last_available_year = $this->get_last_available_year();
+		}
 
-        $month_names = $this->get_month_names();
+		$month_names = $this->get_month_names();
 
-        return array(
-            'month_names'          => $month_names,
-            'current_year'         => date('Y'),
-            'first_available_year' => intval( $first_available_year ),
-            'last_available_year'  => intval( $last_available_year )
-        );
+		return array(
+			'month_names'          => $month_names,
+			'current_year'         => date('Y'),
+			'first_available_year' => intval( $first_available_year ),
+			'last_available_year'  => intval( $last_available_year )
+		);
 	}
 
-    /**
-     * Get a list of performances
-     *
-     * @param array $calendar_filter_params
-     * @return bool|object
-     */
+	/**
+	 * Get a list of performances
+	 *
+	 * @param array $calendar_filter_params
+	 * @return bool|object
+	 */
 	public function get_calendar( array $calendar_filter_params ) {
 		return $this->performance->get_filtered_calendar( $calendar_filter_params );
 	}
 
-    /**
-     * Get an array of busy dates
-     *
-     * @param array $calendar_filter_params
-     * @return array|false
-     */
-    public function get_busy_dates( array $calendar_filter_params ) {
-        return $this->performance->get_busy_dates( $calendar_filter_params );
-    }
+	/**
+	 * Get an array of busy dates
+	 *
+	 * @param array $calendar_filter_params
+	 * @return array|false
+	 */
+	public function get_busy_dates( array $calendar_filter_params ) {
+		return $this->performance->get_busy_dates( $calendar_filter_params );
+	}
 
-    /* Sponsors */
+	/* Sponsors */
 
-    /**
-     * Get an HTML list of sponsors for the current production
-     *
-     * @return false|string
-     */
-    public function get_sponsors() {
-        global $post;
-        return $this->sponsor->get_sponsors();
-    }
+	/**
+	 * Get an HTML list of sponsors for the current production
+	 *
+	 * @return false|string
+	 */
+	public function get_sponsors() {
+		global $post;
+		return $this->sponsor->get_sponsors();
+	}
 
 	/**
 	 * Add TWP custom data to single spectacle content
@@ -356,14 +356,14 @@ class TheatreWP {
 		// Get the Production formats
 		$production_format = get_the_terms( $post->ID, 'format' );
 
-        if ( $production_format ) {
-            foreach ( $production_format as $format ) {
-                $formats[] = array(
-                    'name' => $format->name,
-                    'slug' => $format->slug
-                );
-            }
-        }
+		if ( $production_format ) {
+			foreach ( $production_format as $format ) {
+				$formats[] = array(
+					'name' => $format->name,
+					'slug' => $format->slug
+				);
+			}
+		}
 
 		if ( isset( $formats ) ) {
 			$twp_content .= '<div class="twp-formats">';
@@ -450,96 +450,96 @@ class TheatreWP {
 		// Get performance custom metadata
 		$performance_custom = $this->get_performance_custom( get_the_ID() );
 
-        if ( $performance_custom['date_first'] ) {
-            $performance_first_date = date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] );
-            $performance_first_time = strftime( '%H:%M', $performance_custom['date_first'] );
-        }
+		if ( $performance_custom['date_first'] ) {
+			$performance_first_date = date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] );
+			$performance_first_time = strftime( '%H:%M', $performance_custom['date_first'] );
+		}
 
-        if ( $performance_custom['date_last'] ) {
-            $performance_last_date = date_i18n( get_option( 'date_format' ), $performance_custom['date_last'] );
-            $performance_last_time = strftime( '%H:%M', $performance_custom['date_last'] );
-        }
+		if ( $performance_custom['date_last'] ) {
+			$performance_last_date = date_i18n( get_option( 'date_format' ), $performance_custom['date_last'] );
+			$performance_last_time = strftime( '%H:%M', $performance_custom['date_last'] );
+		}
 
-        // Get Spectacle data
-        // $spectacle_data = $this->get_spectacle_data( $performance_custom['spectacle_id'] );
+		// Get Spectacle data
+		// $spectacle_data = $this->get_spectacle_data( $performance_custom['spectacle_id'] );
 
-        if ( isset( $performance_first_date ) ) {
-        	$twp_content .= '<h3>'
-        	. __( 'When', 'theatre-wp' )
-        	. '</h3>'
-        	. '<p class="single-performance-dates">';
+		if ( isset( $performance_first_date ) ) {
+			$twp_content .= '<h3>'
+			. __( 'When', 'theatre-wp' )
+			. '</h3>'
+			. '<p class="single-performance-dates">';
 
-            if ( isset( $performance_last_date ) ) {
-                $twp_content .= _x( 'From', '(date) performing from day', 'theatre-wp' );
-            }
+			if ( isset( $performance_last_date ) ) {
+				$twp_content .= _x( 'From', '(date) performing from day', 'theatre-wp' );
+			}
 
-            $twp_content .= '<span class="performance-date">'
-            . $performance_first_date
-            . '</span> '
-            . '(<span class="performance-time">'
-            . $performance_first_time
-            . '</span>)';
+			$twp_content .= '<span class="performance-date">'
+			. $performance_first_date
+			. '</span> '
+			. '(<span class="performance-time">'
+			. $performance_first_time
+			. '</span>)';
 
-            if ( isset( $performance_last_date ) ) {
-            	$twp_content .= _x( 'To', '(date) performing to day', 'theatre-wp' ) . ' '
-            	. '<span class="performance-date">'
-            	. $performance_last_date
-            	. '</span>'
-                . '(<span class="performance-time">'
-                . $performance_last_time
-                . '</span>)<br>';
-            }
+			if ( isset( $performance_last_date ) ) {
+				$twp_content .= _x( 'To', '(date) performing to day', 'theatre-wp' ) . ' '
+				. '<span class="performance-date">'
+				. $performance_last_date
+				. '</span>'
+				. '(<span class="performance-time">'
+				. $performance_last_time
+				. '</span>)<br>';
+			}
 
-            $twp_content .= '</p>';
-        }
+			$twp_content .= '</p>';
+		}
 
-        $twp_content .= '<h3>'
-        . '<a href="' . $performance_custom['spectacle_url'] . '">'
-        . $performance_custom['spectacle_title']
-        . '</a>'
-        . '</h3>';
+		$twp_content .= '<h3>'
+		. '<a href="' . $performance_custom['spectacle_url'] . '">'
+		. $performance_custom['spectacle_title']
+		. '</a>'
+		. '</h3>';
 
-        if ( $performance_custom['event'] ) {
-        	$twp_content .= '<h3>'
-        	. __( 'Event', 'theatre-wp' )
-        	. '</h3>'
-        	. '<div class="event">'
-        	. '<p>'
-            . '<em>'
-            . $performance_custom['event']
-            . '</em>'
-            . '</p>'
-            . '</div>';
-        }
+		if ( $performance_custom['event'] ) {
+			$twp_content .= '<h3>'
+			. __( 'Event', 'theatre-wp' )
+			. '</h3>'
+			. '<div class="event">'
+			. '<p>'
+			. '<em>'
+			. $performance_custom['event']
+			. '</em>'
+			. '</p>'
+			. '</div>';
+		}
 
-        $twp_content .= '<p class="location">';
+		$twp_content .= '<p class="location">';
 
-        if ( $performance_custom['place'] ) {
-            $twp_content .= $performance_custom['place'] . '<br>';
-        }
+		if ( $performance_custom['place'] ) {
+			$twp_content .= $performance_custom['place'] . '<br>';
+		}
 
-        if ( $performance_custom['address'] ) {
-            $twp_content .= $performance_custom['address'] . '<br>';
-        }
+		if ( $performance_custom['address'] ) {
+			$twp_content .= $performance_custom['address'] . '<br>';
+		}
 
-        if ( $performance_custom['town'] ) {
-            $twp_content .= $performance_custom['town'] . ' ';
-        }
+		if ( $performance_custom['town'] ) {
+			$twp_content .= $performance_custom['town'] . ' ';
+		}
 
-        if ( $performance_custom['country'] ) {
-            $twp_content .= '(' . $performance_custom['country'] . ') ';
-        }
+		if ( $performance_custom['country'] ) {
+			$twp_content .= '(' . $performance_custom['country'] . ') ';
+		}
 
-        $twp_content .= '</p>';
+		$twp_content .= '</p>';
 
-        if ( $performance_custom['display_map'] ) {
-        	$twp_content .= '<div id="performance-map">';
-            $map = $this->display_performance_map( $performance_custom );
-            $twp_content .= $map
-            . '</div>';
-        }
+		if ( $performance_custom['display_map'] ) {
+			$twp_content .= '<div id="performance-map">';
+			$map = $this->display_performance_map( $performance_custom );
+			$twp_content .= $map
+			. '</div>';
+		}
 
-        return $twp_content . $content;
+		return $twp_content . $content;
 
 	}
 
