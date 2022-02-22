@@ -73,9 +73,11 @@ class TheatreWP {
 	 *
 	 * @access public
 	 * @param int $limit
+     * @param string $sort_by
+     * @param string $sort
 	 * @return string
 	 */
-	public function list_spectacles( $limit = 0, $sort_by, $sort ) {
+	public function list_spectacles( int $limit, string $sort_by, string $sort ) {
 		return $this->spectacle->get_spectacles( $limit, $sort_by, $sort );
 	}
 
@@ -95,24 +97,23 @@ class TheatreWP {
 	 * @access public
 	 *
 	 * @param int $ID
-	 *
 	 * @return array
 	 */
 	public function get_spectacle_custom( int $ID ) {
 		return $this->spectacle->get_spectacle_custom( $ID );
 	}
 
-	/**
-	 * Get spectacle title and URL from Spectacle title.
-	 *
-	 * @access public
-	 *
-	 * @param int $ID
-	 *
-	 * @return array
-	 */
+    /**
+     * Get spectacle title and URL from Spectacle title.
+     *
+     * @access public
+     *
+     * @param int $ID
+     * @param string $thumbnail_size
+     * @return array
+     */
 	public function get_spectacle_data( int $ID, string $thumbnail_size='thumbnail' ) {
-		return $this->spectacle->get_spectacle_data( intval( $ID ), sanitize_text_field( $thumbnail_size ) );
+		return $this->spectacle->get_spectacle_data( $ID, sanitize_text_field( $thumbnail_size ) );
 	}
 
 	/**
@@ -121,11 +122,10 @@ class TheatreWP {
 	 * @access public
 	 *
 	 * @param int $ID
-	 *
 	 * @return string
 	 */
 	public function get_spectacle_link( int $ID ) {
-		return $this->spectacle->get_spectacle_link( intval( $ID ) );
+		return $this->spectacle->get_spectacle_link( $ID );
 	}
 
 	/**
@@ -134,7 +134,6 @@ class TheatreWP {
 	 * @access public
 	 *
 	 * @param string $slug
-	 *
 	 * @return string
 	 */
 	public function get_production_cat_url( string $slug ) {
@@ -147,11 +146,10 @@ class TheatreWP {
 	 * @access public
 	 *
 	 * @param int $ID
-	 * @param array $additional_sizes
-	 *
+	 * @param array|false $additional_sizes
 	 * @return array
 	 */
-	public function get_spectacle_thumbnail( int $ID, $additional_sizes=array() ) {
+	public function get_spectacle_thumbnail(int $ID, $additional_sizes=array() ) {
 		return $this->spectacle->get_spectacle_thumbnail( intval( $ID ), $additional_sizes );
 	}
 
@@ -184,58 +182,110 @@ class TheatreWP {
 	 * @access public
 	 *
 	 * @param int $ID
-	 *
 	 * @return array
 	 */
 	public function get_performance_custom( int $ID ) {
 		return $this->performance->get_performance_custom( $this->spectacle, $ID );
 	}
 
+    /**
+     * Get upcoming performances for current show
+     *
+     * @access public
+     *
+     * @return string
+     */
 	public function get_show_next_performances() {
 		return $this->performance->get_show_next_performances();
 	}
 
+    /**
+     * Get an array of upcoming performances for current show
+     *
+     * @access public
+     * @return array
+     */
     public function get_show_next_performances_array() {
         return $this->performance->get_show_next_performances_array();
     }
 
+    /**
+     * Get a list of upcoming performances
+     *
+     * @access public
+     * @return string
+     */
 	public function get_next_performances() {
 		return $this->performance->get_next_performances();
 	}
 
-	public function display_performance_map( $custom_meta, $width = '', $height = '' ) {
+    /**
+     * Display Google Map for performance
+     *
+     * @param array $custom_meta
+     * @param string $width
+     * @param string $height
+     * @return string
+     */
+	public function display_performance_map( array $custom_meta, string $width = '', string $height = '' ) {
 		return $this->performance->get_event_google_map_embed( $custom_meta, $width, $height );
 	}
 
+    /**
+     * Get the localized array of month names
+     *
+     * @return array
+     */
 	public function get_month_names( ) {
 		return $this->performance->month_names;
 	}
 
+    /**
+     * Get the total number of performances
+     *
+     * @return int
+     */
 	public function get_total_performances() {
 		return $this->performance->total_performances;
 	}
 
-	public function get_total_filtered_performances( $performances_filter_params ) {
+    /**
+     * Get total performances for a given period
+     *
+     * @param array $performances_filter_params
+     * @return int
+     */
+	public function get_total_filtered_performances( array $performances_filter_params ) {
 		return $this->performance->get_total_filtered_performances( $performances_filter_params );
 	}
 
+    /**
+     * Get the year of the first registered performance
+     *
+     * @return string
+     */
 	public function get_first_available_year() {
 		return $this->performance->first_available_year;
 	}
 
+    /**
+     * Get the year of the las registered performance
+     *
+     * @return string
+     */
 	public function get_last_available_year() {
 		return $this->performance->last_available_year;
 	}
 
-	/**
-	 * Get neccesary data to display calendar filter
-	 *
-	 * @access public
-     * @param int $first_available_year
-     * @param int $last_available_year
-	 * @return array
-	 */
-	public function get_calendar_data( $first_available_year = null, $last_available_year = null ) {
+    /**
+     * Get necessary data to display calendar filter
+     *
+     * @access public
+     * @param int|null $first_available_year
+     * @param int|null $last_available_year
+     * @return array
+     */
+	public function get_calendar_data( int $first_available_year = null, int $last_available_year = null ) {
 
         if ( empty( $first_available_year ) ) {
             $first_available_year = $this->get_first_available_year();
@@ -247,25 +297,41 @@ class TheatreWP {
 
         $month_names = $this->get_month_names();
 
-		$calendar_data = array(
-			'month_names'          => $month_names,
-			'current_year'         => date('Y'),
-			'first_available_year' => intval( $first_available_year ),
-			'last_available_year'  => intval( $last_available_year )
-		);
-
-		return $calendar_data;
+        return array(
+            'month_names'          => $month_names,
+            'current_year'         => date('Y'),
+            'first_available_year' => intval( $first_available_year ),
+            'last_available_year'  => intval( $last_available_year )
+        );
 	}
 
-	public function get_calendar( $calendar_filter_params ) {
+    /**
+     * Get a list of performances
+     *
+     * @param array $calendar_filter_params
+     * @return bool|object
+     */
+	public function get_calendar( array $calendar_filter_params ) {
 		return $this->performance->get_filtered_calendar( $calendar_filter_params );
 	}
 
-    public function get_busy_dates( $calendar_filter_params ) {
+    /**
+     * Get an array of busy dates
+     *
+     * @param array $calendar_filter_params
+     * @return array|false
+     */
+    public function get_busy_dates( array $calendar_filter_params ) {
         return $this->performance->get_busy_dates( $calendar_filter_params );
     }
 
     /* Sponsors */
+
+    /**
+     * Get an HTML list of sponsors for the current production
+     *
+     * @return false|string
+     */
     public function get_sponsors() {
         global $post;
         return $this->sponsor->get_sponsors();
@@ -278,7 +344,7 @@ class TheatreWP {
 	 * @param string $content
 	 * @return string
 	 */
-	public function get_single_spectacle_content( $content ) {
+	public function get_single_spectacle_content(string $content ) {
 		global $post;
 
 		$twp_content = '<div id="twp-pre_content">';
@@ -395,7 +461,7 @@ class TheatreWP {
         }
 
         // Get Spectacle data
-        $spectacle_data = $this->get_spectacle_data( $performance_custom['spectacle_id'] );
+        // $spectacle_data = $this->get_spectacle_data( $performance_custom['spectacle_id'] );
 
         if ( isset( $performance_first_date ) ) {
         	$twp_content .= '<h3>'

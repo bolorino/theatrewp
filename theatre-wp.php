@@ -51,6 +51,21 @@ spl_autoload_register( function($classname) {
 
 } );
 
+/**
+ * Log messages in development
+ */
+if ( ! function_exists('log_it') ) {
+    function log_it( $message ) {
+        if ( WP_DEBUG === true ) {
+            if ( is_array( $message ) || is_object( $message ) ) {
+                error_log( print_r( $message, true ) );
+            } else {
+                error_log( $message );
+            }
+        }
+    }
+}
+
 $current_version = get_option( 'twp_version' );
 
 if ( $current_version != TWP_VERSION ) {
@@ -63,6 +78,6 @@ $twp = new TheatreWP\Setup();
 $theatre_wp = new \TheatreWP\TheatreWP;
 
 // Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
-register_activation_hook( __FILE__, array( 'Setup', 'activate' ) );
-register_deactivation_hook( __FILE__, array( 'Setup', 'deactivate' ) );
-register_uninstall_hook( __FILE__, array( 'Setup', 'uninstall' ) );
+register_activation_hook( __FILE__, array( 'TheatreWP\Setup', 'activate' ) );
+register_deactivation_hook( __FILE__, array( 'TheatreWP\Setup', 'deactivate' ) );
+register_uninstall_hook( __FILE__, array( 'TheatreWP\Setup', 'uninstall' ) );

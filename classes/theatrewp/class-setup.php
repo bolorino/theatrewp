@@ -243,7 +243,6 @@ class Setup {
 	 * @return void
 	 */
 	public function add_metaboxes() {
-
 		$this->metabox->add();
 	}
 
@@ -426,7 +425,6 @@ class Setup {
 			delete_post_meta( $twp_performance->ID, self::$twp_prefix . 'tickets_url' );
 			delete_post_meta( $twp_performance->ID, self::$twp_prefix . 'tickets_price' );
 			delete_post_meta( $twp_performance->ID, self::$twp_prefix . 'free_entrance' );
-
 
 			// Delete post
 			wp_delete_post( $twp_performance->ID, true );
@@ -634,7 +632,7 @@ class Setup {
 		        // get the start of week from WP general setting
 		        'firstDay'          => get_option( 'start_of_week' ),
 		        // is Right to left language? default is false
-		        'isRTL'             => ( $wp_locale->text_direction == 'rtl' ? true : false ),
+		        'isRTL'             => $wp_locale->text_direction == 'rtl',
 		    );
 
 			wp_localize_script( 'twp-timepicker', 'objectL10n', $localize_args );
@@ -751,11 +749,11 @@ class Setup {
 		register_setting( 'twp-main', 'twp_performances_name' );
 		register_setting( 'twp-main', 'twp_performance_slug' );
 		register_setting( 'twp-main', 'twp_performances_slug' );
-		register_setting( 'twp-main', 'twp_spectacles_number', 'intval' );
-		register_setting( 'twp-main', 'twp_performances_number', 'intval' );
-		register_setting( 'twp-main', 'twp_single_sponsor', 'intval' );
+		register_setting( 'twp-main', 'twp_spectacles_number', ['intval'] );
+		register_setting( 'twp-main', 'twp_performances_number', ['intval'] );
+		register_setting( 'twp-main', 'twp_single_sponsor', ['intval'] );
 		register_setting( 'twp-main', 'twp_google_maps_api' );
-		register_setting( 'twp-main', 'twp_tickets_info', 'intval' );
+		register_setting( 'twp-main', 'twp_tickets_info', ['intval'] );
 
 		register_setting( 'twp-main', 'twp_clean_on_uninstall' );
 	}
@@ -775,11 +773,11 @@ class Setup {
 		unregister_setting( 'twp-main', 'twp_performances_name' );
 		unregister_setting( 'twp-main', 'twp_performance_slug' );
 		unregister_setting( 'twp-main', 'twp_performances_slug' );
-		unregister_setting( 'twp-main', 'twp_spectacles_number', 'intval' );
-		unregister_setting( 'twp-main', 'twp_performances_number', 'intval' );
-		unregister_setting( 'twp-main', 'twp_single_sponsor', 'intval' );
+		unregister_setting( 'twp-main', 'twp_spectacles_number');
+		unregister_setting( 'twp-main', 'twp_performances_number' );
+		unregister_setting( 'twp-main', 'twp_single_sponsor' );
 		unregister_setting( 'twp-main', 'twp_google_maps_api' );
-		unregister_setting( 'twp-main', 'twp_tickets_info', 'intval' );
+		unregister_setting( 'twp-main', 'twp_tickets_info' );
 
 		unregister_setting( 'twp-main', 'twp_clean_on_uninstall' );
 	}
@@ -960,19 +958,14 @@ class Setup {
 		switch( $date_format ) {
 	        //Predefined WP date formats
 	        case 'F j, Y':
-	            return( 'mm/dd/yy' );
-	            break;
-	        case 'j F, Y':
+	            return'mm/dd/yy';
+            case  'm/d/Y':
+                return 'mm/dd/yy';
+	        case 'j F, Y' || 'j \d\e F \d\e Y' || 'd/m/Y':
 	        	return( 'dd-mm-yy');
 	        	break;
 	        case 'Y/m/d':
 	            return( 'yy/mm/dd' );
-	            break;
-	        case 'm/d/Y':
-	            return( 'mm/dd/yy' );
-	            break;
-	        case 'd/m/Y':
-	            return( 'dd-mm-yy' );
 	            break;
 	        case 'Y-m-d':
 	        	return( 'yy-mm-dd');
@@ -987,20 +980,13 @@ class Setup {
 		switch( $date_format ) {
 	        //Predefined WP date formats
 	        case 'F j, Y':
-	            return( 'm/d/Y' );
-	            break;
-	        case 'j F, Y':
+	            return'm/d/Y';
+            case 'm/d/Y':
+                return 'm/d/Y';
+	        case ('j F, Y' || 'j \d\e F \d\e Y' || 'd/m/Y'):
 	        	return( 'd-m-Y');
-	        	break;
-	        case 'Y/m/d':
+	        case ('Y/m/d'):
 	            return( 'Y/m/d' );
-	            break;
-	        case 'm/d/Y':
-	            return( 'm/d/Y' );
-	            break;
-	        case 'd/m/Y':
-	            return( 'd-m-Y' );
-	            break;
 	     }
 	}
 

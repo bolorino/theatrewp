@@ -490,7 +490,7 @@ class Performance {
 	*
 	* @access public
 	* @param array $calendar_filter_params
-	* @return array
+	* @return array|false
 	*/
 	public function get_busy_dates( array $calendar_filter_params ) {
 		global $wpdb, $post;
@@ -560,7 +560,7 @@ class Performance {
 	/**
  	* Returns an embedded google maps for the given event
   	*
-  	* @param string $ID
+  	* @param array $custom_meta
   	* @param int $width
   	* @param int $height
   	* @return string - an iframe pulling http://maps.google.com/ for this event
@@ -584,10 +584,9 @@ class Performance {
 		if( $to_url_encode ) $google_address = urlencode( trim( $to_url_encode ) );
 
 		if ( $google_address ) {
-			$google_iframe = '<div id="googlemaps"><iframe width="' . $width . '" height="' . $height . '" src="https://www.google.com/maps/embed/v1/place?key=' . get_option( 'twp_google_maps_api' )
-			. '&amp;language=' . $this->language
-			. '&amp;q='.$google_address.'?>"></iframe></div>';
-			return $google_iframe;
+            return '<div id="googlemaps"><iframe width="' . $width . '" height="' . $height . '" src="https://www.google.com/maps/embed/v1/place?key=' . get_option( 'twp_google_maps_api' )
+            . '&amp;language=' . $this->language
+            . '&amp;q='.$google_address.'?>"></iframe></div>';
 		}
 
 		return '';

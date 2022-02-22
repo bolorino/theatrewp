@@ -10,6 +10,7 @@
 
 namespace TheatreWP\Widgets;
 
+use TheatreWP\Setup;
 use WP_Widget;
 
 if ( realpath(__FILE__) === realpath($_SERVER['SCRIPT_FILENAME']) )
@@ -54,14 +55,14 @@ class ProductionSponsorsWidget extends WP_Widget {
 
         $custom = get_post_custom( $post->ID );
 
-        if ( ! array_key_exists( Theatre_WP::$twp_prefix . 'prod-sponsor', $custom ) )
+        if ( ! array_key_exists( Setup::$twp_prefix . 'prod-sponsor', $custom ) )
         {
             return false;
         }
 
         $output = '<ul id="sponsors-list">';
 
-        $sponsors_ids = $custom[Theatre_WP::$twp_prefix . 'prod-sponsor'][0];
+        $sponsors_ids = $custom[Setup::$twp_prefix . 'prod-sponsor'][0];
 
         $production_sponsors = unserialize( $sponsors_ids );
 
@@ -74,11 +75,11 @@ class ProductionSponsorsWidget extends WP_Widget {
             $production_sponsor_metadata = get_post_custom( $production_sponsor );
 
             $sponsors2sort[] = array(
-                'sponsor_weight' => ( array_key_exists( Theatre_WP::$twp_prefix . 'sponsor-weight', $production_sponsor_metadata ) ? intval( $production_sponsor_metadata[Theatre_WP::$twp_prefix . 'sponsor-weight'][0] ) : 0 ),
+                'sponsor_weight' => ( array_key_exists( Setup::$twp_prefix . 'sponsor-weight', $production_sponsor_metadata ) ? intval( $production_sponsor_metadata[Setup::$twp_prefix . 'sponsor-weight'][0] ) : 0 ),
                 'ID'           => $production_sponsor_data->ID,
                 'sponsor_logo' => get_the_post_thumbnail( $production_sponsor_data->ID, 'medium' ),
                 'sponsor_name' => $production_sponsor_data->post_title,
-                'sponsor_url'  => $production_sponsor_metadata[Theatre_WP::$twp_prefix . 'sponsor-url'][0]
+                'sponsor_url'  => $production_sponsor_metadata[Setup::$twp_prefix . 'sponsor-url'][0]
             );
         }
 

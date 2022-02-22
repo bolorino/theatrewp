@@ -357,7 +357,7 @@ class Metabox {
 
     	foreach ( $this->_meta_boxes[get_post_type($post_id)]['fields'] as $field ) {
     		$old = get_post_meta( $post_id, $field['id'], true );
-    		$new = ( sanitize_text_field( $_POST[ $field['id'] ] ) ?? false );
+    		$new = ( $_POST[ $field['id'] ] ?? false );
 
     		if ( $field['type'] == 'text_datetime_timestamp' ) {
     			if ( ! empty( $new['date'] ) ) {
