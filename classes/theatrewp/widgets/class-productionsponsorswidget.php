@@ -14,129 +14,129 @@ use TheatreWP\Setup;
 use WP_Widget;
 
 if ( realpath(__FILE__) === realpath($_SERVER['SCRIPT_FILENAME']) )
-    exit('Do not access this file directly.');
+	exit('Do not access this file directly.');
 
 class ProductionSponsorsWidget extends WP_Widget {
 
-    public $id = 'twp-production-sponsors';
-    public string $title = 'Production Sponsors';
-    public string $description = 'Display a list Sponsors for the current production';
+	public $id = 'twp-production-sponsors';
+	public string $title = 'Production Sponsors';
+	public string $description = 'Display a list Sponsors for the current production';
 
-    /**
-     * Register widget with WordPress.
-     */
-    function __construct() {
+	/**
+	 * Register widget with WordPress.
+	 */
+	function __construct() {
 
-        parent::__construct(
-            $this->id, // Base ID
-            __( $this->title, 'theatre-wp' ), // Name
-            array( 'description' => __( $this->description, 'theatre-wp' ), ) // Args
-        );
-    }
+		parent::__construct(
+			$this->id, // Base ID
+			__( $this->title, 'theatre-wp' ), // Name
+			array( 'description' => __( $this->description, 'theatre-wp' ), ) // Args
+		);
+	}
 
-    /**
-     * Front-end display of widget.
-     *
-     * @see WP_Widget::widget()
-     *
-     * @param array $args     Widget arguments.
-     * @param array $instance Saved values from database.
-     */
-    public function widget( $args, $instance ) {
-        global $post;
+	/**
+	 * Front-end display of widget.
+	 *
+	 * @see WP_Widget::widget()
+	 *
+	 * @param array $args     Widget arguments.
+	 * @param array $instance Saved values from database.
+	 */
+	public function widget( $args, $instance ) {
+		global $post;
 
-        $title = apply_filters( 'widget_title', $instance['title'] );
+		$title = apply_filters( 'widget_title', $instance['title'] );
 
-        $current_category = get_post_type();
+		$current_category = get_post_type();
 
-        if ( $current_category != 'spectacle' OR ! is_single() ) {
-            return false;
-        }
+		if ( $current_category != 'spectacle' OR ! is_single() ) {
+			return false;
+		}
 
-        $custom = get_post_custom( $post->ID );
+		$custom = get_post_custom( $post->ID );
 
-        if ( ! array_key_exists( Setup::$twp_prefix . 'prod-sponsor', $custom ) )
-        {
-            return false;
-        }
+		if ( ! array_key_exists( Setup::$twp_prefix . 'prod-sponsor', $custom ) )
+		{
+			return false;
+		}
 
-        $output = '<ul id="sponsors-list">';
+		$output = '<ul id="sponsors-list">';
 
-        $sponsors_ids = $custom[Setup::$twp_prefix . 'prod-sponsor'][0];
+		$sponsors_ids = $custom[Setup::$twp_prefix . 'prod-sponsor'][0];
 
-        $production_sponsors = unserialize( $sponsors_ids );
+		$production_sponsors = unserialize( $sponsors_ids );
 
-        if ( $production_sponsors[0] == '0' ) {
-            return false;
-        }
+		if ( $production_sponsors[0] == '0' ) {
+			return false;
+		}
 
-        foreach ( $production_sponsors as $production_sponsor ) {
-            $production_sponsor_data = get_post( $production_sponsor );
-            $production_sponsor_metadata = get_post_custom( $production_sponsor );
+		foreach ( $production_sponsors as $production_sponsor ) {
+			$production_sponsor_data = get_post( $production_sponsor );
+			$production_sponsor_metadata = get_post_custom( $production_sponsor );
 
-            $sponsors2sort[] = array(
-                'sponsor_weight' => ( array_key_exists( Setup::$twp_prefix . 'sponsor-weight', $production_sponsor_metadata ) ? intval( $production_sponsor_metadata[Setup::$twp_prefix . 'sponsor-weight'][0] ) : 0 ),
-                'ID'           => $production_sponsor_data->ID,
-                'sponsor_logo' => get_the_post_thumbnail( $production_sponsor_data->ID, 'medium' ),
-                'sponsor_name' => $production_sponsor_data->post_title,
-                'sponsor_url'  => $production_sponsor_metadata[Setup::$twp_prefix . 'sponsor-url'][0]
-            );
-        }
+			$sponsors2sort[] = array(
+				'sponsor_weight' => ( array_key_exists( Setup::$twp_prefix . 'sponsor-weight', $production_sponsor_metadata ) ? intval( $production_sponsor_metadata[Setup::$twp_prefix . 'sponsor-weight'][0] ) : 0 ),
+				'ID'           => $production_sponsor_data->ID,
+				'sponsor_logo' => get_the_post_thumbnail( $production_sponsor_data->ID, 'medium' ),
+				'sponsor_name' => $production_sponsor_data->post_title,
+				'sponsor_url'  => $production_sponsor_metadata[Setup::$twp_prefix . 'sponsor-url'][0]
+			);
+		}
 
-        array_multisort( $sponsors2sort, SORT_DESC );
+		array_multisort( $sponsors2sort, SORT_DESC );
 
-        $sponsors_list = '';
+		$sponsors_list = '';
 
-        foreach ( $sponsors2sort as $sponsor2show ) {
-            $sponsors_list .= '<li>'
-            . '<a href="' . $sponsor2show['sponsor_url'] . '">'
-            . $sponsor2show['sponsor_logo']
-            . '</a><br>'
-            . '<small>' . __( $sponsor2show['sponsor_name'] ) . '</small>'
-            . '</li>';
-        }
+		foreach ( $sponsors2sort as $sponsor2show ) {
+			$sponsors_list .= '<li>'
+			. '<a href="' . $sponsor2show['sponsor_url'] . '">'
+			. $sponsor2show['sponsor_logo']
+			. '</a><br>'
+			. '<small>' . __( $sponsor2show['sponsor_name'] ) . '</small>'
+			. '</li>';
+		}
 
-        $output .= $sponsors_list;
+		$output .= $sponsors_list;
 
-        $output .= '</ul>';
+		$output .= '</ul>';
 
-        echo $args['before_widget'];
+		echo $args['before_widget'];
 
-        if ( ! empty( $title ) )
-            echo $args['before_title'] . $title . $args['after_title'];
+		if ( ! empty( $title ) )
+			echo $args['before_title'] . $title . $args['after_title'];
 
-        echo $output;
+		echo $output;
 
-        echo $args['after_widget'];
-    }
+		echo $args['after_widget'];
+	}
 
-    public function form( $instance ) {
-	    $title = $instance['title'] ?? __( 'New title', 'theatre-wp' );
-        ?>
+	public function form( $instance ) {
+		$title = $instance['title'] ?? __( 'New title', 'theatre-wp' );
+		?>
 
-        <p>
-        <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
-        <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
-        </p>
+		<p>
+		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
+		</p>
 
-        <?php
-    }
+		<?php
+	}
 
-    /**
-     * Sanitize widget form values as they are saved.
-     *
-     * @see WP_Widget::update()
-     *
-     * @param array $new_instance Values just sent to be saved.
-     * @param array $old_instance Previously saved values from database.
-     *
-     * @return array Updated safe values to be saved.
-     */
-    public function update( $new_instance, $old_instance ) {
-        $instance = array();
-        $instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+	/**
+	 * Sanitize widget form values as they are saved.
+	 *
+	 * @see WP_Widget::update()
+	 *
+	 * @param array $new_instance Values just sent to be saved.
+	 * @param array $old_instance Previously saved values from database.
+	 *
+	 * @return array Updated safe values to be saved.
+	 */
+	public function update( $new_instance, $old_instance ) {
+		$instance = array();
+		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
 
-        return $instance;
-    }
+		return $instance;
+	}
 
 } // class ProductionSponsorsWidget

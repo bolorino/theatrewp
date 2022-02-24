@@ -20,7 +20,7 @@ if ( ! defined( 'WPINC' ) )
 	die();
 
 const TWP_VERSION = '1.0';
-// define( 'TWP_META_BOX_URL', apply_filters( 'twp_meta_box_url', trailingslashit( str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, dirname( __FILE__ ) ) ) ) );
+
 define( 'TWP_META_BOX_URL', plugin_dir_url( __FILE__ ) );
 define( 'TWP_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 define( 'TWP_DIR', dirname( TWP_PLUGIN_BASENAME ) );
@@ -55,21 +55,21 @@ spl_autoload_register( function($classname) {
  * Log messages in development
  */
 if ( ! function_exists('log_it') ) {
-    function log_it( $message ) {
-        if ( WP_DEBUG === true ) {
-            if ( is_array( $message ) || is_object( $message ) ) {
-                error_log( print_r( $message, true ) );
-            } else {
-                error_log( $message );
-            }
-        }
-    }
+	function log_it( $message ) {
+		if ( WP_DEBUG === true ) {
+			if ( is_array( $message ) || is_object( $message ) ) {
+				error_log( print_r( $message, true ) );
+			} else {
+				error_log( $message );
+			}
+		}
+	}
 }
 
 $current_version = get_option( 'twp_version' );
 
 if ( $current_version != TWP_VERSION ) {
-    update_option( 'twp_version', TWP_VERSION );
+	update_option( 'twp_version', TWP_VERSION );
 }
 
 $twp = new TheatreWP\Setup();

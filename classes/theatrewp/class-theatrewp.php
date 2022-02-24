@@ -82,7 +82,7 @@ class TheatreWP {
 	}
 
 	/**
-	 * Returns an array containig spectacles titles
+	 * Returns an array containing spectacles titles
 	 *
 	 * @access public
 	 * @return array
@@ -185,7 +185,7 @@ class TheatreWP {
 	 * @return array
 	 */
 	public function get_performance_custom( int $ID ) {
-		return $this->performance->get_performance_custom( $this->spectacle, $ID );
+		return $this->performance->get_performance_custom( $ID );
 	}
 
 	/**

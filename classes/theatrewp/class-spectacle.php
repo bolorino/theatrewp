@@ -15,9 +15,9 @@ class Spectacle {
 	public function __construct() {
 
 		// Define the available audiences
- 		$this->set_audiences();
+		$this->set_audiences();
 
- 		$this->_valid_sort_by = array( 'title', 'post_date' );
+		$this->_valid_sort_by = array( 'title', 'post_date' );
 	}
 
 	public function set_audiences() {
@@ -42,7 +42,7 @@ class Spectacle {
 				'label'	=> __('Young', 'theatre-wp'),
 				'value' => 'Young'
 			)
- 		);
+		);
 
 		self::$audience = $audience;
 	}
@@ -181,16 +181,16 @@ class Spectacle {
 		foreach ( $shows_query as $post ) : setup_postdata( $post );
 			$output .= '<li>';
 
-	        $output .= '<strong><a href="' . get_permalink( $post->ID ) . '">';
-	        $output .= get_the_title( $post->ID ) .'</a></strong> ';
+			$output .= '<strong><a href="' . get_permalink( $post->ID ) . '">';
+			$output .= get_the_title( $post->ID ) .'</a></strong> ';
 
-	        $output .= '</li>';
+			$output .= '</li>';
 
 		endforeach;
 
-	    $output .= '</ul>';
+		$output .= '</ul>';
 
-	    return $output;
+		return $output;
 	}
 
 	/**
@@ -289,7 +289,6 @@ class Spectacle {
 	 * @return string
 	 */
 	public function get_spectacle_link( int $ID ) {
-		global $wpdb;
 
 		if ( ! $spectacle = get_post( intval( $ID) ) ) {
 			return false;

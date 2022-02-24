@@ -1,6 +1,6 @@
 <?php
 /**
- * The Template for displaying list of performances.
+ * The Template for display a list of performances.
  *
  * @package WordPress
  * @subpackage TheatreWordPress
@@ -57,8 +57,8 @@ if ( ! empty( $calendar_filter_params ) ) {
 
 $calendar_filter_params['page'] = $paged;
 
-$selected_month = ( isset( $calendar_filter_params['month'] ) ? $calendar_filter_params['month'] : date('m') );
-$selected_year = ( isset( $calendar_filter_params['year'] ) ? $calendar_filter_params['year'] : date('Y') );
+$selected_month = ($calendar_filter_params['month'] ?? date('m'));
+$selected_year = ($calendar_filter_params['year'] ?? date('Y'));
 
 $calendar = $theatre_wp->get_calendar( $calendar_filter_params );
 
@@ -66,7 +66,7 @@ if ( empty( $calendar ) && $dates_sent ) {
 	$msg = __( 'There are no registered performances for dates searched', 'theatre-wp' );
 	$msg .= '<a href="' . $reset_agenda_link . '">' . __( 'View upcoming performances', 'theatre-wp' ) . '</a>';
 } elseif ( empty( $calendar ) ) {
-	$msg = __( 'There are no performaces right now', 'theatre-wp' );
+	$msg = __( 'There are no performances right now', 'theatre-wp' );
 }
 ?>
 

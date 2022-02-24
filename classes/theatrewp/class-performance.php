@@ -9,34 +9,34 @@ class Performance {
 
 	protected Spectacle $spectacle;
 
-	public $month_names;
+	public array $month_names;
 
-	public $month;
+	public string $month;
 
-	public $year;
+	public string $year;
 
-	public $total_performances;
+	public int $total_performances;
 
-	public $first_available_year;
+	public string $first_available_year;
 
-	public $last_available_year;
+	public string $last_available_year;
 
-	public $language;
+	public string $language;
 
-	public $polylang_language;
+	public string $polylang_language;
 
 	public function __construct( Spectacle $spectacle ) {
 		$this->spectacle = $spectacle;
 
-		$this->month_names = $this->_set_month_names( __( 'Select Month', 'theatre-wp' ) );
+		$this->_set_month_names( __( 'Select Month', 'theatre-wp' ) );
 		$this->month = date('m');
 		$this->year = date('Y');
 
-		$this->total_performances = $this->_get_total_performances();
+		$this->_set_total_performances();
 
-		$this->first_available_year = $this->_get_first_available_year();
+		$this->_set_first_available_year();
 
-		$this->last_available_year = $this->_get_last_available_year();
+		$this->_set_last_available_year();
 
 	}
 
@@ -44,11 +44,11 @@ class Performance {
 	* Get performance custom fields
 	*
 	* @access public
-	* @param int $ID
+	 * @param int $ID
 	* @return array | bool
 	*/
-	public function get_performance_custom( Spectacle $spectacle, $ID ) {
-		$custom = get_post_custom( intval( $ID ) );
+	public function get_performance_custom(int $ID) {
+		$custom = get_post_custom( $ID );
 
 		if ( ! $custom ) {
 			return false;
@@ -67,11 +67,12 @@ class Performance {
 		$performance_custom['date_last']   = $custom[ Setup::$twp_prefix . 'date_last' ][0] ?? false;
 		$performance_custom['display_map'] = $custom[ Setup::$twp_prefix . 'display_map' ][0] ?? false;
 
-		$performance_custom['tickets_url']   = $custom[ Setup::$twp_prefix . 'tickets_url' ][0] ?? false;
-		$performance_custom['tickets_price'] = $custom[ Setup::$twp_prefix . 'tickets_price' ][0] ?? false;
-		$performance_custom['free_entrance'] = $custom[ Setup::$twp_prefix . 'free_entrance' ][0] ?? false;
-		$performance_custom['invitation']    = $custom[ Setup::$twp_prefix . 'invitation' ][0] ?? false;
-
+		if ( get_option( 'twp_tickets_info' ) == 1 ) {
+			$performance_custom['tickets_url'] = $custom[Setup::$twp_prefix . 'tickets_url'][0] ?? false;
+			$performance_custom['tickets_price'] = $custom[Setup::$twp_prefix . 'tickets_price'][0] ?? false;
+			$performance_custom['free_entrance'] = $custom[Setup::$twp_prefix . 'free_entrance'][0] ?? false;
+			$performance_custom['invitation'] = $custom[Setup::$twp_prefix . 'invitation'][0] ?? false;
+		}
 
 		$spectacle_data                        = $this->spectacle->get_spectacle_data( $performance_custom['spectacle_id'] );
 		$performance_custom['spectacle_title'] = $spectacle_data['title'];
@@ -109,44 +110,44 @@ class Performance {
 
 		$output = '<ul class="next-performances">';
 
-	    foreach ( $next as $post ) : setup_postdata( $post );
-	    	$performance_custom = $this->get_performance_custom( $this->spectacle, $post->ID );
+		foreach ( $next as $post ) : setup_postdata( $post );
+			$performance_custom = $this->get_performance_custom($post->ID);
 
-	        $spectacle_link = $this->spectacle->get_spectacle_link( $performance_custom['spectacle_id'] );
+			$spectacle_link = $this->spectacle->get_spectacle_link( $performance_custom['spectacle_id'] );
 
-	        $output .= '<li>';
+			$output .= '<li>';
 
-	        $output .= '<strong><a href="' . get_permalink( $post->ID ) . '">';
-	        $output .= get_the_title( $post->ID ) .'</a></strong> <br />';
+			$output .= '<strong><a href="' . get_permalink( $post->ID ) . '">';
+			$output .= get_the_title( $post->ID ) .'</a></strong> <br />';
 
-	        $output .= '<em><a href="' . $spectacle_link . '">';
-	        $output .= get_post_field( 'post_title', $performance_custom['spectacle_id'] ) .'</a></em> <br />';
+			$output .= '<em><a href="' . $spectacle_link . '">';
+			$output .= get_post_field( 'post_title', $performance_custom['spectacle_id'] ) .'</a></em> <br />';
 
-	        if ( $performance_custom['event'] ) {
-	        	$output .= $performance_custom['event'] . '<br />';
-	        }
+			if ( $performance_custom['event'] ) {
+				$output .= $performance_custom['event'] . '<br />';
+			}
 
-	        if ( $performance_custom['date_last'] ) {
-	        	$output .= '<span class="twpdate">';
-	        	$output .= _x( 'From', '(date) performing from day', 'theatre-wp' );
-	        	$output .= ' ' . date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] ) . ' '
-	        		. _x( 'To', '(date) performing to day', 'theatre-wp' ) . ' '
-	        		. date_i18n( get_option( 'date_format' ), $performance_custom['date_last'] )
+			if ( $performance_custom['date_last'] ) {
+				$output .= '<span class="twpdate">';
+				$output .= _x( 'From', '(date) performing from day', 'theatre-wp' );
+				$output .= ' ' . date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] ) . ' '
+					. _x( 'To', '(date) performing to day', 'theatre-wp' ) . ' '
+					. date_i18n( get_option( 'date_format' ), $performance_custom['date_last'] )
 					. '</span>';
-	        } else {
-	        	$output .= date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] );
-	        }
+			} else {
+				$output .= date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] );
+			}
 
-	        $output .= '<br>';
+			$output .= '<br>';
 
-	        $output .= $performance_custom['town'];
+			$output .= $performance_custom['town'];
 
-	        $output .= '</li>';
-	    endforeach;
+			$output .= '</li>';
+		endforeach;
 
-	    $output .= '</ul>';
+		$output .= '</ul>';
 
-	    return $output;
+		return $output;
 	}
 
 	/**
@@ -156,182 +157,146 @@ class Performance {
 	 * @return string | bool
 	 */
 	public function get_show_next_performances() {
-		global $wpdb, $post;
+		global $post;
 
-		$current_category = get_post_type();
-
-		if ( 'spectacle' != $current_category  ) {
-			return false;
-		}
-
-		$now = time();
-
-		$args = array(
-			'post_status'  => 'publish',
-			'post_type' => 'performance',
-			'meta_key' => Setup::$twp_prefix . 'date_first',
-			'orderby' => 'meta_value',
-			'meta_compare' => '>=',
-			'meta_value' => $now,
-			'order' => 'ASC',
-			'numberposts' => -1 // @TODO limit by widget config
-		);
-
-		// @TODO It would be possible to get the show related performances directly?
-		$next = get_posts( $args );
+		$next = $this->get_upcoming_performances();
 
 		if ( ! $next ) {
 			return false;
 		}
 
-	    $this_show = false; // There are future performances, but need to check for this show
-	    $max_count = 5;
-	    $shown = 0;
+		$this_show = false; // There are future performances, but need to check for this show
+		$max_count = 5;
+		$shown = 0;
 
-	    $output = '<ul class="next-performances">';
+		$output = '<ul class="next-performances">';
 
-	    foreach ( $next as $performance ) : setup_postdata( $performance );
-	    	$performance_custom = $this->get_performance_custom( $this->spectacle, $performance->ID );
+		foreach ( $next as $performance ) : setup_postdata( $performance );
+			$performance_custom = $this->get_performance_custom($performance->ID);
 
-	        $spectacle_link = $this->spectacle->get_spectacle_link( $performance_custom['spectacle_id'] );
+			$spectacle_link = $this->spectacle->get_spectacle_link( $performance_custom['spectacle_id'] );
 
-	        if ( $post->ID == $performance_custom['spectacle_id'] AND $shown < $max_count ) {
-	        	$this_show = true;
-	        	$shown++;
+			if ( $post->ID == $performance_custom['spectacle_id'] AND $shown < $max_count ) {
+				$this_show = true;
+				$shown++;
 
-	        	$output .= '<li>';
+				$output .= '<li>';
 
-	        	$output .= '<a href="' . get_permalink( $performance->ID ) . '">';
-	        	$output .= get_the_title( $performance->ID ) .'</a> <br />';
+				$output .= '<a href="' . get_permalink( $performance->ID ) . '">';
+				$output .= get_the_title( $performance->ID ) .'</a> <br />';
 
-	        	if ( $performance_custom['event'] ) {
-	        		$output .= $performance_custom['event'] . '<br />';
-	        	}
+				if ( $performance_custom['event'] ) {
+					$output .= $performance_custom['event'] . '<br />';
+				}
 
-	        	$output .= $performance_custom['town'];
+				$output .= $performance_custom['town'];
 
-	        	$output .= '<br />';
+				$output .= '<br />';
 
-	        	if ( $performance_custom['date_last'] ) {
-		        	$output .= '<span class="twpdate">';
-		        	$output .= _x( 'From', '(date) performing from day', 'theatre-wp' );
-		        	$output .= ' ' . date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] ) . ' '
-		        		. _x( 'To', '(date) performing to day', 'theatre-wp' ) . ' '
-		        		. date_i18n( get_option( 'date_format' ), $performance_custom['date_last'] )
+				if ( $performance_custom['date_last'] ) {
+					$output .= '<span class="twpdate">';
+					$output .= _x( 'From', '(date) performing from day', 'theatre-wp' );
+					$output .= ' ' . date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] ) . ' '
+						. _x( 'To', '(date) performing to day', 'theatre-wp' ) . ' '
+						. date_i18n( get_option( 'date_format' ), $performance_custom['date_last'] )
 						. '</span>';
-		        } else {
-		        	$output .= date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] );
-		        }
+				} else {
+					$output .= date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] );
+				}
 
-	        	$output .= '</li>';
-	        }
-	    endforeach;
+				$output .= '</li>';
+			}
+		endforeach;
 
-	    $output .= '</ul>';
+		$output .= '</ul>';
 
-	    if ( ! $this_show ) {
-	        $output = false;
-	    }
+		if ( ! $this_show ) {
+			$output = false;
+		}
 
-	    return $output;
+		return $output;
 	}
 
 	/**
-	 * Get an array containig current show upcoming performances .
+	 * Get an array containing current show upcoming performances .
 	 *
 	 * @access public
 	 * @return array | bool
 	 */
 	public function get_show_next_performances_array() {
-		global $wpdb, $post;
+		global $post;
 
-		$current_category = get_post_type();
-
-		if ( 'spectacle' != $current_category  ) {
-			return false;
-		}
-
-		$now = time();
-
-		$args = array(
-			'post_status'  => 'publish',
-			'post_type' => 'performance',
-			'meta_key' => Setup::$twp_prefix . 'date_first',
-			'orderby' => 'meta_value',
-			'meta_compare' => '>=',
-			'meta_value' => $now,
-			'order' => 'ASC',
-			'numberposts' => -1 // @TODO limit by widget config
-		);
-
-		// @TODO It would be possible to get the show related performances directly?
-		$next = get_posts( $args );
+		$next = $this->get_upcoming_performances();
 
 		if ( ! $next ) {
 			return false;
 		}
 
 		$performances = array();
-	    $this_show = false; // There are future performances, but need to check for this show
-	    $max_count = 5;
-	    $shown = 0;
+		$this_show = false; // There are future performances, but need to check for this show
+		$max_count = 5;
+		$shown = 0;
 
-	    foreach ( $next as $performance ) : setup_postdata( $performance );
-	    	$performance_custom = $this->get_performance_custom( $this->spectacle, $performance->ID );
+		foreach ( $next as $performance ) : setup_postdata( $performance );
+			$performance_custom = $this->get_performance_custom($performance->ID);
 
-	        $spectacle_link = $this->spectacle->get_spectacle_link( $performance_custom['spectacle_id'] );
+			$spectacle_link = $this->spectacle->get_spectacle_link( $performance_custom['spectacle_id'] );
 
-	        if ( $post->ID == $performance_custom['spectacle_id'] AND $shown < $max_count ) {
-	        	$this_show = true;
+			if ( $post->ID == $performance_custom['spectacle_id'] AND $shown < $max_count ) {
+				$this_show = true;
 
-	        	$performances[$shown]['title'] = get_the_title( $performance->ID );
-	        	$performances[$shown]['link'] = get_permalink( $performance->ID );
+				$performances[$shown]['title'] = get_the_title( $performance->ID );
+				$performances[$shown]['link'] = get_permalink( $performance->ID );
 
-	        	if ( $performance_custom['event'] ) {
-	        		$performances[$shown]['event'] = $performance_custom['event'];
-	        	}
+				if ( $performance_custom['event'] ) {
+					$performances[$shown]['event'] = $performance_custom['event'];
+				}
 
-	        	$performances[$shown]['town'] = $performance_custom['town'];
+				$performances[$shown]['town'] = $performance_custom['town'];
 
-	        	if ( ! empty( $performance_custom['region'] ) ) {
-	        		$performances[$shown]['region'] = $performance_custom['region'];
-	        	}
+				if ( ! empty( $performance_custom['region'] ) ) {
+					$performances[$shown]['region'] = $performance_custom['region'];
+				}
 
-	        	if ( ! empty( $performance_custom['place'] ) ) {
-	        		$performances[$shown]['place'] = $performance_custom['place'];
-	        	}
+				if ( ! empty( $performance_custom['place'] ) ) {
+					$performances[$shown]['place'] = $performance_custom['place'];
+				}
 
-	        	$performances[$shown]['date_first'] = $performance_custom['date_first'];
+				$performances[$shown]['date_first'] = $performance_custom['date_first'];
 
-	        	if ( $performance_custom['date_last'] ) {
-	        		$performances[$shown]['date_last'] = $performance_custom['date_last'];
-		        }
+				if ( $performance_custom['date_last'] ) {
+					$performances[$shown]['date_last'] = $performance_custom['date_last'];
+				}
 
-		        // Get tickets info
-		        if ( get_option( 'twp_tickets_info' ) == 1 ) {
+				// Get tickets info
+				if ( get_option( 'twp_tickets_info' ) == 1 ) {
 
-		        	if ( isset( $performance_custom['tickets_url'] ) AND ! empty( $performance_custom['tickets_url'] ) ) {
-		        		$performances[$shown]['tickets_url'] = $performance_custom['tickets_url'];
-		        	}
+					if ( isset( $performance_custom['tickets_url'] ) AND ! empty( $performance_custom['tickets_url'] ) ) {
+						$performances[$shown]['tickets_url'] = $performance_custom['tickets_url'];
+					}
 
-		        	if ( isset( $performance_custom['tickets_price'] ) AND ! empty( $performance_custom['tickets_price'] ) ) {
-		        		$performances[$shown]['tickets_price'] = $performance_custom['tickets_price'];
-		        	}
+					if ( isset( $performance_custom['tickets_price'] ) AND ! empty( $performance_custom['tickets_price'] ) ) {
+						$performances[$shown]['tickets_price'] = $performance_custom['tickets_price'];
+					}
 
-		        	if ( isset( $performance_custom['free_entrance'] ) AND ! empty( $performance_custom['free_entrance'] ) ) {
-		        		$performances[$shown]['free_entrance'] = $performance_custom['free_entrance'];
-		        	}
+					if ( isset( $performance_custom['free_entrance'] ) AND ! empty( $performance_custom['free_entrance'] ) ) {
+						$performances[$shown]['free_entrance'] = $performance_custom['free_entrance'];
+					}
 
-		        	if ( isset( $performance_custom['invitation'] ) AND ! empty( $performance_custom['invitation'] ) ) {
-		        		$performances[$shown]['invitation'] = $performance_custom['invitation'];
-		        	}
-		        }
+					if ( isset( $performance_custom['invitation'] ) AND ! empty( $performance_custom['invitation'] ) ) {
+						$performances[$shown]['invitation'] = $performance_custom['invitation'];
+					}
+				}
 
-		        $shown++;
-	        }
-	    endforeach;
+				$shown++;
+			}
+		endforeach;
 
-	    return $performances;
+		if ( ! $this_show ) {
+			return false;
+		}
+
+		return $performances;
 	}
 
 	/**
@@ -344,7 +309,7 @@ class Performance {
 	* @return object | bool
 	*/
 	public function get_filtered_calendar( array $calendar_filter_params ) {
-		global $wpdb, $post;
+		global $wpdb;
 		// $calendar_filter_params:
 		// month, year, page
 
@@ -385,22 +350,7 @@ class Performance {
 			AND post_status = 'publish'
 			AND meta_key = '" . Setup::$twp_prefix . "date_first' ";
 
-		if ( 0 == $this->month && 0 == $this->year ) {
-			// Upcoming performances. Not month nor year passed
-			// @TODO $topdate to config
-			$topdate = time()-72800;
-			$sql_calendar .= "AND meta_value >= $topdate ";
-		} elseif ( $this->year == 0 ) {
-			$this->year = date('Y');
-		}
-
-		if ( 0 != $this->year ) {
-			$sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%Y') = $this->year ";
-		}
-
-		if ( 0 != $this->month ) {
-			$sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%m') = $this->month ";
-		}
+        $sql_calendar .= $this->_get_calendar_sql_date();
 
 		// Polylang compatibility
 		if ( $this->polylang_language ) {
@@ -424,6 +374,12 @@ class Performance {
 		return $filtered_calendar;
 	}
 
+    /**
+     * Count the total filtered performances
+     *
+     * @param array $calendar_filter_params
+     * @return int|false
+     */
 	public function get_total_filtered_performances( array $calendar_filter_params ) {
 		global $wpdb;
 
@@ -452,22 +408,7 @@ class Performance {
 			AND post_status = 'publish'
 			AND meta_key = '" . Setup::$twp_prefix . "date_first' ";
 
-		if ( 0 == $this->month && 0 == $this->year ) {
-			// Upcoming performances. Not month nor year passed
-			// @TODO $topdate to config
-			$topdate = time()-72800;
-			$sql_calendar .= "AND meta_value >= $topdate ";
-		} elseif ( $this->year == 0 ) {
-			$this->year = date('Y');
-		}
-
-		if ( 0 != $this->year ) {
-			$sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%Y') = $this->year ";
-		}
-
-		if ( 0 != $this->month ) {
-			$sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%m') = $this->month ";
-		}
+        $sql_calendar .= $this->_get_calendar_sql_date();
 
 		// Polylang compatibility
 		if ( $this->polylang_language ) {
@@ -482,6 +423,34 @@ class Performance {
 		}
 
 		return $count_filtered_performances->total;
+
+	}
+
+	public function get_upcoming_performances() {
+
+		$current_category = get_post_type();
+
+		if ( 'spectacle' != $current_category  ) {
+			return false;
+		}
+
+		$now = time();
+		$number_to_display = intval( get_option( 'twp_widget_performances_number' ) );
+
+		$args = array(
+			'post_status'  => 'publish',
+			'post_type' => 'performance',
+			'meta_key' => Setup::$twp_prefix . 'date_first',
+			'orderby' => 'meta_value',
+			'meta_compare' => '>=',
+			'meta_value' => $now,
+			'order' => 'ASC',
+			'numberposts' => ( $number_to_display > 0 ? $number_to_display : -1 )
+		);
+
+		// @TODO Would it be possible to get the show related performances directly?
+
+		return get_posts( $args );
 
 	}
 
@@ -523,24 +492,9 @@ class Performance {
 			AND post_status = 'publish'
 			AND meta_key = '" . Setup::$twp_prefix . "date_first' ";
 
-		if ( 0 == $this->month && 0 == $this->year ) {
-			// Upcoming performances. Not month nor year passed
-			// @TODO $topdate to config
-			$topdate = time()-72800;
-			$sql_calendar .= "AND meta_value >= $topdate ";
-		} elseif ( $this->year == 0 ) {
-			$this->year = date('Y');
-		}
+        $sql_calendar .= $this->_get_calendar_sql_date();
 
-		if ( 0 != $this->year ) {
-			$sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%Y') = $this->year ";
-		}
-
-		if ( 0 != $this->month ) {
-			$sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%m') = $this->month ";
-		}
-
-		// Polylang compatibility
+        // Polylang compatibility
 		if ( $this->polylang_language ) {
 			$sql_calendar .= "AND wtt.taxonomy = 'language'
 				AND wt.slug = '$this->polylang_language' ";
@@ -558,13 +512,13 @@ class Performance {
 	}
 
 	/**
- 	* Returns an embedded google maps for the given event
-  	*
-  	* @param array $custom_meta
-  	* @param int $width
-  	* @param int $height
-  	* @return string - an iframe pulling http://maps.google.com/ for this event
-  	*/
+	* Returns an embedded Google Maps for the given event
+	*
+	* @param array $custom_meta
+	* @param int $width
+	* @param int $height
+	* @return string - an iframe pulling http://maps.google.com/ for this event
+	*/
 	function get_event_google_map_embed( $custom_meta, $width ='', $height = '' ) {
 
 		$this->language = substr( get_locale(), 0, 2 );
@@ -584,9 +538,9 @@ class Performance {
 		if( $to_url_encode ) $google_address = urlencode( trim( $to_url_encode ) );
 
 		if ( $google_address ) {
-            return '<div id="googlemaps"><iframe width="' . $width . '" height="' . $height . '" src="https://www.google.com/maps/embed/v1/place?key=' . get_option( 'twp_google_maps_api' )
-            . '&amp;language=' . $this->language
-            . '&amp;q='.$google_address.'?>"></iframe></div>';
+			return '<div id="googlemaps"><iframe width="' . $width . '" height="' . $height . '" src="https://www.google.com/maps/embed/v1/place?key=' . get_option( 'twp_google_maps_api' )
+			. '&amp;language=' . $this->language
+			. '&amp;q='.$google_address.'?>"></iframe></div>';
 		}
 
 		return '';
@@ -600,46 +554,46 @@ class Performance {
 			$month_names[] = date_i18n( 'F', mktime( 0, 0, 0, $n, 1 ) );
 		}
 
-		return $month_names;
+		$this->month_names = $month_names;
 	}
 
-	private function _get_total_performances() {
+	private function _set_total_performances() {
 		global $wpdb;
 
 		$sql_total_performances = $wpdb->get_row( "SELECT COUNT(ID) AS total FROM $wpdb->posts WHERE post_type = 'performance' AND post_status = 'publish' ");
 
-		return $sql_total_performances->total;
+		$this->total_performances = $sql_total_performances->total;
 	}
 
-	private function _get_first_available_year() {
+	private function _set_first_available_year() {
 		global $wpdb;
 
 		$sql_first_available_year = $wpdb->get_row( "SELECT meta_key, meta_value AS date_selection FROM $wpdb->postmeta WHERE meta_key = 'twp_date_first' ORDER BY meta_value ASC LIMIT 1 ");
 
 		if ( ! $sql_first_available_year OR ! $sql_first_available_year->date_selection ) {
-			return date( 'Y' );
+			$this->first_available_year = date( 'Y' );
+		} else {
+			$this->first_available_year = date( 'Y', $sql_first_available_year->date_selection );
 		}
-
-		return date( 'Y', $sql_first_available_year->date_selection );
 	}
 
-	private function _get_last_available_year() {
+	private function _set_last_available_year() {
 		global $wpdb;
 
 		$sql_last_available_year = $wpdb->get_row( "SELECT meta_key, meta_value AS date_selection FROM $wpdb->postmeta WHERE meta_key = 'twp_date_first' ORDER BY meta_value DESC LIMIT 1 ");
 
 		if ( ! $sql_last_available_year OR ! $sql_last_available_year->date_selection ) {
-			return date( 'Y' );
+			$this->last_available_year = date( 'Y' );
+		} else {
+			$this->last_available_year = date( 'Y', $sql_last_available_year->date_selection );
 		}
-
-		return date( 'Y', $sql_last_available_year->date_selection );
 	}
 
 	/**
- 	* Polylang compatibility for performances custom query
-  	*
-  	* @return string - two char Country ISO code set by Polylang
-  	*/
+	* Polylang compatibility for performances custom query
+	*
+	* @return string - two char Country ISO code set by Polylang
+	*/
 	public function get_polylang_language() {
 		if ( ! function_exists( 'pll_current_language' ) ) {
 			return false;
@@ -647,4 +601,33 @@ class Performance {
 
 		return pll_current_language();
 	}
+
+    /**
+     * Build SQL to get filtered by date performances
+     *
+     * @return string
+     */
+    private function _get_calendar_sql_date(): string
+    {
+        $sql_calendar = '';
+
+        if (0 == $this->month && 0 == $this->year) {
+            // Upcoming performances. Not month nor year passed
+            // @TODO $topdate to config
+            $topdate = time() - 72800;
+            $sql_calendar .= "AND meta_value >= $topdate ";
+        } elseif ($this->year == 0) {
+            $this->year = date('Y');
+        }
+
+        if (0 != $this->year) {
+            $sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%Y') = $this->year ";
+        }
+
+        if (0 != $this->month) {
+            $sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%m') = $this->month ";
+        }
+
+        return $sql_calendar;
+    }
 }

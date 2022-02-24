@@ -158,8 +158,8 @@ class Setup {
 			$this->admin_includes();
 			$this->set_post_types();
 
-            // Ensure text domain is loaded before setting metaboxes
-            $this->load_plugin_textdomain();
+			// Ensure text domain is loaded before setting metaboxes
+			$this->load_plugin_textdomain();
 
 			$this->_current_post_type = $this->twp_get_post_data();
 
@@ -250,26 +250,26 @@ class Setup {
 		$this->metabox->save($post_id);
 	}
 
-    /**
-     * Get the post type from edit post and create new post pages in dashboard
-     *
-     * @return false|string
-     */
+	/**
+	 * Get the post type from edit post and create new post pages in dashboard
+	 *
+	 * @return false|string
+	 */
 	public function twp_get_post_data() {
 		global $pagenow;
 
 		if ( 'post.php' === $pagenow && isset( $_GET['post'] ) ){
 			$post_id = intval( $_GET['post'] );
-            return get_post_type($post_id);
+			return get_post_type($post_id);
 		}
 
-        if ( 'post-new.php' === $pagenow && isset( $_GET['post_type'] ) ) {
-            if ( in_array( $_GET['post_type'], $this->_post_types ) ) {
-                return $_GET['post_type'];
-            }
-        }
+		if ( 'post-new.php' === $pagenow && isset( $_GET['post_type'] ) ) {
+			if ( in_array( $_GET['post_type'], $this->_post_types ) ) {
+				return $_GET['post_type'];
+			}
+		}
 
-        return false;
+		return false;
 	}
 
 	/**
@@ -594,7 +594,7 @@ class Setup {
 	 */
 	public function load_plugin_textdomain() {
 		load_plugin_textdomain( 'theatre-wp', false, TWP_DIR . '/languages' );
-        apply_filters( 'plugin_locale', get_locale(), 'theatre-wp' );
+		apply_filters( 'plugin_locale', get_locale(), 'theatre-wp' );
 	}
 
 	/**
@@ -618,22 +618,22 @@ class Setup {
 			wp_localize_script( 'twp-scripts', 'twp_ajax_data', array( 'ajax_nonce' => wp_create_nonce( 'ajax_nonce' ), 'post_id' => get_the_ID() ) );
 
 			// Localize js
-		    $localize_args = array(
-		        'closeText'         => __( 'Done', 'theatre-wp' ),
-		        'currentText'       => __( 'Today', 'theatre-wp' ),
-		        'monthNames'        => $this->_strip_array_index( $wp_locale->month ),
-		        'monthNamesShort'   => $this->_strip_array_index( $wp_locale->month_abbrev ),
-		        'monthStatus'       => __( 'Show a different month', 'theatre-wp' ),
-		        'dayNames'          => $this->_strip_array_index( $wp_locale->weekday ),
-		        'dayNamesShort'     => $this->_strip_array_index( $wp_locale->weekday_abbrev ),
-		        'dayNamesMin'       => $this->_strip_array_index( $wp_locale->weekday_initial ),
-		        // set the date format to match the WP general date settings
-		        'dateFormat'        => self::date_format_php_to_js( get_option('date_format') ),
-		        // get the start of week from WP general setting
-		        'firstDay'          => get_option( 'start_of_week' ),
-		        // is Right to left language? default is false
-		        'isRTL'             => $wp_locale->text_direction == 'rtl',
-		    );
+			$localize_args = array(
+				'closeText'         => __( 'Done', 'theatre-wp' ),
+				'currentText'       => __( 'Today', 'theatre-wp' ),
+				'monthNames'        => $this->_strip_array_index( $wp_locale->month ),
+				'monthNamesShort'   => $this->_strip_array_index( $wp_locale->month_abbrev ),
+				'monthStatus'       => __( 'Show a different month', 'theatre-wp' ),
+				'dayNames'          => $this->_strip_array_index( $wp_locale->weekday ),
+				'dayNamesShort'     => $this->_strip_array_index( $wp_locale->weekday_abbrev ),
+				'dayNamesMin'       => $this->_strip_array_index( $wp_locale->weekday_initial ),
+				// set the date format to match the WP general date settings
+				'dateFormat'        => self::date_format_php_to_js( get_option('date_format') ),
+				// get the start of week from WP general setting
+				'firstDay'          => get_option( 'start_of_week' ),
+				// is Right to left language? default is false
+				'isRTL'             => $wp_locale->text_direction == 'rtl',
+			);
 
 			wp_localize_script( 'twp-timepicker', 'objectL10n', $localize_args );
 
@@ -679,7 +679,7 @@ class Setup {
 	 * @return void
 	 */
 	public function twp_manage_performances_columns( string $column_name, int $ID) {
-		$meta = $this->performance->get_performance_custom( $this->spectacle, $ID );
+		$meta = $this->performance->get_performance_custom($ID);
 
 		switch ( $column_name ) {
 			case 'id':
@@ -887,41 +887,41 @@ class Setup {
 	// http://wordpress.org/support/topic/dashboard-at-a-glance-custom-post-types
 	// http://halfelf.org/2012/my-custom-posttypes-live-in-mu/
 	public static function twp_right_now_content_table_end() {
-	    $args = array(
-	        'public' => true ,
-	        '_builtin' => false
-	    );
+		$args = array(
+			'public' => true ,
+			'_builtin' => false
+		);
 
-	    $output = 'object';
-	    $operator = 'and';
+		$output = 'object';
+		$operator = 'and';
 
-	    $post_types = get_post_types( $args , $output , $operator );
+		$post_types = get_post_types( $args , $output , $operator );
 
-	    foreach( $post_types as $post_type ) {
-	        $num_posts = wp_count_posts( $post_type->name );
-	        $num = number_format_i18n( $num_posts->publish );
-	        $text = _n( $post_type->labels->singular_name, $post_type->labels->name , intval( $num_posts->publish ) );
+		foreach( $post_types as $post_type ) {
+			$num_posts = wp_count_posts( $post_type->name );
+			$num = number_format_i18n( $num_posts->publish );
+			$text = _n( $post_type->labels->singular_name, $post_type->labels->name , intval( $num_posts->publish ) );
 
-	        if ( current_user_can( 'edit_posts' ) ) {
-	            $cpt_name = $post_type->name;
-	        }
+			if ( current_user_can( 'edit_posts' ) ) {
+				$cpt_name = $post_type->name;
+			}
 
-	        echo '<li class="'.$cpt_name.'-count"><tr><a href="edit.php?post_type='.$cpt_name.'"><td class="first b b-' . $post_type->name . '"></td>' . $num . ' <td class="t ' . $post_type->name . '">' . $text . '</td></a></tr></li>';
-	    }
+			echo '<li class="'.$cpt_name.'-count"><tr><a href="edit.php?post_type='.$cpt_name.'"><td class="first b b-' . $post_type->name . '"></td>' . $num . ' <td class="t ' . $post_type->name . '">' . $text . '</td></a></tr></li>';
+		}
 
-	    $taxonomies = get_taxonomies( $args , $output , $operator );
+		$taxonomies = get_taxonomies( $args , $output , $operator );
 
-	    foreach( $taxonomies as $taxonomy ) {
-	        $num_terms  = wp_count_terms( $taxonomy->name );
-	        $num = number_format_i18n( $num_terms );
-	        $text = _n( $taxonomy->labels->name, $taxonomy->labels->name , intval( $num_terms ));
+		foreach( $taxonomies as $taxonomy ) {
+			$num_terms  = wp_count_terms( $taxonomy->name );
+			$num = number_format_i18n( $num_terms );
+			$text = _n( $taxonomy->labels->name, $taxonomy->labels->name , intval( $num_terms ));
 
-	        if ( current_user_can( 'manage_categories' ) ) {
-	            $cpt_tax = $taxonomy->name;
-	        }
+			if ( current_user_can( 'manage_categories' ) ) {
+				$cpt_tax = $taxonomy->name;
+			}
 
-	        echo '<li class="post-count"><tr><a href="edit-tags.php?taxonomy='.$cpt_tax.'"><td class="first b b-' . $taxonomy->name . '"></td>' . $num . ' <td class="t ' . $taxonomy->name . '">' . $text . '</td></a></tr></li>';
-	    }
+			echo '<li class="post-count"><tr><a href="edit-tags.php?taxonomy='.$cpt_tax.'"><td class="first b b-' . $taxonomy->name . '"></td>' . $num . ' <td class="t ' . $taxonomy->name . '">' . $text . '</td></a></tr></li>';
+		}
 	}
 
 	// Content filter
@@ -948,46 +948,46 @@ class Setup {
 
 	private function _strip_array_index( $array_to_strip ) {
 		foreach( $array_to_strip as $array_item ) {
-        	$new_array[] =  $array_item;
-	    }
+			$new_array[] =  $array_item;
+		}
 
-	    return $new_array;
+		return $new_array;
 	}
 
 	public static function date_format_php_to_js( $date_format ) {
 		switch( $date_format ) {
-	        //Predefined WP date formats
-	        case 'F j, Y':
-	            return'mm/dd/yy';
-            case  'm/d/Y':
-                return 'mm/dd/yy';
-	        case 'j F, Y' || 'j \d\e F \d\e Y' || 'd/m/Y':
-	        	return( 'dd-mm-yy');
-	        	break;
-	        case 'Y/m/d':
-	            return( 'yy/mm/dd' );
-	            break;
-	        case 'Y-m-d':
-	        	return( 'yy-mm-dd');
-	        	break;
-	     }
+			//Predefined WP date formats
+			case 'F j, Y':
+				return'mm/dd/yy';
+			case  'm/d/Y':
+				return 'mm/dd/yy';
+			case 'j F, Y' || 'j \d\e F \d\e Y' || 'd/m/Y':
+				return( 'dd-mm-yy');
+				break;
+			case 'Y/m/d':
+				return( 'yy/mm/dd' );
+				break;
+			case 'Y-m-d':
+				return( 'yy-mm-dd');
+				break;
+		 }
 
-	     // Return default
-	     return 'dd-mm-yy';
+		 // Return default
+		 return 'dd-mm-yy';
 	}
 
 	public static function date_format_php_to_form( $date_format ) {
 		switch( $date_format ) {
-	        //Predefined WP date formats
-	        case 'F j, Y':
-	            return'm/d/Y';
-            case 'm/d/Y':
-                return 'm/d/Y';
-	        case ('j F, Y' || 'j \d\e F \d\e Y' || 'd/m/Y'):
-	        	return( 'd-m-Y');
-	        case ('Y/m/d'):
-	            return( 'Y/m/d' );
-	     }
+			//Predefined WP date formats
+			case 'F j, Y':
+				return'm/d/Y';
+			case 'm/d/Y':
+				return 'm/d/Y';
+			case ('j F, Y' || 'j \d\e F \d\e Y' || 'd/m/Y'):
+				return( 'd-m-Y');
+			case ('Y/m/d'):
+				return( 'Y/m/d' );
+		 }
 	}
 
 }
