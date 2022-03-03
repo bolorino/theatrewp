@@ -232,9 +232,6 @@ class Setup {
 		// Dashboard custom posts
 		add_action( 'dashboard_glance_items' , array( 'TheatreWP\Setup', 'twp_right_now_content_table_end' ) );
 
-        // Check for Google Maps API via Ajax
-        add_action( 'wp_ajax_check_google_maps_api_ajax', array( $this, 'check_google_maps_api_ajax' ) );
-
 		// Update rewrite rules after Options update
 		add_action( 'update_option_twp-main', array( 'TheatreWP\Setup', '_update_rewrite_rules') );
 
@@ -633,12 +630,6 @@ class Setup {
 			wp_register_script( 'twp-timepicker', TWP_META_BOX_URL . 'js/jquery.timepicker.min.js', $twp_script_array, false, false );
 			wp_register_script( 'twp-scripts', TWP_META_BOX_URL . 'js/twp.js', $twp_script_array, false, false );
 
-			wp_localize_script( 'twp-scripts', 'twp_ajax_data', array(
-                'ajax_nonce' => wp_create_nonce( 'ajax_nonce' ),
-                'ajaxurl' => admin_url( 'admin-ajax.php' ),
-                'post_id' => get_the_ID()
-            ) );
-
 			// Localize js
 			$localize_args = array(
 				'closeText'         => __( 'Done', 'theatre-wp' ),
@@ -970,30 +961,6 @@ class Setup {
 
 		return $content;
 	}
-
-    /**
-     * Check if a Google Maps API Key is provided
-     * @return void
-     */
-    public function check_google_maps_api_ajax() {
-        log_it('check_google_maps_api_ajax called');
-        check_ajax_referer('ajax_nonce', 'ajax_nonce');
-        $default_google_maps_api = self::$default_google_maps_api;
-        log_it('$default_google_maps_api = ' . $default_google_maps_api);
-        add_action( 'admin_notices', function () use($default_google_maps_api) {
-            log_it('admin notice check gmapi');
-            if ( empty( $default_google_maps_api ) ) {
-                log_it('Should display notice');
-                echo '<div class="notice notice-error is-dismissible">';
-                echo '<p>';
-                echo __('A Google Maps API Key is needed to display maps', 'theatre-wp');
-                echo '</p>';
-                echo '</div>';
-            }
-            return;
-        } );
-
-    }
 
     public function set_polylang()
     {
