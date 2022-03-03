@@ -222,6 +222,7 @@ class Spectacle {
 	 * @return array | bool
 	 */
 	public static function get_spectacles_array() {
+        global $pagenow;
 
 		$args = array(
 			'post_type'		=> 'spectacle',
@@ -237,12 +238,16 @@ class Spectacle {
 		 */
 		if ( is_admin() ) {
 			$lang = false;
-			$editing_post = ( isset( $_GET['post'] ) ? intval( $_GET['post'] ) : false );
+            if ( 'post.php' === $pagenow && isset( $_GET['post'] ) ){
+                $editing_post = intval( $_GET['post'] );
+            }
+
+			//$editing_post = ( isset( $_GET['post'] ) ? intval( $_GET['post'] ) : false );
 
 			// Adding a new translation. No post ID yet but new_lang param in URL
-			if ( ! $editing_post ) {
-				$lang = ( isset( $_GET['new_lang'] ) ? substr( $_GET['new_lang'], 0, 2 ) : false );
-			} elseif ( function_exists( 'pll_get_post_language' ) && current_user_can( 'edit_posts' ) ) {
+			if ( ! isset( $editing_post ) ) {
+                $lang = (isset($_GET['new_lang']) ? substr($_GET['new_lang'], 0, 2) : false);
+            } elseif ( isset( Setup::$polylang_compatibility ) === true  ) {
 				$lang = pll_get_post_language( $editing_post );
 			}
 
@@ -259,7 +264,7 @@ class Spectacle {
 			if ( $lang ) {
 				$args['lang'] = $lang;
 			}
-		}
+        }
 
 		$shows_query =  get_posts( $args );
 

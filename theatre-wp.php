@@ -39,9 +39,11 @@ spl_autoload_register( function($classname) {
 	$folders    = strtolower( implode(DIRECTORY_SEPARATOR, $parts) );
 	$wppath     = dirname(__FILE__) .  DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . $folders . DIRECTORY_SEPARATOR . $class . '.php';
 
+    /*
 	if ( substr($folders, 0, 9) !== 'theatrewp' ) {
 		return false;
 	}
+    */
 
 	if ( file_exists( $classpath ) ) {
 		include_once $classpath;

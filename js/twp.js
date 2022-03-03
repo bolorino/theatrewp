@@ -54,4 +54,24 @@ jQuery(document).ready(function ($) {
 	});
 	// Wrap date picker in class to narrow the scope of jQuery UI CSS and prevent conflicts
 	$("#ui-datepicker-div").wrap('<div class="twp_element" />');
+
+	$('#twp_display_map').click(function () {
+		let data = {
+			'action': 'check_google_maps_api_ajax',
+			'security': twp_ajax_data.ajax_nonce
+		}
+		$.post(twp_ajax_data.ajaxurl, data, function(response) {
+			//$('#google-api-notice').removeClass('hidden');
+			//$('#google-api-notice p.message').html(response);
+			/*
+			let d = document.createElement('div');
+			$(d).addClass('notice')
+				.html(response)
+				.appendTo($('#wpbody'));
+			*/
+			$('#wpbody').html(response);
+
+			console.log(response);
+		});
+	});
 });
