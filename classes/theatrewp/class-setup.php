@@ -129,7 +129,6 @@ class Setup {
 
             // Check for Polylang plugin
             add_action( 'admin_init', array( $this, 'set_polylang' ) );
-            // $this->_set_polylang();
 
             $this->metabox     = new Metabox($this->_current_post_type);
 		}
