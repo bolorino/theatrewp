@@ -28,8 +28,8 @@ This plugin provides productions and performances (gigs) management.
 
 **Plugin benefits**
 
-* Adapted to the basic needs of most Theater Companies
-* Organized and well-structured information of Shows and Performances to facilitate their management and accessibility
+* Adapted to the basic needs of most Theatre Companies
+* Organized and well-structured information for Shows and Performances to facilitate their management and accessibility
 * Independent of the theme used in WordPress
 * Customizable
 * Translatable
@@ -38,7 +38,7 @@ This plugin provides productions and performances (gigs) management.
 **ToDo**
 
 * Hookable
-* Cleaner default templates
+* A Sage Theme
 
 == Notes for developers/designers ==
 
@@ -57,7 +57,7 @@ Define TWP_THEME constant in your theme if using the templates to avoid duplicat
 
 `define( 'TWP_THEME', true );`
 
-Have a look into `classes/class-theatrewp.php` for functions to use in your templates.
+Have a look into `classes/theatrewp/class-theatrewp.php` for functions to use in your templates.
 
 == Installation ==
 
