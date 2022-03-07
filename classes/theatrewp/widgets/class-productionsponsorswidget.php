@@ -11,6 +11,7 @@
 namespace TheatreWP\Widgets;
 
 use TheatreWP\Setup;
+use TheatreWP\Sponsor;
 use WP_Widget;
 
 if ( realpath(__FILE__) === realpath($_SERVER['SCRIPT_FILENAME']) )
@@ -19,8 +20,12 @@ if ( realpath(__FILE__) === realpath($_SERVER['SCRIPT_FILENAME']) )
 class ProductionSponsorsWidget extends WP_Widget {
 
 	public $id = 'twp-production-sponsors';
+
 	public string $title = 'Production Sponsors';
+
 	public string $description = 'Display a list Sponsors for the current production';
+
+    private Sponsor $sponsor;
 
 	/**
 	 * Register widget with WordPress.
@@ -32,6 +37,8 @@ class ProductionSponsorsWidget extends WP_Widget {
 			__( $this->title, 'theatre-wp' ), // Name
 			array( 'description' => __( $this->description, 'theatre-wp' ), ) // Args
 		);
+
+        $this->sponsor = Setup::$sponsor;
 	}
 
 	/**
@@ -45,60 +52,13 @@ class ProductionSponsorsWidget extends WP_Widget {
 	public function widget( $args, $instance ) {
 		global $post;
 
+		$output = $this->sponsor->get_sponsors();
+
+		if ( ! $output ) {
+			return false;
+		}
+
 		$title = apply_filters( 'widget_title', $instance['title'] );
-
-		$current_category = get_post_type();
-
-		if ( $current_category != 'spectacle' OR ! is_single() ) {
-			return false;
-		}
-
-		$custom = get_post_custom( $post->ID );
-
-		if ( ! array_key_exists( Setup::$twp_prefix . 'prod-sponsor', $custom ) )
-		{
-			return false;
-		}
-
-		$output = '<ul id="sponsors-list">';
-
-		$sponsors_ids = $custom[Setup::$twp_prefix . 'prod-sponsor'][0];
-
-		$production_sponsors = unserialize( $sponsors_ids );
-
-		if ( $production_sponsors[0] == '0' ) {
-			return false;
-		}
-
-		foreach ( $production_sponsors as $production_sponsor ) {
-			$production_sponsor_data = get_post( $production_sponsor );
-			$production_sponsor_metadata = get_post_custom( $production_sponsor );
-
-			$sponsors2sort[] = array(
-				'sponsor_weight' => ( array_key_exists( Setup::$twp_prefix . 'sponsor-weight', $production_sponsor_metadata ) ? intval( $production_sponsor_metadata[Setup::$twp_prefix . 'sponsor-weight'][0] ) : 0 ),
-				'ID'           => $production_sponsor_data->ID,
-				'sponsor_logo' => get_the_post_thumbnail( $production_sponsor_data->ID, 'medium' ),
-				'sponsor_name' => $production_sponsor_data->post_title,
-				'sponsor_url'  => $production_sponsor_metadata[Setup::$twp_prefix . 'sponsor-url'][0]
-			);
-		}
-
-		array_multisort( $sponsors2sort, SORT_DESC );
-
-		$sponsors_list = '';
-
-		foreach ( $sponsors2sort as $sponsor2show ) {
-			$sponsors_list .= '<li>'
-			. '<a href="' . $sponsor2show['sponsor_url'] . '">'
-			. $sponsor2show['sponsor_logo']
-			. '</a><br>'
-			. '<small>' . __( $sponsor2show['sponsor_name'] ) . '</small>'
-			. '</li>';
-		}
-
-		$output .= $sponsors_list;
-
-		$output .= '</ul>';
 
 		echo $args['before_widget'];
 

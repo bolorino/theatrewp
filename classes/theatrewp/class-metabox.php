@@ -13,7 +13,7 @@ class Metabox {
 
 		$this->_current_post_type = $_current_post_type;
 
-        add_action('admin_init', array( $this, 'twp_define_metaboxes' ) );
+		add_action('admin_init', array( $this, 'twp_define_metaboxes' ) );
 
 	}
 
@@ -311,7 +311,7 @@ class Metabox {
 						$n++;
 					}
 					break;
-                case 'text_datetime_timestamp':
+				case 'text_datetime_timestamp':
 					$valid_dateformat = Setup::date_format_php_to_form( get_option( 'date_format') );
 					echo '<input class="twp_text_small twp_datepicker" type="text" name="', $field['id'], '[date]" id="', $field['id'], '_date" value="', $meta ? date( $valid_dateformat , $meta ) : $field['std'], '" />';
 					echo '<input class="twp_timepicker text_time" type="text" name="', $field['id'], '[time]" id="', $field['id'], '_time" value="', $meta ? date( 'h:i A', $meta ) : $field['std'], '" /><span class="twp_metabox_description" >', $field['desc'], '</span>';

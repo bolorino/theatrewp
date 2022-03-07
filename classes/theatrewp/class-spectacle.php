@@ -48,7 +48,7 @@ class Spectacle {
 	}
 
 	/**
-	 * Get production title thumbnail and link
+	 * Gets production title thumbnail and link
 	 *
 	 * @access public
 	 *
@@ -80,7 +80,7 @@ class Spectacle {
 	}
 
 	/**
-	 * Get production custom metadata.
+	 * Gets production custom metadata.
 	 *
 	 * @access public
 	 *
@@ -109,7 +109,7 @@ class Spectacle {
 	}
 
 	/**
-	 * Get production main image in available sizes
+	 * Gets production main image in available sizes
 	 *
 	 * @access public
 	 *
@@ -119,7 +119,6 @@ class Spectacle {
 	 * @return array | bool
 	 */
 	public function get_spectacle_thumbnail( int $ID, $additional_sizes=array() ) {
-		global $wpdb;
 
 		if ( ! $spectacle = get_post( intval( $ID) ) ) {
 			return false;
@@ -132,7 +131,7 @@ class Spectacle {
 			'full'
 		);
 
-		$thumbnail_id = get_post_thumbnail_id( intval( $ID) );
+		$thumbnail_id = get_post_thumbnail_id( $ID );
 
 		$spectacle_data = array();
 
@@ -150,7 +149,7 @@ class Spectacle {
 	}
 
 	/**
-	 * Get an HTML list of productions.
+	 * Gets an HTML list of productions.
 	 *
 	 * @access public
 	 * @return string
@@ -194,7 +193,7 @@ class Spectacle {
 	}
 
 	/**
-	 * Get a list of productions titles.
+	 * Gets a list of productions titles.
 	 *
 	 * @access public
 	 * @return array | bool
@@ -216,13 +215,13 @@ class Spectacle {
 	}
 
 	/**
-	 * Get an array of productions [titles] -> [ID]
+	 * Gets an array of productions [titles] -> [ID]
 	 *
 	 * @access public
 	 * @return array | bool
 	 */
 	public static function get_spectacles_array() {
-        global $pagenow;
+		global $pagenow;
 
 		$args = array(
 			'post_type'		=> 'spectacle',
@@ -238,16 +237,14 @@ class Spectacle {
 		 */
 		if ( is_admin() ) {
 			$lang = false;
-            if ( 'post.php' === $pagenow && isset( $_GET['post'] ) ){
-                $editing_post = intval( $_GET['post'] );
-            }
-
-			//$editing_post = ( isset( $_GET['post'] ) ? intval( $_GET['post'] ) : false );
+			if ( 'post.php' === $pagenow && isset( $_GET['post'] ) ){
+				$editing_post = intval( $_GET['post'] );
+			}
 
 			// Adding a new translation. No post ID yet but new_lang param in URL
 			if ( ! isset( $editing_post ) ) {
-                $lang = (isset($_GET['new_lang']) ? substr($_GET['new_lang'], 0, 2) : false);
-            } elseif ( isset( Setup::$polylang_compatibility ) === true  ) {
+				$lang = (isset($_GET['new_lang']) ? substr($_GET['new_lang'], 0, 2) : false);
+			} elseif ( isset( Setup::$polylang_compatibility ) === true  ) {
 				$lang = pll_get_post_language( $editing_post );
 			}
 
@@ -264,7 +261,7 @@ class Spectacle {
 			if ( $lang ) {
 				$args['lang'] = $lang;
 			}
-        }
+		}
 
 		$shows_query =  get_posts( $args );
 
@@ -285,7 +282,7 @@ class Spectacle {
 	}
 
 	/**
-	 * Get production URL from post name.
+	 * Gets production URL from post name.
 	 *
 	 * @access public
 	 *
@@ -301,5 +298,4 @@ class Spectacle {
 
 		return home_url( '/' ) . get_option( 'twp_spectacle_slug' ) . '/' . $spectacle->post_name . '/';
 	}
-
 }

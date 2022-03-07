@@ -64,11 +64,11 @@ class Setup {
 	public static array $default_options = array();
 
 	// Custom objects
-	public Performance $performance;
+	public static Performance $performance;
 
-	public Spectacle $spectacle;
+	public static Spectacle $spectacle;
 
-	public Sponsor $sponsor;
+	public static Sponsor $sponsor;
 
 	public Metabox $metabox;
 
@@ -78,7 +78,7 @@ class Setup {
 	public UpcomingPerformancesWidget $upcoming_performances_widget;
 	public ProductionSponsorsWidget $production_sponsors_widget;
 
-    public static bool $polylang_compatibility;
+	public static bool $polylang_compatibility;
 
 	protected array $_post_types;
 	protected string $_current_post_type;
@@ -96,15 +96,13 @@ class Setup {
 
 	public static string $twp_dateformat;
 
-    public function __construct() {
+	public function __construct() {
 
 		$this->_set_options();
 
-
-
-		$this->spectacle   = new Spectacle;
-		$this->performance = new Performance($this->spectacle);
-		$this->sponsor     = new Sponsor;
+		self::$spectacle   = new Spectacle;
+		self::$performance = new Performance(self::$spectacle);
+		self::$sponsor     = new Sponsor;
 
 		// Widgets
 		$this->spectacles_widget = new SpectaclesWidget;
@@ -112,8 +110,8 @@ class Setup {
 		$this->show_upcoming_performances_widget = new ShowUpcomingPerformancesWidget;
 		$this->production_sponsors_widget = new ProductionSponsorsWidget;
 
-        add_action( 'init', array( $this, 'init' ), 0 );
-        add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
+		add_action( 'init', array( $this, 'init' ), 0 );
+		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 		add_action( 'widgets_init', array( $this, 'init_widgets' ) );
 
 		if ( is_admin() ) {
@@ -127,60 +125,60 @@ class Setup {
 
 			$this->admin_init();
 
-            // Check for Polylang plugin
-            add_action( 'admin_init', array( $this, 'set_polylang' ) );
+			// Check for Polylang plugin
+			add_action( 'admin_init', array( $this, 'set_polylang' ) );
 
-            $this->metabox     = new Metabox($this->_current_post_type);
+			$this->metabox     = new Metabox($this->_current_post_type);
 		}
 	}
 
-    /**
-     * Set the default options
-     *
-     * @return void
-     */
-    private function _set_options() {
-        self::$default_spectacle_slug      = ( get_option( 'twp_spectacle_slug' ) ? get_option( 'twp_spectacle_slug' ) : self::$default_spectacle_slug );
-        self::$default_spectacles_slug     = ( get_option( 'twp_spectacles_slug' ) ? get_option( 'twp_spectacles_slug' ) : self::$default_spectacles_slug );
+	/**
+	 * Set the default options
+	 *
+	 * @return void
+	 */
+	private function _set_options() {
+		self::$default_spectacle_slug      = ( get_option( 'twp_spectacle_slug' ) ? get_option( 'twp_spectacle_slug' ) : self::$default_spectacle_slug );
+		self::$default_spectacles_slug     = ( get_option( 'twp_spectacles_slug' ) ? get_option( 'twp_spectacles_slug' ) : self::$default_spectacles_slug );
 
-        self::$default_performance_slug    = ( get_option( 'twp_performance_slug' ) ? get_option( 'twp_performance_slug' ) : self::$default_performance_slug );
-        self::$default_performances_slug   = ( get_option( 'twp_performances_slug' ) ? get_option( 'twp_performances_slug' ) : self::$default_performances_slug );
+		self::$default_performance_slug    = ( get_option( 'twp_performance_slug' ) ? get_option( 'twp_performance_slug' ) : self::$default_performance_slug );
+		self::$default_performances_slug   = ( get_option( 'twp_performances_slug' ) ? get_option( 'twp_performances_slug' ) : self::$default_performances_slug );
 
-        self::$default_spectacle_name      = ( get_option( 'twp_spectacle_name' ) ? get_option( 'twp_spectacle_name' ) : self::$default_spectacle_name );
-        self::$default_spectacles_name     = ( get_option( 'twp_spectacles_name' ) ? get_option( 'twp_spectacles_name' ) : self::$default_spectacles_name );
+		self::$default_spectacle_name      = ( get_option( 'twp_spectacle_name' ) ? get_option( 'twp_spectacle_name' ) : self::$default_spectacle_name );
+		self::$default_spectacles_name     = ( get_option( 'twp_spectacles_name' ) ? get_option( 'twp_spectacles_name' ) : self::$default_spectacles_name );
 
-        self::$default_performance_name    = ( get_option( 'twp_performance_name' ) ? get_option( 'twp_performance_name' ) : self::$default_performance_name );
-        self::$default_performances_name   = ( get_option( 'twp_performances_name' ) ? get_option( 'twp_performances_name' ) : self::$default_performances_name );
+		self::$default_performance_name    = ( get_option( 'twp_performance_name' ) ? get_option( 'twp_performance_name' ) : self::$default_performance_name );
+		self::$default_performances_name   = ( get_option( 'twp_performances_name' ) ? get_option( 'twp_performances_name' ) : self::$default_performances_name );
 
-        self::$default_spectacles_number   = ( get_option( 'twp_spectacles_number' ) ? intval( get_option( 'twp_spectacles_number' ) ) : self::$default_spectacles_number );
-        self::$default_performances_number = ( get_option( 'twp_performances_number' ) ? intval( get_option( 'twp_performances_number' ) ) : self::$default_performances_number );
+		self::$default_spectacles_number   = ( get_option( 'twp_spectacles_number' ) ? intval( get_option( 'twp_spectacles_number' ) ) : self::$default_spectacles_number );
+		self::$default_performances_number = ( get_option( 'twp_performances_number' ) ? intval( get_option( 'twp_performances_number' ) ) : self::$default_performances_number );
 
-        self::$default_single_sponsor      = ( get_option( 'twp_single_sponsor' ) ? intval( get_option( 'twp_single_sponsor' ) ) : self::$default_single_sponsor );
+		self::$default_single_sponsor      = ( get_option( 'twp_single_sponsor' ) ? intval( get_option( 'twp_single_sponsor' ) ) : self::$default_single_sponsor );
 
-        self::$default_google_maps_api     = ( get_option( 'twp_google_maps_api' ) ? get_option( 'twp_google_maps_api' ) : self::$default_google_maps_api );
+		self::$default_google_maps_api     = ( get_option( 'twp_google_maps_api' ) ? get_option( 'twp_google_maps_api' ) : self::$default_google_maps_api );
 
-        self::$default_tickets_info        = ( get_option( 'twp_tickets_info' ) ? get_option( 'twp_tickets_info' ) : self::$default_tickets_info );
+		self::$default_tickets_info        = ( get_option( 'twp_tickets_info' ) ? get_option( 'twp_tickets_info' ) : self::$default_tickets_info );
 
-        self::$default_options = array(
-            'twp_version'			  => self::$version,
-            'twp_spectacle_name'      => self::$default_spectacle_name,
-            'twp_spectacles_name'     => self::$default_spectacles_name,
-            'twp_spectacle_slug'      => sanitize_title( self::$default_spectacle_slug, false, 'save' ),
-            'twp_spectacles_slug'     => sanitize_title( self::$default_spectacles_slug, false, 'save' ),
-            'twp_performance_name'    => self::$default_performance_name,
-            'twp_performances_name'   => self::$default_performances_name,
-            'twp_performance_slug'    => sanitize_title( self::$default_performance_slug, false, 'save' ),
-            'twp_performances_slug'   => sanitize_title( self::$default_performances_slug, false, 'save' ),
-            'twp_spectacles_number'   => self::$default_spectacles_number,
-            'twp_performances_number' => self::$default_performances_number,
-            'twp_clean_on_uninstall'  => 0,
-            'twp_single_sponsor'	  => self::$default_single_sponsor,
-            'twp_google_maps_api'	  => self::$default_google_maps_api,
-            'twp_tickets_info'        => self::$default_tickets_info
-        );
+		self::$default_options = array(
+			'twp_version'			  => self::$version,
+			'twp_spectacle_name'      => self::$default_spectacle_name,
+			'twp_spectacles_name'     => self::$default_spectacles_name,
+			'twp_spectacle_slug'      => sanitize_title( self::$default_spectacle_slug, false, 'save' ),
+			'twp_spectacles_slug'     => sanitize_title( self::$default_spectacles_slug, false, 'save' ),
+			'twp_performance_name'    => self::$default_performance_name,
+			'twp_performances_name'   => self::$default_performances_name,
+			'twp_performance_slug'    => sanitize_title( self::$default_performance_slug, false, 'save' ),
+			'twp_performances_slug'   => sanitize_title( self::$default_performances_slug, false, 'save' ),
+			'twp_spectacles_number'   => self::$default_spectacles_number,
+			'twp_performances_number' => self::$default_performances_number,
+			'twp_clean_on_uninstall'  => 0,
+			'twp_single_sponsor'	  => self::$default_single_sponsor,
+			'twp_google_maps_api'	  => self::$default_google_maps_api,
+			'twp_tickets_info'        => self::$default_tickets_info
+		);
 
-        self::$twp_dateformat = get_option( 'date_format');
-    }
+		self::$twp_dateformat = get_option( 'date_format');
+	}
 
 	/**
 	 * Set the available post types for metaboxes
@@ -222,8 +220,6 @@ class Setup {
 		add_action( 'admin_init', array( 'TheatreWP\Setup', 'twp_register_settings' ) );
 
 		add_action( 'admin_init', array( $this, 'build_taxonomies' ), 0 );
-
-        // add_action( 'plugins_loaded', array( $this, 'include_polylang_api' ) );
 
 		// Metaboxes
 		add_action( 'add_meta_boxes_' . $this->_current_post_type, array( $this, 'add_metaboxes' ) );
@@ -692,7 +688,7 @@ class Setup {
 	 * @return void
 	 */
 	public function twp_manage_performances_columns( string $column_name, int $ID) {
-		$meta = $this->performance->get_performance_custom($ID);
+		$meta = self::$performance->get_performance_custom($ID);
 
 		switch ( $column_name ) {
 			case 'id':
@@ -937,12 +933,12 @@ class Setup {
 		}
 	}
 
-    /**
-     * Add production or gig to the content
-     *
-     * @param $content
-     * @return string
-     */
+	/**
+	 * Add production or gig to the content
+	 *
+	 * @param $content
+	 * @return string
+	 */
 	public function twp_content( $content ) {
 		global $theatre_wp;
 
@@ -962,18 +958,18 @@ class Setup {
 		return $content;
 	}
 
-    public function set_polylang()
-    {
-        if ( defined('POLYLANG_BASENAME') ) {
-            self::$polylang_compatibility = true;
-            add_action('pll_get_post_types', array($this, 'polylang_register_twp_post_type') );
-        }
-    }
+	public function set_polylang()
+	{
+		if ( defined('POLYLANG_BASENAME') ) {
+			self::$polylang_compatibility = true;
+			add_action('pll_get_post_types', array($this, 'polylang_register_twp_post_type') );
+		}
+	}
 
-    public function polylang_register_twp_post_type( $types ) {
+	public function polylang_register_twp_post_type( $types ) {
 
-        return array_merge( $types, $this->_post_types );
-    }
+		return array_merge( $types, $this->_post_types );
+	}
 
 	private function _strip_array_index( $array_to_strip ) {
 		foreach( $array_to_strip as $array_item ) {

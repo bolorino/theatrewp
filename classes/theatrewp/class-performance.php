@@ -41,7 +41,7 @@ class Performance {
 	}
 
 	/**
-	* Get performance custom fields
+	* Gets performance custom fields
 	*
 	* @access public
 	 * @param int $ID
@@ -82,7 +82,7 @@ class Performance {
 	}
 
 	/**
-	 * Get an HTML list of upcoming performances.
+	 * Gets an HTML list of upcoming performances.
 	 *
 	 * @access public
 	 * @return string
@@ -151,7 +151,7 @@ class Performance {
 	}
 
 	/**
-	 * Get an HTML list of current show upcoming performances .
+	 * Gets an HTML list of current show upcoming performances .
 	 *
 	 * @access public
 	 * @return string | bool
@@ -218,7 +218,7 @@ class Performance {
 	}
 
 	/**
-	 * Get an array containing current show upcoming performances .
+	 * Gets an array containing current show upcoming performances .
 	 *
 	 * @access public
 	 * @return array | bool
@@ -300,7 +300,7 @@ class Performance {
 	}
 
 	/**
-	* Get a date filtered list of performances.
+	* Gets a date filtered list of performances.
 	*
 	* @access public
 	*
@@ -350,7 +350,7 @@ class Performance {
 			AND post_status = 'publish'
 			AND meta_key = '" . Setup::$twp_prefix . "date_first' ";
 
-        $sql_calendar .= $this->_get_calendar_sql_date();
+		$sql_calendar .= $this->_get_calendar_sql_date();
 
 		// Polylang compatibility
 		if ( $this->polylang_language ) {
@@ -374,12 +374,12 @@ class Performance {
 		return $filtered_calendar;
 	}
 
-    /**
-     * Count the total filtered performances
-     *
-     * @param array $calendar_filter_params
-     * @return int|false
-     */
+	/**
+	 * Counts the total filtered performances
+	 *
+	 * @param array $calendar_filter_params
+	 * @return int|false
+	 */
 	public function get_total_filtered_performances( array $calendar_filter_params ) {
 		global $wpdb;
 
@@ -408,7 +408,7 @@ class Performance {
 			AND post_status = 'publish'
 			AND meta_key = '" . Setup::$twp_prefix . "date_first' ";
 
-        $sql_calendar .= $this->_get_calendar_sql_date();
+		$sql_calendar .= $this->_get_calendar_sql_date();
 
 		// Polylang compatibility
 		if ( $this->polylang_language ) {
@@ -426,6 +426,11 @@ class Performance {
 
 	}
 
+	/**
+	 * Returns WP_Posts for upcoming performances
+	 *
+	 * @return false|int[]|\WP_Post[]
+	 */
 	public function get_upcoming_performances() {
 
 		$current_category = get_post_type();
@@ -455,7 +460,7 @@ class Performance {
 	}
 
 	/**
-	* Get an array of busy dates.
+	* Gets an array of busy dates.
 	*
 	* @access public
 	* @param array $calendar_filter_params
@@ -492,9 +497,9 @@ class Performance {
 			AND post_status = 'publish'
 			AND meta_key = '" . Setup::$twp_prefix . "date_first' ";
 
-        $sql_calendar .= $this->_get_calendar_sql_date();
+		$sql_calendar .= $this->_get_calendar_sql_date();
 
-        // Polylang compatibility
+		// Polylang compatibility
 		if ( $this->polylang_language ) {
 			$sql_calendar .= "AND wtt.taxonomy = 'language'
 				AND wt.slug = '$this->polylang_language' ";
@@ -557,6 +562,11 @@ class Performance {
 		$this->month_names = $month_names;
 	}
 
+	/**
+	 * Sets the total number of performances on DB
+	 *
+	 * @return void
+	 */
 	private function _set_total_performances() {
 		global $wpdb;
 
@@ -565,6 +575,11 @@ class Performance {
 		$this->total_performances = $sql_total_performances->total;
 	}
 
+	/**
+	 * Sets the first registered performance year
+	 *
+	 * @return void
+	 */
 	private function _set_first_available_year() {
 		global $wpdb;
 
@@ -577,6 +592,11 @@ class Performance {
 		}
 	}
 
+	/**
+	 * Sets the last registered performance year
+	 *
+	 * @return void
+	 */
 	private function _set_last_available_year() {
 		global $wpdb;
 
@@ -602,32 +622,32 @@ class Performance {
 		return pll_current_language();
 	}
 
-    /**
-     * Build SQL to get filtered by date performances
-     *
-     * @return string
-     */
-    private function _get_calendar_sql_date(): string
-    {
-        $sql_calendar = '';
+	/**
+	 * Builds SQL to get performances filtered by date
+	 *
+	 * @return string
+	 */
+	private function _get_calendar_sql_date(): string
+	{
+		$sql_calendar = '';
 
-        if (0 == $this->month && 0 == $this->year) {
-            // Upcoming performances. Not month nor year passed
-            // @TODO $topdate to config
-            $topdate = time() - 72800;
-            $sql_calendar .= "AND meta_value >= $topdate ";
-        } elseif ($this->year == 0) {
-            $this->year = date('Y');
-        }
+		if (0 == $this->month && 0 == $this->year) {
+			// Upcoming performances. Not month nor year passed
+			// @TODO $topdate to config
+			$topdate = time() - 72800;
+			$sql_calendar .= "AND meta_value >= $topdate ";
+		} elseif ($this->year == 0) {
+			$this->year = date('Y');
+		}
 
-        if (0 != $this->year) {
-            $sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%Y') = $this->year ";
-        }
+		if (0 != $this->year) {
+			$sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%Y') = $this->year ";
+		}
 
-        if (0 != $this->month) {
-            $sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%m') = $this->month ";
-        }
+		if (0 != $this->month) {
+			$sql_calendar .= "AND FROM_UNIXTIME(meta_value, '%m') = $this->month ";
+		}
 
-        return $sql_calendar;
-    }
+		return $sql_calendar;
+	}
 }

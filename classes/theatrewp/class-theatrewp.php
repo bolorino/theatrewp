@@ -37,6 +37,9 @@ class TheatreWP {
 	 */
 	public static string $plugin_slug = 'theatre-wp';
 
+	/**
+	 * @var string
+	 */
 	public static string $twp_text_domain = 'theatre-wp';
 
 	/**
@@ -61,9 +64,9 @@ class TheatreWP {
 
 	public function __construct() {
 
-		 $this->spectacle   = new Spectacle;
-		 $this->performance = new Performance( $this->spectacle );
-		 $this->sponsor     = new Sponsor;
+		 $this->spectacle   = Setup::$spectacle;
+		 $this->performance = Setup::$performance;
+		 $this->sponsor     = Setup::$sponsor;
 	}
 
 	/* Spectacle public methods */
@@ -72,6 +75,7 @@ class TheatreWP {
 	 * Returns an HTML list of available spectacles with links
 	 *
 	 * @access public
+	 *
 	 * @param int $limit
 	 * @param string $sort_by
 	 * @param string $sort
@@ -85,6 +89,7 @@ class TheatreWP {
 	 * Returns an array containing spectacles titles
 	 *
 	 * @access public
+	 *
 	 * @return array
 	 */
 	public function get_spectacles_titles() {
@@ -92,7 +97,7 @@ class TheatreWP {
 	}
 
 	/**
-	 * Get spectacle custom metadata.
+	 * Gets spectacle custom metadata.
 	 *
 	 * @access public
 	 *
@@ -104,7 +109,7 @@ class TheatreWP {
 	}
 
 	/**
-	 * Get spectacle title and URL from Spectacle title.
+	 * Gets spectacle title and URL from Spectacle title.
 	 *
 	 * @access public
 	 *
@@ -117,7 +122,7 @@ class TheatreWP {
 	}
 
 	/**
-	 * Get spectacle URL from Spectacle title.
+	 * Gets spectacle URL from Spectacle title.
 	 *
 	 * @access public
 	 *
@@ -129,7 +134,7 @@ class TheatreWP {
 	}
 
 	/**
-	 * Get full URL for a given production category slug
+	 * Gets full URL for a given production category slug
 	 *
 	 * @access public
 	 *
@@ -141,7 +146,7 @@ class TheatreWP {
 	}
 
 	/**
-	 * Get spectacle main image in available sizes
+	 * Gets spectacle main image in available sizes
 	 *
 	 * @access public
 	 *
@@ -149,8 +154,12 @@ class TheatreWP {
 	 * @param array|false $additional_sizes
 	 * @return array
 	 */
-	public function get_spectacle_thumbnail(int $ID, $additional_sizes=array() ) {
+	public function get_spectacle_thumbnail( int $ID, $additional_sizes=array() ) {
 		return $this->spectacle->get_spectacle_thumbnail( intval( $ID ), $additional_sizes );
+	}
+
+	public function display_spectacle_thumbnail( int $ID, string $size ) {
+
 	}
 
 	/* Performance public methods */
@@ -177,7 +186,7 @@ class TheatreWP {
 	}
 
 	/**
-	 * Get performance custom metadata.
+	 * Gets performance custom metadata.
 	 *
 	 * @access public
 	 *
@@ -189,7 +198,7 @@ class TheatreWP {
 	}
 
 	/**
-	 * Get upcoming performances for current show
+	 * Gets upcoming performances for current show
 	 *
 	 * @access public
 	 *
@@ -200,7 +209,7 @@ class TheatreWP {
 	}
 
 	/**
-	 * Get an array of upcoming performances for current show
+	 * Gets an array of upcoming performances for current show
 	 *
 	 * @access public
 	 * @return array
@@ -210,7 +219,7 @@ class TheatreWP {
 	}
 
 	/**
-	 * Get a list of upcoming performances
+	 * Gets a list of upcoming performances
 	 *
 	 * @access public
 	 * @return string
@@ -220,7 +229,73 @@ class TheatreWP {
 	}
 
 	/**
-	 * Display Google Map for performance
+	 * Gets the HTML date(s) for the given performance
+	 *
+	 * @param array $performance_custom
+	 * @return string
+	 */
+	public function get_performance_dates( array $performance_custom ) {
+		$output = '';
+
+		$performance_first_date = date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] );
+		$performance_first_time = strftime( '%H:%M', $performance_custom['date_first'] );
+
+		if ( $performance_custom['date_last'] ) {
+			$performance_last_date = date_i18n( get_option( 'date_format' ), $performance_custom['date_last'] );
+			$performance_last_time = strftime( '%H:%M', $performance_custom['date_last'] );
+		}
+
+		$output .= '<p class="single-performance-dates date">';
+
+		if ( isset( $performance_last_date ) ) {
+			$output .= _x( 'From', '(date) performing from day', 'theatre-wp' ) . ' ';
+		}
+
+		$output .= '<span class="performance-date">' . $performance_first_date . '</span>. ';
+
+		if ( $performance_first_time ) {
+			$output .= '(<span class="performance-time">'
+				. $performance_first_time
+				. '</span>) ';
+		}
+
+		if ( isset( $performance_last_date) ) {
+			$output .= _x( 'To', '(date) performing to day', 'theatre-wp' ) . ' '
+				. ' <span class="performance-date">'
+				. $performance_last_date
+				. '</span> ';
+			if ( isset( $performance_last_time ) ) {
+				$output .= '(<span class="performance-time">'
+					. $performance_last_time
+					. '</span>) '
+					. '<br>';
+			}
+		}
+
+		return $output;
+	}
+
+	/**
+	 * Gets the performance image HTML
+	 *
+	 * @param array $performance_images
+	 * @param string $size
+	 * @return string
+	 */
+	public function get_performance_image(array $performance_images, string $size ) {
+
+		return '<img src="'
+			. $performance_images["thumbnail-$size"][0] . '" '
+			. 'width="'
+			. $performance_images["thumbnail-$size"][1] . '" '
+			. 'height="'
+			. $performance_images["thumbnail-$size"][2] . '" '
+			. 'alt =""'
+			. ' />';
+	}
+
+	/**
+	 * Displays Google Map for performance
 	 *
 	 * @param array $custom_meta
 	 * @param string $width
@@ -232,7 +307,7 @@ class TheatreWP {
 	}
 
 	/**
-	 * Get the localized array of month names
+	 * Gets the localized array of month names
 	 *
 	 * @return array
 	 */
@@ -241,7 +316,7 @@ class TheatreWP {
 	}
 
 	/**
-	 * Get the total number of performances
+	 * Gets the total number of performances
 	 *
 	 * @return int
 	 */
@@ -250,7 +325,7 @@ class TheatreWP {
 	}
 
 	/**
-	 * Get total performances for a given period
+	 * Gets total performances for a given period
 	 *
 	 * @param array $performances_filter_params
 	 * @return int
@@ -260,7 +335,7 @@ class TheatreWP {
 	}
 
 	/**
-	 * Get the year of the first registered performance
+	 * Gets the year of the first registered performance
 	 *
 	 * @return string
 	 */
@@ -269,7 +344,7 @@ class TheatreWP {
 	}
 
 	/**
-	 * Get the year of the las registered performance
+	 * Gets the year of the las registered performance
 	 *
 	 * @return string
 	 */
@@ -278,7 +353,7 @@ class TheatreWP {
 	}
 
 	/**
-	 * Get necessary data to display calendar filter
+	 * Gets necessary data to display calendar filter
 	 *
 	 * @access public
 	 * @param int|null $first_available_year
@@ -306,7 +381,7 @@ class TheatreWP {
 	}
 
 	/**
-	 * Get a list of performances
+	 * Gets a list of performances
 	 *
 	 * @param array $calendar_filter_params
 	 * @return bool|object
@@ -316,7 +391,7 @@ class TheatreWP {
 	}
 
 	/**
-	 * Get an array of busy dates
+	 * Gets an array of busy dates
 	 *
 	 * @param array $calendar_filter_params
 	 * @return array|false
@@ -328,17 +403,18 @@ class TheatreWP {
 	/* Sponsors */
 
 	/**
-	 * Get an HTML list of sponsors for the current production
+	 * Gets an HTML list of sponsors for the current production
 	 *
 	 * @return false|string
 	 */
 	public function get_sponsors() {
 		global $post;
+
 		return $this->sponsor->get_sponsors();
 	}
 
 	/**
-	 * Add TWP custom data to single spectacle content
+	 * Adds TWP custom data to single spectacle content
 	 *
 	 * @access public
 	 * @param string $content
@@ -436,7 +512,7 @@ class TheatreWP {
 	}
 
 	/**
-	 * Add TWP custom data to single performance content
+	 * Adds TWP custom data to single performance content
 	 *
 	 * @access public
 	 * @param string $content
@@ -540,7 +616,5 @@ class TheatreWP {
 		}
 
 		return $twp_content . $content;
-
 	}
-
 }

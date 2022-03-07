@@ -14,7 +14,7 @@ class Sponsor {
 	}
 
 	/**
-	 * Get a list of available sponsors.
+	 * Gets a list of available sponsors.
 	 *
 	 * @access public
 	 * @return array
@@ -48,18 +48,17 @@ class Sponsor {
 		return $sponsors;
 	}
 
+	/**
+	 * Gets an HTML list of production's sponsors
+	 *
+	 * @return false|string
+	 */
 	public function get_sponsors() {
 	  global $post;
 
-	  $current_category = get_post_type();
+	  $custom = $this->check_sponsor_display( $post->ID );
 
-	  if ( $current_category != 'spectacle' OR ! is_single() ) {
-		return false;
-	  }
-
-	  $custom = get_post_custom( $post->ID );
-
-	  if ( ! array_key_exists( Setup::$twp_prefix . 'prod-sponsor', $custom ) )
+	  if ( ! $custom )
 	  {
 		return false;
 	  }
@@ -83,7 +82,7 @@ class Sponsor {
 		  'ID'           => $production_sponsor_data->ID,
 		  'sponsor_logo' => get_the_post_thumbnail( $production_sponsor_data->ID, 'medium' ),
 		  'sponsor_name' => $production_sponsor_data->post_title,
-		  'sponsor_url'  => $production_sponsor_metadata[Setup::$twp_prefix . 'sponsor-url'][0]
+		  'sponsor_url'  =>  ( array_key_exists( Setup::$twp_prefix . 'sponsor-url', $production_sponsor_metadata ) ? intval( $production_sponsor_metadata[Setup::$twp_prefix . 'sponsor-url'][0] ) : '' )
 		);
 	  }
 
@@ -105,6 +104,29 @@ class Sponsor {
 	  $output .= '</ul>';
 
 	  return $output;
+	}
+
+	/**
+	 * Checks if a sponsors should be displayed
+	 *
+	 * @param int $ID
+	 * @return array|false
+	 */
+	public function check_sponsor_display(int $ID) {
+		global $post;
+
+		if ( 'spectacle' != get_post_type() ) {
+			return false;
+		}
+
+		$custom = get_post_custom( $ID );
+
+		if ( ! array_key_exists( Setup::$twp_prefix . 'prod-sponsor', $custom ) )
+		{
+			return false;
+		}
+
+		return $custom;
 	}
 
 }
