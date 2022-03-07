@@ -7,7 +7,6 @@
  * @since TheatreWordPress 0.1
  */
 
-global $twp_prefix;
 get_header(); ?>
 
 	<div id="primary" class="site-content">
@@ -17,15 +16,7 @@ get_header(); ?>
 				<?php
 				$performance_custom = $theatre_wp->get_performance_custom( get_the_ID() );
 
-				if ( $performance_custom['date_first'] ) {
-					$performance_first_date = date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] );
-					$performance_first_time = strftime( '%H:%M', $performance_custom['date_first'] );
-				}
-
-				if ( $performance_custom['date_last'] ) {
-					$performance_last_date = date_i18n( get_option( 'date_format' ), $performance_custom['date_last'] );
-					$performance_last_time = strftime( '%H:%M', $performance_custom['date_last'] );
-				}
+                $dates = $theatre_wp->get_performance_dates( $performance_custom );
 				?>
 
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -35,28 +26,7 @@ get_header(); ?>
 					</header>
 
 					<div class="entry-content">
-						<?php
-						if ( isset( $performance_first_date ) ) { ?>
-							<h3><?php echo __( 'When', 'theatre-wp' ); ?></h3>
-							<p class="single-performance-dates">
-								<?php
-								if ( isset( $performance_last_date ) ) {
-									echo _x( 'From', '(date) performing from day', 'theatre-wp' ) . ' ';
-								}
-								?>
-								<span class="performance-date"><?php echo $performance_first_date; ?></span>
-								(<span class="performance-time"><?php echo $performance_first_time;?></span>)
-								<?php
-								if ( isset( $performance_last_date ) ) {
-									echo _x( 'To', '(date) performing to day', 'theatre-wp' ) . ' ';
-								?>
-									<span class="performance-date"><?php echo $performance_last_date; ?></span>
-									(<span class="performance-time"><?php echo $performance_last_time;?></span>)<br>
-								<?php
-								}
-								?>
-							</p>
-						<?php } ?>
+						<?php echo $dates; ?>
 
 						<?php if ( $performance_custom['spectacle_title'] ) { ?>
 							<h3><?php echo __( 'Show', 'theatre-wp' ); ?></h3>
