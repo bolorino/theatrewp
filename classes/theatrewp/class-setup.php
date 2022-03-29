@@ -27,7 +27,7 @@ class Setup {
 	 *
 	 * @var     string
 	 */
-	static string $version = '0.69';
+	static string $version = '1.0';
 
 	/**
 	 * @var string

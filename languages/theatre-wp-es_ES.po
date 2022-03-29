@@ -2,21 +2,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TheatreWP\n"
 "POT-Creation-Date: 2017-04-11 16:17+0200\n"
-"PO-Revision-Date: 2017-05-03 18:32+0200\n"
+"PO-Revision-Date: 2022-03-29 14:23+0200\n"
 "Last-Translator: Jose Bolorino <jose.bolorino@gmail.com>\n"
 "Language-Team: jose.bolorino@gmail.com\n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.1\n"
-"X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #: includes/classes/class-twp-metaboxes.php:56
 msgid "You have no shows registered yet."
-msgstr "Aún no tienes espectáculos registrados"
+msgstr "Aún no tienes espectáculos registrados."
 
 #: includes/classes/class-twp-performances.php:354
 msgid "Select one"
@@ -400,7 +400,7 @@ msgstr "Región"
 #: includes/classes/class-twp-setup.php:867
 #: includes/classes/class-twp-setup.php:835
 msgid "e.g. Province, County..."
-msgstr "P.e. provincia"
+msgstr "P.e. provincia..."
 
 #: includes/classes/class-twp-setup.php:873
 #: includes/classes/class-twp-setup.php:841
@@ -586,7 +586,7 @@ msgstr "Actuaciones anteriores"
 #: includes/templates/archive-spectacle.php:47
 #: includes/templates/archive-spectacle.php:46
 msgid "Audience:"
-msgstr "Público"
+msgstr "Público:"
 
 #: includes/templates/archive-spectacle.php:67
 #: includes/templates/archive-spectacle.php:66
@@ -652,7 +652,7 @@ msgstr "Espectáculos de %s"
 
 #: includes/templates/admin/admin-options.php:3
 msgid "Theatre WP Options "
-msgstr "Opciones de Theatre WP"
+msgstr "Opciones de Theatre WP "
 
 #: includes/templates/admin/admin-options.php:10
 msgid ""

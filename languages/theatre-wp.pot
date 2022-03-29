@@ -1,5 +1,5 @@
 # Theatre-WP Plugin.
-# Copyright (C) 2014 Jose Bolorino
+# Copyright (C) 2014-2022 Jose Bolorino
 # This file is distributed under the same license as the WordPress package.
 # Jose Bolorino <jose.bolorino@gmail.com>, 2014.
 #
@@ -7,746 +7,653 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Theatre-WP\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-03-13 17:42+0100\n"
-"PO-Revision-Date: 2017-05-03 17:18+0100\n"
+"PO-Revision-Date: 2022-03-07 19:35+0100\n"
 "Last-Translator: Jose Bolorino <jose.bolorino@gmail.com>\n"
 "Language-Team:  <jose.bolorino@gmail.com>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.4\n"
-"X-Poedit-Basepath: .\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: es_ES\n"
-"X-Poedit-KeywordsList: __;_;_e;__ngettext;_x:1,2c\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPath-1: ..\n"
-"X-Poedit-SearchPath-2: ../includes/classes/\n"
-"X-Poedit-SearchPath-3: ../includes/templates/\n"
 
-#: includes/classes/class-twp-metaboxes.php:56
-msgid "You have no shows registered yet."
+#:./classes/theatrewp/class-metabox.php:29
+msgid "Spectacle Options"
 msgstr ""
 
-#: includes/classes/class-twp-performances.php:354
-msgid "Select one"
+#:./classes/theatrewp/class-metabox.php:35
+msgid "Synopsis"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:142
-#: includes/classes/class-twp-setup.php:150
-msgid "Spectacles"
+#:./classes/theatrewp/class-metabox.php:36
+msgid "Short description"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:145
-msgid "Display a list of your spectacles"
+#:./classes/theatrewp/class-metabox.php:42
+msgid "Audience"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:154
-msgid "Spectacle Next Performances"
+#:./classes/theatrewp/class-metabox.php:43
+msgid "Intended Audience"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:156
-msgid "Global Next Performances"
+#:./classes/theatrewp/class-metabox.php:49
+msgid "Duration"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:158
-msgid "Production Sponsors"
+#:./classes/theatrewp/class-metabox.php:50
+msgid "Duration in minutes"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:182
-msgid "Settings"
+#:./classes/theatrewp/class-metabox.php:56
+#:./classes/theatrewp/class-theatrewp.php:490
+#:./includes/templates/single-spectacle.php:71
+msgid "Credits"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:183
-msgid "Plugin Site"
+#:./classes/theatrewp/class-metabox.php:57
+msgid "Credits Titles"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:299
-#: includes/classes/class-twp-setup.php:336
-#: includes/classes/class-twp-setup.php:370
-#: includes/classes/class-twp-setup.php:402
-msgid "Add new"
+#:./classes/theatrewp/class-metabox.php:64
+#:./classes/theatrewp/class-theatrewp.php:499
+#:./includes/templates/single-spectacle.php:78
+msgid "Sheet"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:300
-msgid "Add new Show"
+#:./classes/theatrewp/class-metabox.php:65
+msgid "Technical Sheet"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:301
-msgid "Edit Show"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:302
-msgid "New Show"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:303
-#: includes/classes/class-twp-setup.php:304
-msgid "View Show"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:305
-msgid "Search Shows"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:307
-#: includes/classes/class-twp-setup.php:802
-#: includes/classes/class-twp-setup.php:770
-#: includes/templates/single-performance.php:62
-msgid "Show"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:337
-msgid "Add new Performance"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:338
-msgid "Edit Performance"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:339
-msgid "New Performance"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:340
-msgid "View Performances"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:341
-msgid "View Performance"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:342
-msgid "Search Performance"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:344
-msgid "Performance"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:400
-#: includes/classes/class-twp-setup.php:779
-#: includes/classes/class-twp-setup.php:780
-#: includes/classes/class-twp-setup.php:1143
-#: includes/classes/class-twp-setup.php:368
-#: includes/classes/class-twp-setup.php:747
-#: includes/classes/class-twp-setup.php:748
-#: includes/classes/class-twp-setup.php:1094
+#:./classes/theatrewp/class-metabox.php:71
+#:./classes/theatrewp/class-metabox.php:72
+#:./classes/theatrewp/class-setup.php:545
 msgid "Sponsors"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:401
-#: includes/classes/class-twp-setup.php:410
-#: includes/classes/class-twp-setup.php:906
-#: includes/classes/class-twp-setup.php:369
-#: includes/classes/class-twp-setup.php:378
-#: includes/classes/class-twp-setup.php:858
+#:./classes/theatrewp/class-metabox.php:78
+msgid "Video"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:79
+msgid "Video Code. The code of the video in YouTube or Vimeo"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:89
+msgid "Performance Options"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:95
+#:./classes/theatrewp/class-setup.php:485
+#:./includes/templates/single-performance.php:32
+msgid "Show"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:96
+msgid "Performing Show"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:102
+msgid "First date"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:103
+msgid "First performing date. [Date selection / Time]"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:111
+msgid "Select Date"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:112
+msgid "dd-mm-yyyy"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:117
+msgid "Last date"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:118
+msgid "Last performing date. [Date selection / Time]"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:124
+#:./classes/theatrewp/class-setup.php:679
+#:./classes/theatrewp/class-theatrewp.php:580
+#:./includes/templates/single-performance.php:50
+msgid "Event"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:125
+msgid "Event in which the show is performed (Festival, Arts Program...)"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:131
+msgid "Stage"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:132
+msgid "Where is the Show to be played (Theatre)"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:138
+msgid "Theatre Address"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:145
+msgid "Postal Code"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:152
+msgid "Town"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:153
+msgid "Performing in this Town"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:159
+msgid "Region"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:160
+msgid "e.g. Province, County..."
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:166
+msgid "Country"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:173
+msgid "Display Map"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:174
+msgid "Check to display map"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:183
+#:./classes/theatrewp/class-setup.php:546
+#:./classes/theatrewp/class-setup.php:555
 msgid "Sponsor"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:403
-#: includes/classes/class-twp-setup.php:371
+#:./classes/theatrewp/class-metabox.php:189
+msgid "Link"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:190
+msgid "Sponsor Link"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:196
+msgid "Weight"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:197
+msgid "A number between 0 and 99 to set the importance. 99 is higher"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:208
+msgid "Tickets URL"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:209
+msgid "Link to tickets sales"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:216
+msgid "Price"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:217
+msgid "Tickets price"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:224
+#:./classes/theatrewp/class-metabox.php:225
+msgid "Free entrance"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:232
+#:./classes/theatrewp/class-metabox.php:233
+msgid "Invitation needed"
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:285
+msgid "You have no shows registered yet."
+msgstr ""
+
+#:./classes/theatrewp/class-metabox.php:296
+msgid "You have no Sponsors registered yet."
+msgstr ""
+
+#:./classes/theatrewp/class-performance.php:31
+msgid "Select Month"
+msgstr ""
+
+#:./classes/theatrewp/class-performance.php:132
+#:./classes/theatrewp/class-performance.php:198
+#:./classes/theatrewp/class-theatrewp.php:251
+#:./classes/theatrewp/class-theatrewp.php:549
+msgctxt "(date) performing from day"
+msgid "From"
+msgstr ""
+
+#:./classes/theatrewp/class-performance.php:134
+#:./classes/theatrewp/class-performance.php:200
+#:./classes/theatrewp/class-theatrewp.php:263
+#:./classes/theatrewp/class-theatrewp.php:560
+msgctxt "(date) performing to day"
+msgid "To"
+msgstr ""
+
+#:./classes/theatrewp/class-setup.php:297
+msgid "Settings"
+msgstr ""
+
+#:./classes/theatrewp/class-setup.php:298
+msgid "Plugin Site"
+msgstr ""
+
+#:./classes/theatrewp/class-setup.php:477
+#:./classes/theatrewp/class-setup.php:513
+#:./classes/theatrewp/class-setup.php:547
+msgid "Add new"
+msgstr ""
+
+#:./classes/theatrewp/class-setup.php:478
+msgid "Add new Show"
+msgstr ""
+
+#:./classes/theatrewp/class-setup.php:479
+msgid "Edit Show"
+msgstr ""
+
+#:./classes/theatrewp/class-setup.php:480
+msgid "New Show"
+msgstr ""
+
+#:./classes/theatrewp/class-setup.php:481
+#:./classes/theatrewp/class-setup.php:482
+msgid "View Show"
+msgstr ""
+
+#:./classes/theatrewp/class-setup.php:483
+msgid "Search Shows"
+msgstr ""
+
+#:./classes/theatrewp/class-setup.php:514
+msgid "Add new Performance"
+msgstr ""
+
+#:./classes/theatrewp/class-setup.php:515
+msgid "Edit Performance"
+msgstr ""
+
+#:./classes/theatrewp/class-setup.php:516
+msgid "New Performance"
+msgstr ""
+
+#:./classes/theatrewp/class-setup.php:517
+msgid "View Performances"
+msgstr ""
+
+#:./classes/theatrewp/class-setup.php:518
+msgid "View Performance"
+msgstr ""
+
+#:./classes/theatrewp/class-setup.php:519
+msgid "Search Performance"
+msgstr ""
+
+#:./classes/theatrewp/class-setup.php:521
+msgid "Performance"
+msgstr ""
+
+#:./classes/theatrewp/class-setup.php:548
 msgid "Add new Sponsor"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:404
-#: includes/classes/class-twp-setup.php:372
+#:./classes/theatrewp/class-setup.php:549
 msgid "Edit Sponsor"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:405
-#: includes/classes/class-twp-setup.php:373
+#:./classes/theatrewp/class-setup.php:550
 msgid "New Sponsor"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:406
-#: includes/classes/class-twp-setup.php:374
+#:./classes/theatrewp/class-setup.php:551
 msgid "View Sponsors"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:407
-#: includes/classes/class-twp-setup.php:375
+#:./classes/theatrewp/class-setup.php:552
 msgid "View Sponsor"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:408
-#: includes/classes/class-twp-setup.php:376
+#:./classes/theatrewp/class-setup.php:553
 msgid "Search Sponsors"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:425
-#: includes/classes/class-twp-setup.php:393
+#:./classes/theatrewp/class-setup.php:576
 msgctxt "taxonomy general name"
 msgid "Types of Production"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:426
-#: includes/classes/class-twp-setup.php:394
+#:./classes/theatrewp/class-setup.php:577
 msgctxt "taxonomy singular name"
 msgid "Type of Production"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:427
-#: includes/classes/class-twp-setup.php:395
+#:./classes/theatrewp/class-setup.php:578
 msgid "New format of Production"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:428
-#: includes/classes/class-twp-setup.php:396
+#:./classes/theatrewp/class-setup.php:579
 msgid "New format name"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:429
-#: includes/classes/class-twp-setup.php:435
-#: includes/classes/class-twp-setup.php:397
-#: includes/classes/class-twp-setup.php:403
+#:./classes/theatrewp/class-setup.php:580
+#:./classes/theatrewp/class-setup.php:586
 msgid "Format"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:537
-#: includes/classes/class-twp-setup.php:505
+#:./classes/theatrewp/class-setup.php:631
 msgid "Done"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:538
-#: includes/classes/class-twp-setup.php:506
+#:./classes/theatrewp/class-setup.php:632
 msgid "Today"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:541
-#: includes/classes/class-twp-setup.php:509
+#:./classes/theatrewp/class-setup.php:635
 msgid "Show a different month"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:580
-#: includes/classes/class-twp-setup.php:548
+#:./classes/theatrewp/class-setup.php:674
 msgid "ID"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:581
-#: includes/classes/class-twp-setup.php:549
+#:./classes/theatrewp/class-setup.php:675
 msgctxt "column name"
 msgid "Performance"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:582
-#: includes/classes/class-twp-setup.php:550
+#:./classes/theatrewp/class-setup.php:676
 msgid "Spectacle"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:583
-#: includes/classes/class-twp-setup.php:551
+#:./classes/theatrewp/class-setup.php:677
 msgid "First Date"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:584
-#: includes/classes/class-twp-setup.php:552
+#:./classes/theatrewp/class-setup.php:678
 msgid "Last Date"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:585
-#: includes/classes/class-twp-setup.php:831
-#: includes/classes/class-twp-setup.php:553
-#: includes/classes/class-twp-setup.php:799
-#: includes/templates/single-performance.php:80
-msgid "Event"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:635
-#: includes/classes/class-twp-setup.php:603
+#:./classes/theatrewp/class-setup.php:728
+#:./includes/templates/admin/admin-options-advanced.php:2
+#:./includes/templates/admin/admin-options-performances.php:2
+#:./includes/templates/admin/admin-options-shows.php:2
 msgid "Theatre WP Options"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:715
-#: includes/classes/class-twp-setup.php:683
+#:./classes/theatrewp/class-setup.php:816
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:745
-#: includes/classes/class-twp-setup.php:713
-msgid "Spectacle Options"
+#:./classes/theatrewp/class-setup.php:822
+#:./includes/templates/admin/admin-options-shows.php:6
+msgid "Shows"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:751
-#: includes/classes/class-twp-setup.php:719
-msgid "Synopsis"
+#:./classes/theatrewp/class-setup.php:823
+#:./includes/templates/admin/admin-options-performances.php:7
+msgid "Performances"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:752
-#: includes/classes/class-twp-setup.php:720
-msgid "Short description"
+#:./classes/theatrewp/class-setup.php:824
+#:./includes/templates/admin/admin-options-advanced.php:7
+msgid "Advanced"
 msgstr ""
 
-#: includes/classes/class-twp-setup.php:758
-#: includes/classes/class-twp-setup.php:726
-msgid "Audience"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:731
-msgid "Duration"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:733
-msgid "Duration in minutes"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:759
-#: includes/classes/class-twp-setup.php:727
-msgid "Intended Audience"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:765
-#: includes/classes/class-twp-setup.php:733
-#: includes/templates/single-spectacle.php:47
-msgid "Credits"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:766
-#: includes/classes/class-twp-setup.php:734
-msgid "Credits Titles"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:772
-#: includes/classes/class-twp-setup.php:740
-#: includes/templates/single-spectacle.php:54
-msgid "Sheet"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:773
-#: includes/classes/class-twp-setup.php:741
-msgid "Technical Sheet"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:786
-#: includes/classes/class-twp-setup.php:754
-msgid "Video"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:755
-msgid "Video Code. The code of the video in YouTube or Vimeo"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:796
-#: includes/classes/class-twp-setup.php:764
-msgid "Performance Options"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:803
-#: includes/classes/class-twp-setup.php:771
-msgid "Performing Show"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:809
-#: includes/classes/class-twp-setup.php:777
-msgid "First date"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:810
-#: includes/classes/class-twp-setup.php:778
-msgid "First performing date. [Date selection / Time]"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:818
-#: includes/classes/class-twp-setup.php:786
-msgid "Select Date"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:819
-#: includes/classes/class-twp-setup.php:787
-msgid "dd-mm-yyyy"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:824
-#: includes/classes/class-twp-setup.php:792
-msgid "Last date"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:825
-#: includes/classes/class-twp-setup.php:793
-msgid "Last performing date. [Date selection / Time]"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:832
-#: includes/classes/class-twp-setup.php:800
-msgid "Event in which the show is performed (Festival, Arts Program...)"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:838
-#: includes/classes/class-twp-setup.php:806
-msgid "Stage"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:839
-#: includes/classes/class-twp-setup.php:807
-msgid "Where is the Show to be played (Theatre)"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:845
-#: includes/classes/class-twp-setup.php:813
-msgid "Theatre Address"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:852
-#: includes/classes/class-twp-setup.php:820
-msgid "Postal Code"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:859
-#: includes/classes/class-twp-setup.php:827
-msgid "Town"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:860
-#: includes/classes/class-twp-setup.php:828
-msgid "Performing in this Town"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:866
-#: includes/classes/class-twp-setup.php:834
-msgid "Region"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:867
-#: includes/classes/class-twp-setup.php:835
-msgid "e.g. Province, County..."
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:873
-#: includes/classes/class-twp-setup.php:841
-msgid "Country"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:880
-#: includes/classes/class-twp-setup.php:848
-msgid "Display Map"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:881
-#: includes/classes/class-twp-setup.php:849
-msgid "Check to display map"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:890
-msgid "Video code"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:896
-msgid "Video URL"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:912
-#: includes/classes/class-twp-setup.php:864
-msgid "Link"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:913
-#: includes/classes/class-twp-setup.php:865
-msgid "Sponsor Link"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:919
-#: includes/classes/class-twp-setup.php:871
-msgid "Weight"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:920
-#: includes/classes/class-twp-setup.php:872
-msgid "A number between 0 and 99 to set the importance. 99 is higher"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:980
-#: includes/classes/class-twp-setup.php:932
-msgid "Title:"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:985
-#: includes/classes/class-twp-setup.php:937
-msgid "Number of spectacles to show (0 for all):"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:991
-#: includes/classes/class-twp-setup.php:943
-msgid "Sort by"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:1000
-#: includes/classes/class-twp-setup.php:952
-msgid "Date"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:1007
-#: includes/classes/class-twp-setup.php:959
-msgid "Title"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:1016
-#: includes/classes/class-twp-setup.php:968
-msgid "Asc"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:1024
-#: includes/classes/class-twp-setup.php:976
-msgid "Desc"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:1049
-#: includes/classes/class-twp-setup.php:1001
-#: includes/templates/archive-performance.php:142
-msgid "Upcoming Performances"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:1079
-#: includes/classes/class-twp-setup.php:1031
-#, php-format
-msgid "“%s” Upcoming Performances"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:961
-msgid "Tickets URL"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:962
-msgid "Link to ticket sales"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:969
-msgid "Price"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:970
-msgid "Tickets price"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:977
-msgid "Free entrance"
-msgstr ""
-
-#: includes/classes/class-twp-setup.php:985
-msgid "Invitation needed"
-msgstr ""
-
-#: includes/classes/class-twp-spectacles.php:15
+#:./classes/theatrewp/class-spectacle.php:26
 msgid "All Audiences"
 msgstr ""
 
-#: includes/classes/class-twp-spectacles.php:16
+#:./classes/theatrewp/class-spectacle.php:30
 msgid "Adults"
 msgstr ""
 
-#: includes/classes/class-twp-spectacles.php:17
+#:./classes/theatrewp/class-spectacle.php:34
 msgid "Family"
 msgstr ""
 
-#: includes/classes/class-twp-spectacles.php:18
+#:./classes/theatrewp/class-spectacle.php:38
 msgid "Kids"
 msgstr ""
 
-#: includes/classes/class-twp-spectacles.php:19
+#:./classes/theatrewp/class-spectacle.php:42
 msgid "Young"
 msgstr ""
 
-#: includes/classes/class-twp-sponsors.php:23
+#:./classes/theatrewp/class-sponsor.php:28
 msgid "There are no sponsors yet. Add some in the Sponsors menu."
 msgstr ""
 
-#: includes/classes/class-twp-sponsors.php:36
+#:./classes/theatrewp/class-sponsor.php:37
 msgid "No sponsors"
 msgstr ""
 
-#: includes/classes/class-twp-show-upcoming-performances-widget.php:17
-msgid "Production Upcoming Performances"
-msgstr ""
-
-#: includes/classes/class-twp-show-upcoming-performances-widget.php:18
-msgid "Display a list of upcoming performances for the current production"
-msgstr ""
-
-#: includes/classes/class-twp-spectacles-widget.php:17
-msgid "Productions"
-msgstr ""
-
-#: includes/classes/class-twp-spectacles-widget.php:18
-msgid "Display a list of your productions"
-msgstr ""
-
-#: includes/classes/class-twp-upcoming-performances-widget.php:18
-msgid "Display a list of upcoming performances"
-msgstr ""
-
-#: includes/classes/class-twp-upcoming-performances-widget.php:84
-msgid "Number of performances to display (0 for all):"
-msgstr ""
-
-#: includes/templates/archive-performance.php:37
-#: includes/templates/archive-performance.php:42
-msgid "There are no registered performances for dates searched"
-msgstr ""
-
-#: includes/templates/archive-performance.php:39
-#: includes/templates/archive-performance.php:44
-msgid "There are no performaces right now"
-msgstr ""
-
-#: includes/templates/archive-performance.php:118
-#: includes/templates/archive-performance.php:143
-msgid "Previous Performances"
-msgstr ""
-
-#: includes/templates/archive-spectacle.php:47
-#: includes/templates/archive-spectacle.php:46
-msgid "Audience:"
-msgstr ""
-
-#: includes/templates/archive-spectacle.php:67
-#: includes/templates/archive-spectacle.php:66
-msgid "More Spectacles"
-msgstr ""
-
-#: includes/templates/archive-spectacle.php:68
-#: includes/templates/archive-spectacle.php:67
-msgid "Previous Spectacles"
-msgstr ""
-
-#: includes/templates/check-dates-form.php:15
-msgid "Check dates"
-msgstr ""
-
-#: includes/templates/single-performance.php:35
-#: includes/templates/single-performance.php:40
+#:./classes/theatrewp/class-theatrewp.php:544
 msgid "When"
 msgstr ""
 
-#: includes/templates/archive-performance.php:62
-#, php-format
-msgid "%s Total performances"
+#:./includes/templates/admin/admin-options-advanced.php:16
+msgid "Google Maps API (to display performance maps)"
 msgstr ""
 
-#: includes/templates/archive-performance.php:65
+#:./includes/templates/admin/admin-options-advanced.php:20
+msgid "Sponsors as list in Spectacle"
+msgstr ""
+
+#:./includes/templates/admin/admin-options-advanced.php:24
+msgid "Delete all data when uninstall"
+msgstr ""
+
+#:./includes/templates/admin/admin-options-performances.php:16
+msgid "Your Singular Performances name (Performance, Play, Gig...)"
+msgstr ""
+
+#:./includes/templates/admin/admin-options-performances.php:20
+msgid "Your Plural Performances name (Performances, Plays, Gigs...)"
+msgstr ""
+
+#:./includes/templates/admin/admin-options-performances.php:24
+msgid "Single Performance slug"
+msgstr ""
+
+#:./includes/templates/admin/admin-options-performances.php:28
+msgid "Plural Performances slug"
+msgstr ""
+
+#:./includes/templates/admin/admin-options-performances.php:32
+msgid "Number of Performances per page"
+msgstr ""
+
+#:./includes/templates/admin/admin-options-performances.php:38
+msgid "Enable tickets info"
+msgstr ""
+
+#:./includes/templates/admin/admin-options-shows.php:15
+msgid ""
+"Your Singular Spectacles name (Spectacle, Choreography, Show, Production...)"
+msgstr ""
+
+#:./includes/templates/admin/admin-options-shows.php:19
+msgid ""
+"Your Plural Spectacles name (Spectacles, Choreographies, Shows, "
+"Productions...)"
+msgstr ""
+
+#:./includes/templates/admin/admin-options-shows.php:23
+msgid "Single Spectacle slug"
+msgstr ""
+
+#:./includes/templates/admin/admin-options-shows.php:27
+msgid "Plural Spectacles slug"
+msgstr ""
+
+#:./includes/templates/admin/admin-options-shows.php:31
+msgid "Number of Shows per page"
+msgstr ""
+
+#:./includes/templates/admin/admin-options-sidebar.php:3
+msgid "Theatre WP"
+msgstr ""
+
+#:./includes/templates/admin/admin-options-sidebar.php:7
+msgid ""
+"Is this plugin useful to you? Say thanks or buy me a coffee, so I can keep "
+"working on it. Thanks!"
+msgstr ""
+
+#:./includes/templates/admin/admin-options-sidebar.php:10
+msgid "Buy me a coffee (2 Euro)"
+msgstr ""
+
+#:./includes/templates/admin/admin-options-sidebar.php:11
+msgid "Buy me one month subscription to Netflix (9,99 Euro)"
+msgstr ""
+
+#:./includes/templates/admin/admin-options-sidebar.php:12
+msgid "Buy me whatever you want"
+msgstr ""
+
+#:./includes/templates/admin/admin-options-sidebar.php:13
+msgid "Buy me some gift from my Amazon whish list"
+msgstr ""
+
+#:./includes/templates/admin/admin-options-sidebar.php:16
+msgid "Thanks for using the Theatre WP Plugin!"
+msgstr ""
+
+#:./includes/templates/archive-performance.php:66
+msgid "There are no registered performances for dates searched"
+msgstr ""
+
+#:./includes/templates/archive-performance.php:67
+#:./includes/templates/archive-performance.php:90
 msgid "View upcoming performances"
 msgstr ""
 
-#: archive-performance.php:87
+#:./includes/templates/archive-performance.php:69
+msgid "There are no performances right now"
+msgstr ""
+
+#:./includes/templates/archive-performance.php:87
 #, php-format
 msgid "One performance"
 msgid_plural "%s Total performances"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/templates/archive-performance.php:114
+#:./includes/templates/archive-performance.php:139
 #, php-format
 msgctxt "From day one to day two at (hour)"
 msgid "From %s to %s (%s)"
 msgstr ""
 
-#: includes/templates/archive-performance.php:116
+#:./includes/templates/archive-performance.php:141
 #, php-format
 msgctxt "From day one at (hour) to day two at (hour)"
 msgid "From %s (%s) to %s (%s)"
 msgstr ""
 
-#: includes/templates/single-performance.php:44
-msgctxt "(date) performing from day"
-msgid "From"
+#:./includes/templates/archive-spectacle.php:46
+msgid "Audience:"
 msgstr ""
 
-#: includes/templates/single-performance.php:51
-msgctxt "(date) performing to day"
-msgid "To"
+#:./includes/templates/archive-spectacle.php:66
+msgid "More Spectacles"
 msgstr ""
 
-#: includes/templates/taxonomy-format.php:18
-msgctxt "spectacles that belong to %s category"
-msgid "%s Spectacles"
+#:./includes/templates/archive-spectacle.php:67
+msgid "Previous Spectacles"
 msgstr ""
 
-#: includes/templates/admin/admin-options.php:3
-msgid "Theatre WP Options "
+#:./includes/templates/check-dates-form.php:15
+msgid "Check dates"
 msgstr ""
 
-#: includes/templates/admin/admin-options.php:10
-msgid ""
-"Your Singular Spectacles name (Spectacle, Choreography, Show, Production...)"
+#:./includes/templates/single-performance.php:64
+#:./includes/templates/single-spectacle.php:84
+msgid "Pages:"
 msgstr ""
 
-#: includes/templates/admin/admin-options.php:14
-msgid ""
-"Your Plural Spectacles name (Spectacles, Choreographies, Shows, "
-"Productions...)"
+#:./includes/templates/single-spectacle.php:90
+msgid "Post navigation"
 msgstr ""
 
-#: includes/templates/admin/admin-options.php:18
-msgid "Single Spectacle slug"
+#:./includes/templates/single-spectacle.php:91
+msgctxt "Previous post link"
+msgid "&larr;"
 msgstr ""
 
-#: includes/templates/admin/admin-options.php:22
-msgid "Plural Spectacles slug"
+#:./includes/templates/single-spectacle.php:92
+msgctxt "Next post link"
+msgid "&rarr;"
 msgstr ""
 
-#: includes/templates/admin/admin-options.php:26
-msgid "Your Singular Performances name (Performance, Play, Gig...)"
+#:./classes/theatrewp/widgets/class-productionsponsorswidget.php:74
+#:./classes/theatrewp/widgets/class-spectacleswidget.php:70
+#:./classes/theatrewp/widgets/class-upcomingperformanceswidget.php:71
+msgid "New title"
 msgstr ""
 
-#: includes/templates/admin/admin-options.php:30
-msgid "Your Plural Performances name (Performances, Plays, Gigs...)"
+#:./classes/theatrewp/widgets/class-productionsponsorswidget.php:78
+#:./classes/theatrewp/widgets/class-spectacleswidget.php:80
+#:./classes/theatrewp/widgets/class-upcomingperformanceswidget.php:77
+msgid "Title:"
 msgstr ""
 
-#: includes/templates/admin/admin-options.php:34
-msgid "Single Performance slug"
+#:./classes/theatrewp/widgets/class-productionsponsorswidget.php:24
+msgid "Production Sponsors"
 msgstr ""
 
-#: includes/templates/admin/admin-options.php:38
-msgid "Plural Performances slug"
+#:./classes/theatrewp/widgets/class-productionsponsorswidget.php:26
+msgid "Display a list Sponsors for the current production"
 msgstr ""
 
-#: includes/templates/admin/admin-options.php:42
-msgid "Number of Shows per page"
+#:./classes/theatrewp/widgets/class-showupcomingperformanceswidget.php:61
+#, php-format
+msgid "“%s” Upcoming Performances"
 msgstr ""
 
-#: includes/templates/admin/admin-options.php:46
-msgid "Number of Performances per page"
+#:./classes/theatrewp/widgets/class-spectacleswidget.php:85
+msgid "Number of spectacles to show (0 for all):"
 msgstr ""
 
-#: includes/templates/admin/admin-options.php:50
-msgid "Delete all data when uninstall"
+#:./classes/theatrewp/widgets/class-spectacleswidget.php:90
+msgid "Sort by"
 msgstr ""
 
-#: includes/templates/admin/admin-options.php:54
-msgid "Sponsors as list in Spectacle"
+#:./classes/theatrewp/widgets/class-spectacleswidget.php:92
+msgid "Date"
 msgstr ""
 
-#: includes/templates/admin/admin-options.php:68
-msgid "Is this plugin useful to you? Say thanks or buy me a coffee, so I can keep working on it. Thanks!"
+#:./classes/theatrewp/widgets/class-spectacleswidget.php:93
+msgid "Title"
 msgstr ""
 
-#: includes/templates/admin/admin-options.php:71
-msgid "Buy me a coffee (2 Euro)"
+#:./classes/theatrewp/widgets/class-spectacleswidget.php:97
+msgid "ASC"
 msgstr ""
 
-#: includes/templates/admin/admin-options.php:72
-msgid "Buy me one month subscription to Netflix (9,99 Euro)"
+#:./classes/theatrewp/widgets/class-spectacleswidget.php:98
+msgid "DESC"
 msgstr ""
 
-#: includes/templates/admin/admin-options.php:73
-msgid "Buy me whatever you want"
-msgstr ""
-
-#: includes/templates/admin/admin-options.php:74
-msgid "Buy me some gift from my Amazon whish list"
-msgstr ""
-
-#: includes/templates/admin/admin-options.php:77
-msgid "Thanks for using the Theatre WP Plugin!"
-msgstr ""
-
-#: includes/templates/admin/admin-options-performances.php:39
-msgid "Enable tickets info"
-msgstr ""
-
-msgid "Shows"
-msgstr ""
-
-msgid "Performances"
-msgstr ""
-
-msgid "Advanced"
+#:./classes/theatrewp/widgets/class-upcomingperformanceswidget.php:82
+msgid "Number of performances to display (0 for all):"
 msgstr ""

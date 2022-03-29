@@ -128,12 +128,7 @@ class Performance {
 			}
 
 			if ( $performance_custom['date_last'] ) {
-				$output .= '<span class="twpdate">';
-				$output .= _x( 'From', '(date) performing from day', 'theatre-wp' );
-				$output .= ' ' . date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] ) . ' '
-					. _x( 'To', '(date) performing to day', 'theatre-wp' ) . ' '
-					. date_i18n( get_option( 'date_format' ), $performance_custom['date_last'] )
-					. '</span>';
+				$output .= $this->get_performance_dates( $performance_custom );
 			} else {
 				$output .= date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] );
 			}
@@ -146,6 +141,24 @@ class Performance {
 		endforeach;
 
 		$output .= '</ul>';
+
+		return $output;
+	}
+
+	/**
+	 * Returns string of range dates for performance
+	 *
+	 * @param array $performance_custom
+	 * @return string
+	 */
+	public function get_performance_dates( array $performance_custom ) {
+
+		$output = '<span class="twpdate">';
+		$output .= _x( 'From', '(date) performing from day', 'theatre-wp' );
+		$output .= ' ' . date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] ) . ' '
+			. _x( 'To', '(date) performing to day', 'theatre-wp' ) . ' '
+			. date_i18n( get_option( 'date_format' ), $performance_custom['date_last'] )
+			. '</span>';
 
 		return $output;
 	}
@@ -194,12 +207,7 @@ class Performance {
 				$output .= '<br />';
 
 				if ( $performance_custom['date_last'] ) {
-					$output .= '<span class="twpdate">';
-					$output .= _x( 'From', '(date) performing from day', 'theatre-wp' );
-					$output .= ' ' . date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] ) . ' '
-						. _x( 'To', '(date) performing to day', 'theatre-wp' ) . ' '
-						. date_i18n( get_option( 'date_format' ), $performance_custom['date_last'] )
-						. '</span>';
+					$output .= $this->get_performance_dates( $performance_custom );
 				} else {
 					$output .= date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] );
 				}

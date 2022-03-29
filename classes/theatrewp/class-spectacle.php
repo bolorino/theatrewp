@@ -58,7 +58,6 @@ class Spectacle {
 	 * @return array | bool
 	 */
 	public function get_spectacle_data( int $ID, string $thumbnail_size='thumbnail' ) {
-		global $wpdb;
 
 		if ( ! $spectacle = get_post( intval( $ID) ) ) {
 			return false;
