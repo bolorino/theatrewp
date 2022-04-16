@@ -204,7 +204,11 @@ class TheatreWP {
 	 *
 	 * @return string
 	 */
-	public function get_show_next_performances() {
+	public function get_show_next_performances( int $spectacle_id=0 ) {
+		if ( $spectacle_id != 0 ) {
+			return $this->performance->get_show_next_performances( $spectacle_id );
+		}
+
 		return $this->performance->get_show_next_performances();
 	}
 

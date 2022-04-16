@@ -74,7 +74,7 @@ class Performance {
 			$performance_custom['invitation'] = $custom[Setup::$twp_prefix . 'invitation'][0] ?? false;
 		}
 
-		$spectacle_data                        = $this->spectacle->get_spectacle_data( $performance_custom['spectacle_id'] );
+		$spectacle_data                        = $this->spectacle->get_spectacle_data( intval( $performance_custom['spectacle_id'] ) );
 		$performance_custom['spectacle_title'] = $spectacle_data['title'];
 		$performance_custom['spectacle_url']   = $spectacle_data['link'];
 
@@ -169,10 +169,10 @@ class Performance {
 	 * @access public
 	 * @return string | bool
 	 */
-	public function get_show_next_performances() {
+	public function get_show_next_performances( int $spectacle_id = 0 ) {
 		global $post;
 
-		$next = $this->get_upcoming_performances();
+		$next = $this->get_upcoming_performances( $spectacle_id );
 
 		if ( ! $next ) {
 			return false;
@@ -187,7 +187,7 @@ class Performance {
 		foreach ( $next as $performance ) : setup_postdata( $performance );
 			$performance_custom = $this->get_performance_custom($performance->ID);
 
-			$spectacle_link = $this->spectacle->get_spectacle_link( $performance_custom['spectacle_id'] );
+			$spectacle_link = $this->spectacle->get_spectacle_link( intval( $performance_custom['spectacle_id'] ) );
 
 			if ( $post->ID == $performance_custom['spectacle_id'] AND $shown < $max_count ) {
 				$this_show = true;
@@ -439,7 +439,7 @@ class Performance {
 	 *
 	 * @return false|int[]|\WP_Post[]
 	 */
-	public function get_upcoming_performances() {
+	public function get_upcoming_performances( int $spectacle_id = 0) {
 
 		$current_category = get_post_type();
 
@@ -453,15 +453,26 @@ class Performance {
 		$args = array(
 			'post_status'  => 'publish',
 			'post_type' => 'performance',
-			'meta_key' => Setup::$twp_prefix . 'date_first',
-			'orderby' => 'meta_value',
-			'meta_compare' => '>=',
-			'meta_value' => $now,
+			'meta_query' => array(
+				array(
+					'key' => Setup::$twp_prefix . 'date_first',
+					'orderby' => 'meta_value',
+					'compare' => '>=',
+					'value' => $now,
+				)
+			),
 			'order' => 'ASC',
 			'numberposts' => ( $number_to_display > 0 ? $number_to_display : -1 )
 		);
 
-		// @TODO Would it be possible to get the show related performances directly?
+		// If a spectacle_id is given get only the performances which have this spectacle ID
+		if ( $spectacle_id != 0 ) {
+			$args['meta_query'][] = array(
+				'key' => Setup::$twp_prefix . 'spectacle_id',
+				'compare' => '=',
+				'value' => $spectacle_id
+			);
+		}
 
 		return get_posts( $args );
 
