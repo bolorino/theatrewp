@@ -27,7 +27,7 @@ class Setup {
 	 *
 	 * @var     string
 	 */
-	static string $version = '1.0';
+	static string $version = '0.69';
 
 	/**
 	 * @var string
@@ -104,22 +104,12 @@ class Setup {
 		self::$performance = new Performance(self::$spectacle);
 		self::$sponsor     = new Sponsor;
 
-		// Widgets
-		$this->spectacles_widget = new SpectaclesWidget;
-		$this->upcoming_performances_widget = new UpcomingPerformancesWidget;
-		$this->show_upcoming_performances_widget = new ShowUpcomingPerformancesWidget;
-		$this->production_sponsors_widget = new ProductionSponsorsWidget;
-
 		add_action( 'init', array( $this, 'init' ), 0 );
-		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 		add_action( 'widgets_init', array( $this, 'init_widgets' ) );
 
 		if ( is_admin() ) {
 			$this->admin_includes();
 			$this->set_post_types();
-
-			// Ensure text domain is loaded before setting metaboxes
-			$this->load_plugin_textdomain();
 
 			$this->_current_post_type = $this->twp_get_post_data();
 
@@ -342,6 +332,12 @@ class Setup {
 	}
 
 	public function init_widgets( ) {
+		// Widgets
+		$this->spectacles_widget = new SpectaclesWidget;
+		$this->upcoming_performances_widget = new UpcomingPerformancesWidget;
+		$this->show_upcoming_performances_widget = new ShowUpcomingPerformancesWidget;
+		$this->production_sponsors_widget = new ProductionSponsorsWidget;
+
 		register_widget( $this->spectacles_widget );
 		register_widget( $this->upcoming_performances_widget );
 		register_widget( $this->show_upcoming_performances_widget );

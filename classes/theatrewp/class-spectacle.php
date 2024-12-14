@@ -15,7 +15,7 @@ class Spectacle {
 	public function __construct() {
 
 		// Define the available audiences
-		$this->set_audiences();
+		add_action( 'init', array( $this, 'set_audiences' ), 0 );
 
 		$this->_valid_sort_by = array( 'title', 'post_date' );
 	}
@@ -58,6 +58,7 @@ class Spectacle {
 	 * @return array | bool
 	 */
 	public function get_spectacle_data( int $ID, string $thumbnail_size='thumbnail' ) {
+		global $wpdb;
 
 		if ( ! $spectacle = get_post( intval( $ID) ) ) {
 			return false;

@@ -3,8 +3,8 @@ Contributors: bollofino
 Donate link: https://paypal.me/Bolorino
 Tags: theatre, troupe, dance, performing arts
 Requires at least: 5.0
-Tested up to: 5.9
-Stable tag: 1.0
+Tested up to: 6.7
+Stable tag: 1.0.1
 Text Domain: theatre-wp
 Domain Path: /languages
 License: GPLv2 or later
@@ -78,6 +78,11 @@ Not yet.
 5. Productions
 
 == Changelog ==
+
+= 1.0.1 =
+* WordPress 6.7
+* Fix translation loading triggered too early
+* Remove admin load_plugin_textdomain
 
 = 1.0 =
 * Code refactor

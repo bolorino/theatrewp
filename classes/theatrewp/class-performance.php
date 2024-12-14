@@ -28,7 +28,8 @@ class Performance {
 	public function __construct( Spectacle $spectacle ) {
 		$this->spectacle = $spectacle;
 
-		$this->_set_month_names( __( 'Select Month', 'theatre-wp' ) );
+		add_action( 'init', array( $this, 'set_month_names' ), 0 );
+
 		$this->month = date('m');
 		$this->year = date('Y');
 
@@ -74,7 +75,7 @@ class Performance {
 			$performance_custom['invitation'] = $custom[Setup::$twp_prefix . 'invitation'][0] ?? false;
 		}
 
-		$spectacle_data                        = $this->spectacle->get_spectacle_data( intval( $performance_custom['spectacle_id'] ) );
+		$spectacle_data                        = $this->spectacle->get_spectacle_data( $performance_custom['spectacle_id'] );
 		$performance_custom['spectacle_title'] = $spectacle_data['title'];
 		$performance_custom['spectacle_url']   = $spectacle_data['link'];
 
@@ -128,7 +129,12 @@ class Performance {
 			}
 
 			if ( $performance_custom['date_last'] ) {
-				$output .= $this->get_performance_dates( $performance_custom );
+				$output .= '<span class="twpdate">';
+				$output .= _x( 'From', '(date) performing from day', 'theatre-wp' );
+				$output .= ' ' . date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] ) . ' '
+					. _x( 'To', '(date) performing to day', 'theatre-wp' ) . ' '
+					. date_i18n( get_option( 'date_format' ), $performance_custom['date_last'] )
+					. '</span>';
 			} else {
 				$output .= date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] );
 			}
@@ -146,33 +152,15 @@ class Performance {
 	}
 
 	/**
-	 * Returns string of range dates for performance
-	 *
-	 * @param array $performance_custom
-	 * @return string
-	 */
-	public function get_performance_dates( array $performance_custom ) {
-
-		$output = '<span class="twpdate">';
-		$output .= _x( 'From', '(date) performing from day', 'theatre-wp' );
-		$output .= ' ' . date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] ) . ' '
-			. _x( 'To', '(date) performing to day', 'theatre-wp' ) . ' '
-			. date_i18n( get_option( 'date_format' ), $performance_custom['date_last'] )
-			. '</span>';
-
-		return $output;
-	}
-
-	/**
 	 * Gets an HTML list of current show upcoming performances .
 	 *
 	 * @access public
 	 * @return string | bool
 	 */
-	public function get_show_next_performances( int $spectacle_id = 0 ) {
+	public function get_show_next_performances() {
 		global $post;
 
-		$next = $this->get_upcoming_performances( $spectacle_id );
+		$next = $this->get_upcoming_performances();
 
 		if ( ! $next ) {
 			return false;
@@ -187,7 +175,7 @@ class Performance {
 		foreach ( $next as $performance ) : setup_postdata( $performance );
 			$performance_custom = $this->get_performance_custom($performance->ID);
 
-			$spectacle_link = $this->spectacle->get_spectacle_link( intval( $performance_custom['spectacle_id'] ) );
+			$spectacle_link = $this->spectacle->get_spectacle_link( $performance_custom['spectacle_id'] );
 
 			if ( $post->ID == $performance_custom['spectacle_id'] AND $shown < $max_count ) {
 				$this_show = true;
@@ -207,7 +195,12 @@ class Performance {
 				$output .= '<br />';
 
 				if ( $performance_custom['date_last'] ) {
-					$output .= $this->get_performance_dates( $performance_custom );
+					$output .= '<span class="twpdate">';
+					$output .= _x( 'From', '(date) performing from day', 'theatre-wp' );
+					$output .= ' ' . date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] ) . ' '
+						. _x( 'To', '(date) performing to day', 'theatre-wp' ) . ' '
+						. date_i18n( get_option( 'date_format' ), $performance_custom['date_last'] )
+						. '</span>';
 				} else {
 					$output .= date_i18n( get_option( 'date_format' ), $performance_custom['date_first'] );
 				}
@@ -439,7 +432,7 @@ class Performance {
 	 *
 	 * @return false|int[]|\WP_Post[]
 	 */
-	public function get_upcoming_performances( int $spectacle_id = 0) {
+	public function get_upcoming_performances() {
 
 		$current_category = get_post_type();
 
@@ -453,26 +446,15 @@ class Performance {
 		$args = array(
 			'post_status'  => 'publish',
 			'post_type' => 'performance',
-			'meta_query' => array(
-				array(
-					'key' => Setup::$twp_prefix . 'date_first',
-					'orderby' => 'meta_value',
-					'compare' => '>=',
-					'value' => $now,
-				)
-			),
+			'meta_key' => Setup::$twp_prefix . 'date_first',
+			'orderby' => 'meta_value',
+			'meta_compare' => '>=',
+			'meta_value' => $now,
 			'order' => 'ASC',
 			'numberposts' => ( $number_to_display > 0 ? $number_to_display : -1 )
 		);
 
-		// If a spectacle_id is given get only the performances which have this spectacle ID
-		if ( $spectacle_id != 0 ) {
-			$args['meta_query'][] = array(
-				'key' => Setup::$twp_prefix . 'spectacle_id',
-				'compare' => '=',
-				'value' => $spectacle_id
-			);
-		}
+		// @TODO Would it be possible to get the show related performances directly?
 
 		return get_posts( $args );
 
@@ -570,7 +552,7 @@ class Performance {
 		return '';
 	}
 
-	private function _set_month_names( $month_selection_text ) {
+	function set_month_names( $month_selection_text ) {
 		$month_names = array();
 		$month_names[] = $month_selection_text;
 
